@@ -1,0 +1,10 @@
+@import 'tailwindcss';
+
+.animated-bg{
+background: linear-gradient(#830000);
+background-size:400% 400%;
+}
+
+.layer-bg {
+  background-image: image("bg.jpg");
+}
