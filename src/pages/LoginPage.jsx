@@ -5,8 +5,11 @@ import { useNavigate } from "react-router";
 import bg from "../assets/images/bg.jpg";
 import logo from '../assets/images/signin4.png';
 import { loginTeacher } from "../services/api"; 
+import { FaEye, FaEyeSlash } from "react-icons/fa";
 
 export default function LoginPage() {
+
+    const [showPassword, setPassword] = useState(false); 
     const style = {
         backgroundImage: `url(${bg})`,
         backgroundSize: 'cover',
@@ -65,13 +68,13 @@ export default function LoginPage() {
 
                         <div className="flex items-center gap-3 border-b-2">
                             <input
-                                type="password"
+                                type={showPassword ? "text" : "password"}
                                 placeholder="Password"
                                 className="w-full p-2 outline-none bg-transparent"
                                 value={form.password}
                                 onChange={(e) => setForm({ ...form, password: e.target.value })}
                                 required/>
-                            <IoMdLock className="text-xl" />
+                            <button type="button" onClick={() => setPassword(!showPassword)}>{showPassword ? <FaEyeSlash /> : <FaEye />}</button>
                         </div>
 
                         {/* 3. Error message display under the password field */}

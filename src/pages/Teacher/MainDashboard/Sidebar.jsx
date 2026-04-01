@@ -10,6 +10,7 @@ import { useState } from 'react'
 
 function Sidebar() {
 
+  const [openRecords, setOpenRecords] = useState(false);
   const [openEnrollment, setOpenEnrollment]= useState(false);
   const [activeItem, setActiveItem] = useState("");
 
@@ -60,10 +61,41 @@ function Sidebar() {
           )}
         </div>
         
-        <div className="flex items-center gap-5 cursor-pointer">
-          <img src={b} alt='students' className='w-7 h-6'></img>
-          <a>Student Records</a>
-        </div>
+        
+       <div>
+         <div onClick={() => setOpenRecords(!openRecords)} className='flex items-center gap-3 cursor-pointer hover:bg-[#EDEBDD] p-2 rounded'>
+           <div className="flex items-center gap-5 cursor-pointer">
+             <img src={b} alt='students' className='w-7 h-6'></img>
+             <a>Student Records</a>
+           </div>
+         </div>
+
+         {openRecords && (
+           <div className='ml-6 mt-2 flex flex-col gap-2 text-sm'>
+               <div onClick={() => setActiveItem("elementary")} className={`flex items-center gap-3 cursor-pointer rounded transition`}>
+                 <span className={`w-3 h-3 rounded-full border-2 ${activeItem === "elementary"
+                   ? "bg-[#1B1717]"
+                   : "hover:bg-[#EDEBDD]"}`}></span>
+                   <Link to="/elemrec">Elementary Records</Link>
+              </div>
+
+                <div onClick={() => setActiveItem("jhs")} className={`flex items-center gap-3 cursor-pointer rounded transition`}>
+                 <span className={`w-3 h-3 rounded-full border-2 ${activeItem === "jhs"
+                   ? "bg-[#1B1717]"
+                   : "hover:bg-[#EDEBDD]"}`}></span>
+                   <Link to="/jhsrec">Junior High School Records</Link>
+              </div>
+
+              <div onClick={() => setActiveItem("jhs")} className={`flex items-center gap-3 cursor-pointer rounded transition`}>
+                 <span className={`w-3 h-3 rounded-full border-2 ${activeItem === "jhs"
+                   ? "bg-[#1B1717]"
+                   : "hover:bg-[#EDEBDD]"}`}></span>
+                   <Link to="/shsrec">Senior High School Records</Link>
+              </div>
+           </div>
+         )}
+       </div>
+
 
         <div>
           <div onClick={() => setOpenEnrollment(!openEnrollment)} className='flex items-center gap-3 cursor-pointer hover:bg-[#EDEBDD] p-2 rounded'>
