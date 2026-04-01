@@ -66,7 +66,7 @@ function Sidebar() {
          <div onClick={() => setOpenRecords(!openRecords)} className='flex items-center gap-3 cursor-pointer hover:bg-[#EDEBDD] p-2 rounded'>
            <div className="flex items-center gap-5 cursor-pointer">
              <img src={b} alt='students' className='w-7 h-6'></img>
-             <a>Student Records</a>
+             <a className='text-[#EDEBDD] hover:text-[#1B1717]'>Student Records</a>
            </div>
          </div>
 
