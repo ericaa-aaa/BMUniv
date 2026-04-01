@@ -1,14 +1,14 @@
-import profile from '/home/dev/FrontendEnrollment/BMUniv/src/assets/images/faculty1.png'
+import profile from '../../../assets/images/faculty1.png'
 
-import SideBar from '/home/dev/FrontendEnrollment/BMUniv/src/pages/Teacher/MainDashboard/Sidebar.jsx';
+import SideBar from '../MainDashboard/Sidebar';
 
 function Dashboard() {
   return (
 <div className='flex h-screen'>
-  <div className='w-64'>
+  <div className='w-67'>
   <SideBar />
   </div>
-    <div className="flex-1 bg-[url('/home/dev/FrontendEnrollment/BMUniv/src/assets/images/bg.jpg')] bg-cover bg-no-repeat relative bg-position-[50%_25%]">
+    <div className="flex-1 bg-[url('../../../assets/images/bg.jpg')] bg-cover bg-no-repeat relative bg-position-[50%_25%]">
         
       <div className="absolute inset-0 bg-white/75"></div>
 
