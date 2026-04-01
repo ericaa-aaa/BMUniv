@@ -116,7 +116,7 @@ export default function Page1() {
                     </div>
                 </div>
 
-                 <button className='bg-[#630000] ml-200 text-[#EDEBDD] font-semibold text-[17px] rounded-2xl p-2  w-30 cursor-pointer'>ENROLL</button>
+                 <button type="submit" className='bg-[#630000] ml-200 text-[#EDEBDD] font-semibold text-[17px] rounded-2xl p-2  w-30 cursor-pointer'>ENROLL</button>
                 </>
     )
 }
