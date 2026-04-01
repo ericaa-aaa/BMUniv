@@ -9,6 +9,8 @@ import StudentDashboard from './pages/Student/StudDashboard/StudentDashboard';
 import Dashboard from './pages/Teacher/MainDashboard/Dashboard';
 import ElementaryEnrollment from './pages/Teacher/StudentEnrollment/Elementary';
 import HighSchool from './pages/Teacher/StudentEnrollment/HighSchool';
+import SHS from './pages/Teacher/StudentEnrollment/SHS';
+import RL from './pages/Teacher/StudentEnrollment/RL';
 
 
 
@@ -21,6 +23,8 @@ export default function App() {
           <Route path="/teacher/*" element={<Dashboard/>} />
           <Route path="/elem" element={<ElementaryEnrollment/>} />
           <Route path="/hs" element={<HighSchool/>} />
+          <Route path="/shs" element={<SHS/>} />
+          <Route path="/rl" element={<RL/>} />
           <Route path="/student/*" element={<StudentDashboard/>} />
           <Route path="/elemrec/*" element={<ElementaryRecords />} />
           <Route path="/jhsrec/*" element={<JHSRecords />} />
