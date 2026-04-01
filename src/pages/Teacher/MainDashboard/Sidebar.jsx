@@ -90,7 +90,7 @@ function Sidebar() {
                  <span className={`w-3 h-3 rounded-full border-2 ${activeItem === "jhs"
                    ? "bg-[#1B1717]"
                    : "hover:bg-[#EDEBDD]"}`}></span>
-                   <Link to="/shsrec">Senior High School Records</Link>
+                   <Link to="/shsrec">Junior High School Records</Link>
               </div>
            </div>
          )}

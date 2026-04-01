@@ -1,7 +1,7 @@
 import './index.css';
 import LoginPage from "./pages/LoginPage";
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import StudentDashboard from './pages/Student/StudentDashboard';
+import StudentDashboard from './pages/Student/StudDashboard/StudentDashboard';
 
 import Dashboard from './pages/Teacher/MainDashboard/Dashboard';
 import ElementaryEnrollment from './pages/Teacher/StudentEnrollment/Elementary';
