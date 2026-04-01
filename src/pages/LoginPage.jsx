@@ -4,7 +4,6 @@ import { IoMdLock } from "react-icons/io";
 import { useNavigate } from "react-router";
 import bg from "../assets/images/bg.jpg";
 import logo from '../assets/images/signin4.png';
-// 1. Import the API function
 import { loginTeacher } from "../services/api"; 
 
 export default function LoginPage() {
@@ -16,35 +15,36 @@ export default function LoginPage() {
 
     const navigate = useNavigate();
 
-    const [form, setForm] = useState ({
+    const [form, setForm] = useState({
         username: "",
         password: "",
     });
 
-    // 2. Make this function async
+    // 1. State for the error message
+    const [error, setError] = useState("");
+
     const handleLogin = async (e) => {
         e.preventDefault();
+        setError(""); // Clear previous errors on new attempt
         
         try {
-            // 3. Call the real backend login
             const result = await loginTeacher(form.username, form.password);
 
             if (result.success) {
-                // If login works, the token is already saved in localStorage via the API function
                 navigate("/teacher");
             } else {
-                // Show the error message from Flask (e.g., "Invalid credentials")
-                alert(result.message || "Invalid credentials");
+                // 2. Set specific message if server returns a failure
+                setError("Incorrect password or username.");
             }
         } catch (error) {
             console.error("Login error:", error);
-            alert("Could not connect to the server.");
+            // This triggers if the server is down or the request fails
+            setError("Could not connect to the server.");
         }
     };
 
     return (
-        <div className="flex flex-row h-screen" >
-            {/* KALIWA */}
+        <div className="flex flex-row h-screen">
             <div className="w-full md:w-1/2 relative flex items-center justify-center" style={style}>
                 <div className="absolute inset-0 bg-white/75"></div>
 
@@ -57,9 +57,9 @@ export default function LoginPage() {
                                 type="text"
                                 placeholder="Username"
                                 className="w-full p-2 outline-none bg-transparent"
-                                value={form.username} // Added value for controlled component
+                                value={form.username}
                                 onChange={(e) => setForm({ ...form, username: e.target.value })}
-                            />
+                                required/>
                             <FaUser className="text-xl" />
                         </div>
 
@@ -68,20 +68,26 @@ export default function LoginPage() {
                                 type="password"
                                 placeholder="Password"
                                 className="w-full p-2 outline-none bg-transparent"
-                                value={form.password} // Added value for controlled component
+                                value={form.password}
                                 onChange={(e) => setForm({ ...form, password: e.target.value })}
-                            />
+                                required/>
                             <IoMdLock className="text-xl" />
                         </div>
 
-                        <button type="submit" className="w-full bg-red-800 text-white py-2 rounded hover:bg-red-700 transition-colors">
+                        {/* 3. Error message display under the password field */}
+                        {error && (
+                            <p className="text-red-600 text-sm font-medium mt-1">
+                                {error}
+                            </p>
+                        )}
+
+                        <button type="submit" className="w-full bg-red-800 text-white py-2 rounded hover:bg-red-700 transition-colors mt-4">
                             Login
                         </button>
                     </form>
                 </div>
             </div>
 
-            {/* KANAN */}
             <div className="hidden md:flex w-1/2 bg-red-900 text-white items-center justify-center relative">
                 <div className="text-center justify-center items-center">
                     <div className="flex justify-center text-center">
