@@ -4,7 +4,7 @@ export default function SHS() {
   return (
     <div className="flex min-h-screen">
 
-      <div className="w-64">
+      <div className="w-67">
         <SideBar />
       </div>
 
