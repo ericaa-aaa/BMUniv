@@ -3,7 +3,7 @@ export default function ArchSubjects() {
         <table className="w-full border">
             <thead className="bg-red-800 text-white">
                 <tr>
-                    <th>Subjects</th>
+                    <th>Archived Subjects</th>
                     <th>Teacher</th>
                     <th>Schedule</th>
                 </tr>
