@@ -109,10 +109,9 @@ export default function Page1() {
                 </div>
 
                 <div className="flex gap-5 pl-16">
-                    <p className='text-[#1B1717] text-[14px] pt-5 pl-7'>Is this student a transferee?</p>
+                    <p className='text-[#1B1717] text-[14px] pt-5 pl-7'>Is this student a transferee? <span className="text-[#630000]">(✓) if yes</span></p>
                     <div className='pt-5'>
                         <input id="default-checkbox" type="checkbox" value="" class="w-4 h-4 mr-3 border border-default-medium rounded-xs bg-neutral-secondary-medium focus:ring-2 focus:ring-brand-soft"></input>
-                        <input id="default-checkbox" type="checkbox" value="" class="w-4 h-4 border border-default-medium rounded-xs bg-neutral-secondary-medium focus:ring-2 focus:ring-brand-soft"></input>
                     </div>
                 </div>
 
