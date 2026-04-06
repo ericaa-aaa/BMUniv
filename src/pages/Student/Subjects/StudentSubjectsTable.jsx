@@ -14,7 +14,7 @@ export default function StudentSubjects() {
 
     return (
         <div className="flex min-h-screen bg-gray-100">
-            {/*//SideBar*/}
+            {/*//SideBar
             <div className="w-67 bg-[#8b0000] text-white flex flex-col justify-between">
                 <div>
                     <div className="p-6 text-xl font-bold bg-[#7A0000]">Dashboard</div>
@@ -34,7 +34,7 @@ export default function StudentSubjects() {
                 <button className="px-6 py-4 hover:bg-[#7A0000] flex items-center gap-2">
                     <FasignOutAlt /> Log Out
                 </button>
-            </div>
+            </div>*/}
             {/*cownteynt*/}
             <div className="flex-1 p-6">
                 <div className="bg-white/70 backdrop-blur rounded p-6">

@@ -1,5 +1,8 @@
 import { Routes } from "react-router";
+import { Route } from 'react-router-dom';
 import StudentSidebar from "./StudentSidebar";
+import Subjects from "../Subjects/StudentSubjectsTable";
+import Archived from "../ArchivedSubjects/StudArchSubj";
 
 export default function StudentDashboard() {
     return (
@@ -7,9 +10,8 @@ export default function StudentDashboard() {
             <StudentSidebar />
                 <div className="flex-1 p-6">
                     <Routes>
-                        <Route path="/" element={<Subjects />} />
-                        <Route path="archived" element={<Archived />} />
-                        <Route path="settings" element={<Settings />} />
+                        <Route path="/studsubj/*" element={<Subjects />} />
+                        <Route path="/archsubj/*" element={<Archived />} />
                     </Routes>
                 </div>
         </div>
