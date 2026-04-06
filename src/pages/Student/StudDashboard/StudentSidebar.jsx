@@ -28,7 +28,7 @@ export default function StudentSidebar() {
                 <span className={`w-3 h-3 rounded-full border-2 ${activeItem === "elementary" 
                   ? "bg-[#1B1717]" 
                   : "hover:bg-[#EDEBDD]"}`}></span>
-                <Link to="/elem" className='cursor-pointer hover:underline'>Student Subjects</Link>
+                <Link to="/studsubj" className='cursor-pointer hover:underline'>Student Subjects</Link>
               </div>
             </div>
           )}
@@ -49,7 +49,7 @@ export default function StudentSidebar() {
                  <span className={`w-3 h-3 rounded-full border-2 ${activeItem === "archsubj"
                    ? "bg-[#1B1717]"
                    : "hover:bg-[#EDEBDD]"}`}></span>
-                   <Link to="/elemrec">Archived Subjects</Link>
+                   <Link to="/archsubj" className='cursor-pointer hover:underline'>Archived Subjects</Link>
               </div>
            </div>
          )}
