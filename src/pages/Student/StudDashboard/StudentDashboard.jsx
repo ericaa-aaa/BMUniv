@@ -3,6 +3,7 @@ import { Route } from 'react-router-dom';
 import StudentSidebar from "./StudentSidebar";
 import Subjects from "../Subjects/StudentSubjectsTable";
 import Archived from "../ArchivedSubjects/StudArchSubj";
+import Settings from "../Settings/StudSettings";
 
 export default function StudentDashboard() {
     return (
@@ -12,6 +13,7 @@ export default function StudentDashboard() {
                     <Routes>
                         <Route path="/studsubj/*" element={<Subjects />} />
                         <Route path="/archsubj/*" element={<Archived />} />
+                        <Route path="/settings/*" element={<Settings />} />
                     </Routes>
                 </div>
         </div>

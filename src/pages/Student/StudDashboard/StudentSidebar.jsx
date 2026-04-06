@@ -3,6 +3,7 @@ import { useState } from 'react';
 
 export default function StudentSidebar() {
 
+  const [openSettings, setOpenSettings] = useState(false);
   const [openSubjects, setOpenSubjects] = useState(false);
   const [openArchivedSubjects, setOpenArchSubjects]= useState(false);
   const [activeItem, setActiveItem] = useState("");
@@ -50,6 +51,26 @@ export default function StudentSidebar() {
                    ? "bg-[#1B1717]"
                    : "hover:bg-[#EDEBDD]"}`}></span>
                    <Link to="/archsubj" className='cursor-pointer hover:underline'>Archived Subjects</Link>
+              </div>
+           </div>
+         )}
+       </div>
+
+         <div>
+         <div onClick={() => setOpenSettings(!openSettings)} className='flex items-center gap-3 cursor-pointer hover:bg-[#EDEBDD] p-2 rounded'>
+           <div className="flex items-center gap-5 cursor-pointer">
+             {/*<img src={b} alt='students' className='w-7 h-6'></img>*/}
+             <a className='text-[#EDEBDD] hover:text-[#1B1717]'>Settings</a>
+           </div>
+         </div>
+
+         {openSettings && (
+           <div className='ml-6 mt-2 flex flex-col gap-2 text-sm'>
+               <div onClick={() => setActiveItem("settings")} className={`flex items-center gap-3 cursor-pointer rounded transition`}>
+                 <span className={`w-3 h-3 rounded-full border-2 ${activeItem === "settings"
+                   ? "bg-[#1B1717]"
+                   : "hover:bg-[#EDEBDD]"}`}></span>
+                   <Link to="/settings" className='cursor-pointer hover:underline'>Settings</Link>
               </div>
            </div>
          )}
