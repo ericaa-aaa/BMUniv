@@ -1,6 +1,6 @@
 import React from "react";
 
-export default function Page1() {
+export default function Page2() {
     return (
         <>
         <div className="pt-9 pl-12 flex gap-5">

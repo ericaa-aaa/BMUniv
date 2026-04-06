@@ -18,7 +18,7 @@ function Sidebar() {
     <div className="w-67 bg-[#630000] text-[#EDEBDD] flex flex-col p-6 min-h-screen pr-5">
       
       <div className='flex gap-4 pt-15 mb-10'>
-        <img img src={e} alt='students' className='w-15 h-11'></img>
+        {/*<img img src={e} alt='students' className='w-15 h-11'></img>*/}
         <h1 className="text-[25px] font-['Inter'] font-bold pt-1">Dashboard</h1>
       </div>
 

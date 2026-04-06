@@ -4,7 +4,7 @@ import { IoMdLock } from "react-icons/io";
 import { useNavigate } from "react-router";
 import bg from "../assets/images/bg.jpg";
 import logo from '../assets/images/signin4.png';
-import { loginTeacher } from "../services/api"; 
+import { loginTeacher } from "../services/teacherloginauth"; 
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 
 export default function LoginPage() {
