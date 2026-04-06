@@ -1,10 +1,10 @@
 import { Routes } from "react-router";
-import Sidebar from "./Sidebar";
+import StudentSidebar from "./StudentSidebar";
 
 export default function StudentDashboard() {
     return (
         <div className="flex">
-            <Sidebar />
+            <StudentSidebar />
                 <div className="flex-1 p-6">
                     <Routes>
                         <Route path="/" element={<Subjects />} />
