@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom';
 import { useState } from 'react';
-import logo from "/home/dev/Desktop/BMU/BMUniv/src/assets/images/signin4.png";
+import logo from "../../../assets/images/signin4.png";
 
 export default function StudentSidebar() {
 
