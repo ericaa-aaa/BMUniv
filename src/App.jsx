@@ -3,7 +3,7 @@ import LoginPage from "./pages/LoginPage";
 import ElementaryRecords from "./pages/Teacher/Records/Elementary"
 import JHSRecords from "./pages/Teacher/Records/JHS"
 import SHSRecords from "./pages/Teacher/Records/SHS"
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom';
 import StudentDashboard from './pages/Student/StudDashboard/StudentDashboard';
 import Dashboard from './pages/Teacher/MainDashboard/Dashboard';
 import ElementaryEnrollment from './pages/Teacher/StudentEnrollment/Elementary';
@@ -14,12 +14,16 @@ import RL from './pages/Teacher/StudentEnrollment/RL';
 // import ArchSubj from './pages/Student/ArchivedSubjects';
 import Sidebar from './pages/Teacher/MainDashboard/Sidebar.jsx';
 
-export default function App() {
+function AppContent() {
+  const location = useLocation();
+
+  // Hide sidebar if path is EXACTLY "/" (the login page)
+  const isLoginPage = location.pathname === "/";
+
   return (
-    <>
-    <Router>
-      <div className="flex">
-      <Sidebar />
+    <div className="flex">
+      {!isLoginPage && <Sidebar />} 
+      
       <div className="flex-1">
         <Routes>
           <Route path="/" element={<LoginPage />} />
@@ -32,12 +36,16 @@ export default function App() {
           <Route path="/elemrec/*" element={<ElementaryRecords />} />
           <Route path="/jhsrec/*" element={<JHSRecords />} />
           <Route path="/shsrec/*" element={<SHSRecords />} />
-          {/*<Route path="/studsubj/*" element={<StudSubj />} />*/}
-          {/*<Route path="/archsubj/*" element={<ArchSubj />} />*/}
         </Routes>
-        </div>
-        </div>
-      </Router>
-    </>
+      </div>
+    </div>
+  );
+}
+
+export default function App() {
+  return (
+    <Router>
+      <AppContent />
+    </Router>
   );
 }
