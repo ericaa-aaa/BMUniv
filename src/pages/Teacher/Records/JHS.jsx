@@ -2,13 +2,8 @@ import SideBar from "../MainDashboard/Sidebar";
 
 export default function JHS() {
   return (
-    <div className="flex min-h-screen">
 
-      <div className="w-67">
-        <SideBar />
-      </div>
-
-      <section className="flex-1 bg-[url('/home/dev/Desktop/BMU/BMUniv/src/assets/images/bg.jpg')] bg-cover bg-no-repeat bg-position-[50%_25%] relative">
+      <section className="min-h-screen flex-1 bg-[url('/home/dev/Desktop/BMU/BMUniv/src/assets/images/bg.jpg')] bg-cover bg-no-repeat bg-position-[50%_25%] relative">
 
         <div className="absolute inset-0 bg-white/80 px-6 py-8">
 
@@ -73,6 +68,5 @@ export default function JHS() {
           </div>
         </div>
       </section>
-    </div>
   );
 }
