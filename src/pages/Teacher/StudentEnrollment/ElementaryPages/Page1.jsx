@@ -94,7 +94,7 @@ export default function EnrollmentForm() {
 
         try {
             const token = localStorage.getItem("token");
-            const response = await fetch("http://127.0.0.1:5000/students", {
+            const response = await fetch("http://127.0.0.1:5000/Elstudents", {
                 method: "POST",
                 headers: { "Authorization": `Bearer ${token}` },
                 body: formData, 
@@ -148,7 +148,7 @@ export default function EnrollmentForm() {
                     </div>
 
                     {/* Student Info Box */}
-                    <div className="bg-[#EDEBDD] w-[1100px] p-8 ml-12 rounded-2xl flex flex-col gap-6">
+                    <div className="bg-[#EDEBDD] w-275 p-8 ml-12 rounded-2xl flex flex-col gap-6">
                         <div className="flex gap-5 items-center">
                             <p className="text-[#1B1717] text-[14px]">Student Name:</p>
                             <input {...register("lastname")} type="text" className="border text-[12px] w-50 h-10 p-3 rounded-[5px]" placeholder="Last Name" required />
@@ -199,7 +199,7 @@ export default function EnrollmentForm() {
                         <p className="text-[#630000] text-[25px] font-semibold">Contact Information</p>
                     </div>
 
-                    <div className="bg-[#EDEBDD] w-[1100px] p-8 ml-12 rounded-2xl flex flex-col gap-6">
+                    <div className="bg-[#EDEBDD] w-275 p-8 ml-12 rounded-2xl flex flex-col gap-6">
                         <div className="flex gap-5 items-center">
                             <p className="text-[#1B1717] text-[14px]">Contact Number</p>
                             <input {...register("contact_number")} type="text" className="border text-[12px] w-64 h-10 p-3 rounded-[5px]" placeholder="09XXXXXXXXX" required />
@@ -223,7 +223,7 @@ export default function EnrollmentForm() {
                     </div>
 
                     {!isPermanentSame && (
-                        <div className="bg-[#EDEBDD] w-[1100px] p-8 ml-12 rounded-2xl mt-5 flex gap-4 items-center">     
+                        <div className="bg-[#EDEBDD] w-275 p-8 ml-12 rounded-2xl mt-5 flex gap-4 items-center">     
                             <p className="text-[#1B1717] text-[14px] w-32">Permanent Address</p>
                             <input {...register("perm_house_no")} type="text" className="border text-[12px] flex-1 h-10 p-3 rounded-[5px]" placeholder="HouseNo" />
                             <input {...register("perm_street")} type="text" className="border text-[12px] flex-1 h-10 p-3 rounded-[5px]" placeholder="Street" required />
@@ -281,7 +281,7 @@ export default function EnrollmentForm() {
                     </div>
 
                     {/* Mother Section */}
-                    <div className="bg-[#EDEBDD] w-[1100px] p-8 ml-12 rounded-2xl flex flex-col gap-6 mt-5">
+                    <div className="bg-[#EDEBDD] w-275 p-8 ml-12 rounded-2xl flex flex-col gap-6 mt-5">
                         <div className="flex gap-5 items-center">
                             <p className="text-[#1B1717] text-[14px] w-32">Mother's Name</p>
                             <input {...register("mother_last_name")} type="text" className="border text-[12px] w-50 h-10 p-3 rounded-[5px]" placeholder="Last Name" required />
@@ -308,7 +308,7 @@ export default function EnrollmentForm() {
                     </div>
 
                     {/* Guardian Section */}
-                    <div className="bg-[#EDEBDD] w-[1100px] p-8 ml-12 rounded-2xl flex flex-col gap-6 mt-5">
+                    <div className="bg-[#EDEBDD] w-275 p-8 ml-12 rounded-2xl flex flex-col gap-6 mt-5">
                         <div className="flex gap-5 items-center">
                             <p className="text-[#1B1717] text-[14px] w-32">Guardian's Name</p>
                             <input {...register("guardian_last_name")} type="text" className="border text-[12px] w-50 h-10 p-3 rounded-[5px]" placeholder="Last Name" required />
