@@ -17,12 +17,15 @@ import Sidebar from './pages/Teacher/MainDashboard/Sidebar.jsx';
 function AppContent() {
   const location = useLocation();
 
-  // Hide sidebar if path is EXACTLY "/" (the login page)
-  const isLoginPage = location.pathname === "/";
+  // Hide sidebar if path is "/" OR if it starts with "/student"
+  const hideSidebar = 
+    location.pathname === "/" || 
+    location.pathname.startsWith("/student");
 
   return (
     <div className="flex">
-      {!isLoginPage && <Sidebar />} 
+      {/* Show sidebar ONLY if hideSidebar is false */}
+      {!hideSidebar && <Sidebar />} 
       
       <div className="flex-1">
         <Routes>
