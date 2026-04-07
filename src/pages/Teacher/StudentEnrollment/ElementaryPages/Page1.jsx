@@ -351,7 +351,7 @@ export default function EnrollmentForm() {
                         <button 
                             type="button" 
                             onClick={() => setStep(1)} 
-                            className="flex items-center gap-2 px-8 py-4 bg-gray-500 text-white rounded-xl font-bold hover:bg-gray-600 transition-all shadow-md"
+                            className="flex items-center gap-2 px-8 py-4 bg-[#1B1717] text-white rounded-xl font-bold hover:bg-gray-600 transition-all shadow-md"
                         >
                             <ArrowLeft size={20} />
                             BACK
