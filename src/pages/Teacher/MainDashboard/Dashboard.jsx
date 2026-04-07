@@ -1,15 +1,14 @@
 import profile from '../../../assets/images/faculty1.png'
+import back from "../../../assets/images/bg.jpg"
+
 
 function Dashboard() {
   return (
-    <div className="flex-1 h-screen bg-[url('../../../assets/images/bg.jpg')] bg-cover bg-no-repeat relative bg-position-[50%_25%]">
-        
+    <div className="flex-1 bg-cover bg-no-repeat bg-fixed bg-center"
+        style={{ backgroundImage: `url(${back})` }}>
+      <div className="relative p-8">
       <div className="absolute inset-0 bg-white/75"></div>
-
-        <div className="relative p-8">
-
-
-        
+      
 
         <div className="flex justify-end mr-10">
           <p className='pt-12 font-["Inter"] text-[#1B1717] font-medium'>Teacher Juan Dela Cruz</p>
