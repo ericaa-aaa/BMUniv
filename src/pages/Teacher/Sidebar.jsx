@@ -2,7 +2,6 @@ import a from '../../../assets/images/dashboard1.png'
 import b from '../../../assets/images/dashboard2.png'
 import c from '../../../assets/images/dashboard3 (1).png'
 import d from '../../../assets/images/dashboard5.png'
-import e from '../../../assets/images/signin4.png'
 
 import { Link } from 'react-router-dom'
 
@@ -18,7 +17,7 @@ function Sidebar() {
     <div className="w-67 bg-[#630000] text-[#EDEBDD] flex flex-col p-6 min-h-screen pr-5">
       
       <div className='flex gap-4 pt-15 mb-10'>
-        <img img src={e} alt='students' className='w-15 h-11'></img>
+        {/*<img img src={e} alt='students' className='w-15 h-11'></img>*/}
         <h1 className="text-[25px] font-['Inter'] font-bold pt-1">Dashboard</h1>
       </div>
 
