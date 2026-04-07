@@ -266,7 +266,7 @@ export default function EnrollmentForm() {
                     </div>
 
                     {/* Father Section */}
-                    <div className="bg-[#EDEBDD] w-351 p-8 ml-12 rounded-2xl flex flex-col gap-20 mt-5">
+                    <div className="bg-[#EDEBDD] w-351 p-8 ml-12 rounded-2xl flex flex-col gap-7 mt-5">
                         <div className="flex gap-5 items-center ml-7">
                             <p className="text-[#1B1717] text-[14px] w-32">Father's Name</p>
                             <input {...register("father_last_name")} type="text" className="border text-[12px] w-30 h-10 p-3 rounded-[5px]" placeholder="Last Name" required />
@@ -292,7 +292,7 @@ export default function EnrollmentForm() {
                     </div>
 
                     {/* Mother Section */}
-                    <div className="bg-[#EDEBDD] w-351 p-8 ml-12 rounded-2xl flex flex-col gap-6 mt-5">
+                    <div className="bg-[#EDEBDD] w-351 p-8 ml-12 rounded-2xl flex flex-col gap-6 mt-10">
                         <div className="flex gap-5 items-center ml-7">
                             <p className="text-[#1B1717] text-[14px]">Mother's Name</p>
                             <input {...register("mother_last_name")} type="text" className="border text-[12px] w-30 h-10 p-3 rounded-[5px]" placeholder="Last Name" required />
@@ -318,7 +318,7 @@ export default function EnrollmentForm() {
                     </div>
 
                     {/* Guardian Section */}
-                    <div className="bg-[#EDEBDD] w-351 p-8 ml-12 rounded-2xl flex flex-col gap-6 mt-5">
+                    <div className="bg-[#EDEBDD] w-351 p-8 ml-12 rounded-2xl flex flex-col gap-6 mt-10">
                         <div className="flex gap-5 items-center ml-7">
                             <p className="text-[#1B1717] text-[14px]">Guardian's Name</p>
                             <input {...register("guardian_last_name")} type="text" className="border text-[12px] w-30 h-10 p-3 rounded-[5px]" placeholder="Last Name" required />
@@ -347,7 +347,7 @@ export default function EnrollmentForm() {
                         <input {...register("is_transferee")} type="checkbox" className="w-5 h-5 accent-[#630000]" />
                     </div>
 
-                    <div className="mt-13 ml-12 flex gap-4">
+                    <div className="mt-16 ml-12 flex gap-4">
                         <button 
                             type="button" 
                             onClick={() => setStep(1)} 

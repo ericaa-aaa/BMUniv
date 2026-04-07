@@ -3,6 +3,7 @@ import b from '../../../assets/images/dashboard2.png'
 import c from '../../../assets/images/dashboard3 (1).png'
 import d from '../../../assets/images/dashboard5.png'
 import e from '../../../assets/images/signin4.png'
+import f from '../../../assets/images/dash.png'
 
 import { Link } from 'react-router-dom'
 
@@ -24,6 +25,12 @@ function Sidebar() {
 
       <nav className="flex flex-col gap-6 font-['Inter'] font-medium">
         <div>
+            <div className="flex items-center gap-5 cursor-pointer hover:bg-[#EDEBDD] p-2 rounded mb-6">
+              <img src={f} alt='students' className='w-7 h-6'></img>
+              <Link to="/teacher" className='text-[#EDEBDD] hover:text-[#1B1717]'>Dashboard</Link>
+            </div>
+
+
           <div onClick={() => setOpenEnrollment(!openEnrollment)} className='flex items-center gap-3 cursor-pointer hover:bg-[#EDEBDD] p-2 rounded'>
             <div className="flex items-center gap-5 cursor-pointer">
               <img src={a} alt='students' className='w-7 h-6'></img>
