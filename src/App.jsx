@@ -17,14 +17,14 @@ import Sidebar from './pages/Teacher/MainDashboard/Sidebar.jsx';
 function AppContent() {
   const location = useLocation();
 
-  // Hide sidebar if path is "/" OR if it starts with "/student"
+  // Hide yung sidebar kapag yung path ay "/" OR if it starts with "/student"
   const hideSidebar = 
     location.pathname === "/" || 
     location.pathname.startsWith("/student");
 
   return (
     <div className="flex">
-      {/* Show sidebar ONLY if hideSidebar is false */}
+      {/* mag shoshow ang sidebar pag nag false*/}
       {!hideSidebar && <Sidebar />} 
       
       <div className="flex-1">
