@@ -17,7 +17,7 @@ export default function StudentDashboard() {
       <div className="flex-1 p-6 space-y-6 bg-[#F5F5F5]">
 
         {/* HEADER */}
-        <div className="relative rounded-2xl overflow-hidden h-[140px]">
+        <div className="relative rounded-2xl overflow-hidden h-35">
           {/* Background */}
             <div className="absolute inset-0 bg-[url('/src/assets/images/bg.jpg')] bg-cover bg-center"></div>
                 {/* Overlay */}
@@ -29,7 +29,7 @@ export default function StudentDashboard() {
                     <div className="">
                         <div className="flex items-center gap-4">
                             <img src={Profile} alt="prowfile" className="w-14 h-14 rounded-full"></img>
-                                <p className="text-[#1B1717] font-medium text-lg">Dela Cruz, Juan M.</p>
+                                <p className="text-[#1B1717] font-medium text-lg">Dela Cruz, Llyne Say</p>
                         </div>
                     </div>
                 {/* Right */}
@@ -41,7 +41,7 @@ export default function StudentDashboard() {
                         </p>
                         <p className="flex gap-2">
                             <span><BiSolidRightArrow /></span>
-                            Grade 1 - Makakalikasan
+                            Grade 12 - STEM
                         </p>
                         <p className="flex gap-2 text-green-600 font-semibold">
                             <span><BiSolidRightArrow /></span>
@@ -53,9 +53,9 @@ export default function StudentDashboard() {
           </div>
         </div>
         {/* TOP PANEL */}
-        <div className="bg-[#EDEBDD] h-[180px] rounded-xl"></div>
-        {/* BOTTOM PANEL (ROUTES HERE) */}
-        <div className="bg-[#EDEBDD] h-[300px] rounded-xl p-4 overflow-auto">
+        <div className="bg-[#EDEBDD] h-45 rounded-xl"></div>
+        {/* (ROUTES HERE) */}
+        <div className="bg-[#EDEBDD] h-75 rounded-xl p-4 overflow-auto">
           <Routes>
             <Route path="/studsubj/*" element={<Subjects />} />
             <Route path="/archsubj/*" element={<Archived />} />
