@@ -11,6 +11,7 @@ import { useState } from 'react'
 
 function Sidebar() {
 
+  const [openFaculty, setOpenFaculty] = useState(false);
   const [openRecords, setOpenRecords] = useState(false);
   const [openEnrollment, setOpenEnrollment]= useState(false);
   const [activeItem, setActiveItem] = useState("");
@@ -47,19 +48,19 @@ function Sidebar() {
                 <Link to="/elem" className='cursor-pointer hover:underline'>Elementary Enrollment</Link>
               </div>
               <div onClick={() => setActiveItem("elementary")} className={`flex items-center gap-3 cursor-pointer rounded transition`}>
-                <span className={`w-3 h-3 rounded-full border-2 ${activeItem === "elementary" 
+                <span className={`w-3 h-3 rounded-full border-2 ${activeItem === "highschool" 
                   ? "bg-[#1B1717] " 
                   : "bg-black group-hover:bg-[#EDEBDD]"}`}></span>
                 <Link to="/hs" className='cursor-pointer hover:underline'>HS Enrollment</Link>
               </div>
               <div onClick={() => setActiveItem("elementary")} className={`flex items-center gap-3 cursor-pointer rounded transition`}>
-                <span className={`w-3 h-3 rounded-full border-2 ${activeItem === "elementary" 
+                <span className={`w-3 h-3 rounded-full border-2 ${activeItem === "seniorhighschool" 
                   ? "bg-[#1B1717]" 
                   : "bg-black group-hover:bg-[#EDEBDD]"}`}></span>
                 <Link to="/shs" className='cursor-pointer hover:underline'>SHS Enrollment</Link>
               </div>
               <div onClick={() => setActiveItem("elementary")} className={`flex items-center gap-3 cursor-pointer rounded transition`}>
-                <span className={`w-3 h-3 rounded-full border-2 ${activeItem === "elementary" 
+                <span className={`w-3 h-3 rounded-full border-2 ${activeItem === "returninglearners" 
                   ? "bg-[#1B1717]" 
                   : "bg-black group-hover:bg-[#EDEBDD]"}`}></span>
                 <Link to="/rl" className='cursor-pointer hover:underline'>RL Enrollment</Link>
@@ -105,38 +106,32 @@ function Sidebar() {
 
 
         <div>
-          <div onClick={() => setOpenEnrollment(!openEnrollment)} className='flex items-center gap-3 cursor-pointer hover:bg-[#EDEBDD] p-2 rounded'>
+          <div onClick={() => setOpenFaculty(!openFaculty)} className='flex items-center gap-3 cursor-pointer hover:bg-[#EDEBDD] p-2 rounded'>
             <div className="flex items-center gap-5 cursor-pointer">
               <img src={c} alt='students' className='w-8 h-8'></img>
               <a className='text-[#EDEBDD] hover:text-[#1B1717]'>Faculty</a>
             </div>
           </div>
 
-          {openEnrollment && (
+          {openFaculty && (
             <div className='ml-6 mt-2 flex flex-col gap-2 text-sm'>
               <div onClick={() => setActiveItem("elementary")} className={`flex items-center gap-3 cursor-pointer rounded transition`}>
-                <span className={`w-3 h-3 rounded-full border-2 ${activeItem === "elementary" 
+                <span className={`w-3 h-3 rounded-full border-2 ${activeItem === "elemfaculty" 
                   ? "bg-[#1B1717]" 
                   : "hover:bg-[#EDEBDD]"}`}></span>
-                <p className='cursor-pointer hover:underline'>Elementary Enrollment</p>
+                <p className='cursor-pointer hover:underline'>Elementary Faculty</p>
               </div>
               <div onClick={() => setActiveItem("elementary")} className={`flex items-center gap-3 cursor-pointer rounded transition`}>
-                <span className={`w-3 h-3 rounded-full border-2 ${activeItem === "elementary" 
+                <span className={`w-3 h-3 rounded-full border-2 ${activeItem === "hsfaculty" 
                   ? "bg-[#1B1717] " 
                   : "bg-black group-hover:bg-[#EDEBDD]"}`}></span>
-                <p className='cursor-pointer hover:underline'>HS Enrollment</p>
+                <p className='cursor-pointer hover:underline'>HS Faculty</p>
               </div>
               <div onClick={() => setActiveItem("elementary")} className={`flex items-center gap-3 cursor-pointer rounded transition`}>
-                <span className={`w-3 h-3 rounded-full border-2 ${activeItem === "elementary" 
+                <span className={`w-3 h-3 rounded-full border-2 ${activeItem === "shsfaculty" 
                   ? "bg-[#1B1717]" 
                   : "bg-black group-hover:bg-[#EDEBDD]"}`}></span>
-                <p className='cursor-pointer hover:underline'>SHS Enrollment</p>
-              </div>
-              <div onClick={() => setActiveItem("elementary")} className={`flex items-center gap-3 cursor-pointer rounded transition`}>
-                <span className={`w-3 h-3 rounded-full border-2 ${activeItem === "elementary" 
-                  ? "bg-[#1B1717]" 
-                  : "bg-black group-hover:bg-[#EDEBDD]"}`}></span>
-                <p className='cursor-pointer hover:underline'>RL Enrollment</p>
+                <p className='cursor-pointer hover:underline'>SHS Faculty</p>
               </div>
             </div>
           )}

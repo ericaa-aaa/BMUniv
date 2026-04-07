@@ -2,6 +2,9 @@ import { Link } from 'react-router-dom';
 import { useState } from 'react';
 import logo from "../../../assets/images/signin4.png";
 import logout from "../../../assets/images/dashboard5.png";
+import students from "../../../assets/images/dashboard1.png";
+import { FaFolderClosed } from "react-icons/fa6";
+import { IoSettings } from "react-icons/io5";
 
 export default function StudentSidebar() {
 
@@ -23,6 +26,7 @@ export default function StudentSidebar() {
           <div onClick={() => setOpenSubjects(!openSubjects)} className='flex items-center gap-3 cursor-pointer hover:bg-[#EDEBDD] p-2 rounded'>
             <div className="flex items-center gap-5 cursor-pointer">
               {/*<a className='text-[#EDEBDD] hover:text-[#1B1717]'>Student Subjects</a>*/}
+              <img src={students} alt="logongstud" className='w-7 h-6'/>
               <Link to="/studsubj" className='cursor-pointer hover:text-[#1B1717] hover:underline'>Student Subjects</Link>
             </div>
           </div>
@@ -45,6 +49,7 @@ export default function StudentSidebar() {
            <div className="flex items-center gap-5 cursor-pointer">
              {/*<img src={b} alt='students' className='w-7 h-6'></img>
              <a className='text-[#EDEBDD] hover:text-[#1B1717]'>Archived Subjects</a>*/}
+             <FaFolderClosed />
              <Link to="/archsubj" className='cursor-pointer hover:text-[#1B1717] hover:underline'>Archived Subjects</Link>
            </div>
          </div>
@@ -66,6 +71,7 @@ export default function StudentSidebar() {
            <div className="flex items-center gap-5 cursor-pointer">
              {/*<img src={b} alt='students' className='w-7 h-6'></img>
              <a className='text-[#EDEBDD] hover:text-[#1B1717]'>Settings</a>*/}
+             <IoSettings />
              <Link to="/settings" className='cursor-pointer hover:text-[#1B1717] hover:underline'>Settings</Link>
            </div>
          </div>

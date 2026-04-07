@@ -4,10 +4,9 @@ import back from "../../../assets/images/bg.jpg"
 
 function Dashboard() {
   return (
-    <div className="flex-1 bg-cover bg-no-repeat bg-fixed bg-center"
-        style={{ backgroundImage: `url(${back})` }}>
-      <div className="relative p-8">
-      <div className="absolute inset-0 bg-white/75"></div>
+    <section className="h-screen bg-cover bg-no-repeat bg-fixed bg-center"
+                style={{ backgroundImage: `url(${back})` }}>
+      <div className="min-h-screen bg-white/75 p-4">
       
 
         <div className="flex justify-end mr-10">
@@ -37,9 +36,8 @@ function Dashboard() {
         </div>
 
         <div className='bg-[#EDEBDD] w-340 h-132 flex ml-19 mt-11 rounded-[15px]'></div>
-
-      </div>
-    </div>
+</div>
+    </section>
      
   );
 };
