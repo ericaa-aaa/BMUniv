@@ -3,7 +3,8 @@ import StudentSidebar from "./StudentSidebar";
 import Subjects from "../Subjects/StudentSubjectsTable";
 import Archived from "../ArchivedSubjects/StudArchSubj";
 import Settings from "../Settings/StudSettings";
-import { IoMdArrowDropright } from "react-icons/io";
+import { BiSolidRightArrow } from "react-icons/bi";
+import Profile from "../../../assets/images/faculty1.png"
 
 export default function StudentDashboard() {
   return (
@@ -22,33 +23,39 @@ export default function StudentDashboard() {
           {/* Overlay */}
           <div className="absolute inset-0 bg-white/75"></div>
           {/* Content */}
-          <div className="relative flex justify-between items-center h-full px-6">
-            {/* Left */}
-            <div className="flex items-center gap-4">
-              <div className="w-14 h-14 bg-black rounded-full"></div>
-              <p className="text-[#1B1717] font-medium text-lg">
-                Dela Cruz, Juan M.
-              </p>
-            </div>
-            {/* Right */}
-            <div className="text-right space-y-1 text-[#7A1C1C] font-medium">
+          <div className="relative grid grid-cols-2 justify-between items-center h-full px-6">
 
-              <p className="flex items-center justify-end gap-2">
-                <span><IoMdArrowDropright /></span>
-                Batangas Metropolitan University
-              </p>
+                {/* Left */}
+                <div className="">
+                    <div className="flex items-center gap-4">
+                    <img src={Profile} alt="prowfile" className="w-14 h-14 rounded-full"></img>
+                    <p className="text-[#1B1717] font-medium text-lg">
+                        Dela Cruz, Juan M.
+                    </p>
+                    </div>
+                </div>
+                {/* Right */}
+                <div className="">
+                    <div className="text-right space-y-1 text-[#7A1C1C] font-medium">
 
-              <p className="flex items-center justify-end gap-2">
-                <span><IoMdArrowDropright /></span>
-                Grade 1 - Makakalikasan
-              </p>
+                    <p className="flex gap-2">
+                        <span><BiSolidRightArrow /></span>
+                        Batangas Metropolitan University
+                    </p>
 
-              <p className="flex items-center justify-end gap-2 text-green-600 font-semibold">
-                <span><IoMdArrowDropright /></span>
-                ENROLLED
-              </p>
+                    <p className="flex gap-2">
+                        <span><BiSolidRightArrow /></span>
+                        Grade 1 - Makakalikasan
+                    </p>
 
-            </div>
+                    <p className="flex gap-2 text-green-600 font-semibold">
+                        <span><BiSolidRightArrow /></span>
+                        ENROLLED
+                    </p>
+
+                    </div>
+                </div>
+           
           </div>
         </div>
         {/* TOP PANEL */}
