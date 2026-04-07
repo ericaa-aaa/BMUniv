@@ -1,57 +1,53 @@
-const BASE_URL = "http://127.0.0.1:5000";
+// HighSchoolStudentService.js
 
-// Helper for simple JSON requests (GET/DELETE)
-// Helper to handle unauthorized redirects
-const handleUnauthorized = () => {
-    localStorage.removeItem("token"); // Clear the bad token
-    alert("Your session has expired. Please log in again.");
-    window.location.href = "/"; // Redirect to your login route
-};
+const API_BASE_URL = "http://127.0.0.1:5000";
 
-export const getStudents = async () => {
-  const res = await fetch(`${BASE_URL}/students`, {
-    headers: { "Authorization": `Bearer ${localStorage.getItem("token")}` },
-  });
-  
-  if (res.status === 401) return handleUnauthorized();
-  
-  return await res.json();
-};
+export const ElementaryStudentService = {
+    /**
+     * Enrolls a new high school student
+     * @param {Object} data - The raw form data from React Hook Form
+     * @returns {Promise<Object>} - The server response
+     */
+    enrollStudent: async (data) => {
+        const formData = new FormData();
+        const token = localStorage.getItem("token");
 
-export const addStudent = async (formData) => {
-    const res = await fetch(`${BASE_URL}/students`, {
-        method: "POST",
-        headers: {
-            "Authorization": `Bearer ${localStorage.getItem("token")}`
-        },
-        body: formData, 
-    });
-    
-    if (res.status === 401) return handleUnauthorized();
+        // 1. Prepare the FormData
+        Object.keys(data).forEach((key) => {
+            // Special handling for the file field
+            if (key === "photo") {
+                if (data.photo && data.photo[0]) {
+                    formData.append("photo", data.photo[0]);
+                }
+            } else {
+                // Append all other fields
+                formData.append(key, data[key]);
+            }
+        });
 
-    if (!res.ok) {
-        const errorData = await res.json();
-        throw new Error(errorData.error || "Failed to save student");
+        // 2. Perform the request
+        const response = await fetch(`${API_BASE_URL}/Elstudents`, {
+            method: "POST",
+            headers: {
+                "Authorization": `Bearer ${token}`,
+                // Note: Do NOT set 'Content-Type': 'multipart/form-data' manually. 
+                // The browser does it automatically with the correct boundary when passing FormData.
+            },
+            body: formData,
+        });
+
+        // 3. Handle Token Expiry
+        if (response.status === 401) {
+            localStorage.removeItem("token");
+            throw new Error("SESSION_EXPIRED");
+        }
+
+        // 4. Handle errors vs success
+        if (!response.ok) {
+            const errorData = await response.json();
+            throw new Error(errorData.error || "Failed to save record");
+        }
+
+        return await response.json();
     }
-    return await res.json();
-};
-// UPDATE: This must now accept FormData because of the photo!
-export const updateStudent = async (id, formData) => {
-  const res = await fetch(`${BASE_URL}/students/${id}`, {
-    method: "PUT",
-    headers: { 
-      "Authorization": `Bearer ${localStorage.getItem("token")}` 
-      // Do NOT set Content-Type here for FormData
-    },
-    body: formData, // Send the FormData object, NOT JSON.stringify
-  });
-  return await res.json();
-};
-
-export const deleteStudent = async (id) => {
-  const res = await fetch(`${BASE_URL}/students/${id}`, {
-    method: "DELETE",
-    headers: getAuthHeaders(),
-  });
-  return await res.json();
 };
