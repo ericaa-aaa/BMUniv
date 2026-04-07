@@ -1,91 +1,53 @@
-const BASE_URL = "http://127.0.0.1:5000";
+// HighSchoolStudentService.js
 
-/**
- * Helper to handle unauthorized redirects and token cleanup.
- */
-const handleUnauthorized = () => {
-    localStorage.removeItem("token");
-    alert("Your session has expired. Please log in again.");
-    window.location.href = "/";
-};
+const API_BASE_URL = "http://127.0.0.1:5000";
 
-/**
- * Helper to get Authorization headers.
- */
-const getAuthHeaders = () => ({
-    "Authorization": `Bearer ${localStorage.getItem("token")}`
-});
+export const HighSchoolStudentService = {
+    /**
+     * Enrolls a new high school student
+     * @param {Object} data - The raw form data from React Hook Form
+     * @returns {Promise<Object>} - The server response
+     */
+    enrollStudent: async (data) => {
+        const formData = new FormData();
+        const token = localStorage.getItem("token");
 
-/**
- * GET: Fetch all students.
- * Matches: @Highstudent_bp.route('/Highstudents', methods=['GET'])
- */
-export const getStudents = async () => {
-    const res = await fetch(`${BASE_URL}/Highstudents`, {
-        headers: getAuthHeaders(),
-    });
+        // 1. Prepare the FormData
+        Object.keys(data).forEach((key) => {
+            // Special handling for the file field
+            if (key === "photo") {
+                if (data.photo && data.photo[0]) {
+                    formData.append("photo", data.photo[0]);
+                }
+            } else {
+                // Append all other fields
+                formData.append(key, data[key]);
+            }
+        });
 
-    if (res.status === 401) return handleUnauthorized();
-    if (!res.ok) throw new Error("Failed to fetch students");
+        // 2. Perform the request
+        const response = await fetch(`${API_BASE_URL}/Highstudents`, {
+            method: "POST",
+            headers: {
+                "Authorization": `Bearer ${token}`,
+                // Note: Do NOT set 'Content-Type': 'multipart/form-data' manually. 
+                // The browser does it automatically with the correct boundary when passing FormData.
+            },
+            body: formData,
+        });
 
-    return await res.json();
-};
+        // 3. Handle Token Expiry
+        if (response.status === 401) {
+            localStorage.removeItem("token");
+            throw new Error("SESSION_EXPIRED");
+        }
 
-/**
- * POST: Add a new student using FormData (supports photo/file upload).
- * Matches: @Highstudent_bp.route('/Highstudents', methods=['POST'])
- */
-export const addStudent = async (formData) => {
-    const res = await fetch(`${BASE_URL}/Highstudents`, {
-        method: "POST",
-        headers: getAuthHeaders(),
-        // Note: Do NOT set 'Content-Type': 'multipart/form-data' manually.
-        // The browser sets the boundary automatically when passing FormData.
-        body: formData,
-    });
+        // 4. Handle errors vs success
+        if (!response.ok) {
+            const errorData = await response.json();
+            throw new Error(errorData.error || "Failed to save record");
+        }
 
-    if (res.status === 401) return handleUnauthorized();
-
-    const result = await res.json();
-    if (!res.ok) throw new Error(result.error || "Failed to save student");
-    
-    return result;
-};
-
-/**
- * PUT: Update an existing student using FormData.
- * Matches: @Highstudent_bp.route('/Highstudents/<int:id>', methods=['PUT'])
- */
-export const updateStudent = async (id, formData) => {
-    // Fixed typo in URL: was 'Hightudents', now 'Highstudents'
-    const res = await fetch(`${BASE_URL}/Highstudents/${id}`, {
-        method: "PUT",
-        headers: getAuthHeaders(),
-        body: formData,
-    });
-
-    if (res.status === 401) return handleUnauthorized();
-
-    const result = await res.json();
-    if (!res.ok) throw new Error(result.error || "Failed to update student");
-
-    return result;
-};
-
-/**
- * DELETE: Remove a student.
- * Matches: @Highstudent_bp.route('/Highstudents/<int:id>', methods=['DELETE'])
- */
-export const deleteStudent = async (id) => {
-    const res = await fetch(`${BASE_URL}/Highstudents/${id}`, {
-        method: "DELETE",
-        headers: getAuthHeaders(),
-    });
-
-    if (res.status === 401) return handleUnauthorized();
-
-    const result = await res.json();
-    if (!res.ok) throw new Error(result.error || "Failed to delete student");
-
-    return result;
+        return await response.json();
+    }
 };

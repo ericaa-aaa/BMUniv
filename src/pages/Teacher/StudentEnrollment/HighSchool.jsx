@@ -16,7 +16,7 @@ export default function Elementary() {
             <div className="relative p-4"></div>
 
                 <div className="flex justify-center">
-                    <p className="flex justify-center text-[#EDEBDD] font-['Inter'] bg-[#630000] w-130 font-semibold text-[30px] rounded-2xl p-3">Elementary Enrollment Form</p>
+                    <p className="flex justify-center text-[#EDEBDD] font-['Inter'] bg-[#630000] w-130 font-semibold text-[30px] rounded-2xl p-3"> Enrollment Form</p>
                 </div>
 
                 {page === 1 && <Page1 />}

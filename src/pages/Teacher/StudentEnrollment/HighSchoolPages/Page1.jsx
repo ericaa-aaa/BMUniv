@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { Paperclip, Save, ArrowRight, ArrowLeft } from "lucide-react";
+import { HighSchoolStudentService } from "../../../../services/highschoolstudentservice"
 
 export default function EnrollmentForm() {
     const [step, setStep] = useState(1); // 1 for Student Information, 2 for Parent/Guardian
@@ -83,43 +84,19 @@ export default function EnrollmentForm() {
         }
     }, [photoFile]);
 
-    // Submission Logic
+        // Submission Logic
     const onSubmit = async (data) => {
-        const formData = new FormData();
-        
-        // Append all text/checkbox fields
-        Object.keys(data).forEach(key => {
-            if (key !== "photo") formData.append(key, data[key]);
-        });
-
-        // Append the actual file
-        if (data.photo && data.photo[0]) {
-            formData.append("photo", data.photo[0]);
-        }
-
         try {
-            const token = localStorage.getItem("token");
-            const response = await fetch("http://127.0.0.1:5000/Highstudents", {
-                method: "POST",
-                headers: { "Authorization": `Bearer ${token}` },
-                body: formData, 
-            });
-
-            if (response.status === 401) {
-                alert("Session expired. Please log in again.");
-                localStorage.removeItem("token");
-                window.location.href = "/";
-                return;
-            }
-
-            if (response.ok) {
-                alert("Student Record Saved Successfully!");
-            } else {
-                const err = await response.json();
-                alert("Error: " + err.error);
-            }
+            await HighSchoolStudentService.enrollStudent(data);
+            alert("Student Record Saved Successfully!");
+            // Optional: redirect or reset form here
         } catch (error) {
-            alert("Server connection failed.");
+            if (error.message === "SESSION_EXPIRED") {
+                alert("Session expired. Please log in again.");
+                window.location.href = "/";
+            } else {
+                alert("Error: " + error.message);
+            }
         }
     };
 
