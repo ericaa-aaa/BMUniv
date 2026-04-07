@@ -1,8 +1,8 @@
-import a from '../../../assets/images/dashboard1.png'
-import b from '../../../assets/images/dashboard2.png'
-import c from '../../../assets/images/dashboard3 (1).png'
-import d from '../../../assets/images/dashboard5.png'
-import e from '../../../assets/images/signin4.png'
+import a from '/home/dev/FrontendEnrollment/BMUniv/src/assets/images/dashboard1.png'
+import b from '/home/dev/FrontendEnrollment/BMUniv/src/assets/images/dashboard2.png'
+import c from '/home/dev/FrontendEnrollment/BMUniv/src/assets/images/dashboard3 (1).png'
+import d from '/home/dev/FrontendEnrollment/BMUniv/src/assets/images/dashboard5.png'
+import e from '/home/dev/FrontendEnrollment/BMUniv/src/assets/images/signin4.png'
 
 import { Link } from 'react-router-dom'
 

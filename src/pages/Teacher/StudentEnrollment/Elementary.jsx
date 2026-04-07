@@ -1,4 +1,4 @@
-import SideBar from '../MainDashboard/Sidebar';
+
 import Page1 from "../StudentEnrollment/ElementaryPages/Page1"
 import Page2 from "../StudentEnrollment/ElementaryPages/Page2"
 import { useState } from 'react'
@@ -9,12 +9,7 @@ export default function Elementary() {
 
     return (
 
-
-        <div className='flex h-screen'>
-  <div className='w-67'>
-  <SideBar />
-  </div>
-        <section className="flex-1 bg-[url('../../../assets/images/bg.jpg')] bg-cover bg-no-repeat relative bg-position-[50%_25%]">
+        <section className="flex-1 h-screen bg-[url('../../../assets/images/bg.jpg')] bg-cover bg-no-repeat relative bg-position-[50%_25%]">
             <div className="absolute inset-0 bg-white/75">
 
             <div className="relative p-4"></div>
@@ -46,6 +41,5 @@ export default function Elementary() {
                         </div>
              </div>
         </section>
- </div>
     )
 }

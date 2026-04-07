@@ -1,14 +1,8 @@
 import profile from '../../../assets/images/faculty1.png'
 
-import SideBar from '../MainDashboard/Sidebar';
-
 function Dashboard() {
   return (
-<div className='flex h-screen'>
-  <div className='w-67'>
-  <SideBar />
-  </div>
-    <div className="flex-1 bg-[url('../../../assets/images/bg.jpg')] bg-cover bg-no-repeat relative bg-position-[50%_25%]">
+    <div className="flex-1 h-screen bg-[url('../../../assets/images/bg.jpg')] bg-cover bg-no-repeat relative bg-position-[50%_25%]">
         
       <div className="absolute inset-0 bg-white/75"></div>
 
@@ -46,7 +40,6 @@ function Dashboard() {
         <div className='bg-[#EDEBDD] w-340 h-132 flex ml-19 mt-11 rounded-[15px]'></div>
 
       </div>
-    </div>
     </div>
      
   );

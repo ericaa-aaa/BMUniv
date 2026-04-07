@@ -12,11 +12,15 @@ import SHS from './pages/Teacher/StudentEnrollment/SHS';
 import RL from './pages/Teacher/StudentEnrollment/RL';
 // import StudSubj from './pages/Student/Subjects';
 // import ArchSubj from './pages/Student/ArchivedSubjects';
+import Sidebar from './pages/Teacher/MainDashboard/Sidebar.jsx';
 
 export default function App() {
   return (
     <>
     <Router>
+      <div className="flex">
+      <Sidebar />
+      <div className="flex-1">
         <Routes>
           <Route path="/" element={<LoginPage />} />
           <Route path="/teacher/*" element={<Dashboard/>} />
@@ -31,6 +35,8 @@ export default function App() {
           {/*<Route path="/studsubj/*" element={<StudSubj />} />*/}
           {/*<Route path="/archsubj/*" element={<ArchSubj />} />*/}
         </Routes>
+        </div>
+        </div>
       </Router>
     </>
   );
