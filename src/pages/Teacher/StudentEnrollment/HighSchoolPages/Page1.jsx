@@ -1,125 +1,403 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
+import { useForm } from "react-hook-form";
+import { Paperclip, Save, ArrowRight, ArrowLeft } from "lucide-react";
 
-export default function Page1() {
+export default function EnrollmentForm() {
+    const [step, setStep] = useState(1); // 1 for Student Information, 2 for Parent/Guardian
+    const [photoPreview, setPhotoPreview] = useState(null);
+
+    // Initialize React Hook Form with your exact default values + new address fields
+    const { register, handleSubmit, watch, setValue } = useForm({
+        defaultValues: {
+            grade_level: "",
+            lastname: "",
+            firstname: "",
+            middlename: "",
+            ext: "",
+            age: "",
+            birthdate: "",
+            place_of_birth: "",
+            civil_status: "Single",
+            gender: "",
+            mother_tongue: "",
+            religion: "",
+            weight: "",
+            height: "",
+            is_ip_community: false,
+            contact_number: "",
+            email_address: "",
+            curr_house_no: "",
+            curr_street: "",
+            curr_barangay: "",
+            curr_municipality: "",
+            curr_province: "",
+            is_permanent_same: false,
+            perm_house_no: "",
+            perm_street: "",
+            perm_barangay: "",
+            perm_municipality: "",
+            perm_province: "",
+            // Page 2 fields
+            father_last_name: "", father_first_name: "", father_middle_name: "", father_ext: "",
+            father_contact: "", father_occupation: "",
+            f_house_no: "", f_street: "", f_barangay: "", f_municipality: "", f_province: "",
+            mother_lastname: "", mother_first_name: "", mother_middle_name: "", mother_ext: "",
+            mother_contact: "", mother_occupation: "",
+            m_house_no: "", m_street: "", m_barangay: "", m_municipality: "", m_province: "",
+            guardian_last_name: "", guardian_first_name: "", guardian_middle_name: "", guardian_ext: "",
+            guardian_contact: "", guardian_relationship: "",
+            g_house_no: "", g_street: "", g_barangay: "", g_municipality: "", g_province: "",
+
+            //page 3
+            elschool_attended: "",
+            school_year: "",
+            is_transferee: false,
+            schorecipient: false,
+        }
+    });
+
+    // Watchers for Address Syncing
+    const isPermanentSame = watch("is_permanent_same");
+    const currhouseno = watch("curr_house_no")
+    const currStreet = watch("curr_street");
+    const currBarangay = watch("curr_barangay");
+    const currMunicipality = watch("curr_municipality");
+    const currProvince = watch("curr_province");
+    const photoFile = watch("photo");
+
+    // Effect to sync address
+    useEffect(() => {
+        if (isPermanentSame) {
+            setValue("perm_house_no", currhouseno);
+            setValue("perm_street", currStreet);
+            setValue("perm_barangay", currBarangay);
+            setValue("perm_municipality", currMunicipality);
+            setValue("perm_province", currProvince);
+        }
+    }, [isPermanentSame, currStreet, currBarangay, currMunicipality, currProvince, setValue]);
+
+    // Handle Photo Preview
+    useEffect(() => {
+        if (photoFile && photoFile[0]) {
+            setPhotoPreview(URL.createObjectURL(photoFile[0]));
+        }
+    }, [photoFile]);
+
+    // Submission Logic
+    const onSubmit = async (data) => {
+        const formData = new FormData();
+        
+        // Append all text/checkbox fields
+        Object.keys(data).forEach(key => {
+            if (key !== "photo") formData.append(key, data[key]);
+        });
+
+        // Append the actual file
+        if (data.photo && data.photo[0]) {
+            formData.append("photo", data.photo[0]);
+        }
+
+        try {
+            const token = localStorage.getItem("token");
+            const response = await fetch("http://127.0.0.1:5000/Highstudents", {
+                method: "POST",
+                headers: { "Authorization": `Bearer ${token}` },
+                body: formData, 
+            });
+
+            if (response.status === 401) {
+                alert("Session expired. Please log in again.");
+                localStorage.removeItem("token");
+                window.location.href = "/";
+                return;
+            }
+
+            if (response.ok) {
+                alert("Student Record Saved Successfully!");
+            } else {
+                const err = await response.json();
+                alert("Error: " + err.error);
+            }
+        } catch (error) {
+            alert("Server connection failed.");
+        }
+    };
+
     return (
-        <>
-        <div className="pt-9 pl-12 flex gap-5">
-                    <p className="text-[#630000] font-['Inter'] text-[25px] font-semibold">Grade Level:</p>
-                    <input type="text" className="border text-[12px] w-20 h-9 p-3 rounded-[5px] font-['Inter']" required />
-                </div>
+        <form onSubmit={handleSubmit(onSubmit)} className="relative min-h-screen bg-white pb-20 font-['Inter']">
+            
+            {/* --- PAGE 1: STUDENT INFORMATION --- */}
+            {step === 1 && (
+                <>
+                    {/* Hidden Photo Input */}
+                    <input type="file" id="p-input" className="hidden" {...register("photo")} accept="image/*" />
 
-                <div className="pt-10 pl-12">
-                    <p className="text-[#630000] font-['Inter'] text-[25px] font-semibold">Student Information</p>
-                </div>
+                    {/* Attachment Button & Preview */}
+                    <div className="absolute top-9 right-12 flex flex-col items-center gap-1">
+                        <div className="w-24 h-24 mb-2 bg-[#EDEBDD] rounded-full border-2 border-[#630000] flex items-center justify-center overflow-hidden">
+                            {photoPreview ? <img src={photoPreview} className="w-full h-full object-cover" alt="Preview" /> : <span className="text-[10px] text-gray-400">No Photo</span>}
+                        </div>
+                        <label htmlFor="p-input" className="p-3 bg-[#630000] text-white rounded-full cursor-pointer hover:bg-red-900 transition-colors shadow-md">
+                            <Paperclip size={24} />
+                        </label>
+                        <span className="text-[10px] text-[#630000] font-bold">ATTACH PHOTO</span>
+                    </div>
 
-                <div className="bg-[#EDEBDD] w-370 h-50 ml-12 rounded-2xl">
-                    <div className="flex gap-5">
-                        <p className="text-[#1B1717] text-[14px] pt-9 pl-12">Student Name:</p>
-                        <div className="pt-6.5 flex gap-5">
-                            <input type="text" className="border text-[12px] w-50 h-10 p-3 rounded-[5px] font-['Inter']" placeholder="Last Name" required />
-                            <input type="text" className="border text-[12px] w-50 h-10 p-3 rounded-[5px] font-['Inter']" placeholder="First Name" required />
-                            <input type="text" className="border text-[12px] w-50 h-10 p-3 rounded-[5px] font-['Inter']" placeholder="Middle Name" required />
+                    <div className="pt-9 pl-12 flex gap-5 items-center">
+                        <p className="text-[#630000] text-[25px] font-semibold">Grade Level:</p>
+                        <input {...register("grade_level")} type="text" className="border text-[12px] w-20 h-9 p-3 rounded-[5px]" required />
+                    </div>
+
+                    <div className="pt-10 pl-12">
+                        <p className="text-[#630000] text-[25px] font-semibold">Student Information</p>
+                    </div>
+
+                    {/* Student Info Box */}
+                    <div className="bg-[#EDEBDD] w-275 p-8 ml-12 rounded-2xl flex flex-col gap-6">
+                        <div className="flex gap-5 items-center">
+                            <p className="text-[#1B1717] text-[14px]">Student Name:</p>
+                            <input {...register("lastname")} type="text" className="border text-[12px] w-50 h-10 p-3 rounded-[5px]" placeholder="Last Name" required />
+                            <input {...register("firstname")} type="text" className="border text-[12px] w-50 h-10 p-3 rounded-[5px]" placeholder="First Name" required />
+                            <input {...register("middlename")} type="text" className="border text-[12px] w-50 h-10 p-3 rounded-[5px]" placeholder="Middle Name" />
+                            <p className="text-[#1B1717] text-[14px]">Ext.</p>
+                            <input {...register("ext")} type="text" className="border text-[12px] w-20 h-10 p-3 rounded-[5px]" placeholder="Jr/Sr" />
+                            <p className="text-[#1B1717] text-[14px]">Age:</p>
+                            <input {...register("age")} type="number" className="border text-[12px] w-20 h-10 p-3 rounded-[5px]" placeholder="Age" required />
                         </div>
-                        <p className="text-[#1B1717] text-[14px] pt-9 pl-7">Ext.</p>
-                        <div className="pt-6.5">
-                            <input type="text" className="border text-[12px] w-50 h-10 p-3 rounded-[5px] font-['Inter']" placeholder="Last Name" required />
+
+                        <div className="flex gap-5 items-center">
+                            <p className="text-[#1B1717] text-[14px]">Birth Date:</p>
+                            <input {...register("birthdate")} type="date" className="border text-[12px] w-50 h-10 p-3 rounded-[5px]" required />
+                            <p className="text-[#1B1717] text-[14px]">Place of Birth</p>
+                            <input {...register("place_of_birth")} type="text" className="border text-[12px] w-50 h-10 p-3 rounded-[5px]" placeholder="City/Province" required />
+                            <p className="text-[#1B1717] text-[14px]">Civil Status</p>
+                            <select {...register("civil_status")} className="border text-[12px] w-40 h-10 p-2 rounded-[5px]">
+                                <option value="Single">Single</option>
+                                <option value="Married">Married</option>
+                            </select>
+                            <p className="text-[#1B1717] text-[14px]">Gender</p>
+                            <select {...register("gender")} className="border text-[12px] w-40 h-10 p-2 rounded-[5px]" required>
+                                <option value="">Select</option>
+                                <option value="Male">Male</option>
+                                <option value="Female">Female</option>
+                            </select>
                         </div>
-                        <p className="text-[#1B1717] text-[14px] pt-9 pl-7">Age:</p>
-                        <div className="pt-6.5">
-                            <input type="text" className="border text-[12px] w-50 h-10 p-3 rounded-[5px] font-['Inter']" placeholder="Last Name" required />
+
+                        <div className="flex gap-5 items-center">
+                            <p className="text-[#1B1717] text-[14px]">Mother Tongue</p>
+                            <input {...register("mother_tongue")} type="text" className="border text-[12px] w-40 h-10 p-3 rounded-[5px]" placeholder="Language" />
+                            <p className="text-[#1B1717] text-[14px]">Religion</p>
+                            <input {...register("religion")} type="text" className="border text-[12px] w-40 h-10 p-3 rounded-[5px]" placeholder="Religion" />
+                            <p className="text-[#1B1717] text-[14px]">Weight</p>
+                            <input {...register("weight")} type="number" step="0.1" className="border text-[12px] w-24 h-10 p-3 rounded-[5px]" placeholder="kg" />
+                            <p className="text-[#1B1717] text-[14px]">Height</p>
+                            <input {...register("height")} type="number" step="0.1" className="border text-[12px] w-24 h-10 p-3 rounded-[5px]" placeholder="cm" />
                         </div>
                     </div>
 
-                    <div className="flex gap-5">
-                        <p className="text-[#1B1717] text-[14px] pt-7 pl-12">Birth Date:</p>
-                        <div className="pt-4">
-                            <input type="text" className="border text-[12px] w-50 h-10 p-3 rounded-[5px] font-['Inter']" placeholder="Last Name" required />
+                    <div className="flex items-center gap-5 pl-16 mt-4">
+                        <p className='text-[#1B1717] text-[14px]'>Indigenous Peoples (IP) Community? <span className="text-[#630000]">(Check if yes)</span></p>
+                        <input {...register("is_ip_community")} type="checkbox" className="w-5 h-5 accent-[#630000]" />
+                    </div>
+
+                    <div className="pt-5 pl-12">
+                        <p className="text-[#630000] text-[25px] font-semibold">Contact Information</p>
+                    </div>
+
+                    <div className="bg-[#EDEBDD] w-275 p-8 ml-12 rounded-2xl flex flex-col gap-6">
+                        <div className="flex gap-5 items-center">
+                            <p className="text-[#1B1717] text-[14px]">Contact Number</p>
+                            <input {...register("contact_number")} type="text" className="border text-[12px] w-64 h-10 p-3 rounded-[5px]" placeholder="09XXXXXXXXX" required />
+                            <p className="text-[#1B1717] text-[14px]">Email Address</p>
+                            <input {...register("email_address")} type="email" className="border text-[12px] w-64 h-10 p-3 rounded-[5px]" placeholder="email@example.com" />
                         </div>
-                        <p className="text-[#1B1717] text-[14px] pt-7 pl-7">Place of Birth</p>
-                        <div className="pt-4">
-                            <input type="text" className="border text-[12px] w-50 h-10 p-3 rounded-[5px] font-['Inter']" placeholder="Last Name" required />
-                        </div>
-                        <p className="text-[#1B1717] text-[14px] pt-7 pl-7">Civil Status</p>
-                        <div className="pt-4">
-                            <input type="text" className="border text-[12px] w-50 h-10 p-3 rounded-[5px] font-['Inter']" placeholder="Last Name" required />
-                        </div>
-                        <p className="text-[#1B1717] text-[14px] pt-7 pl-7">Gender</p>
-                        <div className="pt-4">
-                            <input type="text" className="border text-[12px] w-50 h-10 p-3 rounded-[5px] font-['Inter']" placeholder="Last Name" required />
+
+                        <div className="flex gap-4 items-center">
+                            <p className="text-[#1B1717] text-[14px] w-32">Current Address</p>
+                            <input {...register("curr_house_no")} type="text" className="border text-[12px] flex-1 h-10 p-3 rounded-[5px]" placeholder="HouseNo" />
+                            <input {...register("curr_street")} type="text" className="border text-[12px] flex-1 h-10 p-3 rounded-[5px]" placeholder="Street" required />
+                            <input {...register("curr_barangay")} type="text" className="border text-[12px] flex-1 h-10 p-3 rounded-[5px]" placeholder="Barangay" required />
+                            <input {...register("curr_municipality")} type="text" className="border text-[12px] flex-1 h-10 p-3 rounded-[5px]" placeholder="City/Municipality" required />
+                            <input {...register("curr_province")} type="text" className="border text-[12px] flex-1 h-10 p-3 rounded-[5px]" placeholder="Province" required />
                         </div>
                     </div>
 
-                    <div className="flex gap-5">
-                        <p className="text-[#1B1717] text-[14px] pt-7 pl-12">Mother Tounge</p>
-                        <div className="pt-4">
-                            <input type="text" className="border text-[12px] w-50 h-10 p-3 rounded-[5px] font-['Inter']" placeholder="Last Name" required />
-                        </div>
-                        <p className="text-[#1B1717] text-[14px] pt-7 pl-7">Religion</p>
-                        <div className="pt-4">
-                            <input type="text" className="border text-[12px] w-50 h-10 p-3 rounded-[5px] font-['Inter']" placeholder="Last Name" required />
-                        </div>
-                        <p className="text-[#1B1717] text-[14px] pt-7 pl-7">Weight</p>
-                        <div className="pt-4">
-                            <input type="text" className="border text-[12px] w-50 h-10 p-3 rounded-[5px] font-['Inter']" placeholder="Last Name" required />
-                        </div>
-                        <p className="text-[#1B1717] text-[14px] pt-7 pl-7">Height</p>
-                        <div className="pt-4">
-                            <input type="text" className="border text-[12px] w-50 h-10 p-3 rounded-[5px] font-['Inter']" placeholder="Last Name" required />
-                        </div>
-                    </div>
-                </div>
-
-                <div className="flex gap-5 pl-16">
-                    <p className='text-[#1B1717] text-[14px] pt-5 pl-7'>Belonging to any Indigenous Peoples (IP) Community/Indigenous Cultural Community? <span className="text-[#630000]">(✓) if yes</span></p>
-                    <div className='pt-5'>
-                        <input id="default-checkbox" type="checkbox" value="" class="w-4 h-4 mr-3 border border-default-medium rounded-xs bg-neutral-secondary-medium focus:ring-2 focus:ring-brand-soft"></input>
-                    </div>
-                </div>
-
-                <div className="pt-5 pl-12">
-                    <p className="text-[#630000] font-['Inter'] text-[25px] font-semibold">Contact Information</p>
-                </div>
-
-                <div className="bg-[#EDEBDD] w-370 h-36 ml-12 rounded-2xl">
-                    <div className="flex gap-5">
-                        <p className="text-[#1B1717] text-[14px] pt-9 pl-12">Contact Number</p>
-                        <div className="pt-6.5 flex gap-5">
-                            <input type="text" className="border text-[12px] w-50 h-10 p-3 rounded-[5px] font-['Inter']" placeholder="Last Name" required />
-                        </div>
-                        <p className="text-[#1B1717] text-[14px] pt-9 pl-7">Email Address</p>
-                        <div className="pt-6.5">
-                            <input type="text" className="border text-[12px] w-50 h-10 p-3 rounded-[5px] font-['Inter']" placeholder="Last Name" required />
-                        </div>
+                    <div className="flex items-center gap-5 pl-16 mt-4">
+                        <p className='text-[#1B1717] text-[14px]'>Same as permanent address? <span className="text-[#630000]">(Check if yes)</span></p>
+                        <input {...register("is_permanent_same")} type="checkbox" className="w-5 h-5 accent-[#630000]" />
                     </div>
 
-                    <div className="flex gap-5">
-                        <p className="text-[#1B1717] text-[14px] pt-7 pl-12">Current Address</p>
-                            <input type="text" className="border text-[12px] w-50 h-10 p-3 mt-4 rounded-[5px] font-['Inter']" placeholder="Last Name" required />
-                            <input type="text" className="border text-[12px] w-50 h-10 p-3 mt-4 rounded-[5px] font-['Inter']" placeholder="Last Name" required />
-                            <input type="text" className="border text-[12px] w-50 h-10 p-3 mt-4 rounded-[5px] font-['Inter']" placeholder="Last Name" required />
-                            <input type="text" className="border text-[12px] w-50 h-10 p-3 mt-4 rounded-[5px] font-['Inter']" placeholder="Last Name" required />
-                            <input type="text" className="border text-[12px] w-50 h-10 p-3 mt-4 rounded-[5px] font-['Inter']" placeholder="Last Name" required />
-                    </div>
-                </div>
+                    {!isPermanentSame && (
+                        <div className="bg-[#EDEBDD] w-275 p-8 ml-12 rounded-2xl mt-5 flex gap-4 items-center">     
+                            <p className="text-[#1B1717] text-[14px] w-32">Permanent Address</p>
+                            <input {...register("perm_house_no")} type="text" className="border text-[12px] flex-1 h-10 p-3 rounded-[5px]" placeholder="HouseNo" />
+                            <input {...register("perm_street")} type="text" className="border text-[12px] flex-1 h-10 p-3 rounded-[5px]" placeholder="Street" required />
+                            <input {...register("perm_barangay")} type="text" className="border text-[12px] flex-1 h-10 p-3 rounded-[5px]" placeholder="Barangay" required />
+                            <input {...register("perm_municipality")} type="text" className="border text-[12px] flex-1 h-10 p-3 rounded-[5px]" placeholder="City" required />
+                            <input {...register("perm_province")} type="text" className="border text-[12px] flex-1 h-10 p-3 rounded-[5px]" placeholder="Province" required />
+                        </div>
+                    )}
 
-                <div className="flex gap-5 pl-16">
-                    <p className='text-[#1B1717] text-[14px] pt-5 pl-7'>Current address is the same as permanent address? <span className="text-[#630000]">(✓) if yes</span></p>
-                    <div className='pt-5'>
-                        <input id="default-checkbox" type="checkbox" value="" class="w-4 h-4 mr-3 border border-default-medium rounded-xs bg-neutral-secondary-medium focus:ring-2 focus:ring-brand-soft"></input>
+                    <div className="mt-10 ml-12">
+                        <button 
+                            type="button" 
+                            onClick={() => setStep(2)} 
+                            className="flex items-center gap-2 px-10 py-4 bg-[#630000] text-white rounded-xl font-bold hover:bg-red-800 shadow-lg transition-all"
+                        >
+                            <ArrowRight size={20} />
+                            NEXT: PARENT INFORMATION
+                        </button>
                     </div>
-                </div>
-
-                <div className="bg-[#EDEBDD] w-370 h-22 ml-12 rounded-2xl mt-5">     
-
-                    <div className="flex gap-5">
-                        <p className="text-[#1B1717] text-[14px] pt-9 pl-12">Current Address</p>
-                            <input type="text" className="border text-[12px] w-50 h-10 p-3 mt-7 rounded-[5px] font-['Inter']" placeholder="Last Name" required />
-                            <input type="text" className="border text-[12px] w-50 h-10 p-3 mt-7 rounded-[5px] font-['Inter']" placeholder="Last Name" required />
-                            <input type="text" className="border text-[12px] w-50 h-10 p-3 mt-7 rounded-[5px] font-['Inter']" placeholder="Last Name" required />
-                            <input type="text" className="border text-[12px] w-50 h-10 p-3 mt-7 rounded-[5px] font-['Inter']" placeholder="Last Name" required />
-                            <input type="text" className="border text-[12px] w-50 h-10 p-3 mt-7 rounded-[5px] font-['Inter']" placeholder="Last Name" required />
-                    </div>
-                </div>
                 </>
-    )
+            )}
+            {step === 2 && (
+                <>
+                    {/* Hidden Photo Input */}
+                    <div className="pt-10 pl-12">
+                        <p className="text-[#630000] text-[25px] font-semibold">Parent/Guardian Information</p>
+                    </div>
+
+                    {/* Father Section */}
+                    <div className="bg-[#EDEBDD] w-275 p-8 ml-12 rounded-2xl flex flex-col gap-6 mt-5">
+                        <div className="flex gap-5 items-center">
+                            <p className="text-[#1B1717] text-[14px] w-32">Father's Name</p>
+                            <input {...register("father_last_name")} type="text" className="border text-[12px] w-50 h-10 p-3 rounded-[5px]" placeholder="Last Name" required />
+                            <input {...register("father_first_name")} type="text" className="border text-[12px] w-50 h-10 p-3 rounded-[5px]" placeholder="First Name" required />
+                            <input {...register("father_middle_name")} type="text" className="border text-[12px] w-50 h-10 p-3 rounded-[5px]" placeholder="Middle Name" />
+                            <p className="text-[#1B1717] text-[14px]">Ext.</p>
+                            <input {...register("father_ext")} type="text" className="border text-[12px] w-20 h-10 p-3 rounded-[5px]" placeholder="Jr/Sr" />
+                        </div>
+                        <div className="flex gap-5 items-center">
+                            <p className="text-[#1B1717] text-[14px] w-32">Contact Number</p>
+                            <input {...register("father_contact")} type="text" className="border text-[12px] w-50 h-10 p-3 rounded-[5px]" placeholder="Contact #" required />
+                            <p className="text-[#1B1717] text-[14px]">Occupation</p>
+                            <input {...register("father_occupation")} type="text" className="border text-[12px] w-50 h-10 p-3 rounded-[5px]" placeholder="Occupation" required />
+                        </div>
+                        {/* Father's Address */}
+                        <div className="flex gap-4 items-center">
+                            <p className="text-[#1B1717] text-[14px] w-32">Father's Address</p>
+                            <input {...register("f_house_no")} type="text" className="border text-[12px] flex-1 h-10 p-3 rounded-[5px]" placeholder="HouseNo" />
+                            <input {...register("f_street")} type="text" className="border text-[12px] flex-1 h-10 p-3 rounded-[5px]" placeholder="Street" />
+                            <input {...register("f_barangay")} type="text" className="border text-[12px] flex-1 h-10 p-3 rounded-[5px]" placeholder="Barangay" />
+                            <input {...register("f_municipality")} type="text" className="border text-[12px] flex-1 h-10 p-3 rounded-[5px]" placeholder="City" />
+                            <input {...register("f_province")} type="text" className="border text-[12px] flex-1 h-10 p-3 rounded-[5px]" placeholder="Province" />
+                        </div>
+                    </div>
+
+                    {/* Mother Section */}
+                    <div className="bg-[#EDEBDD] w-275 p-8 ml-12 rounded-2xl flex flex-col gap-6 mt-5">
+                        <div className="flex gap-5 items-center">
+                            <p className="text-[#1B1717] text-[14px] w-32">Mother's Name</p>
+                            <input {...register("mother_last_name")} type="text" className="border text-[12px] w-50 h-10 p-3 rounded-[5px]" placeholder="Last Name" required />
+                            <input {...register("mother_first_name")} type="text" className="border text-[12px] w-50 h-10 p-3 rounded-[5px]" placeholder="First Name" required />
+                            <input {...register("mother_middle_name")} type="text" className="border text-[12px] w-50 h-10 p-3 rounded-[5px]" placeholder="Middle Name" />
+                            <p className="text-[#1B1717] text-[14px]">Ext.</p>
+                            <input {...register("mother_ext")} type="text" className="border text-[12px] w-20 h-10 p-3 rounded-[5px]" placeholder="Jr/Sr" />
+                        </div>
+                        <div className="flex gap-5 items-center">
+                            <p className="text-[#1B1717] text-[14px] w-32">Contact Number</p>
+                            <input {...register("mother_contact")} type="text" className="border text-[12px] w-50 h-10 p-3 rounded-[5px]" placeholder="Contact #" required />
+                            <p className="text-[#1B1717] text-[14px]">Occupation</p>
+                            <input {...register("mother_occupation")} type="text" className="border text-[12px] w-50 h-10 p-3 rounded-[5px]" placeholder="Occupation" required />
+                        </div>
+                        {/* Mother's Address */}
+                        <div className="flex gap-4 items-center">
+                            <p className="text-[#1B1717] text-[14px] w-32">Mother's Address</p>
+                            <input {...register("m_house_no")} type="text" className="border text-[12px] flex-1 h-10 p-3 rounded-[5px]" placeholder="HouseNo" />
+                            <input {...register("m_street")} type="text" className="border text-[12px] flex-1 h-10 p-3 rounded-[5px]" placeholder="Street" />
+                            <input {...register("m_barangay")} type="text" className="border text-[12px] flex-1 h-10 p-3 rounded-[5px]" placeholder="Barangay" />
+                            <input {...register("m_municipality")} type="text" className="border text-[12px] flex-1 h-10 p-3 rounded-[5px]" placeholder="City" />
+                            <input {...register("m_province")} type="text" className="border text-[12px] flex-1 h-10 p-3 rounded-[5px]" placeholder="Province" />
+                        </div>
+                    </div>
+
+                    {/* Guardian Section */}
+                    <div className="bg-[#EDEBDD] w-275 p-8 ml-12 rounded-2xl flex flex-col gap-6 mt-5">
+                        <div className="flex gap-5 items-center">
+                            <p className="text-[#1B1717] text-[14px] w-32">Guardian's Name</p>
+                            <input {...register("guardian_last_name")} type="text" className="border text-[12px] w-50 h-10 p-3 rounded-[5px]" placeholder="Last Name" required />
+                            <input {...register("guardian_first_name")} type="text" className="border text-[12px] w-50 h-10 p-3 rounded-[5px]" placeholder="First Name" required />
+                            <input {...register("guardian_middle_name")} type="text" className="border text-[12px] w-50 h-10 p-3 rounded-[5px]" placeholder="Middle Name" />
+                            <p className="text-[#1B1717] text-[14px]">Ext.</p>
+                            <input {...register("guardian_ext")} type="text" className="border text-[12px] w-20 h-10 p-3 rounded-[5px]" />
+                        </div>
+                        <div className="flex gap-5 items-center">
+                            <p className="text-[#1B1717] text-[14px] w-32">Contact Number</p>
+                            <input {...register("guardian_contact")} type="text" className="border text-[12px] w-50 h-10 p-3 rounded-[5px]" placeholder="Contact #" required />
+                            <p className="text-[#1B1717] text-[14px]">Relationship</p>
+                            <input {...register("guardian_relationship")} type="text" className="border text-[12px] w-50 h-10 p-3 rounded-[5px]" placeholder="Relationship" required />
+                        </div>
+                        {/* Guardian's Address */}
+                        <div className="flex gap-4 items-center">
+                            <p className="text-[#1B1717] text-[14px] w-32">Guardian Address</p>
+                            <input {...register("g_house_no")} type="text" className="border text-[12px] flex-1 h-10 p-3 rounded-[5px]" placeholder="HouseNo" />
+                            <input {...register("g_street")} type="text" className="border text-[12px] flex-1 h-10 p-3 rounded-[5px]" placeholder="Street" />
+                            <input {...register("g_barangay")} type="text" className="border text-[12px] flex-1 h-10 p-3 rounded-[5px]" placeholder="Barangay" />
+                            <input {...register("g_municipality")} type="text" className="border text-[12px] flex-1 h-10 p-3 rounded-[5px]" placeholder="City" />
+                            <input {...register("g_province")} type="text" className="border text-[12px] flex-1 h-10 p-3 rounded-[5px]" placeholder="Province" />
+                        </div>
+                    </div>
+
+                    <div className="flex mt-10 ml-12 gap-3">
+                        <button 
+                            type="button" 
+                            onClick={() => setStep(1)} 
+                            className="flex items-center gap-2 px-8 py-4 bg-gray-500 text-white rounded-xl font-bold hover:bg-gray-600 transition-all shadow-md"
+                        >
+                            <ArrowLeft size={20} />
+                            BACK
+                        </button>
+                        <button 
+                            type="button" 
+                            onClick={() => setStep(3)} 
+                            className="flex items-center gap-2 px-10 py-4 bg-[#630000] text-white rounded-xl font-bold hover:bg-red-800 shadow-lg transition-all"
+                        >
+                            <ArrowRight size={20} />
+                            NEXT
+                        </button>
+                    </div>
+                </>
+            )}
+
+            {/* --- PAGE 2: PARENT INFORMATION --- */}
+            {step === 3 && (
+                <>
+                    <div className="bg-[#EDEBDD] w-275 p-8 ml-12 rounded-2xl flex flex-row gap-6 mt-5">
+                            <p className="text-[#1B1717] text-[14px] w-32">Elementary School Attended</p>
+                            <input {...register("elschool_attended")} type="text" className="border text-[12px] w-50 h-10 p-3 rounded-[5px]" placeholder="School" required />
+                            <p className="text-[#1B1717] text-[14px]">School Year</p>
+                            <input {...register("school_year")} type="text" className="border text-[12px] w-50 h-10 p-3 rounded-[5px]" placeholder="Year" required />
+                    </div>
+
+                    <div className="flex gap-5 pl-16 mt-6">
+                        <p className='text-[#1B1717] text-[14px]'>Is this student a transferee? <span className="text-[#630000]">(✓) if yes</span></p>
+                        <input {...register("is_transferee")} type="checkbox" className="w-5 h-5 accent-[#630000]" />
+                    </div>
+
+                    <div className="flex gap-5 pl-16 mt-6">
+                        <p className='text-[#1B1717] text-[14px]'>Is this student a scholarship recipient? <span className="text-[#630000]">(✓) if yes</span></p>
+                        <input {...register("schorecipient")} type="checkbox" className="w-5 h-5 accent-[#630000]" />
+                    </div>
+ 
+                    <div className="mt-10 ml-12 flex gap-4">
+                        <button 
+                            type="button" 
+                            onClick={() => setStep(2)} 
+                            className="flex items-center gap-2 px-8 py-4 bg-gray-500 text-white rounded-xl font-bold hover:bg-gray-600 transition-all shadow-md"
+                        >
+                            <ArrowLeft size={20} />
+                            BACK
+                        </button>
+                        <button 
+                            type="submit" 
+                            className="flex items-center gap-2 px-10 py-4 bg-[#630000] text-white rounded-xl font-bold hover:bg-red-800 transition-all shadow-lg active:scale-95"
+                        >
+                            <Save size={20} />
+                            ENROLL & SAVE RECORD
+                        </button>
+                    </div>
+                </>
+            )}
+        </form>
+    );
 }
