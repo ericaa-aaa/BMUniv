@@ -35,10 +35,7 @@ export default function ArchivedSubjects() {
 
           <tbody>
             {archived.map((item, index) => (
-              <tr
-                key={index}
-                className="text-center border-b border-gray-200"
-              >
+              <tr key={index} className="text-center border-b border-gray-200">
                 <td className="py-5">{item.subject}</td>
                 <td>{item.teacher}</td>
                 <td>{item.schoolYear}</td>

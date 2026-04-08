@@ -52,13 +52,11 @@ export default function StudentDashboard() {
 
             {showMenu && (
               <div className="absolute right-0 mt-2 w-48 bg-white rounded-xl shadow-lg border overflow-hidden">
-                <button
-                  onClick={() => {
+                <button onClick={() => {
                     setShowPasswordModal(true);
                     setShowMenu(false);
                   }}
-                  className="w-full text-left px-4 py-3 hover:bg-gray-100"
-                >
+                  className="w-full text-left px-4 py-3 hover:bg-gray-100">
                   Update Password
                 </button>
               </div>
@@ -69,11 +67,7 @@ export default function StudentDashboard() {
           <div className="relative grid grid-cols-2 items-center h-full px-8">
             {/* Left */}
             <div className="flex items-center gap-4">
-              <img
-                src={Profile}
-                alt="profile"
-                className="w-16 h-16 rounded-full object-cover"
-              />
+              <img src={Profile} alt="profile"className="w-16 h-16 rounded-full object-cover"/>
               <p className="text-[#1B1717] font-medium text-xl">
                 Dela Cruz, Llyne Say
               </p>
@@ -110,8 +104,7 @@ export default function StudentDashboard() {
           <div className="bg-white w-full max-w-md rounded-2xl shadow-xl p-6 relative">
             <button
               onClick={() => setShowPasswordModal(false)}
-              className="absolute top-4 right-4"
-            >
+              className="absolute top-4 right-4">
               <IoClose size={24} />
             </button>
 
@@ -120,34 +113,16 @@ export default function StudentDashboard() {
             </h2>
 
             <form onSubmit={handlePasswordUpdate} className="space-y-4">
-              <input
-                type="password"
-                name="currentPassword"
-                placeholder="Current Password"
-                onChange={handleChange}
-                className="w-full border rounded-lg px-4 py-3 outline-none focus:ring-2 focus:ring-[#7A1C1C]"
-              />
+              <input type="password" name="currentPassword" placeholder="Current Password" onChange={handleChange}
+                className="w-full border rounded-lg px-4 py-3 outline-none focus:ring-2 focus:ring-[#7A1C1C]"/>
 
-              <input
-                type="password"
-                name="newPassword"
-                placeholder="New Password"
-                onChange={handleChange}
-                className="w-full border rounded-lg px-4 py-3 outline-none focus:ring-2 focus:ring-[#7A1C1C]"
-              />
+              <input type="password" name="newPassword" placeholder="New Password" onChange={handleChange}
+                className="w-full border rounded-lg px-4 py-3 outline-none focus:ring-2 focus:ring-[#7A1C1C]"/>
 
-              <input
-                type="password"
-                name="confirmPassword"
-                placeholder="Confirm Password"
-                onChange={handleChange}
-                className="w-full border rounded-lg px-4 py-3 outline-none focus:ring-2 focus:ring-[#7A1C1C]"
-              />
+              <input type="password" name="confirmPassword" placeholder="Confirm Password" onChange={handleChange}
+                className="w-full border rounded-lg px-4 py-3 outline-none focus:ring-2 focus:ring-[#7A1C1C]"/>
 
-              <button
-                type="submit"
-                className="w-full bg-[#7A1C1C] text-white py-3 rounded-lg font-semibold hover:opacity-90"
-              >
+              <button type="submit" className="w-full bg-[#7A1C1C] text-white py-3 rounded-lg font-semibold hover:opacity-90">
                 Save Password
               </button>
             </form>

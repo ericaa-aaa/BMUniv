@@ -47,15 +47,14 @@ export default function StudentSubjects() {
   return (
     <div className="p-8 bg-gray-100 min-h-screen">
       {/* STUDENT INFO CARD */}
-      <div
-        className="rounded-3xl overflow-hidden h-56 shadow-lg relative"
+      <div className="rounded-3xl overflow-hidden h-56 shadow-lg relative"
         style={{
           backgroundImage:
             "url('https://images.unsplash.com/photo-1562774053-701939374585')",
           backgroundSize: "cover",
           backgroundPosition: "center",
-        }}
-      >
+        }}>
+
         <div className="absolute inset-0 bg-white/70 flex items-center justify-between px-10">
           <div className="flex items-center gap-5">
             <div className="w-24 h-24 bg-black rounded-full flex items-center justify-center">
@@ -85,10 +84,7 @@ export default function StudentSubjects() {
 
           <tbody>
             {subjects.map((item, index) => (
-              <tr
-                key={index}
-                className="bg-[#ECE9DF] border-b border-white text-center"
-              >
+              <tr key={index} className="bg-[#ECE9DF] border-b border-white text-center">
                 <td className="py-5">{item.subject}</td>
                 <td>{item.teacher}</td>
                 <td>{item.schedule}</td>
