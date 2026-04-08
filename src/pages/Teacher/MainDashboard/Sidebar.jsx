@@ -119,7 +119,7 @@ function Sidebar() {
                 <span className={`w-3 h-3 rounded-full border-2 ${activeItem === "elemfaculty" 
                   ? "bg-[#1B1717]" 
                   : "hover:bg-[#EDEBDD]"}`}></span>
-                <p className='cursor-pointer hover:underline'>Elementary Faculty</p>
+                <Link to="/elemfaculty" className='cursor-pointer hover:underline'>Elementary Faculty</Link>
               </div>
               <div onClick={() => setActiveItem("elementary")} className={`flex items-center gap-3 cursor-pointer rounded transition`}>
                 <span className={`w-3 h-3 rounded-full border-2 ${activeItem === "hsfaculty" 

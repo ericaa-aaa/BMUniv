@@ -15,6 +15,9 @@ import ArchSubj from './pages/Student/ArchivedSubjects/StudArchSubj.jsx';
 import Settings from "./pages/Student/Settings/StudSettings.jsx";
 import Sidebar from './pages/Teacher/MainDashboard/Sidebar.jsx';
 
+//Faculty imports
+import ElemFaculty from './pages/Teacher/Faculty/ElemFaculty.jsx';
+
 function AppContent() {
   const location = useLocation();
 
@@ -36,6 +39,7 @@ function AppContent() {
           <Route path="/hs" element={<HighSchool/>} />
           <Route path="/shs" element={<SHS/>} />
           <Route path="/rl" element={<RL/>} />
+          <Route path="/elemfaculty" element={<ElemFaculty/>} />
           <Route path="/student/*" element={<StudentDashboard/>} />
           <Route path="/elemrec/*" element={<ElementaryRecords />} />
           <Route path="/jhsrec/*" element={<JHSRecords />} />
