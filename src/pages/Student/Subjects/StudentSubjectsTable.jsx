@@ -14,27 +14,7 @@ export default function StudentSubjects() {
 
     return (
         <div className="flex min-h-screen bg-gray-100">
-            {/*//SideBar
-            <div className="w-67 bg-[#8b0000] text-white flex flex-col justify-between">
-                <div>
-                    <div className="p-6 text-xl font-bold bg-[#7A0000]">Dashboard</div>
-                        <nav className="mt-2">
-                            <button className="w-full text-left px-6 py-3 bg-gray-200 text-black">
-                                Students Subject
-                            </button>
-                            <button className="w-full text-left px-6 py-3 bg-gray-200 text-black">
-                                Archived Subjects
-                            </button>
-                            <button className="w-full text-left px-6 py-3 bg-gray-200 text-black">
-                                Settings
-                            </button>
-                        </nav>
-                </div>
 
-                <button className="px-6 py-4 hover:bg-[#7A0000] flex items-center gap-2">
-                    <FasignOutAlt /> Log Out
-                </button>
-            </div>*/}
             {/*cownteynt*/}
             <div className="flex-1 p-6">
                 <div className="bg-white/70 backdrop-blur rounded p-6">
