@@ -364,7 +364,7 @@ export default function EnrollmentForm() {
                         <input {...register("schorecipient")} type="checkbox" className="w-5 h-5 accent-[#630000]" />
                     </div>
  
-                    <div className="mt-126 ml-12 flex gap-4">
+                    <div className="mt-12 ml-12 flex gap-4">
                         <button 
                             type="button" 
                             onClick={() => setStep(2)} 
