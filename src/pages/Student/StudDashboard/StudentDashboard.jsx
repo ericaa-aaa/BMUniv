@@ -34,14 +34,9 @@ export default function StudentDashboard() {
 
   return (
     <div className="flex h-screen">
-      {/* Main */}
       <div className="flex-1 p-6 space-y-6 bg-[#F5F5F5]">
-        {/* HEADER */}
         <div className="relative rounded-2xl overflow-hidden h-44 shadow-md">
-          {/* Background */}
           <div className="absolute inset-0 bg-[url('/src/assets/images/bg.jpg')] bg-cover bg-center"></div>
-
-          {/* Overlay */}
           <div className="absolute inset-0 bg-white/75"></div>
 
           {/* 3 DOTS */}
@@ -102,15 +97,10 @@ export default function StudentDashboard() {
       {showPasswordModal && (
         <div className="fixed inset-0 bg-black/40 flex items-center justify-center z-50">
           <div className="bg-white w-full max-w-md rounded-2xl shadow-xl p-6 relative">
-            <button
-              onClick={() => setShowPasswordModal(false)}
-              className="absolute top-4 right-4">
-              <IoClose size={24} />
-            </button>
+            <button onClick={() => setShowPasswordModal(false)} className="absolute top-4 right-4">
+              <IoClose size={24} /></button>
 
-            <h2 className="text-2xl font-bold text-[#7A1C1C] mb-6">
-              Update Password
-            </h2>
+            <h2 className="text-2xl font-bold text-[#7A1C1C] mb-6">Update Password</h2>
 
             <form onSubmit={handlePasswordUpdate} className="space-y-4">
               <input type="password" name="currentPassword" placeholder="Current Password" onChange={handleChange}
@@ -123,8 +113,7 @@ export default function StudentDashboard() {
                 className="w-full border rounded-lg px-4 py-3 outline-none focus:ring-2 focus:ring-[#7A1C1C]"/>
 
               <button type="submit" className="w-full bg-[#7A1C1C] text-white py-3 rounded-lg font-semibold hover:opacity-90">
-                Save Password
-              </button>
+                Save Password </button>
             </form>
           </div>
         </div>

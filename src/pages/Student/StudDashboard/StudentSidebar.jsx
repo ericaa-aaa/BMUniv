@@ -4,13 +4,13 @@ import logo from "../../../assets/images/signin4.png";
 import logout from "../../../assets/images/dashboard5.png";
 import students from "../../../assets/images/dashboard1.png";
 import { FaFolderClosed } from "react-icons/fa6";
-import dash from "../../../assets/images/dash.png"
+//import dash from "../../../assets/images/dash.png";
+import { RiDashboardLine } from "react-icons/ri";
 
 export default function StudentSidebar() {
 
   const [openSubjects, setOpenSubjects] = useState(false);
   const [openArchivedSubjects, setOpenArchSubjects]= useState(false);
-// const [activeItem, setActiveItem] = useState("");
 
   return (
     <div className="w-67 bg-[#630000] text-[#EDEBDD] flex flex-col p-6 min-h-screen pr-5">
@@ -24,7 +24,8 @@ export default function StudentSidebar() {
 
         <div>
             <div className="flex items-center gap-5 cursor-pointer hover:bg-[#EDEBDD] p-2 rounded">
-              <img src={dash} alt='students' className='w-7 h-6'></img>
+              {/*<img src={dash} alt='students' className='w-7 h-6'></img>*/}
+              <RiDashboardLine />
               <Link to="/student" className='text-[#EDEBDD] hover:text-[#1B1717]'>Dashboard</Link>
             </div>
         </div>
@@ -32,7 +33,6 @@ export default function StudentSidebar() {
         <div>
           <div onClick={() => setOpenSubjects(!openSubjects)} className='flex items-center gap-3 cursor-pointer hover:bg-[#EDEBDD] p-2 rounded'>
             <div className="flex items-center gap-5 cursor-pointer">
-              {/*<a className='text-[#EDEBDD] hover:text-[#1B1717]'>Student Subjects</a>*/}
               <img src={students} alt="logongstud" className='w-7 h-6'/>
               <Link to="/student/studsubj" className='cursor-pointer hover:text-[#1B1717] hover:underline'>Student Subjects</Link>
             </div>
@@ -42,8 +42,6 @@ export default function StudentSidebar() {
        <div>
          <div onClick={() => setOpenArchSubjects(!openArchivedSubjects)} className='flex items-center gap-3 cursor-pointer hover:bg-[#EDEBDD] p-2 rounded'>
            <div className="flex items-center gap-5 cursor-pointer">
-             {/*<img src={b} alt='students' className='w-7 h-6'></img>
-             <a className='text-[#EDEBDD] hover:text-[#1B1717]'>Archived Subjects</a>*/}
              <FaFolderClosed />
              <Link to="/student/archsubj" className='cursor-pointer hover:text-[#1B1717] hover:underline'>Archived Subjects</Link>
            </div>
