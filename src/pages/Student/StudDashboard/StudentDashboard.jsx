@@ -6,9 +6,6 @@ export default function StudentDashboard() {
   return (
     <div className="flex h-screen">
 
-      {/* Sidebar */}
-      <StudentSidebar />
-
       {/* Main */}
       <div className="flex-1 p-6 space-y-6 bg-[#F5F5F5]">
 
@@ -50,6 +47,9 @@ export default function StudentDashboard() {
         </div>
         {/* TOP PANEL */}
         <div className="bg-[#EDEBDD] h-45 rounded-xl"></div>
+
+         {/* BOTTOM PANEL */}
+        <div className="bg-[#EDEBDD] h-75 rounded-xl p-4 overflow-auto"></div>
 
       </div>
     </div>
