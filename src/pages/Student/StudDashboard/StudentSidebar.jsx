@@ -8,7 +8,6 @@ import { IoSettings } from "react-icons/io5";
 
 export default function StudentSidebar() {
 
-  const [openSettings, setOpenSettings] = useState(false);
   const [openSubjects, setOpenSubjects] = useState(false);
   const [openArchivedSubjects, setOpenArchSubjects]= useState(false);
 // const [activeItem, setActiveItem] = useState("");
@@ -39,17 +38,6 @@ export default function StudentSidebar() {
              <a className='text-[#EDEBDD] hover:text-[#1B1717]'>Archived Subjects</a>*/}
              <FaFolderClosed />
              <Link to="/student/archsubj" className='cursor-pointer hover:text-[#1B1717] hover:underline'>Archived Subjects</Link>
-           </div>
-         </div>
-       </div>
-
-         <div>
-         <div onClick={() => setOpenSettings(!openSettings)} className='flex items-center gap-3 cursor-pointer hover:bg-[#EDEBDD] p-2 rounded'>
-           <div className="flex items-center gap-5 cursor-pointer">
-             {/*<img src={b} alt='students' className='w-7 h-6'></img>
-             <a className='text-[#EDEBDD] hover:text-[#1B1717]'>Settings</a>*/}
-             <IoSettings />
-             <Link to="/student/settings" className='cursor-pointer hover:text-[#1B1717] hover:underline'>Settings</Link>
            </div>
          </div>
        </div>

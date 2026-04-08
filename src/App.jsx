@@ -12,7 +12,6 @@ import SHS from './pages/Teacher/StudentEnrollment/SHS';
 import RL from './pages/Teacher/StudentEnrollment/RL';
 import StudSubj from "./pages/Student/Subjects/StudentSubjectsTable.jsx";
 import ArchSubj from './pages/Student/ArchivedSubjects/StudArchSubj.jsx';
-import Settings from "./pages/Student/Settings/StudSettings.jsx";
 import Sidebar from './pages/Teacher/MainDashboard/Sidebar.jsx';
 import StudentLayout from './pages/Student/StudentLayout.jsx';
 
@@ -49,9 +48,8 @@ function AppContent() {
               <Route index element={<StudentDashboard/>} />
               <Route path="/student/studsubj/*" element={<StudSubj />}/>
               <Route path="/student/archsubj/*" element={<ArchSubj />}/>
-              <Route path="/student/settings/*" element={<Settings />}/>
             </Route>
-            
+
         </Routes>
       </div>
     </div>
