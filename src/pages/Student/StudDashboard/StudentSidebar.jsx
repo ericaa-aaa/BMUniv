@@ -4,7 +4,7 @@ import logo from "../../../assets/images/signin4.png";
 import logout from "../../../assets/images/dashboard5.png";
 import students from "../../../assets/images/dashboard1.png";
 import { FaFolderClosed } from "react-icons/fa6";
-import { IoSettings } from "react-icons/io5";
+import dash from "../../../assets/images/dash.png"
 
 export default function StudentSidebar() {
 
@@ -21,6 +21,14 @@ export default function StudentSidebar() {
       </div>
 
       <nav className="flex flex-col gap-6 font-['Inter'] font-medium">
+
+        <div>
+            <div className="flex items-center gap-5 cursor-pointer hover:bg-[#EDEBDD] p-2 rounded">
+              <img src={dash} alt='students' className='w-7 h-6'></img>
+              <Link to="/student" className='text-[#EDEBDD] hover:text-[#1B1717]'>Dashboard</Link>
+            </div>
+        </div>
+
         <div>
           <div onClick={() => setOpenSubjects(!openSubjects)} className='flex items-center gap-3 cursor-pointer hover:bg-[#EDEBDD] p-2 rounded'>
             <div className="flex items-center gap-5 cursor-pointer">
