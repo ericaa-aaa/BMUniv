@@ -2,7 +2,7 @@ export default function Add({ setShowAdd }) {
   const handleSubmit = (e) => {
     e.preventDefault();
     console.log("Submitted");
-    setShowAdd(false); // Close form after submission
+    setShowAdd(false);
   };
 
   return (

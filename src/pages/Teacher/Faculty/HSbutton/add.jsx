@@ -32,13 +32,13 @@ export default function Add({ setShowAdd }) {
   };
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)} className="relative h-100 font-[Inter]">
+    <form onSubmit={handleSubmit(onSubmit)} className="relative h-100 font-['Inter']">
       
       <div className="pl-12 pt-5">
         <p className="text-[#630000] text-[25px] font-semibold">Teacher's Information</p>
       </div>
 
-    <div className="bg-[#EDEBDD] w-230 py-7 px-4 mx-auto mt-5 rounded-2xl flex flex-col gap-8">
+    <div className="bg-[#EDEBDD] w-351 py-7 px-4 ml-12 mt-5 rounded-2xl flex flex-col gap-8">
         <div className="flex gap-7 items-center ml-7">
             <p className="text-[#1B1717] text-[14px] ml-7 mt-2">Teacher's Name:</p>
             <input {...register("lastname")} type="text" className="border text-[12px] w-30 h-10 p-3 rounded-[5px] bg-white" placeholder="Last Name" required />
@@ -52,12 +52,10 @@ export default function Add({ setShowAdd }) {
             <p className="text-[#1B1717] text-[14px] ml-7">Grade Levels</p>
             <select {...register("gender")} className="border text-[12px] w-30 h-10 p-2 rounded-[5px]" required>
                                 <option value="">Select</option>
-                                <option value="Grade 1">Grade 1</option>
-                                <option value="Grade 2">Grade 2</option>
-                                <option value="Grade 3">Grade 3</option>
-                                <option value="Grade 4">Grade 4</option>
-                                <option value="Grade 5">Grade 5</option>
-                                <option value="Grade 6">Grade 6</option>    
+                                <option value="Grade 7">Grade 7</option>
+                                <option value="Grade 8">Grade 8</option>
+                                <option value="Grade 9">Grade 9</option>
+                                <option value="Grade 10">Grade 10</option>   
                             </select>
             <p className="text-[#1B1717] text-[14px] ml-7">Position</p>
             <input {...register("position")} type="text" className="border text-[12px] w-30 h-10 p-3 rounded-[5px] bg-white" placeholder="Position" required />
@@ -72,29 +70,6 @@ export default function Add({ setShowAdd }) {
         <div>
             <div className="flex items-center gap-5 pl-22 mt-4">
                 <input type="checkbox" className="w-5 h-5 accent-[#630000]" />
-                <p className='text-[#1B1717]'>Language</p>
-            </div>
-            <div className="flex items-center gap-5 pl-22 mt-6">
-                <input type="checkbox" className="w-5 h-5 accent-[#630000]" />
-                <p className='text-[#1B1717]'>Reading and Literary</p>
-            </div>
-            <div className="flex items-center gap-5 pl-22 mt-6">
-                <input type="checkbox" className="w-5 h-5 accent-[#630000]" />
-                <p className='text-[#1B1717]'>Mathematics</p>
-            </div>
-            <div className="flex items-center gap-5 pl-22 mt-6">
-                <input type="checkbox" className="w-5 h-5 accent-[#630000]" />
-                <p className='text-[#1B1717]'>Makabansa</p>
-            </div>
-            <div className="flex items-center gap-5 pl-22 mt-6">
-                <input type="checkbox" className="w-5 h-5 accent-[#630000]" />
-                <p className='text-[#1B1717]'>GMRC</p>
-            </div>
-        </div>
-
-        <div>
-            <div className="flex items-center gap-5 pl-22 mt-4">
-                <input type="checkbox" className="w-5 h-5 accent-[#630000]" />
                 <p className='text-[#1B1717]'>Filipino</p>
             </div>
             <div className="flex items-center gap-5 pl-22 mt-6">
@@ -105,28 +80,27 @@ export default function Add({ setShowAdd }) {
                 <input type="checkbox" className="w-5 h-5 accent-[#630000]" />
                 <p className='text-[#1B1717]'>Science</p>
             </div>
-            <div className="flex items-center gap-5 pl-22 mt-6">
+        </div>
+
+        <div>
+            <div className="flex items-center gap-5 pl-22 mt-4">
                 <input type="checkbox" className="w-5 h-5 accent-[#630000]" />
-                <p className='text-[#1B1717]'>Araling Panlipunan</p>
+                <p className='text-[#1B1717]'>Mathematics</p>
             </div>
             <div className="flex items-center gap-5 pl-22 mt-6">
                 <input type="checkbox" className="w-5 h-5 accent-[#630000]" />
                 <p className='text-[#1B1717]'>MAPEH</p>
+            </div>
+            <div className="flex items-center gap-5 pl-22 mt-6">
+                <input type="checkbox" className="w-5 h-5 accent-[#630000]" />
+                <p className='text-[#1B1717]'>Araling Panlipunan</p>
             </div>
         </div>
 
         <div>
             <div className="flex items-center gap-5 pl-22 mt-4">
                 <input type="checkbox" className="w-5 h-5 accent-[#630000]" />
-                <p className='text-[#1B1717]'>EPP</p>
-            </div>
-            <div className="flex items-center gap-5 pl-22 mt-6">
-                <input type="checkbox" className="w-5 h-5 accent-[#630000]" />
-                <p className='text-[#1B1717]'>English</p>
-            </div>
-            <div className="flex items-center gap-5 pl-22 mt-6">
-                <input type="checkbox" className="w-5 h-5 accent-[#630000]" />
-                <p className='text-[#1B1717]'>Science</p>
+                <p className='text-[#1B1717]'>Values ED</p>
             </div>
             <div className="flex items-center gap-5 pl-22 mt-6">
                 <input type="checkbox" className="w-5 h-5 accent-[#630000]" />
@@ -141,7 +115,7 @@ export default function Add({ setShowAdd }) {
 
       
 
-      <div className="flex justify-center mt-35 gap-4"> 
+      <div className="flex justify-center mt-60 gap-4"> 
           <button 
             type="submit" 
             className="bg-[#630000] text-[#EDEBDD] text-[20px] px-6 py-3 rounded-xl font-bold"

@@ -38,7 +38,7 @@ export default function Add({ setShowAdd }) {
         <p className="text-[#630000] text-[25px] font-semibold">Teacher's Information</p>
       </div>
 
-    <div className="bg-[#EDEBDD] w-230 py-7 px-4 mx-auto mt-5 rounded-2xl flex flex-col gap-8">
+    <div className="bg-[#EDEBDD] w-351 py-7 px-4 ml-12 mt-5 rounded-2xl flex flex-col gap-8">
         <div className="flex gap-7 items-center ml-7">
             <p className="text-[#1B1717] text-[14px] ml-7 mt-2">Teacher's Name:</p>
             <input {...register("lastname")} type="text" className="border text-[12px] w-30 h-10 p-3 rounded-[5px] bg-white" placeholder="Last Name" required />
@@ -50,7 +50,7 @@ export default function Add({ setShowAdd }) {
             <p className="text-[#1B1717] text-[14px] ml-7">EmailAdress:</p>
             <input {...register("email_address")} type="text" className="border text-[12px] w-30 h-10 p-3 rounded-[5px] bg-white" placeholder="Email Address" required />
             <p className="text-[#1B1717] text-[14px] ml-7">Grade Levels</p>
-            <select {...register("gender")} className="border text-[12px] w-30 h-10 p-2 rounded-[5px]" required>
+            <select {...register("elem")} className="border text-[12px] w-30 h-10 p-2 rounded-[5px]" required>
                                 <option value="">Select</option>
                                 <option value="Grade 1">Grade 1</option>
                                 <option value="Grade 2">Grade 2</option>
