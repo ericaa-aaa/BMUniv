@@ -10,9 +10,13 @@ import ElementaryEnrollment from './pages/Teacher/StudentEnrollment/Elementary';
 import HighSchool from './pages/Teacher/StudentEnrollment/HighSchool';
 import SHS from './pages/Teacher/StudentEnrollment/SHS';
 import RL from './pages/Teacher/StudentEnrollment/RL';
-// import StudSubj from './pages/Student/Subjects';
-// import ArchSubj from './pages/Student/ArchivedSubjects';
+import StudSubj from "./pages/Student/Subjects/StudentSubjectsTable.jsx";
+import ArchSubj from './pages/Student/ArchivedSubjects/StudArchSubj.jsx';
+import Settings from "./pages/Student/Settings/StudSettings.jsx";
 import Sidebar from './pages/Teacher/MainDashboard/Sidebar.jsx';
+
+//Faculty imports
+import ElemFaculty from './pages/Teacher/Faculty/ElemFaculty.jsx';
 
 function AppContent() {
   const location = useLocation();
@@ -35,10 +39,14 @@ function AppContent() {
           <Route path="/hs" element={<HighSchool/>} />
           <Route path="/shs" element={<SHS/>} />
           <Route path="/rl" element={<RL/>} />
+          <Route path="/elemfaculty" element={<ElemFaculty/>} />
           <Route path="/student/*" element={<StudentDashboard/>} />
           <Route path="/elemrec/*" element={<ElementaryRecords />} />
           <Route path="/jhsrec/*" element={<JHSRecords />} />
           <Route path="/shsrec/*" element={<SHSRecords />} />
+          <Route path="/studsubj/*" element={<StudSubj />}/>
+          <Route path="/archsubj/*" element={<ArchSubj />}/>
+          <Route path="/settings/*" element={<Settings />}/>
         </Routes>
       </div>
     </div>

@@ -27,22 +27,10 @@ export default function StudentSidebar() {
             <div className="flex items-center gap-5 cursor-pointer">
               {/*<a className='text-[#EDEBDD] hover:text-[#1B1717]'>Student Subjects</a>*/}
               <img src={students} alt="logongstud" className='w-7 h-6'/>
-              <Link to="/studsubj" className='cursor-pointer hover:text-[#1B1717] hover:underline'>Student Subjects</Link>
+              <Link to="/student/studsubj" className='cursor-pointer hover:text-[#1B1717] hover:underline'>Student Subjects</Link>
             </div>
           </div>
-
-        {/*}  {openSubjects && (
-            <div className='ml-6 mt-2 flex flex-col gap-2 text-sm'>
-              <div onClick={() => setActiveItem("elementary")} className={`flex items-center gap-3 cursor-pointer rounded transition`}>
-                <span className={`w-3 h-3 rounded-full border-2 ${activeItem === "elementary" 
-                  ? "bg-[#1B1717]" 
-                  : "hover:bg-[#EDEBDD]"}`}></span>
-                <Link to="/studsubj" className='cursor-pointer hover:text-[#1B1717] hover:underline'>Student Subjects</Link>
-              </div>
-            </div>
-          )}*/}
         </div>
-        
         
        <div>
          <div onClick={() => setOpenArchSubjects(!openArchivedSubjects)} className='flex items-center gap-3 cursor-pointer hover:bg-[#EDEBDD] p-2 rounded'>
@@ -50,20 +38,9 @@ export default function StudentSidebar() {
              {/*<img src={b} alt='students' className='w-7 h-6'></img>
              <a className='text-[#EDEBDD] hover:text-[#1B1717]'>Archived Subjects</a>*/}
              <FaFolderClosed />
-             <Link to="/archsubj" className='cursor-pointer hover:text-[#1B1717] hover:underline'>Archived Subjects</Link>
+             <Link to="/student/archsubj" className='cursor-pointer hover:text-[#1B1717] hover:underline'>Archived Subjects</Link>
            </div>
          </div>
-
-        {/*} {openArchivedSubjects && (
-           <div className='ml-6 mt-2 flex flex-col gap-2 text-sm'>
-               <div onClick={() => setActiveItem("archsubj")} className={`flex items-center gap-3 cursor-pointer rounded transition`}>
-                 <span className={`w-3 h-3 rounded-full border-2 ${activeItem === "archsubj"
-                   ? "bg-[#1B1717]"
-                   : "hover:bg-[#EDEBDD]"}`}></span>
-                   <Link to="/archsubj" className='cursor-pointer hover:underline'>Archived Subjects</Link>
-              </div>
-           </div>
-         )}*/}
        </div>
 
          <div>
@@ -72,20 +49,9 @@ export default function StudentSidebar() {
              {/*<img src={b} alt='students' className='w-7 h-6'></img>
              <a className='text-[#EDEBDD] hover:text-[#1B1717]'>Settings</a>*/}
              <IoSettings />
-             <Link to="/settings" className='cursor-pointer hover:text-[#1B1717] hover:underline'>Settings</Link>
+             <Link to="/student/settings" className='cursor-pointer hover:text-[#1B1717] hover:underline'>Settings</Link>
            </div>
          </div>
-
-        {/*} {openSettings && (
-           <div className='ml-6 mt-2 flex flex-col gap-2 text-sm'>
-               <div onClick={() => setActiveItem("settings")} className={`flex items-center gap-3 cursor-pointer rounded transition`}>
-                 <span className={`w-3 h-3 rounded-full border-2 ${activeItem === "settings"
-                   ? "bg-[#1B1717]"
-                   : "hover:bg-[#EDEBDD]"}`}></span>
-                   <Link to="/settings" className='cursor-pointer hover:text-[#1B1717] hover:underline'>Settings</Link>
-              </div>
-           </div>
-         )}*/}
        </div>
         
       </nav>

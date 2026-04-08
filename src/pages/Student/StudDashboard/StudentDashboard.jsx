@@ -1,8 +1,4 @@
-import { Routes, Route } from "react-router-dom";
 import StudentSidebar from "../../Student/StudDashboard/StudentSidebar";
-import Subjects from "../../Student/Subjects/StudentSubjectsTable";
-import Archived from "../../Student/ArchivedSubjects/StudArchSubj";
-import Settings from "../../Student/Settings/StudSettings";
 import { BiSolidRightArrow } from "react-icons/bi";
 import Profile from "../../../assets/images/faculty1.png"
 
@@ -54,14 +50,6 @@ export default function StudentDashboard() {
         </div>
         {/* TOP PANEL */}
         <div className="bg-[#EDEBDD] h-45 rounded-xl"></div>
-        {/* (ROUTES HERE) */}
-        <div className="bg-[#EDEBDD] h-75 rounded-xl p-4 overflow-auto">
-          <Routes>
-            <Route path="/studsubj/*" element={<Subjects />} />
-            <Route path="/archsubj/*" element={<Archived />} />
-            <Route path="/settings/*" element={<Settings />} />
-          </Routes>
-        </div>
 
       </div>
     </div>
