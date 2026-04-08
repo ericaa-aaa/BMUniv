@@ -17,6 +17,8 @@ import StudentLayout from './pages/Student/StudentLayout.jsx';
 
 //Faculty imports
 import ElemFaculty from './pages/Teacher/Faculty/ElemFaculty.jsx';
+import HSFaculty from './pages/Teacher/Faculty/HSfaculty.jsx';
+import SHSFaculty from './pages/Teacher/Faculty/SHSfaculty.jsx';
 
 function AppContent() {
   const location = useLocation();
@@ -40,6 +42,8 @@ function AppContent() {
           <Route path="/shs" element={<SHS/>} />
           <Route path="/rl" element={<RL/>} />
           <Route path="/elemfaculty" element={<ElemFaculty/>} />
+          <Route path="/hsfaculty" element={<HSFaculty/>} />
+          <Route path="/shsfaculty" element={<SHSFaculty/>} />
           <Route path="/elemrec/*" element={<ElementaryRecords />} />
           <Route path="/jhsrec/*" element={<JHSRecords />} />
           <Route path="/shsrec/*" element={<SHSRecords />} />

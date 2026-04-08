@@ -1,7 +1,6 @@
 import back from '../../../assets/images/bg.jpg';
 import { useState } from 'react';
 import Add from './ElemButton/add';
-import Display from './ElemButton/display'
 
 export default function ElemFaculty() {
   // 'view' tracks which "tab" is active: 'display' or 'add'

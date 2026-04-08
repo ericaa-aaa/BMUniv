@@ -125,13 +125,13 @@ function Sidebar() {
                 <span className={`w-3 h-3 rounded-full border-2 ${activeItem === "hsfaculty" 
                   ? "bg-[#1B1717] " 
                   : "bg-black group-hover:bg-[#EDEBDD]"}`}></span>
-                <p className='cursor-pointer hover:underline'>HS Faculty</p>
+                <Link to="/hsfaculty" className='cursor-pointer hover:underline'>HS Faculty</Link>
               </div>
               <div onClick={() => setActiveItem("elementary")} className={`flex items-center gap-3 cursor-pointer rounded transition`}>
                 <span className={`w-3 h-3 rounded-full border-2 ${activeItem === "shsfaculty" 
                   ? "bg-[#1B1717]" 
                   : "bg-black group-hover:bg-[#EDEBDD]"}`}></span>
-                <p className='cursor-pointer hover:underline'>SHS Faculty</p>
+                <Link to="/shsfaculty" className='cursor-pointer hover:underline'>SHS Faculty</Link>
               </div>
             </div>
           )}
