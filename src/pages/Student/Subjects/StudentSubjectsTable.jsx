@@ -1,39 +1,102 @@
-import { FaBook, FaArchive, FaCog, FaSignOutAlt } from "react-icons/fa";
+import { User } from "lucide-react";
 
 export default function StudentSubjects() {
-    const subjects = [
-        {name: "Filipino", teacher: "Dela Cruz, Juan M.", schedule: "MWF"},
-        {name: "English", teacher: "Dela Cruz, Juan M.", schedule: "MWF"},
-        {name: "Mathematics", teacher: "Dela Cruz, Juan M.", schedule: "MWF"},
-        {name: "Science", teacher: "Dela Cruz, Juan M.", schedule: "MWF"},
-        {name: "Araling Panlipunan", teacher: "Dela Cruz, Juan M.", schedule: "MWF"},
-        {name: "MAPEH", teacher: "Dela Cruz, Juan M.", schedule: "MWF"},
-        {name: "EPP", teacher: "Dela Cruz, Juan M.", schedule: "MWF"},
-        {name: "GMRC", teacher: "Dela Cruz, Juan M.", schedule: "MWF"},
-    ];
+  const subjects = [
+    {
+      subject: "Filipino",
+      teacher: "Dela Cruz, Juan M.",
+      schedule: "MWF",
+    },
+    {
+      subject: "English",
+      teacher: "Reyes, Carlo C.",
+      schedule: "TTH",
+    },
+    {
+      subject: "Science",
+      teacher: "Mendoza, Ayan L.",
+      schedule: "MWF",
+    },
+    {
+      subject: "Mathematics",
+      teacher: "Balabo, Maine M.",
+      schedule: "MWF",
+    },
+    {
+      subject: "Araling Panlipunan",
+      teacher: "Villanueva, Precy Z.",
+      schedule: "TTH",
+    },
+    {
+      subject: "MAPEH",
+      teacher: "Ramos, Merly K.",
+      schedule: "F",
+    },
+    {
+      subject: "EPP",
+      teacher: "Atienza, Princess R.",
+      schedule: "MWF",
+    },
+    {
+      subject: "GMRC",
+      teacher: "Mancil, Clarish P.",
+      schedule: "TTH",
+    },
+  ];
 
-    return (
-        <div className="flex min-h-screen bg-gray-100">
-
-            {/*cownteynt*/}
-            <div className="flex-1 p-6">
-                <div className="bg-white/70 backdrop-blur rounded p-6">
-                    <div className="grid grid-cols-3 bg-[#8B0000] text-white font-semibold">
-                        <div className="p-3">Subjects</div>
-                        <div className="p-3">Teacher</div>
-                        <div className="p-3">Schedule</div>
-                    </div>
-
-                    {subjects.map((subj, i) => (
-                        <div key={i} className="grid grid-cols-3 border-t bg-white/80"> 
-                            <div className="p-3">{subj.name}</div>
-                            <div className="p-3">{subj.teacher}</div>
-                            <div className="p-3">{subj.schedule}</div>
-                        </div>
-                    ))}
-
-                </div>
+  return (
+    <div className="p-8 bg-gray-100 min-h-screen">
+      {/* STUDENT INFO CARD */}
+      <div
+        className="rounded-3xl overflow-hidden h-56 shadow-lg relative"
+        style={{
+          backgroundImage:
+            "url('https://images.unsplash.com/photo-1562774053-701939374585')",
+          backgroundSize: "cover",
+          backgroundPosition: "center",
+        }}
+      >
+        <div className="absolute inset-0 bg-white/70 flex items-center justify-between px-10">
+          <div className="flex items-center gap-5">
+            <div className="w-24 h-24 bg-black rounded-full flex items-center justify-center">
+              <User size={50} className="text-white" />
             </div>
+            <h2 className="text-2xl font-semibold">Dela Cruz, Juan M.</h2>
+          </div>
+
+          <div className="space-y-3 text-lg font-semibold text-[#7B0000]">
+            <p>▸ Batangas Metropolitan University</p>
+            <p>▸ Grade 1 - Makakalikasan</p>
+            <p className="text-green-600">▸ ENROLLED</p>
+          </div>
         </div>
-    )
+      </div>
+
+      {/* SUBJECT TABLE */}
+      <div className="mt-8 bg-white rounded-2xl shadow-lg overflow-hidden">
+        <table className="w-full">
+          <thead className="bg-[#7B0000] text-white">
+            <tr>
+              <th className="py-4">Subjects</th>
+              <th>Teacher</th>
+              <th>Schedule</th>
+            </tr>
+          </thead>
+
+          <tbody>
+            {subjects.map((item, index) => (
+              <tr
+                key={index}
+                className="bg-[#ECE9DF] border-b border-white text-center"
+              >
+                <td className="py-5">{item.subject}</td>
+                <td>{item.teacher}</td>
+                <td>{item.schedule}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  );
 }
