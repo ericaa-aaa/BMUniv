@@ -14,10 +14,7 @@ export default function StudentFormModal({
       <div className="min-h-screen flex items-start justify-center py-10 px-4">
         <div className="bg-white w-full max-w-6xl rounded-2xl shadow-2xl relative p-8">
           {/* CLOSE */}
-          <button
-            onClick={() => setShowModal(false)}
-            className="absolute top-4 right-4"
-          >
+          <button onClick={() => setShowModal(false)}className="absolute top-4 right-4">
             <IoClose size={28} />
           </button>
 
@@ -131,10 +128,7 @@ export default function StudentFormModal({
           </div>
 
           {/* BUTTON */}
-          <button
-            onClick={handleUpdate}
-            className="w-full mt-8 bg-red-800 text-white py-4 rounded-xl text-lg font-semibold"
-          >
+          <button onClick={handleUpdate} className="w-full mt-8 bg-red-800 text-white py-4 rounded-xl text-lg font-semibold">
             Update Student Record
           </button>
         </div>
