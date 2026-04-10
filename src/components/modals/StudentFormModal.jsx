@@ -58,7 +58,6 @@ export default function StudentFormModal({
               className="border rounded-lg px-4 py-3"
             >
               <option>Enrolled</option>
-              <option>Pending</option>
               <option>Dropped</option>
             </select>
           </div>

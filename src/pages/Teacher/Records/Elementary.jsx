@@ -1,6 +1,7 @@
 import { useState } from "react";
 import StudentFormModal from "../../../components/modals/StudentFormModal";
 import bg from "../../../assets/images/bg.jpg";
+import { CiSearch } from "react-icons/ci";
 
 export default function Elementary() {
   const [students, setStudents] = useState ([
@@ -23,7 +24,7 @@ export default function Elementary() {
       name: "Reyes, Anna L.",
       grade: "2",
       section: "Gumamela",
-      status: "Pending",
+      status: "Enrolled",
       image: "jpg",
     },
     {
@@ -85,14 +86,19 @@ export default function Elementary() {
             <h2 className="text-lg font-semibold text-gray-700">Students Enrolled</h2>
 
             <div className="flex items-center gap-2">
-              <span className="font-medium text-gray-700">Search:</span>
-              <input
-                type="text"
-                value={search}
-                onChange={(e) => setSearch(e.target.value)}
-                placeholder="Search student..."
-                className="border border-[#8B0000] rounded px-3 py-1 outline-none focus:ring-2 focus:ring-red-300"
-              />
+              <span className="font-medium text-gray-700">Search: </span>
+              
+              {/* Container for the icon and input */}
+              <div className="relative flex items-center">
+                <CiSearch className="absolute left-3 text-gray-500 size-5" />
+                <input
+                  type="text"
+                  value={search}
+                  onChange={(e) => setSearch(e.target.value)}
+                  placeholder="Search student..."
+                  className="border border-[#8B0000] rounded pl-10 pr-3 py-1 outline-none focus:ring-2 focus:ring-red-300"
+                />
+              </div>
             </div>
           </div>
 
