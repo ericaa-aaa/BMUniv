@@ -70,7 +70,7 @@ export default function SHS() {
 
         <div className="flex justify-center mb-8 shrink-0">
           <h1 className="bg-[#8B0000] text-white px-12 py-3 rounded-2xl text-lg md:text-xl font-semibold shadow-lg">
-            Elementary Students Records
+            Senior High School Students Records
           </h1>
         </div>
 
