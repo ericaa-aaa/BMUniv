@@ -65,7 +65,8 @@ export default function StudentSubjects() {
 
           <div className="space-y-3 text-lg font-semibold text-[#7B0000]">
             <p>▸ Batangas Metropolitan University</p>
-            <p>▸ Grade 1 - Makakalikasan</p>
+            <p>▸ Grade 12 - ABM</p>
+            <p>▸ Second Semester</p>
             <p className="text-green-600">▸ ENROLLED</p>
           </div>
         </div>
@@ -84,7 +85,7 @@ export default function StudentSubjects() {
 
           <tbody>
             {subjects.map((item, index) => (
-              <tr key={index} className="bg-[#ECE9DF] border-b border-white text-center">
+              <tr key={index}className="bg-[#ECE9DF] border-b border-white text-center">
                 <td className="py-5">{item.subject}</td>
                 <td>{item.teacher}</td>
                 <td>{item.schedule}</td>
