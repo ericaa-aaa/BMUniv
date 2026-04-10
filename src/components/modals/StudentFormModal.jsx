@@ -24,9 +24,7 @@ export default function StudentFormModal({
           </h1>
 
           {/* STUDENT INFO */}
-          <h2 className="text-2xl font-bold text-[#7A1C1C] mb-4">
-            Student Information
-          </h2>
+          <h2 className="text-2xl font-bold text-[#7A1C1C] mb-4"> Student Information </h2>
 
           <div className="grid grid-cols-4 gap-4 bg-[#EDEBDD] p-6 rounded-xl">
             <input
@@ -66,9 +64,7 @@ export default function StudentFormModal({
           </div>
 
           {/* CONTACT INFO */}
-          <h2 className="text-2xl font-bold text-[#7A1C1C] mt-8 mb-4">
-            Contact Information
-          </h2>
+          <h2 className="text-2xl font-bold text-[#7A1C1C] mt-8 mb-4">Contact Information</h2>
 
           <div className="grid grid-cols-3 gap-4 bg-[#EDEBDD] p-6 rounded-xl">
             <input
@@ -97,9 +93,7 @@ export default function StudentFormModal({
           </div>
 
           {/* PARENT INFO */}
-          <h2 className="text-2xl font-bold text-[#7A1C1C] mt-8 mb-4">
-            Parent / Guardian Information
-          </h2>
+          <h2 className="text-2xl font-bold text-[#7A1C1C] mt-8 mb-4">Parent / Guardian Information </h2>
 
           <div className="grid grid-cols-3 gap-4 bg-[#EDEBDD] p-6 rounded-xl">
             <input

@@ -79,10 +79,7 @@ export default function SHS() {
   );
 
   return (
-    <section
-      className="min-h-screen flex-1 bg-cover bg-center relative"
-      style={{ backgroundImage: `url(${bg})` }}
-    >
+    <section className="min-h-screen flex-1 bg-cover bg-center relative" style={{ backgroundImage: `url(${bg})` }}>
       {/* OVERLAY */}
       <div className="absolute inset-0 bg-white/80 px-6 py-8">
 
@@ -98,9 +95,7 @@ export default function SHS() {
 
           {/* HEADER */}
           <div className="flex flex-col md:flex-row md:justify-between md:items-center mb-6 gap-3">
-            <h2 className="text-lg font-semibold text-gray-700">
-              Students Enrolled
-            </h2>
+            <h2 className="text-lg font-semibold text-gray-700">Students Enrolled</h2>
 
             <div className="flex items-center gap-2">
               <span className="font-medium text-gray-700">Search:</span>
@@ -130,35 +125,22 @@ export default function SHS() {
 
               {/* BODY */}
               {filteredStudents.map((student, index) => (
-                <div
-                  key={student.id}
-                  className="grid grid-cols-[0.5fr_2fr_0.8fr_1fr_1fr_0.7fr_1fr] text-center"
-                >
+                <div key={student.id} className="grid grid-cols-[0.5fr_2fr_0.8fr_1fr_1fr_0.7fr_1fr] text-center">
                   <div className="p-4 border border-gray-200">{index + 1}</div>
-
-                  <div className="p-4 text-left border border-gray-200">
-                    {student.name}
-                  </div>
-
+                  <div className="p-4 text-left border border-gray-200">{student.name}</div>
                   <div className="p-4 border border-gray-200">{student.grade}</div>
-
                   <div className="p-4 border border-gray-200">{student.section}</div>
 
-                  <div className="p-4 font-medium border border-gray-200">
-                    <span className={student.status === "Enrolled" ? "text-green-600" : "text-yellow-600"}>
-                      {student.status}
-                    </span>
-                  </div>
+                    <div className="p-4 font-medium border border-gray-200">
+                      <span className={student.status === "Enrolled" ? "text-green-600" : "text-yellow-600"}>{student.status}</span>
+                    </div>
+
+                    <div className="p-4 border border-gray-200">
+                      {student.image}
+                    </div>
 
                   <div className="p-4 border border-gray-200">
-                    {student.image}
-                  </div>
-
-                  <div className="p-4 border border-gray-200">
-                    <button
-                      onClick={() => openModal(student)}
-                      className="text-blue-600 hover:underline"
-                    >
+                    <button onClick={() => openModal(student)} className="text-blue-600 hover:underline">
                       View Form
                     </button>
                   </div>
