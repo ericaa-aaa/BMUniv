@@ -8,7 +8,9 @@ export default function EnrollmentForm() {
     const [photoPreview, setPhotoPreview] = useState(null);
 
     // Initialize React Hook Form with your exact default values + new address fields
-    const { register, handleSubmit, watch, setValue } = useForm({
+    const { register, handleSubmit, watch, setValue, formState: { errors }} = useForm({
+         mode: "onBlur",
+         shouldUseNativeValidation: true,
         defaultValues: {
             grade_level: "",
             lastname: "",
@@ -144,14 +146,14 @@ export default function EnrollmentForm() {
                         <div className="flex gap-5 items-center ml-7">
                             <p className="text-[#1B1717] text-[14px]">Student Name:</p>
                             <input {...register("lastname")} type="text" className="border text-[12px] w-30 h-10 p-3 rounded-[5px]" placeholder="Last Name" required />
-                            <input {...register("firstname")} type="text" className="border text-[12px] w-30 h-10 p-3 rounded-[5px]" placeholder="First Name" required />
-                            <input {...register("middlename")} type="text" className="border text-[12px] w-30 h-10 p-3 rounded-[5px]" placeholder="Middle Name" />
+                            <input {...register("firstname", { required: "This is required" })} type="text" className="border text-[12px] w-30 h-10 p-3 rounded-[5px]" placeholder="First Name" /> {errors.firstname && <p className="text-red-500">{errors.firstname.message}</p>}
+                            <input {...register("middlename")} type="text" className="border text-[12px] w-30 h-10 p-3 rounded-[5px]" placeholder="Middle Name" required />
                             <p className="text-[#1B1717] text-[14px]">Ext.</p>
-                            <input {...register("ext")} type="text" className="border text-[12px] w-30 h-10 p-3 rounded-[5px]" placeholder="Jr/Sr" />
+                            <input {...register("ext")} type="text" className="border text-[12px] w-30 h-10 p-3 rounded-[5px]" placeholder="Jr/Sr" required/>
                             <p className="text-[#1B1717] text-[14px]">Age:</p>
                             <input {...register("age")} type="number" className="border text-[12px] w-30 h-10 p-3 rounded-[5px]" placeholder="Age" required />
                             <p className="text-[#1B1717] text-[14px]">Civil Status</p>
-                            <select {...register("civil_status")} className="border text-[12px] w-30 h-10 p-2 rounded-[5px]">
+                            <select {...register("civil_status")} className="border text-[12px] w-30 h-10 p-2 rounded-[5px] " required>
                                 <option value="Single">Single</option>
                                 <option value="Married">Married</option>
                             </select>
