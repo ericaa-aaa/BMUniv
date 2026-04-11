@@ -118,7 +118,7 @@ function Sidebar() {
 
         <div>
           <div onClick={() => setOpenFaculty(!openFaculty)} className={`flex items-center gap-3 cursor-pointer hover:bg-[#EDEBDD] p-2 rounded ${openFaculty ? "bg-[#EDEBDD]" : "hover:bg-[#EDEBDD]"}`}>
-            <div className="flex items-center gap-5 cursor-pointer">
+            <div className="flex items-center gap-4 cursor-pointer">
               <svg xmlns="http://www.w3.org/2000/svg" width="23" height="23" viewBox="0 0 24 24" fill="none" stroke={openFaculty? "#1B1717" : "#EDEBDD"} stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-user-round-plus-icon lucide-user-round-plus"><path d="M2 21a8 8 0 0 1 13.292-6"/><circle cx="10" cy="8" r="5"/><path d="M19 16v6"/><path d="M22 19h-6"/></svg>
               <a className={`transition-colors ${openFaculty
                   ? 'text-[#1B1717]'
@@ -129,19 +129,22 @@ function Sidebar() {
 
           {openFaculty && (
             <div className='ml-6 mt-2 flex flex-col gap-2 text-sm'>
-              <div onClick={() => setActiveItem("elementary")} className={`flex items-center gap-3 cursor-pointer rounded transition`}>
-                <span className={`w-3 h-3 rounded-full border-2 ${activeItem === "elemfaculty" 
-                  ? "bg-[#1B1717]" 
-                  : "hover:bg-[#EDEBDD]"}`}></span>
-                <Link to="/elemfaculty" className='cursor-pointer hover:underline'>Elementary Faculty</Link>
+              <div onClick={() => setActiveItem("elementary-faculty")} className={`flex items-center gap-3 cursor-pointer rounded transition`}>
+                <span className={`w-3 h-3 rounded-full border-2 ${activeItem === "elementary-faculty" 
+                  ? "bg-[#EDEBDD]" 
+                  : "bg-[#1B1717] "}`}></span>
+                <Link to="/elemfaculty" className={`cursor-pointer ${activeItem === "elementary-faculty" 
+                  ? 'underline'
+                  : 'hover:underline'}
+                  `}>Elementary Faculty</Link>
               </div>
-              <div onClick={() => setActiveItem("elementary")} className={`flex items-center gap-3 cursor-pointer rounded transition`}>
+              <div onClick={() => setActiveItem("hsfaculty")} className={`flex items-center gap-3 cursor-pointer rounded transition`}>
                 <span className={`w-3 h-3 rounded-full border-2 ${activeItem === "hsfaculty" 
                   ? "bg-[#1B1717] " 
                   : "bg-black group-hover:bg-[#EDEBDD]"}`}></span>
                 <Link to="/hsfaculty" className='cursor-pointer hover:underline'>HS Faculty</Link>
               </div>
-              <div onClick={() => setActiveItem("elementary")} className={`flex items-center gap-3 cursor-pointer rounded transition`}>
+              <div onClick={() => setActiveItem("shsfaculty")} className={`flex items-center gap-3 cursor-pointer rounded transition`}>
                 <span className={`w-3 h-3 rounded-full border-2 ${activeItem === "shsfaculty" 
                   ? "bg-[#1B1717]" 
                   : "bg-black group-hover:bg-[#EDEBDD]"}`}></span>
