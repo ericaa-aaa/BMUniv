@@ -16,14 +16,14 @@ function Sidebar() {
   return (
     <div className="w-67 bg-[#630000] text-[#EDEBDD] flex flex-col p-6 min-h-screen pr-5">
       
-      <div className='flex gap-4 pt-15 mb-10'>
+      <div className='flex gap-4 pt-15 mb-10 pl-3'>
         <img img src={e} alt='students' className='w-15 h-11'></img>
         <h1 className="text-[25px] font-['Inter'] font-bold pt-1">BMU</h1>
       </div>
 
       <nav className="flex flex-col gap-6 font-['Inter'] font-medium">
         <div>
-            <div onClick={() => setActiveItem("dashboard")} className={`group flex items-center gap-5 cursor-pointer p-2 rounded mb-6 relative
+            <div onClick={() => setActiveItem("dashboard")} className={`group flex items-center gap-5 cursor-pointer py-2 px-7 rounded mb-6 relative
               ${activeItem === "dashboard"
                 ? "bg-[#EDEBDD]"
                 : "bg-transparent"
@@ -42,7 +42,7 @@ function Sidebar() {
         </div>
 
       <div onClick={() => setOpenEnrollment(!openEnrollment)}
-        className={`group flex items-center gap-3 cursor-pointer p-2 rounded transition-colors ${
+        className={`group flex items-center gap-3 cursor-pointer py-2 px-7 rounded transition-colors ${
         openEnrollment ? 'bg-[#EDEBDD]' : 'hover:bg-[#EDEBDD]'}`}>
 
         <div className="flex items-center gap-5 cursor-pointer">
@@ -137,7 +137,7 @@ function Sidebar() {
 
         <div>
           <div onClick={() => setOpenFaculty(!openFaculty)} 
-            className={`flex items-center gap-5 cursor-pointer p-2 rounded transition-all ${
+            className={`flex items-center gap-5 cursor-pointer py-2 px-7 rounded transition-all ${
             openFaculty ? "bg-[#EDEBDD] text-[#1B1717]" : "text-[#EDEBDD] hover:bg-[#EDEBDD] hover:text-[#1B1717]"
           }`}>
 
