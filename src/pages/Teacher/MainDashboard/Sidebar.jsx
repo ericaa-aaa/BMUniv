@@ -140,15 +140,21 @@ function Sidebar() {
               </div>
               <div onClick={() => setActiveItem("hsfaculty")} className={`flex items-center gap-3 cursor-pointer rounded transition`}>
                 <span className={`w-3 h-3 rounded-full border-2 ${activeItem === "hsfaculty" 
-                  ? "bg-[#1B1717] " 
-                  : "bg-black group-hover:bg-[#EDEBDD]"}`}></span>
-                <Link to="/hsfaculty" className='cursor-pointer hover:underline'>HS Faculty</Link>
+                  ? "bg-[#EDEBDD] " 
+                  : "bg-[#1B1717]"}`}></span>
+                <Link to="/hsfaculty" className={`cursor-pointer ${activeItem === "hsfaculty"
+                  ? 'underline'
+                  : 'hover:underline'
+                }`}>HS Faculty</Link>
               </div>
               <div onClick={() => setActiveItem("shsfaculty")} className={`flex items-center gap-3 cursor-pointer rounded transition`}>
                 <span className={`w-3 h-3 rounded-full border-2 ${activeItem === "shsfaculty" 
-                  ? "bg-[#1B1717]" 
-                  : "bg-black group-hover:bg-[#EDEBDD]"}`}></span>
-                <Link to="/shsfaculty" className='cursor-pointer hover:underline'>SHS Faculty</Link>
+                  ? "bg-[#EDEBDD]" 
+                  : "bg-[#1B1717]"}`}></span>
+                <Link to="/shsfaculty" className={`cursor-pointer ${activeItem === "shsfaculty"
+                  ? 'underline'
+                  : 'hover:underline'
+                }`}>SHS Faculty</Link>
               </div>
             </div>
           )}
