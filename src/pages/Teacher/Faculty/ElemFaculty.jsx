@@ -17,11 +17,11 @@ export default function ElemFaculty() {
       <div className="min-h-screen bg-white/75 p-4">
         
         <div className="flex justify-center mb-5 gap-10">
+          
           <button 
             onClick={() => setView('display')}
             className={`w-full max-w-80 font-semibold text-[30px] rounded-2xl p-3 text-center transition-colors ${
-              view === 'display' ? 'bg-[#630000] text-[#EDEBDD]' : 'bg-[#EDEBDD] text-[#630000]'
-            }`}
+            view === 'display' ? 'bg-[#630000] text-[#EDEBDD]' : 'bg-[#EDEBDD] text-[#630000]' }`}
           >
             Display Faculty
           </button>
