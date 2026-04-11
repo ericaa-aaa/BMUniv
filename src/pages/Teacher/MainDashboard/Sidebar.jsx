@@ -1,4 +1,3 @@
-
 import b from '../../../assets/images/dashboard2.png'
 import d from '../../../assets/images/dashboard5.png'
 import e from '../../../assets/images/signin4.png'
@@ -24,50 +23,40 @@ function Sidebar() {
 
       <nav className="flex flex-col gap-6 font-['Inter'] font-medium">
         <div>
-            <div onClick={() => setActiveItem("dashboard")} className="group flex items-center gap-5 cursor-pointer hover:bg-[#EDEBDD] p-2 rounded mb-6 relative">
-              <svg xmlns="http://www.w3.org/2000/svg" width="23" height="23" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-layout-dashboard transition-colors group-hover:text-[#1B1717]">
+            <div onClick={() => setActiveItem("dashboard")} className={`group flex items-center gap-5 cursor-pointer p-2 rounded mb-6 relative
+              ${activeItem === "dashboard"
+                ? "bg-[#EDEBDD]"
+                : "bg-transparent"
+              }`}>
+              <svg xmlns="http://www.w3.org/2000/svg" width="23" height="23" viewBox="0 0 24 24" fill="none" stroke={activeItem === "dashboard" ? "#1B1717" : "#EDEBDD"} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-layout-dashboard transition-colors group-hover:text-[#1B1717]">
                 <rect width="7" height="9" x="3" y="3" rx="1" />
                 <rect width="7" height="5" x="14" y="3" rx="1" />
                 <rect width="7" height="9" x="14" y="12" rx="1" />
                 <rect width="7" height="5" x="3" y="16" rx="1" />
               </svg>
-          <Link to="/teacher" className="text-[#EDEBDD] group-hover:text-[#1B1717] transition-colors after:absolute after:inset-0" >Dashboard</Link>
+          <Link to="/teacher" className={` transition-colors after:absolute after:inset-0 
+            ${activeItem === "dashboard"
+              ? "text-[#1B1717]"
+              : "text-[#EDEBDD]"
+            }`} >Dashboard</Link>
         </div>
 
-<div 
-  onClick={() => setOpenEnrollment(!openEnrollment)} 
-  className={`group flex items-center gap-3 cursor-pointer p-2 rounded transition-colors ${
-    openEnrollment ? 'bg-[#EDEBDD]' : 'hover:bg-[#EDEBDD]'
-  }`}
->
-  <div className="flex items-center gap-5 cursor-pointer">
-    <svg 
-      xmlns="http://w3.org" 
-      width="23" 
-      height="23" 
-      viewBox="0 0 24 24" 
-      fill="none" 
-      stroke={openEnrollment ? "#1B1717" : "#EDEBDD"} 
-      strokeWidth="2" 
-      strokeLinecap="round" 
-      strokeLinejoin="round" 
-      className="lucide lucide-layout-dashboard transition-[stroke] duration-300 group-hover:stroke-[#1B1717]"
-    >
-      {/* Cleaned up these lines below */}
-      <path d="M18 21a8 8 0 0 0-16 0" />
-      <circle cx="10" cy="8" r="5" />
-      <path d="M22 20c0-3.37-2-6.5-4-8a5 5 0 0 0-.45-8.3" />
-    </svg>
+      <div onClick={() => setOpenEnrollment(!openEnrollment)}
+        className={`group flex items-center gap-3 cursor-pointer p-2 rounded transition-colors ${
+        openEnrollment ? 'bg-[#EDEBDD]' : 'hover:bg-[#EDEBDD]'}`}>
+
+        <div className="flex items-center gap-5 cursor-pointer">
+
+        <svg xmlns="http://w3.org" width="23" height="23" viewBox="0 0 24 24" fill="none" stroke={openEnrollment ? "#1B1717" : "#EDEBDD"} 
+          strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-layout-dashboard transition-[stroke] duration-300 group-hover:stroke-[#1B1717]">
+          <path d="M18 21a8 8 0 0 0-16 0" /><circle cx="10" cy="8" r="5" /><path d="M22 20c0-3.37-2-6.5-4-8a5 5 0 0 0-.45-8.3" />
+        </svg>
     
-    <a className={`transition-colors duration-300 ${
-      openEnrollment 
-        ? 'text-[#1B1717]' 
-        : 'text-[#EDEBDD] group-hover:text-[#1B1717]' 
-    }`}>
-      Student Enrollment
-    </a>
-  </div>
-</div>
+        <a className={`transition-colors duration-300 ${openEnrollment 
+            ? 'text-[#1B1717]' 
+            : 'text-[#EDEBDD] group-hover:text-[#1B1717]' }`}>Student Enrollment</a>
+      </div>
+    </div>
 
           {openEnrollment && (
             <div className='ml-6 mt-2 flex flex-col gap-2 text-sm'>
@@ -203,7 +192,7 @@ function Sidebar() {
 
       <div className="mt-auto ">
         <button className="flex items-center gap-2 cursor-pointer">
-          <img src={d} alt='students' className='w-8 h-8' />Log Out
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="#1B1717" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-skip-forward-icon lucide-skip-forward"><path d="M21 4v16"/><path d="M6.029 4.285A2 2 0 0 0 3 6v12a2 2 0 0 0 3.029 1.715l9.997-5.998a2 2 0 0 0 .003-3.432z"/></svg>Log Out
         </button>
       </div>
 
