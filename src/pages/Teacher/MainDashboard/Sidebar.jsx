@@ -24,45 +24,50 @@ function Sidebar() {
 
       <nav className="flex flex-col gap-6 font-['Inter'] font-medium">
         <div>
-            <div 
-  onClick={() => setActiveItem("dashboard")} 
-  className="group flex items-center gap-5 cursor-pointer hover:bg-[#EDEBDD] p-2 rounded mb-6 relative"
->
-<svg 
-  xmlns="http://www.w3.org/2000/svg" 
-  width="23" 
-  height="23" 
-  viewBox="0 0 24 24" 
-  fill="none" 
-  stroke="currentColor" 
-  strokeWidth="2" 
-  strokeLinecap="round" 
-  strokeLinejoin="round" 
-  className="lucide lucide-layout-dashboard transition-colors group-hover:text-[#1B1717]"
->
-  <rect width="7" height="9" x="3" y="3" rx="1" />
-  <rect width="7" height="5" x="14" y="3" rx="1" />
-  <rect width="7" height="9" x="14" y="12" rx="1" />
-  <rect width="7" height="5" x="3" y="16" rx="1" />
-</svg>
+            <div onClick={() => setActiveItem("dashboard")} className="group flex items-center gap-5 cursor-pointer hover:bg-[#EDEBDD] p-2 rounded mb-6 relative">
+              <svg xmlns="http://www.w3.org/2000/svg" width="23" height="23" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-layout-dashboard transition-colors group-hover:text-[#1B1717]">
+                <rect width="7" height="9" x="3" y="3" rx="1" />
+                <rect width="7" height="5" x="14" y="3" rx="1" />
+                <rect width="7" height="9" x="14" y="12" rx="1" />
+                <rect width="7" height="5" x="3" y="16" rx="1" />
+              </svg>
+          <Link to="/teacher" className="text-[#EDEBDD] group-hover:text-[#1B1717] transition-colors after:absolute after:inset-0" >Dashboard</Link>
+        </div>
 
-  {/* Added 'after:absolute after:inset-0' to make the link cover the whole div */}
-  <Link 
-    to="/teacher" 
-    className="text-[#EDEBDD] group-hover:text-[#1B1717] transition-colors after:absolute after:inset-0"
-  >
-    Dashboard
-  </Link>
+<div 
+  onClick={() => setOpenEnrollment(!openEnrollment)} 
+  className={`group flex items-center gap-3 cursor-pointer p-2 rounded transition-colors ${
+    openEnrollment ? 'bg-[#EDEBDD]' : 'hover:bg-[#EDEBDD]'
+  }`}
+>
+  <div className="flex items-center gap-5 cursor-pointer">
+    <svg 
+      xmlns="http://w3.org" 
+      width="23" 
+      height="23" 
+      viewBox="0 0 24 24" 
+      fill="none" 
+      stroke={openEnrollment ? "#1B1717" : "#EDEBDD"} 
+      strokeWidth="2" 
+      strokeLinecap="round" 
+      strokeLinejoin="round" 
+      className="lucide lucide-layout-dashboard transition-[stroke] duration-300 group-hover:stroke-[#1B1717]"
+    >
+      {/* Cleaned up these lines below */}
+      <path d="M18 21a8 8 0 0 0-16 0" />
+      <circle cx="10" cy="8" r="5" />
+      <path d="M22 20c0-3.37-2-6.5-4-8a5 5 0 0 0-.45-8.3" />
+    </svg>
+    
+    <a className={`transition-colors duration-300 ${
+      openEnrollment 
+        ? 'text-[#1B1717]' 
+        : 'text-[#EDEBDD] group-hover:text-[#1B1717]' 
+    }`}>
+      Student Enrollment
+    </a>
+  </div>
 </div>
-
-          <div onClick={() => setOpenEnrollment(!openEnrollment)} className={`flex items-center gap-3 cursor-pointer p-2 rounded transition-colors ${openEnrollment ? 'bg-[#EDEBDD]' : 'hover:bg-[#EDEBDD]'}`}>
-            <div className="flex items-center gap-5 cursor-pointer">
-              <svg xmlns="http://www.w3.org/2000/svg" width="23" height="23" viewBox="0 0 24 24" fill="none" stroke={openEnrollment ? "#1B1717" : "#EDEBDD"} stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-users-round-icon lucide-users-round"><path d="M18 21a8 8 0 0 0-16 0"/><circle cx="10" cy="8" r="5"/><path d="M22 20c0-3.37-2-6.5-4-8a5 5 0 0 0-.45-8.3"/></svg>
-              <a className={`transition-colors ${openEnrollment 
-                    ? 'text-[#1B1717]' 
-                    : 'text-[#EDEBDD] hover:text-[#1B1717]' }`}>Student Enrollment</a>
-            </div>
-          </div>
 
           {openEnrollment && (
             <div className='ml-6 mt-2 flex flex-col gap-2 text-sm'>
