@@ -70,13 +70,9 @@ export default function SeHighschool() {
               <span className="font-medium text-gray-700">Search: </span>
               <div className="relative flex items-center">
                 <CiSearch className="absolute left-3 text-gray-500 size-5" />
-                <input
-                  type="text"
-                  value={search}
-                  onChange={(e) => setSearch(e.target.value)}
+                <input type="text" value={search} onChange={(e) => setSearch(e.target.value)}
                   placeholder="Search student..."
-                  className="border border-[#8B0000] rounded-lg pl-10 pr-3 py-1.5 outline-none focus:ring-2 focus:ring-red-300 w-64 transition-all"
-                />
+                  className="border border-[#8B0000] rounded-lg pl-10 pr-3 py-1.5 outline-none focus:ring-2 focus:ring-red-300 w-64 transition-all" />
               </div>
             </div>
           </div>

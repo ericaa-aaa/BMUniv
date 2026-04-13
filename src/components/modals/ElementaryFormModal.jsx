@@ -19,10 +19,8 @@ export default function ElementaryFormModal({
       <div className="min-h-screen flex items-center justify-center py-12 px-4">
         <div className="bg-white w-full max-w-5xl rounded-3xl shadow-2xl relative p-6 md:p-10 border border-gray-100">
           
-          <button 
-            onClick={() => setShowModal(false)} 
-            className="absolute top-6 right-6 text-gray-400 hover:text-red-800 transition-colors bg-gray-50 p-1 rounded-full"
-          >
+          <button onClick={() => setShowModal(false)} 
+            className="absolute top-6 right-6 text-gray-400 hover:text-red-800 transition-colors bg-gray-50 p-1 rounded-full">
             <IoMdCloseCircleOutline size={28} />
           </button>
 
@@ -74,9 +72,7 @@ export default function ElementaryFormModal({
                       onChange={handleChange} 
                       className={`${editableStyle} font-bold ${
                         selectedStudent.status === "Enrolled" ? "text-green-600" : 
-                        selectedStudent.status === "Dropped" ? "text-red-600" : ""
-                      }`}
-                    >
+                        selectedStudent.status === "Dropped" ? "text-red-600" : ""}`}>
                       <option value="">Select Status</option>
                       <option value="Enrolled">Enrolled</option>
                       <option value="Dropped">Dropped</option>
@@ -185,8 +181,7 @@ export default function ElementaryFormModal({
 
           <div className="mt-12">
             <button onClick={handleUpdate} 
-              className="w-full bg-red-800 hover:bg-red-900 text-white py-5 rounded-2xl font-black text-lg shadow-xl transition-all active:scale-[0.98]"
-            >
+              className="w-full bg-red-800 hover:bg-red-900 text-white py-5 rounded-2xl font-black text-lg shadow-xl transition-all active:scale-[0.98]">
               SAVE UPDATED RECORD
             </button>
           </div>

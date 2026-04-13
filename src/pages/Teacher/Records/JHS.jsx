@@ -98,10 +98,8 @@ export default function Highschool() {
                 <div className="p-10 text-center text-gray-500">Fetching data from server...</div>
               ) : filteredStudents.length > 0 ? (
                 filteredStudents.map((student, index) => (
-                  <div 
-                    key={student.id} 
-                    className="grid grid-cols-[0.5fr_2fr_0.8fr_1fr_1fr_0.7fr_1fr] text-center border-b border-gray-100 hover:bg-red-50/50 transition-colors items-center"
-                  >
+                  <div key={student.id} 
+                    className="grid grid-cols-[0.5fr_2fr_0.8fr_1fr_1fr_0.7fr_1fr] text-center border-b border-gray-100 hover:bg-red-50/50 transition-colors items-center">
                     <div className="p-4 border-r border-gray-100 text-gray-500">{index + 1}</div>
                     <div className="p-4 text-left border-r border-gray-100 font-medium text-gray-800">
                       {student.fullname}

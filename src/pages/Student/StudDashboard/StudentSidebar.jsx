@@ -17,7 +17,7 @@ export default function StudentSidebar() {
       
       <div className='flex gap-4 pt-15 mb-10'>
         <img img src={logo} alt='logo' className='w-15 h-11'></img>
-        <h1 className="text-[25px] font-['Inter'] font-bold pt-1">Dashboard</h1>
+        <h1 className="text-[25px] font-['Inter'] font-bold pt-1">BMU</h1>
       </div>
 
       <nav className="flex flex-col gap-6 font-['Inter'] font-medium">

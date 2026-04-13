@@ -42,9 +42,7 @@ export default function StudentDashboard() {
           style={{
             backgroundImage: "url('https://images.unsplash.com/photo-1562774053-701939374585')",
             backgroundSize: "cover",
-            backgroundPosition: "center",
-          }}
-        >
+            backgroundPosition: "center", }}>
           <div className="absolute inset-0 bg-white/70 flex items-center justify-between px-10">
 
             <div className="flex items-center gap-5">
@@ -71,13 +69,11 @@ export default function StudentDashboard() {
                   <button 
                     onClick={() => {
                       setShowPasswordModal(true);
-                      setShowMenu(false);
-                    }}
+                      setShowMenu(false); }}
                     className="w-full text-left px-4 py-3 hover:bg-gray-50 text-sm font-medium transition-colors">
                     Update Password
                   </button>
-                </div>
-              )}
+                </div>)}
             </div>
           </div>
         </div>
@@ -94,8 +90,7 @@ export default function StudentDashboard() {
             <button 
               onClick={() => {
                 setShowPasswordModal(false);
-                setShowPassword(false);
-              }} 
+                setShowPassword(false);}} 
               className="absolute top-4 right-4 text-gray-400 hover:text-black transition-colors">
               <IoClose size={24} />
             </button>
