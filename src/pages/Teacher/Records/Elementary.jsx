@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import StudentFormModal from "../../../components/modals/StudentFormModal";
+import ElementaryFormModal from "../../../components/modals/ElementaryFormModal";
 import bg from "../../../assets/images/bg.jpg";
 import { CiSearch } from "react-icons/ci";
 import { ElementaryStudentService } from "../../../services/elementarystudentservice";
@@ -143,7 +143,7 @@ export default function Elementary() {
           </div>
         </div>
 
-        <StudentFormModal
+        <ElementaryFormModal
           showModal={showModal}
           setShowModal={setShowModal}
           selectedStudent={selectedStudent}

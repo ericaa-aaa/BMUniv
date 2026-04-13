@@ -1,6 +1,6 @@
 import { IoMdCloseCircleOutline } from "react-icons/io";
 
-export default function StudentFormModal({
+export default function ElementaryFormModal({
   showModal,
   setShowModal,
   selectedStudent,

@@ -1,5 +1,5 @@
 import { useState } from "react";
-import StudentFormModal from "../../../components/modals/StudentFormModal";
+import SHSFormModal from "../../../components/modals/SHSFormModal";
 import bg from "../../../assets/images/bg.jpg";
 import { CiSearch } from "react-icons/ci";
 
@@ -144,7 +144,7 @@ export default function SHS() {
         </div>
 
         {/* MODAL */}
-        <StudentFormModal
+        <SHSFormModal
           showModal={showModal}
           setShowModal={setShowModal}
           selectedStudent={selectedStudent}
