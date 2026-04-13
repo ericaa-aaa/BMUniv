@@ -1,5 +1,5 @@
-import b from '../../../assets/images/dashboard2.png'
-import d from '../../../assets/images/dashboard5.png'
+//import b from '../../../assets/images/dashboard2.png'
+//import d from '../../../assets/images/dashboard5.png'
 import e from '../../../assets/images/signin4.png'
 
 import { Link } from 'react-router-dom'
@@ -101,12 +101,40 @@ function Sidebar() {
         
         
        <div>
-         <div onClick={() => setOpenRecords(!openRecords)} className='flex items-center gap-3 cursor-pointer hover:bg-[#EDEBDD] p-2 rounded'>
-           <div className="flex items-center gap-5 cursor-pointer">
-             <img src={b} alt='students' className='w-7 h-6'></img>
-             <a className='text-[#EDEBDD] hover:text-[#1B1717]'>Student Records</a>
-           </div>
-         </div>
+        <div 
+          onClick={() => setOpenRecords(!openRecords)}
+          className={`group flex items-center gap-3 cursor-pointer py-2 px-7 rounded transition-colors ${
+            openRecords ? 'bg-[#EDEBDD]' : 'hover:bg-[#EDEBDD]'
+          }`}
+        >
+          <div className="flex items-center gap-5 cursor-pointer">
+            {/* Dynamic SVG Icon */}
+            <svg 
+              xmlns="http://www.w3.org/2000/svg" 
+              width="23" 
+              height="23" 
+              viewBox="0 0 24 24" 
+              fill="none" 
+              stroke={openRecords ? "#1B1717" : "#EDEBDD"} 
+              strokeWidth="2" 
+              strokeLinecap="round" 
+              strokeLinejoin="round" 
+              className="transition-[stroke] duration-300 group-hover:stroke-[#1B1717]"
+            >
+              <path d="M4 7V4a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v16a2 2 0 0 1-2 2h-12a2 2 0 0 1-2-2v-3" />
+              <path d="M2 11h12" />
+              <path d="m9 7 4 4-4 4" />
+            </svg>
+
+            <a className={`transition-colors duration-300 ${
+              openRecords 
+                ? 'text-[#1B1717]' 
+                : 'text-[#EDEBDD] group-hover:text-[#1B1717]' 
+            }`}>
+              Student Records
+            </a>
+          </div>
+        </div>
 
          {openRecords && (
            <div className='ml-6 mt-2 flex flex-col gap-2 text-sm'>
