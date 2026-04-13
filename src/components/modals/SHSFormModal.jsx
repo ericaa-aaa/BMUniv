@@ -27,7 +27,7 @@ export default function SHSFormModal({
           </button>
 
           <div className="bg-red-800 text-white text-center py-5 rounded-2xl mb-10 shadow-md">
-            <h1 className="text-2xl font-black uppercase tracking-widest">Student Record</h1>
+            <h1 className="text-2xl font-black uppercase tracking-widest">Senior High Student Record</h1>
             <p className="text-red-100 text-[10px] mt-1 opacity-80 italic font-medium">Update Information System</p>
           </div>
 
@@ -46,7 +46,38 @@ export default function SHSFormModal({
               </div>
             </section>
 
-            {/* 2. PERSONAL INFO */}
+            {/* 2. EDUCATIONAL BACKGROUND*/}
+            <section>
+              <h2 className="text-lg font-bold text-[#7A1C1C] mb-5 flex items-center gap-2">
+                <span className="w-1.5 h-6 bg-red-800 rounded-full"></span> Educational Background
+              </h2>
+              <div className="space-y-4">
+                {/* Elementary */}
+                <div className="grid grid-cols-1 md:grid-cols-4 gap-4 bg-gray-50/50 p-4 rounded-xl border border-gray-100">
+                  <div className="flex flex-col md:col-span-3">
+                    <label className={labelStyle}>Last Elementary School Attended</label>
+                    <input name="elem_school" value={selectedStudent.elem_school || ""} onChange={handleChange} className={editableStyle} placeholder="Name of Elementary School" />
+                  </div>
+                  <div className="flex flex-col">
+                    <label className={labelStyle}>Year Completed</label>
+                    <input name="elem_year" value={selectedStudent.elem_year || ""} onChange={handleChange} className={editableStyle} placeholder="YYYY-YYYY" />
+                  </div>
+                </div>
+                {/* JHS */}
+                <div className="grid grid-cols-1 md:grid-cols-4 gap-4 bg-gray-50/50 p-4 rounded-xl border border-gray-100">
+                  <div className="flex flex-col md:col-span-3">
+                    <label className={labelStyle}>Last Junior High School Attended</label>
+                    <input name="jhs_school" value={selectedStudent.jhs_school || ""} onChange={handleChange} className={editableStyle} placeholder="Name of Junior High School" />
+                  </div>
+                  <div className="flex flex-col">
+                    <label className={labelStyle}>Year Completed</label>
+                    <input name="jhs_year" value={selectedStudent.jhs_year || ""} onChange={handleChange} className={editableStyle} placeholder="YYYY-YYYY" />
+                  </div>
+                </div>
+              </div>
+            </section>
+
+            {/* 3. PERSONAL INFO */}
             <section>
               <h2 className="text-lg font-bold text-[#7A1C1C] mb-5 flex items-center gap-2">
                 <span className="w-1.5 h-6 bg-red-800 rounded-full"></span> Basic Information
@@ -64,43 +95,41 @@ export default function SHSFormModal({
               </div>
             </section>
 
-            {/* 3. ADDITIONAL STATUS */}
-                <section className="bg-gray-50 p-6 rounded-2xl border border-gray-200 grid grid-cols-1 md:grid-cols-3 gap-6">
-                  <div className="flex flex-col">
-                    <label className={labelStyle}>Enrollment Status</label>
-                    <select 
-                      name="status" 
-                      value={selectedStudent.status || ""} 
-                      onChange={handleChange} 
-                      className={`${editableStyle} font-bold ${
-                        selectedStudent.status === "Enrolled" ? "text-green-600" : 
-                        selectedStudent.status === "Dropped" ? "text-red-600" : ""
-                      }`}
-                    >
-                      <option value="">Select Status</option>
-                      <option value="Enrolled">Enrolled</option>
-                      <option value="Dropped">Dropped</option>
-                    </select>
-                  </div>
+            {/* 4. ADDITIONAL STATUS */}
+            <section className="bg-gray-50 p-6 rounded-2xl border border-gray-200 grid grid-cols-1 md:grid-cols-3 gap-6">
+              <div className="flex flex-col">
+                <label className={labelStyle}>Enrollment Status</label>
+                <select 
+                  name="status" 
+                  value={selectedStudent.status || ""} 
+                  onChange={handleChange} 
+                  className={`${editableStyle} font-bold ${
+                    selectedStudent.status === "Enrolled" ? "text-green-600" : 
+                    selectedStudent.status === "Dropped" ? "text-red-600" : ""
+                  }`}
+                >
+                  <option value="">Select Status</option>
+                  <option value="Enrolled">Enrolled</option>
+                  <option value="Dropped">Dropped</option>
+                </select>
+              </div>
+              <div className="flex flex-col">
+                <label className={labelStyle}>IP Community?</label>
+                <select name="is_ip_community" value={selectedStudent.is_ip_community} onChange={handleChange} className={editableStyle}>
+                  <option value={true}>Yes</option>
+                  <option value={false}>No</option>
+                </select>
+              </div>
+              <div className="flex flex-col">
+                <label className={labelStyle}>Transferee?</label>
+                <select name="is_transferee" value={selectedStudent.is_transferee} onChange={handleChange} className={editableStyle}>
+                  <option value={true}>Yes</option>
+                  <option value={false}>No</option>
+                </select>
+              </div>
+            </section>
 
-                  <div className="flex flex-col">
-                    <label className={labelStyle}>IP Community?</label>
-                    <select name="is_ip_community" value={selectedStudent.is_ip_community} onChange={handleChange} className={editableStyle}>
-                      <option value={true}>Yes</option>
-                      <option value={false}>No</option>
-                    </select>
-                  </div>
-
-                  <div className="flex flex-col">
-                    <label className={labelStyle}>Transferee?</label>
-                    <select name="is_transferee" value={selectedStudent.is_transferee} onChange={handleChange} className={editableStyle}>
-                      <option value={true}>Yes</option>
-                      <option value={false}>No</option>
-                    </select>
-                  </div>
-                </section>
-
-            {/* 4. STUDENT ADDRESSES  */}
+            {/* 5. STUDENT ADDRESSES  */}
             <section className="grid grid-cols-1 md:grid-cols-2 gap-8">
               <div className="bg-[#EDEBDD]/40 p-6 rounded-2xl border border-[#EDEBDD]">
                 <p className="text-[11px] font-black text-red-800 mb-4 tracking-tighter uppercase flex items-center gap-2">
@@ -128,7 +157,7 @@ export default function SHSFormModal({
               </div>
             </section>
 
-            {/* 5. FAMILY BACKGROUND */}
+            {/* 6. FAMILY BACKGROUND */}
             <section className="space-y-6">
               <h2 className="text-xl font-bold text-[#7A1C1C] mb-6 flex items-center gap-2">
                 <span className="w-1.5 h-6 bg-red-800 rounded-full"></span> Family Background
@@ -166,7 +195,6 @@ export default function SHSFormModal({
                         <input name={p.occup} value={selectedStudent[p.occup] || ""} onChange={handleChange} className={editableStyle} />
                       </div>
                     </div>
-
                     <div className="pt-5 border-t border-gray-200">
                       <p className="text-[10px] font-black text-gray-400 mb-4 tracking-widest uppercase italic">Default {p.label} Residence</p>
                       <div className="grid grid-cols-2 md:grid-cols-5 gap-3">

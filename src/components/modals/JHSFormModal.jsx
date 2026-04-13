@@ -64,7 +64,36 @@ export default function JHSFormModal({
               </div>
             </section>
 
-            {/* 3. ADDITIONAL STATUS */}
+            {/* ADDED: 3. EDUCATIONAL BACKGROUND */}
+            <section>
+              <h2 className="text-lg font-bold text-[#7A1C1C] mb-5 flex items-center gap-2">
+                <span className="w-1.5 h-6 bg-red-800 rounded-full"></span> Educational Background
+              </h2>
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-6 bg-gray-50 p-6 rounded-2xl border border-gray-200">
+                <div className="flex flex-col md:col-span-2">
+                  <label className={labelStyle}>Last School Attended (Elementary)</label>
+                  <input 
+                    name="elementary_school" 
+                    value={selectedStudent.elementary_school || ""} 
+                    onChange={handleChange} 
+                    placeholder="Enter Elementary School Name"
+                    className={editableStyle} 
+                  />
+                </div>
+                <div className="flex flex-col">
+                  <label className={labelStyle}>Year Completed</label>
+                  <input 
+                    name="elementary_grad_year" 
+                    value={selectedStudent.elementary_grad_year || ""} 
+                    onChange={handleChange} 
+                    placeholder="YYYY"
+                    className={editableStyle} 
+                  />
+                </div>
+              </div>
+            </section>
+
+            {/* 4. ADDITIONAL STATUS */}
                 <section className="bg-gray-50 p-6 rounded-2xl border border-gray-200 grid grid-cols-1 md:grid-cols-3 gap-6">
                   <div className="flex flex-col">
                     <label className={labelStyle}>Enrollment Status</label>
@@ -100,7 +129,7 @@ export default function JHSFormModal({
                   </div>
                 </section>
 
-            {/* 4. STUDENT ADDRESSES  */}
+            {/* 5. STUDENT ADDRESSES  */}
             <section className="grid grid-cols-1 md:grid-cols-2 gap-8">
               <div className="bg-[#EDEBDD]/40 p-6 rounded-2xl border border-[#EDEBDD]">
                 <p className="text-[11px] font-black text-red-800 mb-4 tracking-tighter uppercase flex items-center gap-2">
@@ -128,7 +157,7 @@ export default function JHSFormModal({
               </div>
             </section>
 
-            {/* 5. FAMILY BACKGROUND */}
+            {/* 6. FAMILY BACKGROUND */}
             <section className="space-y-6">
               <h2 className="text-xl font-bold text-[#7A1C1C] mb-6 flex items-center gap-2">
                 <span className="w-1.5 h-6 bg-red-800 rounded-full"></span> Family Background

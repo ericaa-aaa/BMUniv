@@ -103,12 +103,10 @@ function Sidebar() {
        <div>
         <div 
           onClick={() => setOpenRecords(!openRecords)}
-          className={`group flex items-center gap-3 cursor-pointer py-2 px-7 rounded transition-colors ${
-            openRecords ? 'bg-[#EDEBDD]' : 'hover:bg-[#EDEBDD]'
-          }`}
-        >
+          className={`group flex items-center gap-3 cursor-pointer py-2 px-7 rounded transition-colors ${openRecords 
+          ? 'bg-[#EDEBDD]' 
+          : 'hover:bg-[#EDEBDD]'}`}>
           <div className="flex items-center gap-5 cursor-pointer">
-            {/* Dynamic SVG Icon */}
             <svg 
               xmlns="http://www.w3.org/2000/svg" 
               width="23" 
@@ -121,17 +119,15 @@ function Sidebar() {
               strokeLinejoin="round" 
               className="transition-[stroke] duration-300 group-hover:stroke-[#1B1717]"
             >
-              <path d="M4 7V4a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v16a2 2 0 0 1-2 2h-12a2 2 0 0 1-2-2v-3" />
-              <path d="M2 11h12" />
-              <path d="m9 7 4 4-4 4" />
+              <path d="M15.5 2H11a2 2 0 0 0-2 2v1" />
+              <path d="M7 18a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h7.5L17 4.5" />
+              <path d="M11 7h7a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2h-7a2 2 0 0 1-2-2V9a2 2 0 0 1 2-2Z" />
+              <path d="M17 7v4a2 2 0 0 0 2 2h1" />
             </svg>
 
-            <a className={`transition-colors duration-300 ${
-              openRecords 
+            <a className={`transition-colors duration-300 ${openRecords 
                 ? 'text-[#1B1717]' 
-                : 'text-[#EDEBDD] group-hover:text-[#1B1717]' 
-            }`}>
-              Student Records
+                : 'text-[#EDEBDD] group-hover:text-[#1B1717]' }`}>Student Records
             </a>
           </div>
         </div>
