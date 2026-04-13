@@ -17,4 +17,3 @@ export const loginTeacher = async (username, password) => {
   }
   return { success: false, message: data.message };
 };
-  
