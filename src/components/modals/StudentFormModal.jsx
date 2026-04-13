@@ -56,31 +56,49 @@ export default function StudentFormModal({
                 <div className="flex flex-col"><label className={labelStyle}>Gender</label><input name="gender" value={selectedStudent.gender || ""} onChange={handleChange} className={editableStyle} /></div>
                 <div className="flex flex-col"><label className={labelStyle}>Civil Status</label><input name="civil_status" value={selectedStudent.civil_status || ""} onChange={handleChange} className={editableStyle} /></div>
                 <div className="flex flex-col"><label className={labelStyle}>Birthdate</label><input type="date" name="birthdate" value={selectedStudent.birthdate || ""} onChange={handleChange} className={editableStyle} /></div>
-                <div className="flex flex-col md:col-span-2"><label className={labelStyle}>Birth Place</label><input name="birthplace" value={selectedStudent.birthplace || ""} onChange={handleChange} className={editableStyle}/></div>
+                <div className="flex flex-col md:col-span-2"><label className={labelStyle}>Birth Place</label><input name="birthplace" value={selectedStudent.place_of_birth || ""} onChange={handleChange} className={editableStyle}/></div>
                 <div className="flex flex-col"><label className={labelStyle}>Weight (kg)</label><input name="weight" value={selectedStudent.weight || ""} onChange={handleChange} className={editableStyle} /></div>
                 <div className="flex flex-col"><label className={labelStyle}>Height (cm)</label><input name="height" value={selectedStudent.height || ""} onChange={handleChange} className={editableStyle} /></div>
-                <div className="flex flex-col"><label className={labelStyle}>Mother Tongue</label><input name="mother_tongue" value={""} onChange={handleChange} className={editableStyle}/></div>
-                <div className="flex flex-col"><label className={labelStyle}>Religion</label><input name="religion" value={""} onChange={handleChange} className={editableStyle}/></div>
+                <div className="flex flex-col"><label className={labelStyle}>Mother Tongue</label><input name="mother_tongue" value={selectedStudent.mother_tongue || ""} onChange={handleChange} className={editableStyle}/></div>
+                <div className="flex flex-col"><label className={labelStyle}>Religion</label><input name="religion" value={selectedStudent.religion || ""} onChange={handleChange} className={editableStyle}/></div>
               </div>
             </section>
 
             {/* 3. ADDITIONAL STATUS */}
-            <section className="bg-gray-50 p-6 rounded-2xl border border-gray-200 grid grid-cols-2 md:grid-cols-4 gap-6">
-               <div className="flex flex-col">
-                  <label className={labelStyle}>IP Community?</label>
-                  <select name="is_ip_community" value={selectedStudent.is_ip_community} onChange={handleChange} className={editableStyle}>
-                    <option value={true}>Yes</option>
-                    <option value={false}>No</option>
-                  </select>
-                </div>
-                <div className="flex flex-col">
-                  <label className={labelStyle}>Transferee?</label>
-                  <select name="is_transferee" value={selectedStudent.is_transferee} onChange={handleChange} className={editableStyle}>
-                    <option value={true}>Yes</option>
-                    <option value={false}>No</option>
-                  </select>
-                </div>
-            </section>
+                <section className="bg-gray-50 p-6 rounded-2xl border border-gray-200 grid grid-cols-1 md:grid-cols-3 gap-6">
+                  <div className="flex flex-col">
+                    <label className={labelStyle}>Enrollment Status</label>
+                    <select 
+                      name="status" 
+                      value={selectedStudent.status || ""} 
+                      onChange={handleChange} 
+                      className={`${editableStyle} font-bold ${
+                        selectedStudent.status === "Enrolled" ? "text-green-600" : 
+                        selectedStudent.status === "Dropped" ? "text-red-600" : ""
+                      }`}
+                    >
+                      <option value="">Select Status</option>
+                      <option value="Enrolled">Enrolled</option>
+                      <option value="Dropped">Dropped</option>
+                    </select>
+                  </div>
+
+                  <div className="flex flex-col">
+                    <label className={labelStyle}>IP Community?</label>
+                    <select name="is_ip_community" value={selectedStudent.is_ip_community} onChange={handleChange} className={editableStyle}>
+                      <option value={true}>Yes</option>
+                      <option value={false}>No</option>
+                    </select>
+                  </div>
+
+                  <div className="flex flex-col">
+                    <label className={labelStyle}>Transferee?</label>
+                    <select name="is_transferee" value={selectedStudent.is_transferee} onChange={handleChange} className={editableStyle}>
+                      <option value={true}>Yes</option>
+                      <option value={false}>No</option>
+                    </select>
+                  </div>
+                </section>
 
             {/* 4. STUDENT ADDRESSES  */}
             <section className="grid grid-cols-1 md:grid-cols-2 gap-8">
