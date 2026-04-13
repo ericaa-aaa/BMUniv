@@ -56,22 +56,22 @@ export default function SHSFormModal({
                 <div className="grid grid-cols-1 md:grid-cols-4 gap-4 bg-gray-50/50 p-4 rounded-xl border border-gray-100">
                   <div className="flex flex-col md:col-span-3">
                     <label className={labelStyle}>Last Elementary School Attended</label>
-                    <input name="elem_school" value={selectedStudent.elem_school || ""} onChange={handleChange} className={editableStyle} placeholder="Name of Elementary School" />
+                    <input name="elem_school" value={selectedStudent.elschool_attended || ""} onChange={handleChange} className={editableStyle} placeholder="Name of Elementary School" />
                   </div>
                   <div className="flex flex-col">
                     <label className={labelStyle}>Year Completed</label>
-                    <input name="elem_year" value={selectedStudent.elem_year || ""} onChange={handleChange} className={editableStyle} placeholder="YYYY-YYYY" />
+                    <input name="elem_year" value={selectedStudent.school_year || ""} onChange={handleChange} className={editableStyle} placeholder="YYYY-YYYY" />
                   </div>
                 </div>
                 {/* JHS */}
                 <div className="grid grid-cols-1 md:grid-cols-4 gap-4 bg-gray-50/50 p-4 rounded-xl border border-gray-100">
                   <div className="flex flex-col md:col-span-3">
                     <label className={labelStyle}>Last Junior High School Attended</label>
-                    <input name="jhs_school" value={selectedStudent.jhs_school || ""} onChange={handleChange} className={editableStyle} placeholder="Name of Junior High School" />
+                    <input name="jhs_school" value={selectedStudent.highschool_attended || ""} onChange={handleChange} className={editableStyle} placeholder="Name of Junior High School" />
                   </div>
                   <div className="flex flex-col">
                     <label className={labelStyle}>Year Completed</label>
-                    <input name="jhs_year" value={selectedStudent.jhs_year || ""} onChange={handleChange} className={editableStyle} placeholder="YYYY-YYYY" />
+                    <input name="jhs_year" value={selectedStudent.highschool_year || ""} onChange={handleChange} className={editableStyle} placeholder="YYYY-YYYY" />
                   </div>
                 </div>
               </div>

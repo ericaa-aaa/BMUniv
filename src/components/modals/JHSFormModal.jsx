@@ -74,7 +74,7 @@ export default function JHSFormModal({
                   <label className={labelStyle}>Last School Attended (Elementary)</label>
                   <input 
                     name="elementary_school" 
-                    value={selectedStudent.elementary_school || ""} 
+                    value={selectedStudent.elschool_attended || ""} 
                     onChange={handleChange} 
                     placeholder="Enter Elementary School Name"
                     className={editableStyle} 
@@ -84,7 +84,7 @@ export default function JHSFormModal({
                   <label className={labelStyle}>Year Completed</label>
                   <input 
                     name="elementary_grad_year" 
-                    value={selectedStudent.elementary_grad_year || ""} 
+                    value={selectedStudent.school_year || ""} 
                     onChange={handleChange} 
                     placeholder="YYYY"
                     className={editableStyle} 

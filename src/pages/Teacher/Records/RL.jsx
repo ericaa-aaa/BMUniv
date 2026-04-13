@@ -3,7 +3,7 @@ import RLFormModal from '../../../components/modals/RLFormModal';
 import bg from "../../../assets/images/bg.jpg";
 import { CiSearch } from "react-icons/ci";
 
-import { SeHighSchoolStudentService } from "../../../services/sehighstudentservice";
+import { RLStudentService } from "../../../services/rlstudentservice";
 
 export default function RL() {
   const [students, setStudents] = useState([]);
@@ -14,8 +14,8 @@ export default function RL() {
 
   useEffect(() => {
     const fetchStudents = async () => {
-      try {
-        const data = await SeHighSchoolStudentService.getStudents();
+      try { 
+        const data = await RLStudentService.getStudents();
         setStudents(data);
       } catch (error) {
         console.error("Failed to load students:", error);
