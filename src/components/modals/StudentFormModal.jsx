@@ -59,6 +59,8 @@ export default function StudentFormModal({
                 <div className="flex flex-col md:col-span-2"><label className={labelStyle}>Birth Place</label><input name="birthplace" value={selectedStudent.birthplace || ""} onChange={handleChange} className={editableStyle}/></div>
                 <div className="flex flex-col"><label className={labelStyle}>Weight (kg)</label><input name="weight" value={selectedStudent.weight || ""} onChange={handleChange} className={editableStyle} /></div>
                 <div className="flex flex-col"><label className={labelStyle}>Height (cm)</label><input name="height" value={selectedStudent.height || ""} onChange={handleChange} className={editableStyle} /></div>
+                <div className="flex flex-col"><label className={labelStyle}>Mother Tongue</label><input name="mother_tongue" value={""} onChange={handleChange} className={editableStyle}/></div>
+                <div className="flex flex-col"><label className={labelStyle}>Religion</label><input name="religion" value={""} onChange={handleChange} className={editableStyle}/></div>
               </div>
             </section>
 
