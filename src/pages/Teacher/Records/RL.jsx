@@ -1,11 +1,11 @@
 import { useState, useEffect } from "react";
-import SHSFormModal from '../../../components/modals/SHSFormModal';
+import RLFormModal from '../../../components/modals/RLFormModal';
 import bg from "../../../assets/images/bg.jpg";
 import { CiSearch } from "react-icons/ci";
 
 import { SeHighSchoolStudentService } from "../../../services/sehighstudentservice";
 
-export default function SeHighschool() {
+export default function RL() {
   const [students, setStudents] = useState([]);
   const [loading, setLoading] = useState(true);
   const [search, setSearch] = useState("");
@@ -55,7 +55,7 @@ export default function SeHighschool() {
         
         <div className="flex justify-center mb-8 shrink-0">
           <h1 className="bg-[#8B0000] text-white px-12 py-3 rounded-2xl text-lg md:text-xl font-semibold shadow-lg">
-            Senior Highschool Students Records
+            Return Learners Student Records
           </h1>
         </div>
 
@@ -144,7 +144,7 @@ export default function SeHighschool() {
           </div>
         </div>
 
-        <SHSFormModal
+        <RLFormModal
           showModal={showModal}
           setShowModal={setShowModal}
           selectedStudent={selectedStudent}
