@@ -9,138 +9,180 @@ export default function StudentFormModal({
 }) {
   if (!showModal || !selectedStudent) return null;
 
-  // Logic to determine level for conditional rendering
-  const grade = parseInt(selectedStudent.grade);
-  const isJHS = grade >= 7 && grade <= 10;
-  const isSHS = grade >= 11 && grade <= 12;
-
   // Reusable Styles
-  const readOnlyStyle = "border rounded-lg px-4 py-3 bg-gray-100 cursor-not-allowed text-gray-600 w-full";
-  const editableStyle = "border rounded-lg px-4 py-3 bg-white focus:ring-2 focus:ring-red-800 outline-none w-full transition-all";
-
-  // Helper to generate the default address string from student info
-  const studentFullAddress = [
-    selectedStudent.houseNum,
-    selectedStudent.street,
-    selectedStudent.barangay,
-    selectedStudent.city,
-    selectedStudent.province
-  ].filter(Boolean).join(", ");
+  const readOnlyStyle = "border rounded-lg px-4 py-3 bg-gray-100 cursor-not-allowed text-gray-600 w-full text-sm";
+  const editableStyle = "border rounded-lg px-4 py-3 bg-white focus:ring-2 focus:ring-red-800 outline-none w-full text-sm transition-all";
+  const labelStyle = "text-[10px] font-bold mb-1 ml-1 text-gray-500 uppercase";
 
   return (
     <div className="fixed inset-0 bg-black/50 z-50 overflow-y-auto backdrop-blur-sm">
       <div className="min-h-screen flex items-center justify-center py-10 px-4">
-        <div className="bg-white w-full max-w-4xl rounded-2xl shadow-2xl relative p-6 md:p-8">
+        <div className="bg-white w-full max-w-5xl rounded-2xl shadow-2xl relative p-6 md:p-8">
           
-          {/* CLOSE BUTTON */}
-          <button 
-            onClick={() => setShowModal(false)} 
-            className="absolute top-5 right-5 text-gray-400 hover:text-red-800 transition-colors"
-          >
-            <IoMdCloseCircleOutline size={26} />
+          <button onClick={() => setShowModal(false)} className="absolute top-5 right-5 text-gray-400 hover:text-red-800 transition-colors">
+            <IoMdCloseCircleOutline size={30} />
           </button>
 
-          {/* HEADER */}
           <div className="bg-red-800 text-white text-center py-4 rounded-xl mb-8">
-            <h1 className="text-xl md:text-2xl font-bold uppercase tracking-wide">
-              Student Information System
-            </h1>
+            <h1 className="text-xl font-bold uppercase tracking-wide">Update Student Record</h1>
           </div>
 
           <div className="space-y-8">
-            {/* STUDENT INFO SECTION */}
+            {/* 1. READ-ONLY HEADER INFO (Not in your patch list) */}
             <section>
-              <h2 className="text-xl font-bold text-[#7A1C1C] mb-4 flex items-center gap-2">
-                <span className="w-1.5 h-6 bg-red-800 rounded-full"></span>
-                Student Information
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-4 bg-[#EDEBDD] p-5 rounded-xl">
+                <div className="flex flex-col col-span-2">
+                  <label className={labelStyle}>Full Name (Generated)</label>
+                  <input value={selectedStudent.fullname || ""} readOnly className={readOnlyStyle} />
+                </div>
+                <div className="flex flex-col">
+                  <label className={labelStyle}>Current Grade Level</label>
+                  <input value={selectedStudent.grade_level || ""} readOnly className={readOnlyStyle} />
+                </div>
+              </div>
+            </section>
+
+            {/* 2. EDITABLE PERSONAL INFO (In your patch list) */}
+            <section>
+              <h2 className="text-lg font-bold text-[#7A1C1C] mb-4 flex items-center gap-2">
+                <span className="w-1 h-5 bg-red-800 rounded-full"></span> Basic Information
               </h2>
-              <div className="grid grid-cols-1 md:grid-cols-4 gap-4 bg-[#EDEBDD] p-5 rounded-xl">
-                <div className="flex flex-col">
-                  <label className="text-[10px] font-bold mb-1 ml-1 text-gray-600 uppercase">Student Name</label>
-                  <input name="name" value={selectedStudent.name} readOnly className={readOnlyStyle} />
-                </div>
-                <div className="flex flex-col">
-                  <label className="text-[10px] font-bold mb-1 ml-1 text-gray-600 uppercase">Grade Level</label>
-                  <input name="grade" value={selectedStudent.grade} readOnly className={readOnlyStyle} />
-                </div>
-                <div className="flex flex-col">
-                  <label className="text-[10px] font-bold mb-1 ml-1 text-gray-600 uppercase">Section</label>
-                  <input name="section" value={selectedStudent.section || ""} onChange={handleChange} placeholder="Section" className={editableStyle} />
-                </div>
-                <div className="flex flex-col">
-                  <label className="text-[10px] font-bold mb-1 ml-1 text-gray-600 uppercase">Status</label>
-                  <select name="status" value={selectedStudent.status} onChange={handleChange} className={editableStyle}>
-                    <option value="Enrolled">Enrolled</option>
-                    <option value="Dropped">Dropped</option>
+              <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+                <div className="flex flex-col"><label className={labelStyle}>Last Name</label><input name="lastname" value={selectedStudent.lastname || ""} onChange={handleChange} className={editableStyle} /></div>
+                <div className="flex flex-col"><label className={labelStyle}>First Name</label><input name="firstname" value={selectedStudent.firstname || ""} onChange={handleChange} className={editableStyle} /></div>
+                <div className="flex flex-col"><label className={labelStyle}>Middle Name</label><input name="middlename" value={selectedStudent.middlename || ""} onChange={handleChange} className={editableStyle} /></div>
+                <div className="flex flex-col"><label className={labelStyle}>Ext.</label><input name="ext" value={selectedStudent.ext || ""} onChange={handleChange} className={editableStyle} /></div>
+                <div className="flex flex-col"><label className={labelStyle}>Age</label><input name="age" value={selectedStudent.age || ""} onChange={handleChange} className={editableStyle} /></div>
+                <div className="flex flex-col"><label className={labelStyle}>Gender</label><input name="gender" value={selectedStudent.gender || ""} onChange={handleChange} className={editableStyle} /></div>
+                <div className="flex flex-col"><label className={labelStyle}>Civil Status</label><input name="civil_status" value={selectedStudent.civil_status || ""} onChange={handleChange} className={editableStyle} /></div>
+                <div className="flex flex-col"><label className={labelStyle}>Birthdate</label><input type="date" name="birthdate" value={selectedStudent.birthdate || ""} onChange={handleChange} className={editableStyle} /></div>
+              </div>
+            </section>
+
+            {/* 3. BOOLEAN & ADDITIONAL INFO */}
+            <section className="bg-gray-50 p-5 rounded-xl border border-gray-200 grid grid-cols-2 md:grid-cols-4 gap-4">
+               <div className="flex flex-col">
+                  <label className={labelStyle}>IP Community?</label>
+                  <select name="is_ip_community" value={selectedStudent.is_ip_community} onChange={handleChange} className={editableStyle}>
+                    <option value={true}>Yes</option>
+                    <option value={false}>No</option>
                   </select>
                 </div>
+                <div className="flex flex-col">
+                  <label className={labelStyle}>Transferee?</label>
+                  <select name="is_transferee" value={selectedStudent.is_transferee} onChange={handleChange} className={editableStyle}>
+                    <option value={true}>Yes</option>
+                    <option value={false}>No</option>
+                  </select>
+                </div>
+                <div className="flex flex-col"><label className={labelStyle}>Weight(KG)</label><input name="weight" value={selectedStudent.weight || ""} onChange={handleChange} className={editableStyle} /></div>
+                <div className="flex flex-col"><label className={labelStyle}>Height(CM)</label><input name="height" value={selectedStudent.height || ""} onChange={handleChange} className={editableStyle} /></div>
+            </section>
+
+            {/* 4. ADDRESSES (All in your patch list) */}
+            <section className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              <div className="bg-[#EDEBDD] p-5 rounded-xl">
+                <p className="text-[11px] font-black text-red-800 mb-3">CURRENT ADDRESS</p>
+                <div className="grid grid-cols-2 gap-2">
+                  <input name="curr_house_no" placeholder="House No." value={selectedStudent.curr_house_no || ""} onChange={handleChange} className={editableStyle} />
+                  <input name="curr_street" placeholder="Street" value={selectedStudent.curr_street || ""} onChange={handleChange} className={editableStyle} />
+                  <input name="curr_barangay" placeholder="Barangay" value={selectedStudent.curr_barangay || ""} onChange={handleChange} className={editableStyle} />
+                  <input name="curr_municipality" placeholder="Municipality" value={selectedStudent.curr_municipality || ""} onChange={handleChange} className={editableStyle} />
+                  <input name="curr_province" placeholder="Province" value={selectedStudent.curr_province || ""} onChange={handleChange} className={`${editableStyle} col-span-2`} />
+                </div>
+              </div>
+              <div className="bg-[#EDEBDD] p-5 rounded-xl">
+                <p className="text-[11px] font-black text-red-800 mb-3">PERMANENT ADDRESS</p>
+                <div className="grid grid-cols-2 gap-2">
+                  <input name="perm_house_no" placeholder="House No." value={selectedStudent.perm_house_no || ""} onChange={handleChange} className={editableStyle} />
+                  <input name="perm_street" placeholder="Street" value={selectedStudent.perm_street || ""} onChange={handleChange} className={editableStyle} />
+                  <input name="perm_barangay" placeholder="Barangay" value={selectedStudent.perm_barangay || ""} onChange={handleChange} className={editableStyle} />
+                  <input name="perm_municipality" placeholder="Municipality" value={selectedStudent.perm_municipality || ""} onChange={handleChange} className={editableStyle} />
+                  <input name="perm_province" placeholder="Province" value={selectedStudent.perm_province || ""} onChange={handleChange} className={`${editableStyle} col-span-2`} />
+                </div>
               </div>
             </section>
 
-            {/* CONTACT INFO SECTION */}
-            <section>
-              <h2 className="text-xl font-bold text-[#7A1C1C] mb-4 flex items-center gap-2">
-                <span className="w-1.5 h-6 bg-red-800 rounded-full"></span>
-                Contact Information
-              </h2>
-              <div className="bg-[#EDEBDD] p-5 rounded-xl space-y-4">
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                  <input name="contact" value={selectedStudent.contact || ""} onChange={handleChange} placeholder="Contact Number" className={editableStyle} />
-                  <input name="email" value={selectedStudent.email || ""} onChange={handleChange} placeholder="Email Address" className={editableStyle} />
-                </div>
-                <div className="grid grid-cols-2 md:grid-cols-5 gap-2">
-                  <input name="houseNum" value={selectedStudent.houseNum || ""} onChange={handleChange} placeholder="House No." className={editableStyle} />
-                  <input name="street" value={selectedStudent.street || ""} onChange={handleChange} placeholder="Street" className={editableStyle} />
-                  <input name="barangay" value={selectedStudent.barangay || ""} onChange={handleChange} placeholder="Barangay" className={editableStyle} />
-                  <input name="city" value={selectedStudent.city || ""} onChange={handleChange} placeholder="City" className={editableStyle} />
-                  <input name="province" value={selectedStudent.province || ""} onChange={handleChange} placeholder="Province" className={editableStyle} />
-                </div>
-              </div>
-            </section>
+            {/* 5. PARENT INFO (Strictly following the f_, m_, and g_ naming) */}
+<section className="space-y-4">
+  <h2 className="text-xl font-bold text-[#7A1C1C] mb-4 flex items-center gap-2">
+    <span className="w-1.5 h-6 bg-red-800 rounded-full"></span> 
+    Family Background
+  </h2>
+  <div className="grid grid-cols-1 gap-6">
+    {[
+      { 
+        label: "FATHER", 
+        fName: "father_first_name", lName: "father_last_name", contact: "father_contact", occup: "father_occupation",
+        hNo: "f_house_no", str: "f_street", brgy: "f_barangay", mun: "f_municipality", prov: "f_province" 
+      },
+      { 
+        label: "MOTHER", 
+        fName: "mother_first_name", lName: "mother_last_name", contact: "mother_contact", occup: "mother_occupation",
+        hNo: "m_house_no", str: "m_street", brgy: "m_barangay", mun: "m_municipality", prov: "m_province" 
+      },
+      { 
+        label: "GUARDIAN", 
+        fName: "guardian_first_name", lName: "guardian_last_name", contact: "guardian_contact", occup: "guardian_relationship",
+        hNo: "g_house_no", str: "g_street", brgy: "g_barangay", mun: "g_municipality", prov: "g_province" 
+      }
+    ].map((p) => (
+      <div key={p.label} className="bg-gray-50 border border-gray-200 p-5 rounded-xl space-y-5 shadow-sm">
+        {/* --- PERSONAL INFO ROW --- */}
+        <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
+          <div className="flex flex-col">
+            <label className={labelStyle}>{p.label}'S FIRST NAME</label>
+            <input name={p.fName} value={selectedStudent[p.fName] || ""} onChange={handleChange} className={editableStyle} />
+          </div>
+          <div className="flex flex-col">
+            <label className={labelStyle}>{p.label}'S LAST NAME</label>
+            <input name={p.lName} value={selectedStudent[p.lName] || ""} onChange={handleChange} className={editableStyle} />
+          </div>
+          <div className="flex flex-col">
+            <label className={labelStyle}>CONTACT NUMBER</label>
+            <input name={p.contact} value={selectedStudent[p.contact] || ""} onChange={handleChange} className={editableStyle} />
+          </div>
+          <div className="flex flex-col">
+            <label className={labelStyle}>{p.label === "GUARDIAN" ? "RELATIONSHIP" : "OCCUPATION"}</label>
+            <input name={p.occup} value={selectedStudent[p.occup] || ""} onChange={handleChange} className={editableStyle} />
+          </div>
+        </div>
 
-            {/* PARENT / GUARDIAN INFO SECTION */}
-            <section>
-              <h2 className="text-xl font-bold text-[#7A1C1C] mb-4 flex items-center gap-2">
-                <span className="w-1.5 h-6 bg-red-800 rounded-full"></span>
-                Parent / Guardian Information
-              </h2>
-              <div className="space-y-3">
-                {[
-                  { label: "FATHER", name: "fatherName", contact: "fatherContact", address: "fatherAddress" },
-                  { label: "MOTHER", name: "motherName", contact: "motherContact", address: "motherAddress" },
-                  { label: "GUARDIAN", name: "guardianName", contact: "guardianContact", address: "guardianAddress" }
-                ].map((p) => (
-                  <div key={p.label} className="grid grid-cols-1 md:grid-cols-3 gap-4 bg-[#EDEBDD] p-5 rounded-xl items-end">
-                    <div className="flex flex-col">
-                      <label className="text-[10px] font-bold mb-1 text-gray-600">{p.label}'S NAME</label>
-                      <input name={p.name} value={selectedStudent[p.name] || ""} readOnly className={readOnlyStyle} />
-                    </div>
-                    <div className="flex flex-col">
-                      <label className="text-[10px] font-bold mb-1 text-gray-600">CONTACT NUMBER</label>
-                      <input name={p.contact} value={selectedStudent[p.contact] || ""} onChange={handleChange} placeholder="Contact Number" className={editableStyle} />
-                    </div>
-                    <div className="flex flex-col">
-                      <label className="text-[10px] font-bold mb-1 text-gray-600">ADDRESS (AUTO)</label>
-                      <input 
-                        name={p.address} 
-                        value={selectedStudent[p.address] || studentFullAddress} 
-                        readOnly 
-                        className={readOnlyStyle} 
-                      />
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </section>
+        {/* --- FULL ADDRESS ROW WITH LABELS --- */}
+        <div className="pt-4 border-t border-gray-200">
+          <p className="text-[10px] font-black text-red-800 mb-3 tracking-widest uppercase">{p.label}'S COMPLETE ADDRESS</p>
+          <div className="grid grid-cols-2 md:grid-cols-5 gap-3">
+            <div className="flex flex-col">
+              <label className={labelStyle}>HOUSE NO.</label>
+              <input name={p.hNo} value={selectedStudent[p.hNo] || ""} onChange={handleChange} placeholder="House No." className={editableStyle} />
+            </div>
+            <div className="flex flex-col">
+              <label className={labelStyle}>STREET</label>
+              <input name={p.str} value={selectedStudent[p.str] || ""} onChange={handleChange} placeholder="Street" className={editableStyle} />
+            </div>
+            <div className="flex flex-col">
+              <label className={labelStyle}>BARANGAY</label>
+              <input name={p.brgy} value={selectedStudent[p.brgy] || ""} onChange={handleChange} placeholder="Barangay" className={editableStyle} />
+            </div>
+            <div className="flex flex-col">
+              <label className={labelStyle}>MUNICIPALITY</label>
+              <input name={p.mun} value={selectedStudent[p.mun] || ""} onChange={handleChange} placeholder="Municipality" className={editableStyle} />
+            </div>
+            <div className="flex flex-col">
+              <label className={labelStyle}>PROVINCE</label>
+              <input name={p.prov} value={selectedStudent[p.prov] || ""} onChange={handleChange} placeholder="Province" className={editableStyle} />
+            </div>
+          </div>
+        </div>
+      </div>
+    ))}
+  </div>
+</section>
           </div>
 
-          {/* UPDATE BUTTON */}
           <div className="mt-10">
-            <button 
-              onClick={handleUpdate} 
-              className="w-full bg-red-800 hover:bg-red-900 text-white py-4 rounded-xl text-lg font-bold transition-all shadow-lg active:scale-[0.99]"
-            >
-              UPDATE RECORD
+            <button onClick={handleUpdate} className="w-full bg-red-800 hover:bg-red-900 text-white py-4 rounded-xl font-bold shadow-lg transition-transform active:scale-[0.99]">
+              SAVE UPDATED RECORD
             </button>
           </div>
         </div>
