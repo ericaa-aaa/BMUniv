@@ -2,16 +2,21 @@
 //import d from '../../../assets/images/dashboard5.png'
 import e from '../../../assets/images/signin4.png'
 
-import { Link } from 'react-router-dom'
-
 import { useState } from 'react'
+import { Link, useNavigate } from 'react-router-dom';
 
 function Sidebar() {
-
+  const navigate = useNavigate();
   const [openFaculty, setOpenFaculty] = useState(false);
   const [openRecords, setOpenRecords] = useState(false);
   const [openEnrollment, setOpenEnrollment]= useState(false);
   const [activeItem, setActiveItem] = useState("");
+
+  const handleLogout = () => {
+    localStorage.removeItem("token");
+    localStorage.removeItem("activeUser");
+    navigate("/", { replace: true }); // replace: true prevents going back after logout
+  };
 
   return (
     <div className="w-67 bg-[#630000] text-[#EDEBDD] flex flex-col p-6 min-h-screen pr-5">
@@ -196,9 +201,27 @@ function Sidebar() {
       </div>  
     </nav>
 
-      <div className="mt-auto ">
-        <button className="flex items-center gap-2 cursor-pointer">
-          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="#1B1717" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-skip-forward-icon lucide-skip-forward"><path d="M21 4v16"/><path d="M6.029 4.285A2 2 0 0 0 3 6v12a2 2 0 0 0 3.029 1.715l9.997-5.998a2 2 0 0 0 .003-3.432z"/></svg>Log Out
+<div className="mt-auto">
+        <button 
+          onClick={handleLogout} 
+          className="flex items-center gap-2 cursor-pointer hover:text-white transition-all"
+        >
+          <svg 
+            xmlns="http://www.w3.org/2000/svg" 
+            width="24" 
+            height="24" 
+            viewBox="0 0 24 24" 
+            fill="#1B1717" 
+            stroke="currentColor" 
+            strokeWidth="2" // Changed from stroke-width
+            strokeLinecap="round" 
+            strokeLinejoin="round" 
+            className="lucide lucide-skip-forward"
+          >
+            <path d="M21 4v16"/>
+            <path d="M6.029 4.285A2 2 0 0 0 3 6v12a2 2 0 0 0 3.029 1.715l9.997-5.998a2 2 0 0 0 .003-3.432z"/>
+          </svg>
+          Log Out
         </button>
       </div>
 

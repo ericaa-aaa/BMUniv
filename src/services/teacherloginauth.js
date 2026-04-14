@@ -13,6 +13,7 @@ export const loginTeacher = async (username, password) => {
   if (res.ok) {
     // Save the token in localStorage so we can use it later
     localStorage.setItem("token", data.access_token);
+    localStorage.setItem("activeUser", data.username);
     return { success: true };
   }
   return { success: false, message: data.message };
