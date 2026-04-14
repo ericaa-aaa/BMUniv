@@ -2,46 +2,14 @@ import { User } from "lucide-react";
 
 export default function StudentSubjects() {
   const subjects = [
-    {
-      subject: "Filipino",
-      teacher: "Dela Cruz, Juan M.",
-      schedule: "MWF",
-    },
-    {
-      subject: "English",
-      teacher: "Reyes, Carlo C.",
-      schedule: "TTH",
-    },
-    {
-      subject: "Science",
-      teacher: "Mendoza, Ayan L.",
-      schedule: "MWF",
-    },
-    {
-      subject: "Mathematics",
-      teacher: "Balabo, Maine M.",
-      schedule: "MWF",
-    },
-    {
-      subject: "Araling Panlipunan",
-      teacher: "Villanueva, Precy Z.",
-      schedule: "TTH",
-    },
-    {
-      subject: "MAPEH",
-      teacher: "Ramos, Merly K.",
-      schedule: "F",
-    },
-    {
-      subject: "EPP",
-      teacher: "Atienza, Princess R.",
-      schedule: "MWF",
-    },
-    {
-      subject: "GMRC",
-      teacher: "Mancil, Clarish P.",
-      schedule: "TTH",
-    },
+    { course_code: "Fili 2", subject: "Filipino", teacher: "Dela Cruz, Juan M.", schedule: "MWF" },
+    { course_code: "Eng 2", subject: "English", teacher: "Reyes, Carlo C.", schedule: "TTH" },
+    { course_code: "Sci 2", subject: "Science", teacher: "Mendoza, Ayan L.", schedule: "MWF" },
+    { course_code: "Math 2", subject: "Mathematics", teacher: "Balabo, Maine M.", schedule: "MWF" },
+    { course_code: "AP 2", subject: "Araling Panlipunan", teacher: "Villanueva, Precy Z.", schedule: "TTH" },
+    { course_code: "Mep 2", subject: "MAPEH", teacher: "Ramos, Merly K.", schedule: "F" },
+    { course_code: "EPP 2", subject: "EPP", teacher: "Atienza, Princess R.", schedule: "MWF" },
+    { course_code: "GM 2", subject: "GMRC", teacher: "Mancil, Clarish P.", schedule: "TTH" },
   ];
 
   return (
@@ -49,12 +17,10 @@ export default function StudentSubjects() {
       {/* STUDENT INFO CARD */}
       <div className="rounded-3xl overflow-hidden h-56 shadow-lg relative"
         style={{
-          backgroundImage:
-            "url('https://images.unsplash.com/photo-1562774053-701939374585')",
+          backgroundImage: "url('https://images.unsplash.com/photo-1562774053-701939374585')",
           backgroundSize: "cover",
           backgroundPosition: "center",
         }}>
-
         <div className="absolute inset-0 bg-white/70 flex items-center justify-between px-10">
           <div className="flex items-center gap-5">
             <div className="w-24 h-24 bg-black rounded-full flex items-center justify-center">
@@ -62,7 +28,6 @@ export default function StudentSubjects() {
             </div>
             <h2 className="text-2xl font-semibold">Dela Cruz, Juan M.</h2>
           </div>
-
           <div className="space-y-3 text-lg font-semibold text-[#7B0000]">
             <p>▸ Batangas Metropolitan University</p>
             <p>▸ Grade 12 - ABM</p>
@@ -72,27 +37,30 @@ export default function StudentSubjects() {
         </div>
       </div>
 
-      {/* SUBJECT TABLE */}
+      {/* SUBJECT GRID TABLE */}
       <div className="mt-8 bg-white rounded-2xl shadow-lg overflow-hidden">
-        <table className="w-full">
-          <thead className="bg-[#7B0000] text-white">
-            <tr>
-              <th className="py-4">Subjects</th>
-              <th>Teacher</th>
-              <th>Schedule</th>
-            </tr>
-          </thead>
+        {/* Table Header */}
+        <div className="grid grid-cols-[1fr_2fr_1.5fr_1fr] bg-[#7B0000] text-white text-center font-semibold sticky top-0 z-10 shadow-md">
+          <div className="p-4 border-r border-white/10">Course Code</div>
+          <div className="p-4 border-r border-white/10">Subjects</div>
+          <div className="p-4 border-r border-white/10">Teacher</div>
+          <div className="p-4">Schedule</div>
+        </div>
 
-          <tbody>
-            {subjects.map((item, index) => (
-              <tr key={index}className="bg-[#ECE9DF] border-b border-white text-center">
-                <td className="py-5">{item.subject}</td>
-                <td>{item.teacher}</td>
-                <td>{item.schedule}</td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
+        {/* Table Body */}
+        <div className="flex flex-col">
+          {subjects.map((item, index) => (
+            <div 
+              key={index} 
+              className="grid grid-cols-[1fr_2fr_1.5fr_1fr] bg-[#ECE9DF] border-b border-white text-center items-center text-sm"
+            >
+              <div className="p-4 border-r border-white/20">{item.course_code}</div>
+              <div className="p-4 border-r border-white/20 font-medium">{item.subject}</div>
+              <div className="p-4 border-r border-white/20">{item.teacher}</div>
+              <div className="p-4">{item.schedule}</div>
+            </div>
+          ))}
+        </div>
       </div>
     </div>
   );

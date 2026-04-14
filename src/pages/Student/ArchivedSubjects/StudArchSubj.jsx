@@ -20,29 +20,34 @@ export default function ArchivedSubjects() {
   return (
     <div className="p-8 bg-gray-100 min-h-screen">
       <div className="bg-white rounded-2xl shadow-lg overflow-hidden">
-        <div className="bg-[#7B0000] text-white px-6 py-4 text-xl font-bold">
+        {/* Header Title */}
+        <div className="bg-[#7B0000] text-white px-6 py-4 text-xl font-bold border-b border-white/20">
           Archived Subjects
         </div>
 
-        <table className="w-full">
-          <thead className="bg-[#ECE9DF]">
-            <tr>
-              <th className="py-4">Subject</th>
-              <th>Teacher</th>
-              <th>School Year</th>
-            </tr>
-          </thead>
+        {/* Custom Grid Table */}
+        <div className="w-full">
+          {/* Table Header Row */}
+          <div className="grid grid-cols-[2fr_1.5fr_1fr] bg-[#8B0000] text-white text-center font-semibold sticky top-0 z-10 shadow-md">
+            <div className="p-4 border-r border-white/10">Subject</div>
+            <div className="p-4 border-r border-white/10">Teacher</div>
+            <div className="p-4">School Year</div>
+          </div>
 
-          <tbody>
+          {/* Table Body Rows */}
+          <div className="flex flex-col">
             {archived.map((item, index) => (
-              <tr key={index} className="text-center border-b border-gray-200">
-                <td className="py-5">{item.subject}</td>
-                <td>{item.teacher}</td>
-                <td>{item.schoolYear}</td>
-              </tr>
+              <div 
+                key={index} 
+                className="grid grid-cols-[2fr_1.5fr_1fr] bg-[#ECE9DF] border-b border-white text-center items-center text-sm"
+              >
+                <div className="p-5 border-r border-white/20 font-medium">{item.subject}</div>
+                <div className="p-5 border-r border-white/20">{item.teacher}</div>
+                <div className="p-5">{item.schoolYear}</div>
+              </div>
             ))}
-          </tbody>
-        </table>
+          </div>
+        </div>
       </div>
     </div>
   );
