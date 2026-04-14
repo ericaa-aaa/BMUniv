@@ -1,14 +1,35 @@
 import { IoMdCloseCircleOutline } from "react-icons/io";
+import { useState } from "react";
+import { ElementaryStudentService } from "../../services/elementarystudentservice";
 
 export default function ElementaryFormModal({
   showModal,
   setShowModal,
   selectedStudent,
   handleChange,
-  handleUpdate,
+  onUpdateSuccess,
+
 }) {
+  const [isSubmitting, setIsSubmitting] = useState(false);
   if (!showModal || !selectedStudent) return null;
 
+  const handleUpdate = async () => {
+    setIsSubmitting(true);
+    try {
+      await ElementaryStudentService.updateStudent(selectedStudent.id, selectedStudent);
+      
+      // Success Feedback
+      alert("Student record updated successfully!");
+      
+      // Cleanup
+      if (onUpdateSuccess) onUpdateSuccess();
+      setShowModal(false);
+    } catch (error) {
+      alert(`Update failed: ${error.message}`);
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
   // Reusable Styles
   const readOnlyStyle = "border border-gray-200 rounded-lg px-4 py-2.5 bg-gray-100 cursor-not-allowed text-gray-500 w-full text-sm font-medium";
   const editableStyle = "border border-gray-300 rounded-lg px-4 py-2.5 bg-white focus:ring-2 focus:ring-red-800 focus:border-transparent outline-none w-full text-sm transition-all";
@@ -19,8 +40,10 @@ export default function ElementaryFormModal({
       <div className="min-h-screen flex items-center justify-center py-12 px-4">
         <div className="bg-white w-full max-w-5xl rounded-3xl shadow-2xl relative p-6 md:p-10 border border-gray-100">
           
-          <button onClick={() => setShowModal(false)} 
-            className="absolute top-6 right-6 text-gray-400 hover:text-red-800 transition-colors bg-gray-50 p-1 rounded-full">
+          <button 
+            disabled={isSubmitting}
+            onClick={() => setShowModal(false)} 
+            className="absolute top-6 right-6 text-gray-400 hover:text-red-800 transition-colors bg-gray-50 p-1 rounded-full disabled:opacity-50">
             <IoMdCloseCircleOutline size={28} />
           </button>
 
@@ -180,9 +203,13 @@ export default function ElementaryFormModal({
           </div>
 
           <div className="mt-12">
-            <button onClick={handleUpdate} 
-              className="w-full bg-red-800 hover:bg-red-900 text-white py-5 rounded-2xl font-black text-lg shadow-xl transition-all active:scale-[0.98]">
-              SAVE UPDATED RECORD
+            <button 
+              onClick={handleUpdate} 
+              disabled={isSubmitting}
+              className={`w-full text-white py-5 rounded-2xl font-black text-lg shadow-xl transition-all active:scale-[0.98] ${
+                isSubmitting ? "bg-gray-400 cursor-wait" : "bg-red-800 hover:bg-red-900"
+              }`}>
+              {isSubmitting ? "UPDATING RECORD..." : "SAVE UPDATED RECORD"}
             </button>
           </div>
         </div>

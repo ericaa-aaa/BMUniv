@@ -11,17 +11,20 @@ export default function Highschool() {
   const [showModal, setShowModal] = useState(false);
   const [selectedStudent, setSelectedStudent] = useState(null);
 
+  // 1. Standalone fetch function for reuse
+  const fetchStudents = async () => {
+    try {
+      setLoading(true);
+      const data = await HighSchoolStudentService.getStudents();
+      setStudents(data);
+    } catch (error) {
+      console.error("Failed to load students:", error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
   useEffect(() => {
-    const fetchStudents = async () => {
-      try {
-        const data = await HighSchoolStudentService.getStudents();
-        setStudents(data);
-      } catch (error) {
-        console.error("Failed to load students:", error);
-      } finally {
-        setLoading(false);
-      }
-    };
     fetchStudents();
   }, []);
 
@@ -37,11 +40,19 @@ export default function Highschool() {
     });
   };
 
-  const handleUpdate = () => {
-    setStudents((prev) =>
-      prev.map((s) => (s.id === selectedStudent.id ? selectedStudent : s))
-    );
-    setShowModal(false);
+  // 2. Updated handleUpdate to call the API
+  const handleUpdate = async () => {
+    try {
+      // Assuming HighSchoolStudentService has updateStudent method similar to Elementary
+      await HighSchoolStudentService.updateStudent(selectedStudent.id, selectedStudent);
+      
+      // Refresh the list from the server to reflect changes
+      await fetchStudents();
+      setShowModal(false);
+    } catch (error) {
+      console.error("Update failed:", error);
+      alert("Failed to update student record.");
+    }
   };
 
   const filteredStudents = students.filter((student) =>
@@ -83,13 +94,12 @@ export default function Highschool() {
           <div className="flex-1 overflow-auto border border-gray-200 rounded-xl bg-white shadow-inner">
             <div className="min-w-225"> 
               
-              {/* Header: Changed Status Label */}
               <div className="grid grid-cols-[0.5fr_2fr_0.8fr_1fr_1fr_0.7fr_1fr] bg-[#8B0000] text-white text-center font-semibold sticky top-0 z-10 shadow-md">
                 <div className="p-3 border-r border-white/10">#</div>
                 <div className="p-3 border-r border-white/10">Student Name</div>
                 <div className="p-3 border-r border-white/10">Grade Level</div>
                 <div className="p-3 border-r border-white/10">Section</div>
-                <div className="p-3 border-r border-white/10">Status</div> {/* Updated UI label */}
+                <div className="p-3 border-r border-white/10">Status</div>
                 <div className="p-3 border-r border-white/10">Photo</div>
                 <div className="p-3">Student File</div>
               </div>
@@ -105,9 +115,16 @@ export default function Highschool() {
                       {student.fullname}
                     </div>
                     <div className="p-4 border-r border-gray-100 text-gray-600">{student.grade_level}</div>
-                    <div className="p-4 border-r border-gray-100 text-gray-600">{student.section}</div>
                     
-                    {/* Status Column with Conditional Styling */}
+                    {/* 3. Section logic: Show '-' if Dropped */}
+                    <div className="p-4 border-r border-gray-100 text-gray-600">
+                        {student.status?.toLowerCase() === 'dropped' ? (
+                            <span className="text-gray-400 font-bold">—</span>
+                        ) : (
+                            student.section
+                        )}
+                    </div>
+                    
                     <div className="p-4 border-r border-gray-100">
                       <span className={`px-3 py-1 rounded-full text-xs font-bold uppercase ${
                         student.status?.toLowerCase() === 'enrolled' 
@@ -147,6 +164,7 @@ export default function Highschool() {
           selectedStudent={selectedStudent}
           handleChange={handleChange}
           handleUpdate={handleUpdate}
+          onUpdateSuccess={fetchStudents} // Sync with internal refresh
         />
       </div>
     </section>

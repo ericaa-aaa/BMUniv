@@ -12,22 +12,29 @@ export default function Elementary() {
   const [selectedStudent, setSelectedStudent] = useState(null);
 
   useEffect(() => {
-    const fetchStudents = async () => {
-      try {
-        const data = await ElementaryStudentService.getStudents();
-        setStudents(data);
-      } catch (error) {
-        console.error("Failed to load students:", error);
-      } finally {
-        setLoading(false);
-      }
-    };
     fetchStudents();
   }, []);
+
+  const fetchStudents = async () => {
+    try {
+      setLoading(true);
+      const data = await ElementaryStudentService.getStudents();
+      setStudents(data);
+    } catch (error) {
+      console.error("Failed to load students:", error);
+    } finally {
+      setLoading(false);
+    }
+  };
 
   const openModal = (student) => {
     setSelectedStudent(student);
     setShowModal(true);
+  };
+
+  // Re-fetch data from server to ensure UI is perfectly in sync with DB
+  const refreshList = async () => {
+    await fetchStudents();
   };
 
   const handleChange = (e) => {
@@ -37,11 +44,15 @@ export default function Elementary() {
     });
   };
 
-  const handleUpdate = () => {
-    setStudents((prev) =>
-      prev.map((s) => (s.id === selectedStudent.id ? selectedStudent : s))
-    );
-    setShowModal(false);
+  // Updated to call the actual service
+  const handleUpdate = async () => {
+    try {
+      await ElementaryStudentService.updateStudent(selectedStudent.id, selectedStudent);
+      await refreshList(); // Refresh list from backend after successful update
+      setShowModal(false);
+    } catch (error) {
+      alert("Failed to update student: " + error.message);
+    }
   };
 
   const filteredStudents = students.filter((student) =>
@@ -82,14 +93,12 @@ export default function Elementary() {
 
           <div className="flex-1 overflow-auto border border-gray-200 rounded-xl bg-white shadow-inner">
             <div className="min-w-225"> 
-              
-              {/* Header: Changed Status Label */}
               <div className="grid grid-cols-[0.5fr_2fr_0.8fr_1fr_1fr_0.7fr_1fr] bg-[#8B0000] text-white text-center font-semibold sticky top-0 z-10 shadow-md">
                 <div className="p-3 border-r border-white/10">#</div>
                 <div className="p-3 border-r border-white/10">Student Name</div>
                 <div className="p-3 border-r border-white/10">Grade Level</div>
                 <div className="p-3 border-r border-white/10">Section</div>
-                <div className="p-3 border-r border-white/10">Status</div> {/* Updated UI label */}
+                <div className="p-3 border-r border-white/10">Status</div> 
                 <div className="p-3 border-r border-white/10">Photo</div>
                 <div className="p-3">Student File</div>
               </div>
@@ -105,9 +114,17 @@ export default function Elementary() {
                       {student.fullname}
                     </div>
                     <div className="p-4 border-r border-gray-100 text-gray-600">{student.grade_level}</div>
-                    <div className="p-4 border-r border-gray-100 text-gray-600">{student.section}</div>
                     
-                    {/* Status Column with Conditional Styling */}
+                    {/* --- UPDATED SECTION LOGIC --- */}
+                    <div className="p-4 border-r border-gray-100 text-gray-600 font-medium">
+                      {student.status?.toLowerCase() === 'dropped' ? (
+                        <span className="text-gray-400">—</span>
+                      ) : (
+                        student.section
+                      )}
+                    </div>
+                    {/* ----------------------------- */}
+
                     <div className="p-4 border-r border-gray-100">
                       <span className={`px-3 py-1 rounded-full text-xs font-bold uppercase ${
                         student.status?.toLowerCase() === 'enrolled' 
@@ -126,7 +143,7 @@ export default function Elementary() {
                       )}
                     </div>
                     <div className="p-4">
-                      <button onClick={() => openModal(student)} className="bg-blue-50 text-blue-600 px-4 py-1.5 rounded-lg text-sm font-semibold hover:bg-blue-600 hover:text-white transition-all shadow-sm">
+                      <button onClick={() => openModal(student)} className="bg-red-50 text-[#630000] px-4 py-1.5 rounded-lg text-sm font-semibold hover:bg-[#810100] hover:text-white transition-all shadow-sm">
                         View Form
                       </button>
                     </div>
@@ -146,7 +163,8 @@ export default function Elementary() {
           setShowModal={setShowModal}
           selectedStudent={selectedStudent}
           handleChange={handleChange}
-          handleUpdate={handleUpdate}
+          handleUpdate={handleUpdate} // Pass the API update function here
+          onUpdateSuccess={refreshList}
         />
       </div>
     </section>

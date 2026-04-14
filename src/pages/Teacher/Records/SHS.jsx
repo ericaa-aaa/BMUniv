@@ -2,7 +2,6 @@ import { useState, useEffect } from "react";
 import SHSFormModal from '../../../components/modals/SHSFormModal';
 import bg from "../../../assets/images/bg.jpg";
 import { CiSearch } from "react-icons/ci";
-
 import { SeHighSchoolStudentService } from "../../../services/sehighstudentservice";
 
 export default function SeHighschool() {
@@ -12,17 +11,20 @@ export default function SeHighschool() {
   const [showModal, setShowModal] = useState(false);
   const [selectedStudent, setSelectedStudent] = useState(null);
 
+  // 1. Fetch function extracted for reuse (Initial load + Refresh after update)
+  const fetchStudents = async () => {
+    try {
+      setLoading(true);
+      const data = await SeHighSchoolStudentService.getStudents();
+      setStudents(data);
+    } catch (error) {
+      console.error("Failed to load students:", error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
   useEffect(() => {
-    const fetchStudents = async () => {
-      try {
-        const data = await SeHighSchoolStudentService.getStudents();
-        setStudents(data);
-      } catch (error) {
-        console.error("Failed to load students:", error);
-      } finally {
-        setLoading(false);
-      }
-    };
     fetchStudents();
   }, []);
 
@@ -38,11 +40,19 @@ export default function SeHighschool() {
     });
   };
 
-  const handleUpdate = () => {
-    setStudents((prev) =>
-      prev.map((s) => (s.id === selectedStudent.id ? selectedStudent : s))
-    );
-    setShowModal(false);
+  // 2. Updated handleUpdate to call the Senior High Service
+  const handleUpdate = async () => {
+    try {
+      // Calls the actual PATCH API in the background
+      await SeHighSchoolStudentService.updateStudent(selectedStudent.id, selectedStudent);
+      
+      // Re-fetch data from database to keep the UI in sync
+      await fetchStudents();
+      setShowModal(false);
+    } catch (error) {
+      console.error("Update failed:", error);
+      alert("Error updating Senior High record: " + error.message);
+    }
   };
 
   const filteredStudents = students.filter((student) =>
@@ -78,15 +88,14 @@ export default function SeHighschool() {
           </div>
 
           <div className="flex-1 overflow-auto border border-gray-200 rounded-xl bg-white shadow-inner">
-            <div className="min-w-225"> 
+            <div className="min-w-[900px]"> 
               
-              {/* Header: Changed Status Label */}
               <div className="grid grid-cols-[0.5fr_2fr_0.8fr_1fr_1fr_0.7fr_1fr] bg-[#8B0000] text-white text-center font-semibold sticky top-0 z-10 shadow-md">
                 <div className="p-3 border-r border-white/10">#</div>
                 <div className="p-3 border-r border-white/10">Student Name</div>
                 <div className="p-3 border-r border-white/10">Grade Level</div>
                 <div className="p-3 border-r border-white/10">Section</div>
-                <div className="p-3 border-r border-white/10">Status</div> {/* Updated UI label */}
+                <div className="p-3 border-r border-white/10">Status</div> 
                 <div className="p-3 border-r border-white/10">Photo</div>
                 <div className="p-3">Student File</div>
               </div>
@@ -104,9 +113,16 @@ export default function SeHighschool() {
                       {student.fullname}
                     </div>
                     <div className="p-4 border-r border-gray-100 text-gray-600">{student.grade_level}</div>
-                    <div className="p-4 border-r border-gray-100 text-gray-600">{student.section}</div>
                     
-                    {/* Status Column with Conditional Styling */}
+                    {/* 3. Section logic: Show '-' if student is Dropped */}
+                    <div className="p-4 border-r border-gray-100 text-gray-600">
+                      {student.status?.toLowerCase() === 'dropped' ? (
+                        <span className="text-gray-400 font-bold">—</span>
+                      ) : (
+                        student.section
+                      )}
+                    </div>
+                    
                     <div className="p-4 border-r border-gray-100">
                       <span className={`px-3 py-1 rounded-full text-xs font-bold uppercase ${
                         student.status?.toLowerCase() === 'enrolled' 
@@ -146,6 +162,7 @@ export default function SeHighschool() {
           selectedStudent={selectedStudent}
           handleChange={handleChange}
           handleUpdate={handleUpdate}
+          onUpdateSuccess={fetchStudents} // In case the modal uses this prop instead
         />
       </div>
     </section>

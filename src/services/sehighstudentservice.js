@@ -62,5 +62,36 @@ export const SeHighSchoolStudentService = {
         }
 
         return await response.json();
-    }
+    },
+     // 3. Update existing student (PATCH)
+    updateStudent: async (id, studentData) => {
+        const token = localStorage.getItem("token");
+        
+        try {
+            const response = await fetch(`${API_BASE_URL}/SeHighstudents/${id}`, {
+                method: "PATCH",
+                headers: {
+                    "Content-Type": "application/json",
+                    "Authorization": `Bearer ${token}`
+                },
+                body: JSON.stringify(studentData),
+            });
+
+            if (response.status === 401) {
+                localStorage.removeItem("token");
+                window.location.href = "/login";
+                throw new Error("SESSION_EXPIRED");
+            }
+
+            if (!response.ok) {
+                const errorData = await response.json().catch(() => ({}));
+                throw new Error(errorData.error || "Failed to update record");
+            }
+
+            return await response.json();
+        } catch (error) {
+            console.error("Service Error [updateStudent]:", error);
+            throw error;
+        }
+    },
 };
