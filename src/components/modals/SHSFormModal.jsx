@@ -123,6 +123,13 @@ export default function SHSFormModal({
                   <option value={false}>No</option>
                 </select>
               </div>
+              <div className="flex flex-col">
+                    <label className={labelStyle}>Returning Learner?</label>
+                    <select name="is_return_learner" value={selectedStudent.is_RL} onChange={handleChange} className={editableStyle}>
+                      <option value={true}>Yes</option>
+                      <option value={false}>No</option>
+                    </select>
+              </div>
             </section>
 
             {/* 5. STUDENT ADDRESSES  */}
