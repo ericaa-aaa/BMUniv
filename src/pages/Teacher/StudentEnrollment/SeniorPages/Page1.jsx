@@ -58,6 +58,7 @@ export default function EnrollmentForm() {
             highschool_year: "",
             is_transferee: false,
             schorecipient: false,
+            is_RL: false,
         }
     });
 
@@ -356,7 +357,7 @@ export default function EnrollmentForm() {
 
                     <div className="flex gap-5 pl-22 mt-6">
                         <p className='text-[#1B1717] text-[14px]'>Is this student a returning learners? <span className="text-[#630000]">(✓) if yes</span></p>
-                        <input {...register("is_transferee")} type="checkbox" className="w-5 h-5 accent-[#630000]" />
+                        <input {...register("is_RL")} type="checkbox" className="w-5 h-5 accent-[#630000]" />
                     </div>
 
                      <div className="bg-[#EDEBDD] w-351 p-8 ml-12 rounded-2xl flex flex-col gap-7 mt-6">
