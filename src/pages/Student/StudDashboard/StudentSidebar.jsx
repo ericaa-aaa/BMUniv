@@ -19,7 +19,7 @@ export default function StudentSidebar() {
     group flex items-center gap-5 py-2 px-7 rounded transition-all duration-200 outline-none
     ${isActive(path) 
       ? 'bg-[#EDEBDD] text-[#1B1717]' 
-      : 'text-[#EDEBDD] hover:bg-[#EDEBDD] hover:text-[#1B1717] focus:bg-transparent'}
+      : 'text-[#EDEBDD] hover:bg-[#EDEBDD] hover:text-[#1B1717]'}
   `;
 
   return (
