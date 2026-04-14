@@ -8,7 +8,7 @@ export default function EnrollmentForm() {
     const [photoPreview, setPhotoPreview] = useState(null);
 
     // Initialize React Hook Form with your exact default values + new address fields
-    const { register, handleSubmit, watch, setValue,  formState: { errors } } = useForm({
+    const { register, handleSubmit, watch, setValue, trigger,  formState: { errors } } = useForm({
         mode: "onBlur",
          shouldUseNativeValidation: true,
         defaultValues: {
@@ -59,6 +59,40 @@ export default function EnrollmentForm() {
             is_RL: false,
         }
     });
+
+const handleNext = async () => {
+    let fieldsToValidate = [];
+
+    console.log("Current Step:", step); // CHECK 1: Is the step actually 1?
+
+    if (step === 1) {
+        fieldsToValidate = [
+            "lastname", "firstname", "middlename", "age", "civil_status", "gender",
+            "birthdate", "place_of_birth", "mother_tongue", "religion", "weight", "height",
+            "curr_house_no", "curr_street", "curr_barangay", "curr_municipality", "curr_province"
+        ];
+
+        if (!isPermanentSame) {
+            fieldsToValidate = [...fieldsToValidate, "perm_house_no", "perm_street", "perm_barangay", "perm_municipality", "perm_province"];
+        }
+    } else if (step === 2) {
+        fieldsToValidate = ["father_last_name", "father_first_name","father_middle_name", "father_contact", "father_occupation", "f_house_no", "f_street", "f_barangay", "f_municipality", "f_province",
+            "mother_last_name", "mother_first_name","mother_middle_name", "mother_contact", "mother_occupation", "m_house_no", "m_street", "m_barangay", "m_municipality", "m_province",
+            "guardian_last_name", "guardian_first_name","guardian_middle_name", "guardian_contact", "guardian_relationship", "g_house_no", "g_street", "g_barangay", "g_municipality", "g_province",
+         ];
+    }
+
+    console.log("Fields being checked:", fieldsToValidate); // CHECK 2: Is this list correct?
+
+    const isStepValid = await trigger(fieldsToValidate);
+    console.log("Is Validation Successful?:", isStepValid); // CHECK 3: Is this true or false?
+
+    if (isStepValid) {
+        setStep(step + 1); 
+    } else {
+        alert("Incomplete data. Please fill in all required fields.");
+    }
+};
 
     // Watchers for Address Syncing
     const isPermanentSame = watch("is_permanent_same");
@@ -230,16 +264,19 @@ export default function EnrollmentForm() {
                          </div>
                      )}
  
-                     <div className="mt-10 ml-12">
-                         <button 
-                             type="button" 
-                             onClick={() => setStep(2)} 
-                             className="flex items-center gap-2 px-10 py-4 bg-[#630000] text-white rounded-xl font-bold hover:bg-red-800 shadow-lg transition-all"
-                         >
-                             <ArrowRight size={20} />
-                             NEXT: PARENT INFORMATION
-                         </button>
-                     </div>
+<div className="mt-10 ml-12">
+    <button 
+        type="button" 
+        onClick={handleNext} // Point to the function, NOT setStep directly
+        className="flex items-center gap-2 px-10 py-4 bg-[#630000] text-white rounded-xl font-bold hover:bg-red-800 shadow-lg transition-all"
+    >
+        <ArrowRight size={20} />
+        {/* This makes the text change automatically based on the page */}
+        {step === 1 && "NEXT: PARENT INFORMATION"}
+        {step === 2 && "NEXT: FINAL SECTION"}
+        {step === 3 && "SUBMIT FORM"}
+    </button>
+</div>
                  </>
              )}
             {/* --- PAGE 2: PARENT INFORMATION --- */}
@@ -326,23 +363,26 @@ export default function EnrollmentForm() {
                         </div>
                     </div>
 
-                    <div className="flex mt-28 ml-12 gap-3">
-                        <button 
-                            type="button" 
-                            onClick={() => setStep(1)} 
-                            className="flex items-center gap-2 px-8 py-4 bg-gray-500 text-white rounded-xl font-bold hover:bg-gray-600 transition-all shadow-md"
-                        >
-                            <ArrowLeft size={20} />
-                            BACK
-                        </button>
-                        <button 
-                            type="button" 
-                            onClick={() => setStep(3)} 
-                            className="flex items-center gap-2 px-10 py-4 bg-[#630000] text-white rounded-xl font-bold hover:bg-red-800 shadow-lg transition-all"
-                        >
-                            <ArrowRight size={20} />
-                            NEXT
-                        </button>
+                        <div className="flex mt-28 ml-12 gap-3">
+                            {/* BACK Button: This is fine because we don't need validation to go back */}
+                            <button 
+                                type="button" 
+                                onClick={() => setStep(1)} 
+                                className="flex items-center gap-2 px-8 py-4 bg-gray-500 text-white rounded-xl font-bold hover:bg-gray-600 transition-all shadow-md"
+                            >
+                                <ArrowLeft size={20} />
+                                BACK
+                            </button>
+
+                            {/* NEXT Button: CHANGE THIS LINE TO USE handleNext */}
+                            <button 
+                                type="button" 
+                                onClick={handleNext} // This calls the function that checks the form!
+                                className="flex items-center gap-2 px-10 py-4 bg-[#630000] text-white rounded-xl font-bold hover:bg-red-800 shadow-lg transition-all"
+                            >
+                                <ArrowRight size={20} />
+                                NEXT
+                            </button>
                     </div>
                 </>
             )}
