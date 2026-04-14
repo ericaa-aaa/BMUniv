@@ -8,7 +8,7 @@ export default function EnrollmentForm() {
     const [photoPreview, setPhotoPreview] = useState(null);
 
     // Initialize React Hook Form with your exact default values + new address fields
-    const { register, handleSubmit, watch, setValue, formState: { errors }} = useForm({
+    const { register, handleSubmit, watch, setValue, trigger, formState: { errors }} = useForm({
          mode: "onBlur",
          shouldUseNativeValidation: true,
         defaultValues: {
@@ -53,25 +53,45 @@ export default function EnrollmentForm() {
             is_transferee: false
         }
     });
+
 const handleNext = async () => {
-    // List all field names present on Page 1 that are required
-    const fieldsToValidate = [
-        "grade_level", "lastname", "firstname", "middlename", "age", 
-        "birthdate", "place_of_birth", "mother_tongue", "religion", 
-        "weight", "height", "curr_house_no", "curr_street", 
-        "curr_barangay", "curr_municipality", "curr_province"
+    // It tells the computer, "These are the specific boxes I want you to look at right now.
+    // note that the data here is all required"
+    let fieldsToValidate = [
+        "lastname", "firstname", "middlename", "age", "civil_status", "gender",
+        "birthdate", "place_of_birth", "mother_tongue", "religion", "weight", "height",
+        "curr_house_no", "curr_street", "curr_barangay", "curr_municipality", "curr_province"
     ];
-    // If permanent address is NOT the same, validate those fields too
+
+    //  If the box is NOT checked (!isPermanentSame), it adds the Permanent Address fields to our checklist. 
+    // If the box is checked, it skips this part entirely so it doesn't ask for data that is hidden.
     if (!isPermanentSame) {
-        fieldsToValidate.push("perm_house_no", "perm_street", "perm_barangay", "perm_municipality", "perm_province");
+        fieldsToValidate = [
+            ...fieldsToValidate, 
+            "perm_house_no", "perm_street", "perm_barangay", "perm_municipality", "perm_province"
+        ];
     }
 
-    const isValid = await trigger(fieldsToValidate);
-    if (isValid) {
-        setStep(2);
-        window.scrollTo(0, 0); // Optional: scroll to top for the new page
+    // trigger: This is a built-in tool from React Hook Form. It goes through your checklist and checks every input.
+    // await: Since checking all those boxes takes a tiny bit of time, await tells the computer to wait for the result before moving to the next line.
+    // isStepValid: This will either be true (everything is filled) or false (something is empty).
+    const isStepValid = await trigger(fieldsToValidate);
+
+
+    //If True: The guard says "Everything looks good!" and calls setStep(2). 
+    // This changes your state, which triggers React to hide the Student section and show the Parent section.
+    // If False: The guard stops you, shows an alert pop-up, and prints the errors to the console so you can see exactly which box you forgot.
+    if (isStepValid) {
+        console.log("Form is valid! Moving to Parent Info.");
+    
+        setStep(2); 
+        
+    } else {
+        alert("Incomplete data. Please check all fields.");
+        console.log("Validation failed. Errors:", errors);
     }
 };
+
 
     // Watchers for Address Syncing
     const isPermanentSame = watch("is_permanent_same");
@@ -173,7 +193,7 @@ const handleNext = async () => {
                             <input {...register("age", { required: "This is required" } )} type="number" className="border text-[12px] w-30 h-10 p-3 rounded-[5px]" placeholder="Age"/>
                             <p className="text-[#1B1717] text-[14px]">Civil Status</p>
                             <select {...register("civil_status", { required: "This is required" })} className="border text-[12px] w-30 h-10 p-2 rounded-[5px] " >
-                                <option value="Single">Select</option>
+                                <option value="">Select</option>
                                 <option value="Single">Single</option>
                                 <option value="Married">Married</option>
                             </select>
