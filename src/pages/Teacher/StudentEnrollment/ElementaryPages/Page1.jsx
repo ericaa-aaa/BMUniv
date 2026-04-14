@@ -265,14 +265,15 @@ const handleNext = async () => {
                     )}
 
                     <div className="mt-10 ml-12">
-<button 
-    type="button" 
-    onClick={handleNext} // Use the new handler here
-    className="flex items-center gap-2 px-10 py-4 bg-[#630000] text-white rounded-xl font-bold hover:bg-red-800 shadow-lg transition-all"
->
-    <ArrowRight size={20} />
-    NEXT: PARENT INFORMATION
-</button>
+                        
+                    <button 
+                        type="button" 
+                        onClick={handleNext} // Use the new handler here
+                        className="flex items-center gap-2 px-10 py-4 bg-[#630000] text-white rounded-xl font-bold hover:bg-red-800 shadow-lg transition-all"
+                    >
+                        <ArrowRight size={20} />
+                        NEXT: PARENT INFORMATION
+                    </button>
                     </div>
                 </>
             )}
@@ -366,7 +367,7 @@ const handleNext = async () => {
                         <input {...register("is_transferee")} type="checkbox" className="w-5 h-5 accent-[#630000]" />
                     </div>
 
-                    <div className="mt-16 ml-12 flex gap-4">
+                    <div className="mt-16 ml-12 flex gap-4 ">
                         <button 
                             type="button" 
                             onClick={() => setStep(1)} 
