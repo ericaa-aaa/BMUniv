@@ -8,7 +8,9 @@ export default function EnrollmentForm() {
     const [photoPreview, setPhotoPreview] = useState(null);
 
     // Initialize React Hook Form with your exact default values + new address fields
-    const { register, handleSubmit, watch, setValue } = useForm({
+    const { register, handleSubmit, watch, setValue, formState: { errors } } = useForm({
+         mode: "onBlur",
+         shouldUseNativeValidation: true,
         defaultValues: {
             grade_level: "",
             lastname: "",
@@ -150,20 +152,20 @@ export default function EnrollmentForm() {
                       <div className="bg-[#EDEBDD] w-351 py-7 px-4 ml-12 rounded-2xl flex flex-col gap-7">
                           <div className="flex gap-5 items-center ml-7">
                               <p className="text-[#1B1717] text-[14px]">Student Name:</p>
-                              <input {...register("lastname")} type="text" className="border text-[12px] w-30 h-10 p-3 rounded-[5px]" placeholder="Last Name" required />
-                              <input {...register("firstname")} type="text" className="border text-[12px] w-30 h-10 p-3 rounded-[5px]" placeholder="First Name" required />
-                              <input {...register("middlename")} type="text" className="border text-[12px] w-30 h-10 p-3 rounded-[5px]" placeholder="Middle Name" />
+                              <input {...register("lastname", { required: "This is required" })} type="text" className="border text-[12px] w-30 h-10 p-3 rounded-[5px]" placeholder="Last Name" required />
+                              <input {...register("firstname", { required: "This is required" })} type="text" className="border text-[12px] w-30 h-10 p-3 rounded-[5px]" placeholder="First Name" required />
+                              <input {...register("middlename", { required: "This is required" })} type="text" className="border text-[12px] w-30 h-10 p-3 rounded-[5px]" placeholder="Middle Name" />
                               <p className="text-[#1B1717] text-[14px]">Ext.</p>
                               <input {...register("ext")} type="text" className="border text-[12px] w-30 h-10 p-3 rounded-[5px]" placeholder="Jr/Sr" />
                               <p className="text-[#1B1717] text-[14px]">Age:</p>
-                              <input {...register("age")} type="number" className="border text-[12px] w-30 h-10 p-3 rounded-[5px]" placeholder="Age" required />
+                              <input {...register("age", { required: "This is required" })} type="number" className="border text-[12px] w-30 h-10 p-3 rounded-[5px]" placeholder="Age" required />
                               <p className="text-[#1B1717] text-[14px]">Civil Status</p>
-                              <select {...register("civil_status")} className="border text-[12px] w-30 h-10 p-2 rounded-[5px]">
+                              <select {...register("civil_status", { required: "This is required" })} className="border text-[12px] w-30 h-10 p-2 rounded-[5px]">
                                   <option value="Single">Single</option>
                                   <option value="Married">Married</option>
                               </select>
                               <p className="text-[#1B1717] text-[14px]">Gender</p>
-                              <select {...register("gender")} className="border text-[12px] w-30 h-10 p-2 rounded-[5px]" required>
+                              <select {...register("gender", { required: "This is required" })} className="border text-[12px] w-30 h-10 p-2 rounded-[5px]" required>
                                   <option value="">Select</option>
                                   <option value="Male">Male</option>
                                   <option value="Female">Female</option>
@@ -172,17 +174,17 @@ export default function EnrollmentForm() {
   
                           <div className="flex gap-5 items-center ml-7">
                               <p className="text-[#1B1717] text-[14px]">Birth Date:</p>
-                              <input {...register("birthdate")} type="date" className="border text-[12px] w-30 h-10 p-3 rounded-[5px]" required />
+                              <input {...register("birthdate", { required: "This is required" })} type="date" className="border text-[12px] w-30 h-10 p-3 rounded-[5px]" required />
                               <p className="text-[#1B1717] text-[14px]">Place of Birth</p>
-                              <input {...register("place_of_birth")} type="text" className="border text-[12px] w-30 h-10 p-3 rounded-[5px]" placeholder="City/Province" required />
+                              <input {...register("place_of_birth", { required: "This is required" })} type="text" className="border text-[12px] w-30 h-10 p-3 rounded-[5px]" placeholder="City/Province" required />
                               <p className="text-[#1B1717] text-[14px]">Mother Tongue</p>
-                              <input {...register("mother_tongue")} type="text" className="border text-[12px] w-30 h-10 p-3 rounded-[5px]" placeholder="Language" />
+                              <input {...register("mother_tongue", { required: "This is required" })} type="text" className="border text-[12px] w-30 h-10 p-3 rounded-[5px]" placeholder="Language" />
                               <p className="text-[#1B1717] text-[14px]">Religion</p>
-                              <input {...register("religion")} type="text" className="border text-[12px] w-30 h-10 p-3 rounded-[5px]" placeholder="Religion" />
+                              <input {...register("religion", { required: "This is required" })} type="text" className="border text-[12px] w-30 h-10 p-3 rounded-[5px]" placeholder="Religion" />
                               <p className="text-[#1B1717] text-[14px]">Weight</p>
-                              <input {...register("weight")} type="number" step="0.1" className="border text-[12px] w-20 h-10 p-3 rounded-[5px]" placeholder="kg" />
+                              <input {...register("weight", { required: "This is required" })} type="number" step="0.1" className="border text-[12px] w-20 h-10 p-3 rounded-[5px]" placeholder="kg" />
                               <p className="text-[#1B1717] text-[14px]">Height</p>
-                              <input {...register("height")} type="number" step="0.1" className="border text-[12px] w-20 h-10 p-3 rounded-[5px]" placeholder="cm" />
+                              <input {...register("height", { required: "This is required" })} type="number" step="0.1" className="border text-[12px] w-20 h-10 p-3 rounded-[5px]" placeholder="cm" />
                           </div>
                       </div>
   
@@ -198,18 +200,18 @@ export default function EnrollmentForm() {
                       <div className="bg-[#EDEBDD] w-351 py-7 px-4 ml-12 rounded-2xl flex flex-col gap-7">
                           <div className="flex gap-5 items-center ml-7">
                               <p className="text-[#1B1717] text-[14px]">Contact Number</p>
-                              <input {...register("contact_number")} type="text" className="border text-[12px] w-30 h-10 p-3 rounded-[5px]" placeholder="09XXXXXXXXX" required />
+                              <input {...register("contact_number", { required: "This is required" })} type="number" className="border text-[12px] w-30 h-10 p-3 rounded-[5px]" placeholder="09XXXXXXXXX" required />
                               <p className="text-[#1B1717] text-[14px]">Email Address</p>
-                              <input {...register("email_address")} type="email" className="border text-[12px] w-30 h-10 p-3 rounded-[5px]" placeholder="email@example.com" />
+                              <input {...register("email_address", { required: "This is required" })} type="email" className="border text-[12px] w-30 h-10 p-3 rounded-[5px]" placeholder="email@example.com" />
                           </div>
   
                           <div className="flex gap-7 items-center ml-7">
                               <p className="text-[#1B1717] text-[14px]">Current Address</p>
-                              <input {...register("curr_house_no")} type="text" className="border text-[12px] w-30 h-10 p-3 rounded-[5px]" placeholder="HouseNo" />
-                              <input {...register("curr_street")} type="text" className="border text-[12px] w-30 h-10 p-3 rounded-[5px]" placeholder="Street" required />
-                              <input {...register("curr_barangay")} type="text" className="border text-[12px] w-30 h-10 p-3 rounded-[5px]" placeholder="Barangay" required />
-                              <input {...register("curr_municipality")} type="text" className="border text-[12px] w-30 h-10 p-3 rounded-[5px]" placeholder="City/Municipality" required />
-                              <input {...register("curr_province")} type="text" className="border text-[12px] w-30 h-10 p-3 rounded-[5px]" placeholder="Province" required />
+                              <input {...register("curr_house_no", { required: "This is required" })} type="number" className="border text-[12px] w-30 h-10 p-3 rounded-[5px]" placeholder="HouseNo" />
+                              <input {...register("curr_street", { required: "This is required" })} type="text" className="border text-[12px] w-30 h-10 p-3 rounded-[5px]" placeholder="Street" required />
+                              <input {...register("curr_barangay", { required: "This is required" })} type="text" className="border text-[12px] w-30 h-10 p-3 rounded-[5px]" placeholder="Barangay" required />
+                              <input {...register("curr_municipality", { required: "This is required" })} type="text" className="border text-[12px] w-30 h-10 p-3 rounded-[5px]" placeholder="City/Municipality" required />
+                              <input {...register("curr_province", { required: "This is required" })} type="text" className="border text-[12px] w-30 h-10 p-3 rounded-[5px]" placeholder="Province" required />
                           </div>
                       </div>
   
@@ -221,11 +223,11 @@ export default function EnrollmentForm() {
                       {!isPermanentSame && (
                           <div className="bg-[#EDEBDD] w-351 p-8 ml-12 rounded-2xl mt-5 flex gap-7 items-center">     
                               <p className="text-[#1B1717] text-[14px] w-32">Permanent Address</p>
-                              <input {...register("perm_house_no")} type="text" className="border text-[12px] w-30 h-10 p-3 rounded-[5px]" placeholder="HouseNo" />
-                              <input {...register("perm_street")} type="text" className="border text-[12px] w-30 h-10 p-3 rounded-[5px]" placeholder="Street" required />
-                              <input {...register("perm_barangay")} type="text" className="border text-[12px] w-30 h-10 p-3 rounded-[5px]" placeholder="Barangay" required />
-                              <input {...register("perm_municipality")} type="text" className="border text-[12px] w-30 h-10 p-3 rounded-[5px]" placeholder="City" required />
-                              <input {...register("perm_province")} type="text" className="border text-[12px] w-30 h-10 p-3 rounded-[5px]" placeholder="Province" required />
+                              <input {...register("perm_house_no", { required: "This is required" })} type="number" className="border text-[12px] w-30 h-10 p-3 rounded-[5px]" placeholder="HouseNo" />
+                              <input {...register("perm_street", { required: "This is required" })} type="text" className="border text-[12px] w-30 h-10 p-3 rounded-[5px]" placeholder="Street" required />
+                              <input {...register("perm_barangay", { required: "This is required" })} type="text" className="border text-[12px] w-30 h-10 p-3 rounded-[5px]" placeholder="Barangay" required />
+                              <input {...register("perm_municipality", { required: "This is required" })} type="text" className="border text-[12px] w-30 h-10 p-3 rounded-[5px]" placeholder="City" required />
+                              <input {...register("perm_province", { required: "This is required" })} type="text" className="border text-[12px] w-30 h-10 p-3 rounded-[5px]" placeholder="Province" required />
                           </div>
                       )}
   
@@ -251,25 +253,25 @@ export default function EnrollmentForm() {
                      <div className="bg-[#EDEBDD] w-351 p-8 ml-12 rounded-2xl flex flex-col gap-7 mt-5">
                          <div className="flex gap-5 items-center ml-7">
                              <p className="text-[#1B1717] text-[14px] w-32">Father's Name</p>
-                             <input {...register("father_last_name")} type="text" className="border text-[12px] w-30 h-10 p-3 rounded-[5px]" placeholder="Last Name" required />
-                             <input {...register("father_first_name")} type="text" className="border text-[12px] w-30 h-10 p-3 rounded-[5px]" placeholder="First Name" required />
-                             <input {...register("father_middle_name")} type="text" className="border text-[12px] w-30 h-10 p-3 rounded-[5px]" placeholder="Middle Name" />
+                             <input {...register("father_last_name", { required: "This is required" })} type="text" className="border text-[12px] w-30 h-10 p-3 rounded-[5px]" placeholder="Last Name" required />
+                             <input {...register("father_first_name", { required: "This is required" })} type="text" className="border text-[12px] w-30 h-10 p-3 rounded-[5px]" placeholder="First Name" required />
+                             <input {...register("father_middle_name", { required: "This is required" })} type="text" className="border text-[12px] w-30 h-10 p-3 rounded-[5px]" placeholder="Middle Name" />
                              <p className="text-[#1B1717] text-[14px]">Ext.</p>
                              <input {...register("father_ext")} type="text" className="border text-[12px] w-20 h-10 p-3 rounded-[5px]" placeholder="Jr/Sr" />
                              <p className="text-[#1B1717] text-[14px]">Contact Number</p>
-                             <input {...register("father_contact")} type="text" className="border text-[12px] w-30 h-10 p-3 rounded-[5px]" placeholder="Contact #" required />
+                             <input {...register("father_contact", { required: "This is required" })} type="number" className="border text-[12px] w-30 h-10 p-3 rounded-[5px]" placeholder="Contact #" required />
                              <p className="text-[#1B1717] text-[14px]">Occupation</p>
-                             <input {...register("father_occupation")} type="text" className="border text-[12px] w-30 h-10 p-3 rounded-[5px]" placeholder="Occupation" required />
+                             <input {...register("father_occupation", { required: "This is required" })} type="text" className="border text-[12px] w-30 h-10 p-3 rounded-[5px]" placeholder="Occupation" required />
                          </div>
  
                          {/* Father's Address */}
                          <div className="flex gap-7 items-center ml-7">
                              <p className="text-[#1B1717] text-[14px] w-32">Current Address</p>
-                             <input {...register("f_house_no")} type="text" className="border text-[12px] w-30 h-10 p-3 rounded-[5px]" placeholder="HouseNo" />
-                             <input {...register("f_street")} type="text" className="border text-[12px] w-30 h-10 p-3 rounded-[5px]" placeholder="Street" />
-                             <input {...register("f_barangay")} type="text" className="border text-[12px] w-30 h-10 p-3 rounded-[5px]" placeholder="Barangay" />
-                             <input {...register("f_municipality")} type="text" className="border text-[12px] w-30 h-10 p-3 rounded-[5px]" placeholder="City" />
-                             <input {...register("f_province")} type="text" className="border text-[12px] w-30 h-10 p-3 rounded-[5px]" placeholder="Province" />
+                             <input {...register("f_house_no", { required: "This is required" })} type="number" className="border text-[12px] w-30 h-10 p-3 rounded-[5px]" placeholder="HouseNo" />
+                             <input {...register("f_street", { required: "This is required" })} type="text" className="border text-[12px] w-30 h-10 p-3 rounded-[5px]" placeholder="Street" />
+                             <input {...register("f_barangay", { required: "This is required" })} type="text" className="border text-[12px] w-30 h-10 p-3 rounded-[5px]" placeholder="Barangay" />
+                             <input {...register("f_municipality", { required: "This is required" })} type="text" className="border text-[12px] w-30 h-10 p-3 rounded-[5px]" placeholder="City" />
+                             <input {...register("f_province", { required: "This is required" })} type="text" className="border text-[12px] w-30 h-10 p-3 rounded-[5px]" placeholder="Province" />
                          </div>
                      </div>
  
@@ -277,25 +279,25 @@ export default function EnrollmentForm() {
                      <div className="bg-[#EDEBDD] w-351 p-8 ml-12 rounded-2xl flex flex-col gap-6 mt-10">
                          <div className="flex gap-5 items-center ml-7">
                              <p className="text-[#1B1717] text-[14px]">Mother's Name</p>
-                             <input {...register("mother_last_name")} type="text" className="border text-[12px] w-30 h-10 p-3 rounded-[5px]" placeholder="Last Name" required />
-                             <input {...register("mother_first_name")} type="text" className="border text-[12px] w-30 h-10 p-3 rounded-[5px]" placeholder="First Name" required />
-                             <input {...register("mother_middle_name")} type="text" className="border text-[12px] w-30 h-10 p-3 rounded-[5px]" placeholder="Middle Name" />
+                             <input {...register("mother_last_name", { required: "This is required" })} type="text" className="border text-[12px] w-30 h-10 p-3 rounded-[5px]" placeholder="Last Name" required />
+                             <input {...register("mother_first_name", { required: "This is required" })} type="text" className="border text-[12px] w-30 h-10 p-3 rounded-[5px]" placeholder="First Name" required />
+                             <input {...register("mother_middle_name", { required: "This is required" })} type="text" className="border text-[12px] w-30 h-10 p-3 rounded-[5px]" placeholder="Middle Name" />
                              <p className="text-[#1B1717] text-[14px]">Ext.</p>
                              <input {...register("mother_ext")} type="text" className="border text-[12px] w-20 h-10 p-3 rounded-[5px]" placeholder="Jr/Sr" />
                              <p className="text-[#1B1717] text-[14px]">Contact Number</p>
-                             <input {...register("mother_contact")} type="text" className="border text-[12px] w-30 h-10 p-3 rounded-[5px]" placeholder="Contact #" required />
+                             <input {...register("mother_contact", { required: "This is required" })} type="number" className="border text-[12px] w-30 h-10 p-3 rounded-[5px]" placeholder="Contact #" required />
                              <p className="text-[#1B1717] text-[14px]">Occupation</p>
-                             <input {...register("mother_occupation")} type="text" className="border text-[12px] w-30 h-10 p-3 rounded-[5px]" placeholder="Occupation" required />
+                             <input {...register("mother_occupation", { required: "This is required" })} type="text" className="border text-[12px] w-30 h-10 p-3 rounded-[5px]" placeholder="Occupation" required />
                          </div>
  
                          {/* Mother's Address */}
                          <div className="flex gap-7 items-center ml-7">
                              <p className="text-[#1B1717] text-[14px]">Current Address</p>
-                             <input {...register("m_house_no")} type="text" className="border text-[12px] w-30 h-10 p-3 rounded-[5px]" placeholder="HouseNo" />
-                             <input {...register("m_street")} type="text" className="border text-[12px] w-30 h-10 p-3 rounded-[5px]" placeholder="Street" />
-                             <input {...register("m_barangay")} type="text" className="border text-[12px] w-30 h-10 p-3 rounded-[5px]" placeholder="Barangay" />
-                             <input {...register("m_municipality")} type="text" className="border text-[12px] w-30 h-10 p-3 rounded-[5px]" placeholder="City" />
-                             <input {...register("m_province")} type="text" className="border text-[12px] w-30 h-10 p-3 rounded-[5px]" placeholder="Province" />
+                             <input {...register("m_house_no", { required: "This is required" })} type="number" className="border text-[12px] w-30 h-10 p-3 rounded-[5px]" placeholder="HouseNo" />
+                             <input {...register("m_street", { required: "This is required" })} type="text" className="border text-[12px] w-30 h-10 p-3 rounded-[5px]" placeholder="Street" />
+                             <input {...register("m_barangay", { required: "This is required" })} type="text" className="border text-[12px] w-30 h-10 p-3 rounded-[5px]" placeholder="Barangay" />
+                             <input {...register("m_municipality", { required: "This is required" })} type="text" className="border text-[12px] w-30 h-10 p-3 rounded-[5px]" placeholder="City" />
+                             <input {...register("m_province", { required: "This is required" })} type="text" className="border text-[12px] w-30 h-10 p-3 rounded-[5px]" placeholder="Province" />
                          </div>
                      </div>
  
@@ -303,24 +305,24 @@ export default function EnrollmentForm() {
                      <div className="bg-[#EDEBDD] w-351 p-8 ml-12 rounded-2xl flex flex-col gap-6 mt-10">
                          <div className="flex gap-5 items-center ml-7">
                              <p className="text-[#1B1717] text-[14px]">Guardian's Name</p>
-                             <input {...register("guardian_last_name")} type="text" className="border text-[12px] w-30 h-10 p-3 rounded-[5px]" placeholder="Last Name" required />
-                             <input {...register("guardian_first_name")} type="text" className="border text-[12px] w-30 h-10 p-3 rounded-[5px]" placeholder="First Name" required />
-                             <input {...register("guardian_middle_name")} type="text" className="border text-[12px] w-30 h-10 p-3 rounded-[5px]" placeholder="Middle Name" />
+                             <input {...register("guardian_last_name", { required: "This is required" })} type="text" className="border text-[12px] w-30 h-10 p-3 rounded-[5px]" placeholder="Last Name" required />
+                             <input {...register("guardian_first_name", { required: "This is required" })} type="text" className="border text-[12px] w-30 h-10 p-3 rounded-[5px]" placeholder="First Name" required />
+                             <input {...register("guardian_middle_name", { required: "This is required" })} type="text" className="border text-[12px] w-30 h-10 p-3 rounded-[5px]" placeholder="Middle Name" />
                              <p className="text-[#1B1717] text-[14px]">Ext.</p>
                              <input {...register("guardian_ext")} type="text" className="border text-[12px] w-20 h-10 p-3 rounded-[5px]" placeholder="Jr/Sr" />
                              <p className="text-[#1B1717] text-[14px]">Contact Number</p>
-                             <input {...register("guardian_contact")} type="text" className="border text-[12px] w-30 h-10 p-3 rounded-[5px]" placeholder="Contact #" required />
+                             <input {...register("guardian_contact", { required: "This is required" })} type="number" className="border text-[12px] w-30 h-10 p-3 rounded-[5px]" placeholder="Contact #" required />
                              <p className="text-[#1B1717] text-[14px]">Relationship</p>
-                             <input {...register("guardian_relationship")} type="text" className="border text-[12px] w-30 h-10 p-3 rounded-[5px]" placeholder="Relationship" required />
+                             <input {...register("guardian_relationship", { required: "This is required" })} type="text" className="border text-[12px] w-30 h-10 p-3 rounded-[5px]" placeholder="Relationship" required />
                          </div>
                          {/* Guardian's Address */}
                          <div className="flex gap-7 items-center ml-7">
                              <p className="text-[#1B1717] text-[14px] w-32">Guardian Address</p>
-                             <input {...register("g_house_no")} type="text" className="border text-[12px] w-30 h-10 p-3 rounded-[5px]" placeholder="HouseNo" />
-                             <input {...register("g_street")} type="text" className="border text-[12px] w-30 h-10 p-3 rounded-[5px]" placeholder="Street" />
-                             <input {...register("g_barangay")} type="text" className="border text-[12px] w-30 h-10 p-3 rounded-[5px]" placeholder="Barangay" />
-                             <input {...register("g_municipality")} type="text" className="border text-[12px] w-30 h-10 p-3 rounded-[5px]" placeholder="City" />
-                             <input {...register("g_province")} type="text" className="border text-[12px] w-30 h-10 p-3 rounded-[5px]" placeholder="Province" />
+                             <input {...register("g_house_no", { required: "This is required" })} type="number" className="border text-[12px] w-30 h-10 p-3 rounded-[5px]" placeholder="HouseNo" />
+                             <input {...register("g_street", { required: "This is required" })} type="text" className="border text-[12px] w-30 h-10 p-3 rounded-[5px]" placeholder="Street" />
+                             <input {...register("g_barangay", { required: "This is required" })} type="text" className="border text-[12px] w-30 h-10 p-3 rounded-[5px]" placeholder="Barangay" />
+                             <input {...register("g_municipality", { required: "This is required" })} type="text" className="border text-[12px] w-30 h-10 p-3 rounded-[5px]" placeholder="City" />
+                             <input {...register("g_province", { required: "This is required" })} type="text" className="border text-[12px] w-30 h-10 p-3 rounded-[5px]" placeholder="Province" />
                          </div>
                      </div>
  
@@ -351,15 +353,15 @@ export default function EnrollmentForm() {
                      <div className="bg-[#EDEBDD] w-351 p-8 ml-12 rounded-2xl flex flex-col gap-7 mt-25">
                         <div className="flex gap-5 items-center ml-7">
                              <p className="text-[#1B1717] text-[14px] mt-3 ml-3">Elementary School Attended</p>
-                             <input {...register("elschool_attended")} type="text" className="border text-[12px] w-30 h-10 p-3 rounded-[5px]" placeholder="School" required />
+                             <input {...register("elschool_attended", { required: "This is required" })} type="text" className="border text-[12px] w-30 h-10 p-3 rounded-[5px]" placeholder="School" required />
                              <p className="text-[#1B1717] text-[14px] mt-3">School Year</p>
-                             <input {...register("school_year")} type="text" className="border text-[12px] w-30 h-10 p-3 rounded-[5px]" placeholder="Year" required />
+                             <input {...register("school_year", { required: "This is required" })} type="number" className="border text-[12px] w-30 h-10 p-3 rounded-[5px]" placeholder="Year" required />
                         </div>
                         <div className="flex gap-5 items-center ml-7">
                              <p className="text-[#1B1717] text-[14px] mt-3 ml-3">High School Attended</p>
-                             <input {...register("elschool_attended")} type="text" className="border text-[12px] w-30 h-10 p-3 rounded-[5px]" placeholder="School" required />
+                             <input {...register("elschool_attended", { required: "This is required" })} type="text" className="border text-[12px] w-30 h-10 p-3 rounded-[5px]" placeholder="School" required />
                              <p className="text-[#1B1717] text-[14px] mt-3">School Year</p>
-                             <input {...register("school_year")} type="text" className="border text-[12px] w-30 h-10 p-3 rounded-[5px]" placeholder="Year" required />
+                             <input {...register("school_year", { required: "This is required" })} type="number" className="border text-[12px] w-30 h-10 p-3 rounded-[5px]" placeholder="Year" required />
                         </div>
                     </div>
  
