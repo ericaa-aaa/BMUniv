@@ -53,6 +53,25 @@ export default function EnrollmentForm() {
             is_transferee: false
         }
     });
+const handleNext = async () => {
+    // List all field names present on Page 1 that are required
+    const fieldsToValidate = [
+        "grade_level", "lastname", "firstname", "middlename", "age", 
+        "birthdate", "place_of_birth", "mother_tongue", "religion", 
+        "weight", "height", "curr_house_no", "curr_street", 
+        "curr_barangay", "curr_municipality", "curr_province"
+    ];
+    // If permanent address is NOT the same, validate those fields too
+    if (!isPermanentSame) {
+        fieldsToValidate.push("perm_house_no", "perm_street", "perm_barangay", "perm_municipality", "perm_province");
+    }
+
+    const isValid = await trigger(fieldsToValidate);
+    if (isValid) {
+        setStep(2);
+        window.scrollTo(0, 0); // Optional: scroll to top for the new page
+    }
+};
 
     // Watchers for Address Syncing
     const isPermanentSame = watch("is_permanent_same");
@@ -226,14 +245,14 @@ export default function EnrollmentForm() {
                     )}
 
                     <div className="mt-10 ml-12">
-                        <button 
-                            type="button" 
-                            onClick={() => setStep(2)} 
-                            className="flex items-center gap-2 px-10 py-4 bg-[#630000] text-white rounded-xl font-bold hover:bg-red-800 shadow-lg transition-all"
-                        >
-                            <ArrowRight size={20} />
-                            NEXT: PARENT INFORMATION
-                        </button>
+<button 
+    type="button" 
+    onClick={handleNext} // Use the new handler here
+    className="flex items-center gap-2 px-10 py-4 bg-[#630000] text-white rounded-xl font-bold hover:bg-red-800 shadow-lg transition-all"
+>
+    <ArrowRight size={20} />
+    NEXT: PARENT INFORMATION
+</button>
                     </div>
                 </>
             )}
