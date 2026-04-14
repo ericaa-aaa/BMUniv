@@ -10,7 +10,6 @@ import Dashboard from './pages/Teacher/MainDashboard/Dashboard';
 import ElementaryEnrollment from './pages/Teacher/StudentEnrollment/Elementary';
 import HighSchool from './pages/Teacher/StudentEnrollment/HighSchool';
 import SHS from './pages/Teacher/StudentEnrollment/SHS';
-import RL from './pages/Teacher/StudentEnrollment/RL';
 import StudSubj from "./pages/Student/Subjects/StudentSubjectsTable.jsx";
 import ArchSubj from './pages/Student/ArchivedSubjects/StudArchSubj.jsx';
 import Sidebar from './pages/Teacher/MainDashboard/Sidebar.jsx';
@@ -41,7 +40,6 @@ function AppContent() {
           <Route path="/elem" element={<ElementaryEnrollment/>} />
           <Route path="/hs" element={<HighSchool/>} />
           <Route path="/shs" element={<SHS/>} />
-          <Route path="/rl" element={<RL/>} />
           <Route path="/elemfaculty" element={<ElemFaculty/>} />
           <Route path="/hsfaculty" element={<HSFaculty/>} />
           <Route path="/shsfaculty" element={<SHSFaculty/>} />

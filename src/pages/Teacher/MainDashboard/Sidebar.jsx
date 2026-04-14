@@ -86,15 +86,6 @@ function Sidebar() {
                   ? 'underline'
                   : 'hover:underline'}`}>SHS Enrollment</Link>
               </div>
-              <div onClick={() => setActiveItem("returninglearners")} className={`flex items-center gap-3 cursor-pointer rounded transition`}>
-                <span className={`w-3 h-3 rounded-full border-2 ${activeItem === "returninglearners" 
-                  ? "bg-[#EDEBDD]" 
-                  : "bg-[#1B1717]"}`}></span>
-                <Link to="/rl" className={`cursor-pointer ${activeItem === "returninglearners"
-                  ? 'underline'
-                  : 'hover:underline'
-                }`}>RL Enrollment</Link>
-              </div>
             </div>
           )}
         </div>

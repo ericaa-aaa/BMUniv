@@ -349,7 +349,16 @@ export default function EnrollmentForm() {
             {/* --- PAGE 3: PARENT INFORMATION --- */}
             {step === 3 && (
                 <>
-                    <div className="bg-[#EDEBDD] w-351 p-8 ml-12 rounded-2xl flex flex-row gap-7 mt-25">
+                    <div className="pt-5 pl-12">
+                         <p className="text-[#630000] text-[25px] font-semibold">Academic Information</p>
+                    </div>
+
+                    <div className="flex gap-5 pl-22 mt-6">
+                        <p className='text-[#1B1717] text-[14px]'>Is this student a returning learners? <span className="text-[#630000]">(✓) if yes</span></p>
+                        <input {...register("is_transferee")} type="checkbox" className="w-5 h-5 accent-[#630000]" />
+                    </div>
+
+                    <div className="bg-[#EDEBDD] w-351 p-8 ml-12 rounded-2xl flex flex-row gap-7 mt-8">
                             <p className="text-[#1B1717] text-[14px] mt-3 ml-3">Elementary School Attended</p>
                             <input {...register("elschool_attended", { required: "This is required" })} type="text" className="border text-[12px] w-30 h-10 p-3 rounded-[5px]" placeholder="School" required />
                             <p className="text-[#1B1717] text-[14px] mt-3">School Year</p>
@@ -366,7 +375,7 @@ export default function EnrollmentForm() {
                         <input {...register("schorecipient")} type="checkbox" className="w-5 h-5 accent-[#630000]" />
                     </div>
  
-                    <div className="mt-126 ml-12 flex gap-4">
+                    <div className="mt-117 ml-12 flex gap-4">
                         <button 
                             type="button" 
                             onClick={() => setStep(2)} 
