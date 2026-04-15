@@ -12,10 +12,16 @@ function Sidebar() {
   const [openEnrollment, setOpenEnrollment]= useState(false);
   const [activeItem, setActiveItem] = useState("");
 
+const [activeMenu, setActiveMenu] = useState(""); 
+
+const toggleEnrollment = () => {
+  setActiveMenu(activeMenu === "enrollment" ? "" : "enrollment");
+};
+
   const handleLogout = () => {
     localStorage.removeItem("token");
     localStorage.removeItem("activeUser");
-    navigate("/", { replace: true }); // replace: true prevents going back after logout
+    navigate("/", { replace: true }); 
   };
 
   return (
@@ -28,38 +34,33 @@ function Sidebar() {
 
       <nav className="flex flex-col gap-6 font-['Inter'] font-medium">
         <div>
-            <div onClick={() => setActiveItem("dashboard")} className={`group flex items-center gap-5 cursor-pointer py-2 px-7 rounded mb-6 relative
-              ${activeItem === "dashboard"
-                ? "bg-[#EDEBDD]"
-                : "bg-transparent"
-              }`}>
-              <svg xmlns="http://www.w3.org/2000/svg" width="23" height="23" viewBox="0 0 24 24" fill="none" stroke={activeItem === "dashboard" ? "#1B1717" : "#EDEBDD"} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-layout-dashboard transition-colors group-hover:text-[#1B1717]">
+            <div onClick={() => setActiveItem("dashboard")} className="group flex items-center gap-3 cursor-pointer py-2 px-7 rounded mb-6 relative hover:bg-[#EDEBDD]">
+              <svg xmlns="http://www.w3.org/2000/svg" width="23" height="23" viewBox="0 0 24 24" fill="none" stroke="currentcolor" strokeWidth={`${activeItem === "dashboard" ? "3" : "2"}`}  strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-layout-dashboard transition-colors group-hover:text-[#1B1717]">
                 <rect width="7" height="9" x="3" y="3" rx="1" />
                 <rect width="7" height="5" x="14" y="3" rx="1" />
                 <rect width="7" height="9" x="14" y="12" rx="1" />
                 <rect width="7" height="5" x="3" y="16" rx="1" />
               </svg>
-          <Link to="/teacher" className={` transition-colors after:absolute after:inset-0 
-            ${activeItem === "dashboard"
-              ? "text-[#1B1717]"
-              : "text-[#EDEBDD]"
-            }`} >Dashboard</Link>
+          <Link to="/teacher" className={`transition-colors after:absolute after:inset-0 text-[#EDEBDD] hover:text-[#1B1717]
+            ${activeItem === "dashboard" 
+              ? 'font-extrabold'
+              : 'font-normal'
+            }`}>Dashboard</Link>
         </div>
 
       <div onClick={() => setOpenEnrollment(!openEnrollment)}
-        className={`group flex items-center gap-3 cursor-pointer py-2 px-7 rounded transition-colors ${
-        openEnrollment ? 'bg-[#EDEBDD]' : 'hover:bg-[#EDEBDD]'}`}>
+        className="group flex items-center gap-3 cursor-pointer py-2 px-7 rounded transition-colors hover:bg-[#EDEBDD]">
 
-        <div className="flex items-center gap-5 cursor-pointer">
+        <div className="flex items-center gap-3 cursor-pointer">
 
-        <svg xmlns="http://w3.org" width="23" height="23" viewBox="0 0 24 24" fill="none" stroke={openEnrollment ? "#1B1717" : "#EDEBDD"} 
-          strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-layout-dashboard transition-[stroke] duration-300 group-hover:stroke-[#1B1717]">
+        <svg xmlns="http://w3.org" width="23" height="23" viewBox="0 0 24 24" fill="none" stroke= "#EDEBDD"
+          strokeWidth={`${openEnrollment ? "3" : "2"}`} strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-layout-dashboard transition-[stroke] duration-300 group-hover:stroke-[#1B1717]">
           <path d="M18 21a8 8 0 0 0-16 0" /><circle cx="10" cy="8" r="5" /><path d="M22 20c0-3.37-2-6.5-4-8a5 5 0 0 0-.45-8.3" />
         </svg>
     
-        <a className={`transition-colors duration-300 ${openEnrollment 
-            ? 'text-[#1B1717]' 
-            : 'text-[#EDEBDD] group-hover:text-[#1B1717]' }`}>Student Enrollment</a>
+        <a className={`whitespace-nowrap transition-colors duration-300 text-[#EDEBDD] group-hover:text-[#1B1717] ${openEnrollment
+            ? 'font-extrabold' 
+            : 'font-normal'}`}>Student Enrollment</a>
       </div>
     </div>
 
@@ -148,23 +149,23 @@ function Sidebar() {
 
         <div>
           <div onClick={() => setOpenFaculty(!openFaculty)} 
-            className={`flex items-center gap-5 cursor-pointer py-2 px-7 rounded transition-all ${
-            openFaculty ? "bg-[#EDEBDD] text-[#1B1717]" : "text-[#EDEBDD] hover:bg-[#EDEBDD] hover:text-[#1B1717]"
-          }`}>
+            className="group flex items-center gap-3 cursor-pointer py-2 px-7 rounded transition-colors hover:bg-[#EDEBDD]">
 
           <svg xmlns="http://w3.org" width="23" height="23" viewBox="0 0 24 24" 
-          fill="none" 
+          fill= "none"
           stroke="currentColor" 
-          strokeWidth="2" 
+          strokeWidth={`${openFaculty ? "3" : "2"}`} 
           strokeLinecap="round" 
           strokeLinejoin="round" 
-          className="lucide lucide-user-round-plus">
+          className="lucide lucide-user-round-plus group-hover:stroke-[#1B1717]">
           <path d="M2 21a8 8 0 0 1 13.292-6" />
           <circle cx="10" cy="8" r="5" />
           <path d="M19 16v6" />
           <path d="M22 19h-6" />
           </svg>
-          <span className="font-medium">Faculty</span>
+          <a className={`whitespace-nowrap transition-colors duration-300 text-[#EDEBDD] group-hover:text-[#1B1717] ${openFaculty
+            ? 'font-extrabold' 
+            : 'font-normal'}`}>Faculty</a>
         </div>
 
         {openFaculty && (
