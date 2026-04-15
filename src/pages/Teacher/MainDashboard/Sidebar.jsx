@@ -60,7 +60,7 @@ const toggleEnrollment = () => {
     
         <a className={`whitespace-nowrap transition-colors duration-300 text-[#EDEBDD] group-hover:text-[#1B1717] ${openEnrollment
             ? 'font-extrabold' 
-            : 'font-normal'}`}>Student Enrollment</a>
+            : 'font-normal'}`}>Student Enrollment </a>
       </div>
     </div>
 
