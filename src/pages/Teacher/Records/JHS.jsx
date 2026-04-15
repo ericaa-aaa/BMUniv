@@ -155,7 +155,7 @@ export default function Highschool() {
                     <div className="p-4">
                       <button 
                         onClick={() => openModal(student)} 
-                        className="bg-blue-50 text-blue-600 px-4 py-1.5 rounded-lg text-sm font-semibold hover:bg-blue-600 hover:text-white transition-all shadow-sm"
+                        className="bg-red-50 text-[#630000] px-4 py-1.5 rounded-lg text-sm font-semibold hover:bg-[#8B0000] hover:text-white transition-all shadow-sm"
                       >
                         View Form
                       </button>

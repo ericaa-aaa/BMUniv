@@ -108,7 +108,7 @@ export default function Elementary() {
                 <div className="p-3 border-r border-white/10">Section</div>
                 <div className="p-3 border-r border-white/10">Status</div> 
                 <div className="p-3 border-r border-white/10">Photo</div>
-                <div className="p-3">Actions</div>
+                <div className="p-3">Student File</div>
               </div>
 
               {/* Table Body */}
