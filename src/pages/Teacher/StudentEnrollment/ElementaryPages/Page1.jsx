@@ -8,7 +8,7 @@ export default function EnrollmentForm() {
     const [photoPreview, setPhotoPreview] = useState(null);
 
     // Initialize React Hook Form with your exact default values + new address fields
-    const { register, handleSubmit, watch, setValue, trigger, formState: { errors }} = useForm({
+    const { register, handleSubmit, watch, setValue, getValues, trigger, formState: { errors }} = useForm({
          mode: "onBlur",
          shouldUseNativeValidation: true,
         defaultValues: {
@@ -56,42 +56,43 @@ export default function EnrollmentForm() {
     });
 
 const handleNext = async () => {
-    // It tells the computer, "These are the specific boxes I want you to look at right now.
-    // note that the data here is all required"
-    let fieldsToValidate = [
-        "lastname", "firstname", "middlename", "age", "civil_status", "gender",
-        "birthdate", "place_of_birth", "mother_tongue", "religion", "weight", "height",
-        "curr_house_no", "curr_street", "curr_barangay", "curr_municipality", "curr_province"
-    ];
+    let fieldsToValidate = [];
 
-    //  If the box is NOT checked (!isPermanentSame), it adds the Permanent Address fields to our checklist. 
-    // If the box is checked, it skips this part entirely so it doesn't ask for data that is hidden.
-    if (!isPermanentSame) {
+    // ONLY check Step 1 fields
+    if (step === 1) {
         fieldsToValidate = [
-            ...fieldsToValidate, 
-            "perm_house_no", "perm_street", "perm_barangay", "perm_municipality", "perm_province"
+            "lastname", "firstname", "age", "civil_status", "gender", "grade_level", 
+            "birthdate", "place_of_birth", "mother_tongue", "religion", "weight", "height", 
+            "curr_house_no", "curr_street", "curr_barangay", "curr_municipality", "curr_province"
+        ];
+        // Add permanent address fields if the checkbox is NOT checked
+        if (!isPermanentSame) {
+            fieldsToValidate = [...fieldsToValidate, "perm_house_no", "perm_street", "perm_barangay", "perm_municipality", "perm_province"];
+        }
+    } 
+    // ONLY check Step 2 fields
+    else if (step === 2) {
+        fieldsToValidate = [
+            "father_first_name", "father_last_name", "father_contact", "father_occupation", "f_house_no", "f_street", "f_barangay", "f_municipality", "f_province",
+            "mother_last_name", "mother_first_name", "mother_contact", "mother_occupation", "m_house_no", "m_street", "m_barangay", "m_municipality", "m_province",
+            "guardian_last_name", "guardian_first_name", "guardian_contact", "guardian_relationship", "g_house_no", "g_street", "g_barangay", "g_municipality", "g_province"
         ];
     }
 
-    // trigger: This is a built-in tool from React Hook Form. It goes through your checklist and checks every input.
-    // await: Since checking all those boxes takes a tiny bit of time, await tells the computer to wait for the result before moving to the next line.
-    // isStepValid: This will either be true (everything is filled) or false (something is empty).
     const isStepValid = await trigger(fieldsToValidate);
 
-
-    //If True: The guard says "Everything looks good!" and calls setStep(2). 
-    // This changes your state, which triggers React to hide the Student section and show the Parent section.
-    // If False: The guard stops you, shows an alert pop-up, and prints the errors to the console so you can see exactly which box you forgot.
     if (isStepValid) {
-        console.log("Form is valid! Moving to Parent Info.");
-    
-        setStep(2); 
-        
+        if (step === 2) {
+            console.log("Submitting final form...");
+            handleSubmit(onSubmit)(); 
+        } else {
+            setStep(2);
+        }
     } else {
-        alert("Incomplete data. Please check all fields.");
-        console.log("Validation failed. Errors:", errors);
+        alert("Please fill in all required fields on this page.");
     }
 };
+
 
 
     // Watchers for Address Syncing
@@ -138,7 +139,7 @@ const handleNext = async () => {
     };
 
     return (
-        <form onSubmit={handleSubmit(onSubmit)} className="relative h-100 font-['Inter'] ">
+        <form onSubmit={handleSubmit(onSubmit)} noValidate className="relative h-100 font-['Inter'] ">
             
             {/*  PAGE 1: STUDENT INFORMATION */}
             {step === 1 && (
@@ -151,7 +152,7 @@ const handleNext = async () => {
     
                         <div className="flex gap-5 items-center">
                             <p className="text-[#630000] text-[25px] font-semibold whitespace-nowrap">Grade Level:</p>
-                            <input {...register("grade_level")} type="text" className="border text-[12px] w-13 h-8 p-3 rounded-[5px]" required />
+                            <input {...register("grade_level")} type="text" className="border border-[#630000] shadow-sm text-[12px] w-13 h-8 p-3 rounded-[5px]" required />
                         </div>
 
                         {/* Photo*/}
@@ -187,37 +188,37 @@ const handleNext = async () => {
                         {/* Row 1: Names, Suffix, Age */}
                         <div className="flex flex-col gap-1">
                             <p className="text-[#1B1717] text-[14px]">Student Name:</p>
-                            <input {...register("lastname", { required: "This is required" })} type="text" className="border text-[13px] tracking-wider h-10 p-3 rounded-[5px] w-40 " placeholder="Last Name" />
+                            <input {...register("lastname", { required: true })} type="text" className="border border-[#630000] shadow-sm text-[13px] tracking-wider h-10 p-3 rounded-[5px] w-40 " placeholder="Last Name" />
                         </div>
                         <div className="flex flex-col gap-1">
                             <p className="invisible text-[14px]">First Name</p>
-                            <input {...register("firstname", { required: "This is required" })} type="text" className="border text-[13px] tracking-wider h-10 p-3 rounded-[5px] w-40" placeholder="First Name" />
+                            <input {...register("firstname", { required: true })} type="text" className="border border-[#630000] shadow-sm text-[13px] tracking-wider h-10 p-3 rounded-[5px] w-40" placeholder="First Name" />
                         </div>
                         <div className="flex flex-col gap-1">
                             <p className="invisible text-[14px]">Middle Name</p>
-                            <input {...register("middlename", { required: "This is required" })} type="text" className="border text-[13px] tracking-wider h-10 p-3 rounded-[5px] w-40" placeholder="Middle Name" />
+                            <input {...register("middlename")} type="text" className="border border-[#630000] shadow-sm text-[13px] tracking-wider h-10 p-3 rounded-[5px] w-40" placeholder="Middle Name" />
                         </div>
                         <div className="flex flex-col gap-1">
                             <p className="text-[#1B1717] text-[14px]">Suffix:</p>
-                            <input {...register("ext")} type="text" className="border text-[12px] h-10 p-3 rounded-[5px] w-40" placeholder="Jr/Sr" />
+                            <input {...register("ext")} type="text" className="border border-[#630000] shadow-sm text-[12px] h-10 p-3 rounded-[5px] w-40" placeholder="Jr/Sr" />
                         </div>
                         <div className="flex flex-col gap-1">
                             <p className="text-[#1B1717] text-[14px]">Age:</p>
-                            <input {...register("age", { required: "This is required" })} type="number" className="border text-[13px] tracking-wider h-10 p-3 rounded-[5px] w-40" placeholder="Age" />
+                            <input {...register("age", { required: true })} type="number" className="border border-[#630000] shadow-sm text-[13px] tracking-wider h-10 p-3 rounded-[5px] w-40" placeholder="Age" />
                         </div>
 
                         {/* Row 2: Birth Details, Gender, Status */}
                         <div className="flex flex-col gap-1 col-span-2">
                             <p className="text-[#1B1717] text-[14px]">Place of Birth:</p>
-                            <input {...register("place_of_birth", { required: "This is required" })} type="text" className="border text-[13px] tracking-wider h-10 p-3 rounded-[5px] w-104" placeholder="City/Province" />
+                            <input {...register("place_of_birth", { required: true })} type="text" className="border border-[#630000] shadow-sm text-[13px] tracking-wider h-10 p-3 rounded-[5px] w-104" placeholder="City/Province" />
                         </div>
                         <div className="flex flex-col gap-1">
                             <p className="text-[#1B1717] text-[14px]">Birth Date:</p>
-                            <input {...register("birthdate", { required: "This is required" })} type="date" className="border text-[12px] h-10 p-3 rounded-[5px] w-40" />
+                            <input {...register("birthdate", { required: true })} type="date" className="border border-[#630000] shadow-sm text-[12px] h-10 p-3 rounded-[5px] w-40" />
                         </div>
                         <div className="flex flex-col gap-1">
                             <p className="text-[#1B1717] text-[14px]">Gender:</p>
-                            <select {...register("gender", { required: "This is required" })} className="border text-[12px] h-10 p-2 rounded-[5px] w-40 ">
+                            <select {...register("gender", { required: true })} className="border border-[#630000] text-[12px] shadow-sm h-10 p-2 rounded-[5px] w-40 ">
                             <option value="">Gender</option>
                             <option value="Male">Male</option>
                             <option value="Female">Female</option>
@@ -225,7 +226,7 @@ const handleNext = async () => {
                         </div>
                         <div className="flex flex-col gap-1">
                             <p className="text-[#1B1717] text-[14px]">Civil Status:</p>
-                            <select {...register("civil_status", { required: "This is required" })} className="border text-[13px] tracking-wider h-10 p-2 rounded-[5px] w-40">
+                            <select {...register("civil_status", { required: true })} className="border border-[#630000] shadow-sm text-[13px] tracking-wider h-10 p-2 rounded-[5px] w-40">
                             <option value="">Status</option>
                             <option value="Single">Single</option>
                             <option value="Married">Married</option>
@@ -235,23 +236,23 @@ const handleNext = async () => {
                         {/* Row 3: Citizenship, Tongue, Religion, Measurements */}
                         <div className="flex flex-col gap-1">
                             <p className="text-[#1B1717] text-[14px]">Citizenship:</p>
-                            <input {...register("citizenship", { required: "This is required" })} type="text" className="border text-[13px] tracking-wider h-10 p-3 rounded-[5px] w-40" placeholder="Citizenship" />
+                            <input {...register("citizenship", { required: true })} type="text" className="border border-[#630000] shadow-sm text-[13px] tracking-wider h-10 p-3 rounded-[5px] w-40" placeholder="Citizenship" />
                         </div>
                         <div className="flex flex-col gap-1">
                             <p className="text-[#1B1717] text-[14px]">Mother Tongue:</p>
-                            <input {...register("mother_tongue", { required: "This is required" })} type="text" className="border text-[13px] tracking-wider h-10 p-3 rounded-[5px] w-40" placeholder="Language" />
+                            <input {...register("mother_tongue", { required: true })} type="text" className="border border-[#630000] shadow-sm text-[13px] tracking-wider h-10 p-3 rounded-[5px] w-40" placeholder="Language" />
                         </div>
                         <div className="flex flex-col gap-1">
                             <p className="text-[#1B1717] text-[14px]">Religion:</p>
-                            <input {...register("religion", { required: "This is required" })} type="text" className="border text-[13px] tracking-wider h-10 p-3 rounded-[5px] w-40" placeholder="Religion" />
+                            <input {...register("religion", { required: true })} type="text" className="border border-[#630000] shadow-sm text-[13px] tracking-wider h-10 p-3 rounded-[5px] w-40" placeholder="Religion" />
                         </div>
                         <div className="flex flex-col gap-1">
                             <p className="text-[#1B1717] text-[14px]">Weight (kg):</p>
-                            <input {...register("weight", { required: "This is required" })} type="number" className="border text-[13px] tracking-wider h-10 p-3 rounded-[5px] w-40" placeholder="kg" />
+                            <input {...register("weight", { required: true })} type="number" className="border border-[#630000] shadow-sm text-[13px] tracking-wider h-10 p-3 rounded-[5px] w-40" placeholder="kg" />
                         </div>
                         <div className="flex flex-col gap-1">
                             <p className="text-[#1B1717] text-[14px]">Height (cm):</p>
-                            <input {...register("height", { required: "This is required" })} type="number" className="border text-[13px] tracking-wider h-10 p-3 rounded-[5px] w-40" placeholder="cm" />
+                            <input {...register("height", { required: true })} type="number" className="border border-[#630000] shadow-sm text-[13px] tracking-wider h-10 p-3 rounded-[5px] w-40" placeholder="cm" />
                         </div>
                         </div>
 
@@ -268,61 +269,61 @@ const handleNext = async () => {
                     <div className="grid grid-cols-5 gap-y-5 justify-items-center max-w-7xl mx-auto mt-3">
                         <div className="flex flex-col gap-1">
                             <p className="text-[#1B1717] text-[14px] ">Contact Number</p>
-                            <input {...register("contact_number")} type="number" className="border text-[12px] w-40 h-10 p-3 rounded-[5px]" placeholder="09XXXXXXXXX" />
+                            <input {...register("contact_number")} type="number" className="border border-[#630000] shadow-sm text-[12px] w-40 h-10 p-3 rounded-[5px]" placeholder="09XXXXXXXXX" />
                         </div>
-                        <div className="flex flex-col gap-1 col-span-4 mr-192">
+                        <div className="flex flex-col gap-1 col-span-1">
                             <p className="text-[#1B1717] text-[14px] ">Email Address</p>
-                            <input {...register("email_address", { required: "This is required" })} type="email" className="border text-[13px] tracking-wider w-40 h-10 p-3 rounded-[5px]" placeholder="email@example.com" />
+                            <input {...register("email_address", { required: true })} type="email" className="border border-[#630000] shadow-sm text-[13px] tracking-wider w-40 h-10 p-3 rounded-[5px]" placeholder="email@example.com" />
                         </div>
 
-                        <div className="flex flex-col gap-1">
+                        <div className="flex flex-col gap-1 col-start-1">
                             <p className="text-[#1B1717] text-[14px]">Current Address</p>
-                            <input {...register("curr_house_no", { required: "This is required" })} type="number" className="border text-[13px] tracking-wider w-40 h-10 p-3 rounded-[5px]" placeholder="HouseNo" />
+                            <input {...register("curr_house_no", { required: true })} type="number" className="border border-[#630000] shadow-sm text-[13px] tracking-wider w-40 h-10 p-3 rounded-[5px]" placeholder="HouseNo" />
                         </div>
                         <div className="flex flex-col gap-1">
                             <p className="invisible text-[#1B1717] text-[14px]">Current Address</p>
-                            <input {...register("curr_street", { required: "This is required" })} type="text" className="border text-[13px] tracking-wider w-40 h-10 p-3 rounded-[5px]" placeholder="Street" />
+                            <input {...register("curr_street", { required: true })} type="text" className="border border-[#630000] shadow-sm text-[13px] tracking-wider w-40 h-10 p-3 rounded-[5px]" placeholder="Street" />
                         </div>
                         <div className="flex flex-col gap-1">
                             <p className="invisible text-[#1B1717] text-[14px]">Current Address</p>
-                            <input {...register("curr_barangay", { required: "This is required" })} type="text" className="border text-[13px] tracking-wider w-40 h-10 p-3 rounded-[5px]" placeholder="Barangay" />
+                            <input {...register("curr_barangay", { required: true })} type="text" className="border border-[#630000] shadow-sm text-[13px] tracking-wider w-40 h-10 p-3 rounded-[5px]" placeholder="Barangay" />
                         </div>
                         <div className="flex flex-col gap-1">
                             <p className="invisible text-[#1B1717] text-[14px]">Current Address</p>
-                            <input {...register("curr_municipality", { required: "This is required" })} type="text" className="border text-[13px] tracking-wider w-40 h-10 p-3 rounded-[5px]" placeholder="City/Municipality" />
+                            <input {...register("curr_municipality", { required: true })} type="text" className="border border-[#630000] shadow-sm text-[13px] tracking-wider w-40 h-10 p-3 rounded-[5px]" placeholder="City/Municipality" />
                         </div>
                         <div className="flex flex-col gap-1">
                             <p className="invisible text-[#1B1717] text-[14px]">Current Address</p>
-                            <input {...register("curr_province", { required: "This is required" })} type="text" className="border text-[13px] tracking-wider w-40 h-10 p-3 rounded-[5px]" placeholder="Province"/>
+                            <input {...register("curr_province", { required: true })} type="text" className="border border-[#630000] shadow-sm text-[13px] tracking-wider w-40 h-10 p-3 rounded-[5px]" placeholder="Province"/>
                         </div>
                     </div>
 
                     <div className="flex items-center gap-5 pl-43 mt-6">
-                        <p className='text-[#1B1717] text-[14px]'>Same as permanent address? <span className="text-[#630000]">(Check if yes)</span></p>
-                        <input {...register("is_permanent_same")} type="checkbox" className="w-5 h-5 accent-[#630000]" />
+                        <p className='text-[#1B1717] text-[14px]'>Current address is the same as permanent? <span className="text-[#630000]">(Check if yes)</span></p>
+                        <input {...register("is_permanent_same", { required: true })} type="checkbox" className="w-5 h-5 accent-[#630000]" />
                     </div>
 
                     {!isPermanentSame && (
                         <div className="grid grid-cols-5 gap-y-5 justify-items-center max-w-7xl mx-auto m-4">     
                             <div className="flex flex-col gap-1">
-                                <p className="text-[#1B1717] text-[14px]">Current Address</p>
-                                <input {...register("curr_house_no", { required: "This is required" })} type="number" className="border text-[13px] tracking-wider w-40 h-10 p-3 rounded-[5px]" placeholder="HouseNo" />
+                                <p className="text-[#1B1717] text-[14px]">Permanent Address</p>
+                                <input {...register("perm_house_no", { required: true })} type="number" className="border border-[#630000] shadow-sm text-[13px] tracking-wider w-40 h-10 p-3 rounded-[5px]" placeholder="HouseNo" />
                             </div>
                             <div className="flex flex-col gap-1">
-                                <p className="invisible text-[#1B1717] text-[14px]">Current Address</p>
-                                <input {...register("curr_street", { required: "This is required" })} type="text" className="border text-[12px] w-40 h-10 p-3 rounded-[5px]" placeholder="Street" />
+                                <p className="invisible text-[#1B1717] text-[14px]">Permanent Address</p>
+                                <input {...register("perm_street", { required: true })} type="text" className="border border-[#630000] shadow-sm text-[12px] w-40 h-10 p-3 rounded-[5px]" placeholder="Street" />
                             </div>
                             <div className="flex flex-col gap-1">
-                                <p className="invisible text-[#1B1717] text-[14px]">Current Address</p>
-                                <input {...register("curr_barangay", { required: "This is required" })} type="text" className="border text-[13px] tracking-wider w-40 h-10 p-3 rounded-[5px]" placeholder="Barangay" />
+                                <p className="invisible text-[#1B1717] text-[14px]">Permanent Address</p>
+                                <input {...register("perm_barangay", { required: true })} type="text" className="border border-[#630000] shadow-sm text-[13px] tracking-wider w-40 h-10 p-3 rounded-[5px]" placeholder="Barangay" />
                             </div>
                             <div className="flex flex-col gap-1">
-                                <p className="invisible text-[#1B1717] text-[14px]">Current Address</p>
-                                <input {...register("curr_municipality", { required: "This is required" })} type="text" className="border text-[13px] tracking-wider w-40 h-10 p-3 rounded-[5px]" placeholder="City/Municipality" />
+                                <p className="invisible text-[#1B1717] text-[14px]">Permanent Address</p>
+                                <input {...register("perm_municipality", { required: true })} type="text" className="border border-[#630000] shadow-sm text-[13px] tracking-wider w-40 h-10 p-3 rounded-[5px]" placeholder="City/Municipality" />
                             </div>
                             <div className="flex flex-col gap-1">
-                                <p className="invisible text-[#1B1717] text-[14px]">Current Address</p>
-                                <input {...register("curr_province", { required: "This is required" })} type="text" className="border text-[13px] tracking-wider w-40 h-10 p-3 rounded-[5px]" placeholder="Province"/>
+                                <p className="invisible text-[#1B1717] text-[14px]">Permanent Address</p>
+                                <input {...register("perm_province", { required: true })} type="text" className="border border-[#630000] shadow-sm text-[13px] tracking-wider w-40 h-10 p-3 rounded-[5px]" placeholder="Province"/>
                             </div>
                         </div>
                     )}
@@ -344,84 +345,147 @@ const handleNext = async () => {
             {/* --- PAGE 2: PARENT INFORMATION --- */}
             {step === 2 && (
                 <>
-                    <div className="pt-10 pl-12">
+                    <div className="pt-2 pl-12">
                         <p className="text-[#630000] text-[25px] font-semibold">Parent/Guardian Information</p>
                     </div>
 
                     {/* Father Section */}
-                    <div className="bg-[#EDEBDD] w-351 p-8 ml-12 rounded-2xl flex flex-col gap-7 mt-5">
-                        <div className="flex gap-5 items-center ml-7">
+                    <div className="grid grid-cols-5 gap-y-5 justify-items-center max-w-7xl mx-auto mt-3">
+                        <div className="flex flex-col gap-1">
                             <p className="text-[#1B1717] text-[14px] w-32">Father's Name</p>
-                            <input {...register("father_last_name", { required: "This is required" })} type="text" className="border text-[12px] w-30 h-10 p-3 rounded-[5px]" placeholder="Last Name"/>
-                            <input {...register("father_first_name", { required: "This is required" })} type="text" className="border text-[12px] w-30 h-10 p-3 rounded-[5px]" placeholder="First Name" />
-                            <input {...register("father_middle_name", { required: "This is required" })} type="text" className="border text-[12px] w-30 h-10 p-3 rounded-[5px]" placeholder="Middle Name" />
-                            <p className="text-[#1B1717] text-[14px]">Ext.</p>
-                            <input {...register("father_ext")} type="text" className="border text-[12px] w-20 h-10 p-3 rounded-[5px]" placeholder="Jr/Sr" />
+                            <input {...register("father_last_name", { required: true })} type="text" className="border border-[#630000] shadow-sm text-[13px] tracking-wider w-40 h-10 p-3 rounded-[5px]" placeholder="Last Name"/>
+                        </div>
+                        <div className="flex flex-col gap-1">
+                            <p className="invisible text-[#1B1717] text-[14px] w-32">Father's Name</p>
+                            <input {...register("father_first_name", { required: true })} type="text" className="border border-[#630000] shadow-sm text-[13px] tracking-wider w-40 h-10 p-3 rounded-[5px]" placeholder="First Name" />
+                        </div>
+                        <div className="flex flex-col gap-1">
+                            <p className="invisible text-[#1B1717] text-[14px] w-32">Father's Name</p>
+                            <input {...register("father_middle_name", { required: true })} type="text" className="border border-[#630000] shadow-sm text-[13px] tracking-wider w-40 h-10 p-3 rounded-[5px]" placeholder="Middle Name" />
+                        </div>
+                        <div className="flex flex-col gap-1 col-span-2 mr-65">
+                            <p className="text-[#1B1717] text-[14px]">SUffix</p>
+                            <input {...register("father_ext", { required: true })} type="text" className="border border-[#630000] shadow-sm text-[13px] tracking-wider w-40 h-10 p-3 rounded-[5px]" placeholder="Jr/Sr" />
+                        </div>
+                        <div className="flex flex-col gap-1">
                             <p className="text-[#1B1717] text-[14px]">Contact Number</p>
-                            <input {...register("father_contact", { required: "This is required" })} type="number" className="border text-[12px] w-30 h-10 p-3 rounded-[5px]" placeholder="Contact #" />
+                            <input {...register("father_contact", { required: true })} type="number" className="border border-[#630000] shadow-sm text-[13px] tracking-wider w-40 h-10 p-3 rounded-[5px]" placeholder="Contact #" />
+                        </div>
+                        <div className="flex flex-col gap-1 col-span-4 mr-193">
                             <p className="text-[#1B1717] text-[14px]">Occupation</p>
-                            <input {...register("father_occupation", { required: "This is required" })} type="text" className="border text-[12px] w-30 h-10 p-3 rounded-[5px]" placeholder="Occupation" />
+                            <input {...register("father_occupation", { required: true })} type="text" className="border border-[#630000] shadow-sm text-[13px] tracking-wider w-40 h-10 p-3 rounded-[5px]" placeholder="Occupation" />
                         </div>
 
                         {/* Father's Address */}
-                        <div className="flex gap-7 items-center ml-7">
+                        <div className="flex flex-col gap-1 ml-9">
                             <p className="text-[#1B1717] text-[14px] w-32">Current Address</p>
-                            <input {...register("f_house_no", { required: "This is required" })} type="number" className="border text-[12px] w-30 h-10 p-3 rounded-[5px]" placeholder="HouseNo" />
-                            <input {...register("f_street", { required: "This is required" })} type="text" className="border text-[12px] w-30 h-10 p-3 rounded-[5px]" placeholder="Street" />
-                            <input {...register("f_barangay", { required: "This is required" })} type="text" className="border text-[12px] w-30 h-10 p-3 rounded-[5px]" placeholder="Barangay" />
-                            <input {...register("f_municipality", { required: "This is required" })} type="text" className="border text-[12px] w-30 h-10 p-3 rounded-[5px]" placeholder="City" />
-                            <input {...register("f_province", { required: "This is required" })} type="text" className="border text-[12px] w-30 h-10 p-3 rounded-[5px]" placeholder="Province" />
+                            <input {...register("f_house_no", { required: true })} type="number" className="border border-[#630000] shadow-sm text-[13px] tracking-wider w-50 h-10 p-3 rounded-[5px]" placeholder="HouseNo" />
                         </div>
-                    </div>
+                        <div className="flex flex-col gap-1 ml-9">
+                            <p className="invisible text-[#1B1717] text-[14px] w-32">Current Address</p>
+                            <input {...register("f_street", { required: true })} type="text" className="border border-[#630000] shadow-sm text-[13px] tracking-wider w-50 h-10 p-3 rounded-[5px]" placeholder="Street" />
+                        </div>
+                        <div className="flex flex-col gap-1 ml-9">
+                            <p className="invisible text-[#1B1717] text-[14px] w-32">Current Address</p>
+                            <input {...register("f_barangay", { required: true })} type="text" className="border border-[#630000] shadow-sm text-[13px] tracking-wider w-50 h-10 p-3 rounded-[5px]" placeholder="Barangay" />
+                        </div>
+                        <div className="flex flex-col gap-1 ml-9">
+                            <p className="invisible text-[#1B1717] text-[14px] w-32">Current Address</p>
+                            <input {...register("f_municipality", { required: true })} type="text" className="border border-[#630000] shadow-sm text-[13px] tracking-wider w-50 h-10 p-3 rounded-[5px]" placeholder="City" />
+                        </div>
+                        <div className="flex flex-col gap-1 ml-9">
+                            <p className="invisible text-[#1B1717] text-[14px] w-32">Current Address</p>
+                            <input {...register("f_province", { required: true })} type="text" className="border border-[#630000] shadow-sm text-[13px] tracking-wider w-50 h-10 p-3 rounded-[5px]" placeholder="Province" />
+                        </div>
 
-                    {/* Mother Section */}
-                    <div className="bg-[#EDEBDD] w-351 p-8 ml-12 rounded-2xl flex flex-col gap-6 mt-10">
-                        <div className="flex gap-5 items-center ml-7">
+                        {/* Mother's  */}
+                        <div className="flex flex-col gap-1">
                             <p className="text-[#1B1717] text-[14px]">Mother's Name</p>
-                            <input {...register("mother_last_name", { required: "This is required" })} type="text" className="border text-[12px] w-30 h-10 p-3 rounded-[5px]" placeholder="Last Name" required />
-                            <input {...register("mother_first_name", { required: "This is required" })} type="text" className="border text-[12px] w-30 h-10 p-3 rounded-[5px]" placeholder="First Name" required />
-                            <input {...register("mother_middle_name", { required: "This is required" })} type="text" className="border text-[12px] w-30 h-10 p-3 rounded-[5px]" placeholder="Middle Name" />
-                            <p className="text-[#1B1717] text-[14px]">Ext.</p>
-                            <input {...register("mother_ext")} type="text" className="border text-[12px] w-20 h-10 p-3 rounded-[5px]" placeholder="Jr/Sr" />
+                            <input {...register("mother_last_name", { required: true })} type="text" className="border border-[#630000] shadow-sm text-[13px] tracking-wider w-40 h-10 p-3 rounded-[5px]" placeholder="Last Name" />
+                        </div>
+                        <div className="flex flex-col gap-1">
+                            <p className="invisible text-[#1B1717] text-[14px]">Mother's Name</p>
+                            <input {...register("mother_first_name", { required: true })} type="text" className="border border-[#630000] shadow-sm text-[13px] tracking-wider w-40 h-10 p-3 rounded-[5px]" placeholder="First Name" />
+                        </div>
+                        <div className="flex flex-col gap-1">
+                            <p className="invisible text-[#1B1717] text-[14px]">Mother's Name</p>
+                            <input {...register("mother_middle_name", { required: true })} type="text" className="border border-[#630000] shadow-sm text-[13px] tracking-wider w-40 h-10 p-3 rounded-[5px]" placeholder="Middle Name" />
+                        </div>
+                        <div className="flex flex-col gap-1 col-span-2 mr-64">
+                            <p className="text-[#1B1717] text-[14px] ">Suffix</p>
+                            <input {...register("mother_ext", { required: true })} type="text" className="border border-[#630000] shadow-sm text-[13px] tracking-wider w-40 h-10 p-3 rounded-[5px]" placeholder="Jr/Sr" />
+                        </div>
+                        <div className="flex flex-col gap-1 ">
                             <p className="text-[#1B1717] text-[14px]">Contact Number</p>
-                            <input {...register("mother_contact", { required: "This is required" })} type="number" className="border text-[12px] w-30 h-10 p-3 rounded-[5px]" placeholder="Contact #" required />
+                            <input {...register("mother_contact", { required: true })} type="number" className="border border-[#630000] shadow-sm text-[13px] w-40 h-10 p-3 rounded-[5px]" placeholder="Contact #" />
+                        </div><div className="flex flex-col gap-1 col-span-4 mr-193">
                             <p className="text-[#1B1717] text-[14px]">Occupation</p>
-                            <input {...register("mother_occupation", { required: "This is required" })} type="text" className="border text-[12px] w-30 h-10 p-3 rounded-[5px]" placeholder="Occupation" required />
+                            <input {...register("mother_occupation", { required: true })} type="text" className="border border-[#630000] shadow-sm text-[13px] tracking-wider w-40 h-10 p-3 rounded-[5px]" placeholder="Occupation" />
                         </div>
 
-                        {/* Mother's Address */}
-                        <div className="flex gap-7 items-center ml-7">
+                        <div className="flex flex-col gap-1 ml-9">
                             <p className="text-[#1B1717] text-[14px]">Current Address</p>
-                            <input {...register("m_house_no", { required: "This is required" })} type="number" className="border text-[12px] w-30 h-10 p-3 rounded-[5px]" placeholder="HouseNo" />
-                            <input {...register("m_street", { required: "This is required" })} type="text" className="border text-[12px] w-30 h-10 p-3 rounded-[5px]" placeholder="Street" />
-                            <input {...register("m_barangay", { required: "This is required" })} type="text" className="border text-[12px] w-30 h-10 p-3 rounded-[5px]" placeholder="Barangay" />
-                            <input {...register("m_municipality", { required: "This is required" })} type="text" className="border text-[12px] w-30 h-10 p-3 rounded-[5px]" placeholder="City" />
-                            <input {...register("m_province", { required: "This is required" })} type="text" className="border text-[12px] w-30 h-10 p-3 rounded-[5px]" placeholder="Province" />
+                            <input {...register("m_house_no", { required: true })} type="number" className="border border-[#630000] shadow-sm text-[13px] tracking-wider w-50 h-10 p-3 rounded-[5px]" placeholder="HouseNo" />
                         </div>
-                    </div>
+                        <div className="flex flex-col gap-1 ml-9">
+                            <p className="invisible text-[#1B1717] text-[14px]">Current Address</p>
+                            <input {...register("m_street", { required: true })} type="text" className="border border-[#630000] shadow-sm text-[13px] tracking-wider w-50 h-10 p-3 rounded-[5px]" placeholder="Street" />
+                        </div>
+                        <div className="flex flex-col gap-1 ml-9">
+                            <p className="invisible text-[#1B1717] text-[14px]">Current Address</p>
+                            <input {...register("m_barangay", { required: true })} type="text" className="border border-[#630000] shadow-sm text-[13px] tracking-wider w-50 h-10 p-3 rounded-[5px]" placeholder="Barangay" />
+                        </div><div className="flex flex-col gap-1 ml-9">
+                            <p className="invisible text-[#1B1717] text-[14px]">Current Address</p>
+                            <input {...register("m_municipality", { required: true })} type="text" className="border border-[#630000] shadow-sm text-[13px] tracking-wider w-50 h-10 p-3 rounded-[5px]" placeholder="City" />
+                        </div>
+                        <div className="flex flex-col gap-1 ml-9">
+                            <p className="invisible text-[#1B1717] text-[14px]">Current Address</p>
+                            <input {...register("m_province", { required: true })} type="text" className="border border-[#630000] shadow-sm text-[13px] tracking-wider w-50 h-10 p-3 rounded-[5px]" placeholder="Province" />
+                        </div>
 
                     {/* Guardian Section */}
-                    <div className="bg-[#EDEBDD] w-351 p-8 ml-12 rounded-2xl flex flex-col gap-6 mt-10">
-                        <div className="flex gap-5 items-center ml-7">
+                        <div className="flex flex-col gap-1">
                             <p className="text-[#1B1717] text-[14px]">Guardian's Name</p>
-                            <input {...register("guardian_last_name", { required: "This is required" })} type="text" className="border text-[12px] w-30 h-10 p-3 rounded-[5px]" placeholder="Last Name" required />
-                            <input {...register("guardian_first_name", { required: "This is required" })} type="text" className="border text-[12px] w-30 h-10 p-3 rounded-[5px]" placeholder="First Name" required />
-                            <input {...register("guardian_middle_name", { required: "This is required" })} type="text" className="border text-[12px] w-30 h-10 p-3 rounded-[5px]" placeholder="Middle Name" />
-                            <p className="text-[#1B1717] text-[14px]">Ext.</p>
-                            <input {...register("guardian_ext")} type="text" className="border text-[12px] w-20 h-10 p-3 rounded-[5px]" placeholder="Jr/Sr" />
+                            <input {...register("guardian_last_name", { required: true })} type="text" className="border border-[#630000] shadow-sm text-[13px] tracking-wider w-40 h-10 p-3 rounded-[5px]" placeholder="Last Name" />
+                        </div>
+                        <div className="flex flex-col gap-1">
+                            <p className="invisible text-[#1B1717] text-[14px]">Guardian's Name</p>
+                            <input {...register("guardian_first_name", { required: true })} type="text" className="border border-[#630000] shadow-sm text-[13px] tracking-wider w-40 h-10 p-3 rounded-[5px]" placeholder="First Name" />
+                        </div>
+                        <div className="flex flex-col gap-1">
+                            <p className="invisible text-[#1B1717] text-[14px]">Guardian's Name</p>
+                            <input {...register("guardian_middle_name", { required: true })} type="text" className="border border-[#630000] shadow-sm text-[13px] tracking-wider w-40 h-10 p-3 rounded-[5px]" placeholder="Middle Name" />
+                        </div>
+                        <div className="flex flex-col gap-1 col-span-2 mr-64">
+                            <p className="text-[#1B1717] text-[14px]">Suffix</p>
+                            <input {...register("guardian_ext", { required: true })} type="text" className="border border-[#630000] shadow-sm text-[13px] tracking-wider w-40 h-10 p-3 rounded-[5px]" placeholder="Jr/Sr" />
+                        </div>
+                        <div className="flex flex-col gap-1">
                             <p className="text-[#1B1717] text-[14px]">Contact Number</p>
-                            <input {...register("guardian_contact", { required: "This is required" })} type="text" className="border text-[12px] w-30 h-10 p-3 rounded-[5px]" placeholder="Contact #" required />
+                            <input {...register("guardian_contact", { required: true })} type="text" className="border border-[#630000] shadow-sm text-[13px] tracking-wider w-40 h-10 p-3 rounded-[5px]" placeholder="Contact #" />
+                        </div>
+                        <div className="flex flex-col gap-1 col-span-4 mr-193">
                             <p className="text-[#1B1717] text-[14px]">Relationship</p>
-                            <input {...register("guardian_relationship", { required: "This is required" })} type="text" className="border text-[12px] w-30 h-10 p-3 rounded-[5px]" placeholder="Relationship" required />
+                            <input {...register("guardian_relationship", { required: true })} type="text" className="border border-[#630000] shadow-sm text-[13px] tracking-wider w-40 h-10 p-3 rounded-[5px]" placeholder="Relationship" />
                         </div>
                         {/* Guardian's Address */}
-                        <div className="flex gap-7 items-center ml-7">
+                        <div className="flex flex-col gap-1 ml-9">
                             <p className="text-[#1B1717] text-[14px] w-32">Guardian Address</p>
-                            <input {...register("g_house_no", { required: "This is required" })} type="number" className="border text-[12px] w-30 h-10 p-3 rounded-[5px]" placeholder="HouseNo" />
-                            <input {...register("g_street", { required: "This is required" })} type="text" className="border text-[12px] w-30 h-10 p-3 rounded-[5px]" placeholder="Street" />
-                            <input {...register("g_barangay", { required: "This is required" })} type="text" className="border text-[12px] w-30 h-10 p-3 rounded-[5px]" placeholder="Barangay" />
-                            <input {...register("g_municipality", { required: "This is required" })} type="text" className="border text-[12px] w-30 h-10 p-3 rounded-[5px]" placeholder="City" />
-                            <input {...register("g_province", { required: "This is required" })} type="text" className="border text-[12px] w-30 h-10 p-3 rounded-[5px]" placeholder="Province" />
+                            <input {...register("g_house_no", { required: true })} type="number" className="border border-[#630000] shadow-sm text-[13px] tracking-wider w-50 h-10 p-3 rounded-[5px]" placeholder="HouseNo" />
+                        </div>
+                        <div className="flex flex-col gap-1 ml-9">
+                            <p className="invisible text-[#1B1717] text-[14px] w-32">Guardian Address</p>
+                            <input {...register("g_street", { required: true })} type="text" className="border border-[#630000] shadow-sm text-[13px] tracking-wider w-50 h-10 p-3 rounded-[5px]" placeholder="Street" />
+                        </div>
+                        <div className="flex flex-col gap-1 ml-9">
+                            <p className="invisible text-[#1B1717] text-[14px] w-32">Guardian Address</p>
+                            <input {...register("g_barangay", { required: true })} type="text" className="border border-[#630000] shadow-sm text-[13px] tracking-wider w-50 h-10 p-3 rounded-[5px]" placeholder="Barangay" />
+                        </div><div className="flex flex-col gap-1 ml-9">
+                            <p className="invisible text-[#1B1717] text-[14px] w-32">Guardian Address</p>
+                            <input {...register("g_municipality", { required: true })} type="text" className="border border-[#630000] shadow-sm text-[13px] tracking-wider w-50 h-10 p-3 rounded-[5px]" placeholder="City" />
+                        </div><div className="flex flex-col gap-1 ml-9">
+                            <p className="invisible text-[#1B1717] text-[14px] w-32">Guardian Address</p>
+                            <input {...register("g_province", { required: true })} type="text" className="border border-[#630000] shadow-sm text-[13px] tracking-wider w-50 h-10 p-3 rounded-[5px]" placeholder="Province" />
                         </div>
                     </div>
 
@@ -440,7 +504,8 @@ const handleNext = async () => {
                             BACK
                         </button>
                         <button 
-                            type="submit" 
+                            type="button"
+                            onClick={handleNext} 
                             className="flex items-center gap-2 px-10 py-4 bg-[#630000] text-white rounded-xl font-bold hover:bg-red-800 transition-all shadow-lg active:scale-95"
                         >
                             <Save size={20} />
