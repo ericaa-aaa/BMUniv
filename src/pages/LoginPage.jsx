@@ -4,7 +4,7 @@ import { IoMdLock } from "react-icons/io";
 import { useNavigate } from "react-router";
 import bg from "../assets/images/bg.jpg";
 import logo from '../assets/images/signin4.png';
-import { loginUser } from "../services/teacherloginauth"; 
+import { loginUser } from "../services/student_teacherloginauth";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 
 export default function LoginPage() {
@@ -33,7 +33,7 @@ export default function LoginPage() {
     try {
         const result = await loginUser(form.username, form.password);
 
-        if (result.success) {
+        if (result.success) {   
             // Check the role returned from the database
             if (result.role === "teacher") {
                 navigate("/teacher");
