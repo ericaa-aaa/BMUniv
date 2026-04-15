@@ -99,7 +99,7 @@ export default function Elementary() {
 
           {/* Table Container */}
           <div className="flex-1 overflow-auto border border-gray-200 rounded-xl bg-white shadow-inner">
-            <div className="min-w-[900px]"> 
+            <div className="min-w-225"> 
               {/* Table Header */}
               <div className="grid grid-cols-[0.5fr_2fr_0.8fr_1fr_1fr_0.7fr_1fr] bg-[#8B0000] text-white text-center font-semibold sticky top-0 z-10 shadow-md">
                 <div className="p-3 border-r border-white/10">#</div>
