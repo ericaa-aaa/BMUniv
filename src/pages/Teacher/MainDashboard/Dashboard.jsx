@@ -12,18 +12,20 @@ function Dashboard() {
   });
 
   // 2. Effect to get the username
-  useEffect(() => {
-    const user = localStorage.getItem("activeUser");  
-    if (user) {
-      setCurrentTeacher(user);
-    }
-  }, []); // Added missing closing bracket and dependency array here
+useEffect(() => {
+  // Make sure this key matches exactly what you set in the login service
+  const user = localStorage.getItem("activeUser");  
+  console.log("Found user in storage:", user); // Debugging line
+  if (user) {
+    setCurrentTeacher(user);
+  }
+}, []);
 
   // 3. Effect to fetch student counts
   useEffect(() => {
     const fetchCounts = async () => {
       try {
-        const response = await fetch('http://localhost:5000/api/students/count');
+        const response = await fetch(`${import.meta.env.VITE_BASE_URL}/api/students/count`);
         const data = await response.json();
         setCounts({
           elementary: data.elementary,
@@ -44,9 +46,9 @@ function Dashboard() {
       <div className="min-h-screen bg-white/75 p-4">
       
         <div className="flex justify-end mr-10">
-          <p className='pt-12 font-["Inter"] text-[#1B1717] font-medium capitalize'>
-          {currentTeacher || "Guest"}
-          </p>
+        <p className='pt-12 font-["Inter"] text-[#1B1717] font-medium capitalize'>
+          {currentTeacher ? `${currentTeacher}` : "Guest"}
+        </p>
           <img src={profile} alt='Faculty' className='w-30 h-30' />
         </div>
 

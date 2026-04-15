@@ -1,4 +1,4 @@
-import { useState, useEffect, useMemo } from "react";
+import { useState, useEffect } from "react";
 import SHSFormModal from '../../../components/modals/SHSFormModal';
 import bg from "../../../assets/images/bg.jpg";
 import { CiSearch } from "react-icons/ci";
@@ -11,7 +11,7 @@ export default function SeHighschool() {
   const [showModal, setShowModal] = useState(false);
   const [selectedStudent, setSelectedStudent] = useState(null);
 
-  // 1. Fetch function extracted for reuse
+  // 1. Fetch function extracted for reuse (Initial load + Refresh after update)
   const fetchStudents = async () => {
     try {
       setLoading(true);
@@ -28,20 +28,6 @@ export default function SeHighschool() {
     fetchStudents();
   }, []);
 
-  const filteredStudents = useMemo(() => {
-    const query = search.toLowerCase().trim();
-    if (!query) return students;
-
-    return students.filter((student) => {
-      return (
-        student.fullname?.toLowerCase().includes(query) ||
-        student.grade_level?.toString().toLowerCase().includes(query) ||
-        student.section?.toLowerCase().includes(query) ||
-        student.status?.toLowerCase().includes(query)
-      );
-    });
-  }, [search, students]);
-
   const openModal = (student) => {
     setSelectedStudent(student);
     setShowModal(true);
@@ -54,10 +40,14 @@ export default function SeHighschool() {
     });
   };
 
+  // 2. Updated handleUpdate to call the Senior High Service
   const handleUpdate = async () => {
     try {
+      // Calls the actual PATCH API in the background
       await SeHighSchoolStudentService.updateStudent(selectedStudent.id, selectedStudent);
-      await fetchStudents(); 
+      
+      // Re-fetch data from database to keep the UI in sync
+      await fetchStudents();
       setShowModal(false);
     } catch (error) {
       console.error("Update failed:", error);
@@ -65,18 +55,20 @@ export default function SeHighschool() {
     }
   };
 
+  const filteredStudents = students.filter((student) =>
+    student.fullname?.toLowerCase().includes(search.toLowerCase())
+  );
+
   return (
     <section className="h-screen w-full bg-cover bg-center relative overflow-hidden" style={{ backgroundImage: `url(${bg})` }}>
       <div className="absolute inset-0 bg-white/80 px-6 py-8 flex flex-col">
         
-        {/* Header */}
         <div className="flex justify-center mb-8 shrink-0">
           <h1 className="bg-[#8B0000] text-white px-12 py-3 rounded-2xl text-lg md:text-xl font-semibold shadow-lg">
             Senior Highschool Students Records
           </h1>
         </div>
 
-        {/* Main Card */}
         <div className="bg-white/90 backdrop-blur-md p-6 rounded-2xl shadow-xl flex flex-col flex-1 min-h-0 border border-white/50">
           
           <div className="flex flex-col md:flex-row md:justify-between md:items-center mb-6 gap-3 shrink-0">
@@ -84,23 +76,17 @@ export default function SeHighschool() {
                 {loading ? "Loading records..." : `Students Enrolled (${students.length})`}
             </h2>
 
-            {/* Global Search Input */}
             <div className="flex items-center gap-2">
               <span className="font-medium text-gray-700">Search: </span>
               <div className="relative flex items-center">
                 <CiSearch className="absolute left-3 text-gray-500 size-5" />
-                <input 
-                  type="text" 
-                  value={search} 
-                  onChange={(e) => setSearch(e.target.value)}
-                  placeholder="Search name, grade, section..."
-                  className="border border-[#8B0000] rounded-lg pl-10 pr-3 py-1.5 outline-none focus:ring-2 focus:ring-red-300 w-64 transition-all" 
-                />
+                <input type="text" value={search} onChange={(e) => setSearch(e.target.value)}
+                  placeholder="Search student..."
+                  className="border border-[#8B0000] rounded-lg pl-10 pr-3 py-1.5 outline-none focus:ring-2 focus:ring-red-300 w-64 transition-all" />
               </div>
             </div>
           </div>
 
-          {/* Scrollable Table Area */}
           <div className="flex-1 overflow-auto border border-gray-200 rounded-xl bg-white shadow-inner">
             <div className="min-w-225"> 
               
@@ -128,11 +114,12 @@ export default function SeHighschool() {
                     </div>
                     <div className="p-4 border-r border-gray-100 text-gray-600">{student.grade_level}</div>
                     
+                    {/* 3. Section logic: Show '-' if student is Dropped */}
                     <div className="p-4 border-r border-gray-100 text-gray-600">
                       {student.status?.toLowerCase() === 'dropped' ? (
                         <span className="text-gray-400 font-bold">—</span>
                       ) : (
-                        student.section || 'N/A'
+                        student.section
                       )}
                     </div>
                     
@@ -148,7 +135,7 @@ export default function SeHighschool() {
 
                     <div className="p-4 border-r border-gray-100 flex justify-center">
                       {student.photo_url ? (
-                        <img src={student.photo_url} alt="Profile" className="h-16 w-16 object-cover border rounded-md" />
+                        <img src={student.photo_url} alt="Profile" className="h-20 w-20 object-cover border" />
                       ) : (
                         <span className="text-gray-300 text-xs italic">No Image</span>
                       )}
@@ -162,7 +149,7 @@ export default function SeHighschool() {
                 ))
               ) : (
                 <div className="p-10 text-center text-gray-400 italic">
-                  No records found matching "{search}"
+                  No students found.
                 </div>
               )}
             </div>
@@ -175,7 +162,7 @@ export default function SeHighschool() {
           selectedStudent={selectedStudent}
           handleChange={handleChange}
           handleUpdate={handleUpdate}
-          onUpdateSuccess={fetchStudents}
+          onUpdateSuccess={fetchStudents} // In case the modal uses this prop instead
         />
       </div>
     </section>

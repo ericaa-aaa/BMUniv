@@ -1,20 +1,24 @@
-const BASE_URL = "http://127.0.0.1:5000";
+const API_BASE_URL = import.meta.env.VITE_BASE_URL;
 
-// ✅ NEW: Login function to get and store the token
-export const loginTeacher = async (username, password) => {
-  const res = await fetch(`${BASE_URL}/login`, {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ username, password }),
-  });
+export const loginUser = async (username, password) => {
+  try {
+    const res = await fetch(`${API_BASE_URL}/login`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ username, password }),
+    });
 
-  const data = await res.json();
+    const data = await res.json();
 
-  if (res.ok) {
-    // Save the token in localStorage so we can use it later
-    localStorage.setItem("token", data.access_token);
-    localStorage.setItem("activeUser", data.username);
-    return { success: true };
+    if (res.ok) {
+      localStorage.setItem("token", data.access_token);
+      localStorage.setItem("role", data.role);
+      // Save the username here so the dashboard can find it!
+      localStorage.setItem("activeUser", username); 
+      return { success: true, role: data.role };
+    }
+    return { success: false, message: data.message };
+  } catch (error) {
+    return { success: false, message: "Server connection failed" };
   }
-  return { success: false, message: data.message };
 };

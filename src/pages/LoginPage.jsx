@@ -4,7 +4,7 @@ import { IoMdLock } from "react-icons/io";
 import { useNavigate } from "react-router";
 import bg from "../assets/images/bg.jpg";
 import logo from '../assets/images/signin4.png';
-import { loginTeacher } from "../services/teacherloginauth"; 
+import { loginUser } from "../services/teacherloginauth"; 
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 
 export default function LoginPage() {
@@ -27,24 +27,29 @@ export default function LoginPage() {
     const [error, setError] = useState("");
 
     const handleLogin = async (e) => {
-        e.preventDefault();
-        setError(""); // Clear previous errors on new attempt
-        
-        try {
-            const result = await loginTeacher(form.username, form.password);
+    e.preventDefault();
+    setError(""); 
+    
+    try {
+        const result = await loginUser(form.username, form.password);
 
-            if (result.success) {
+        if (result.success) {
+            // Check the role returned from the database
+            if (result.role === "teacher") {
                 navigate("/teacher");
+            } else if (result.role === "student") {
+                navigate("/student");
             } else {
-                // 2. Set specific message if server returns a failure
-                setError("Incorrect password or username.");
+                // Default fallback if role is unexpected
+                navigate("/dashboard");
             }
-        } catch (error) {
-            console.error("Login error:", error);
-            // This triggers if the server is down or the request fails
-            setError("Could not connect to the server.");
+        } else {
+            setError(result.message || "Invalid credentials.");
         }
-    };
+    } catch (err) {
+        setError("Could not connect to the server.");
+    }
+};
 
     return (
         <div className="flex flex-row h-screen">
