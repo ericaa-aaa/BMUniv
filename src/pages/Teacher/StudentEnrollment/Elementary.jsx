@@ -9,10 +9,10 @@ export default function Elementary() {
             style={{ backgroundImage: `url(${back})` }}
         >
             {/* This div acts as your overlay and container */}
-            <div className="min-h-screen bg-white/75 p-4">
+            <div className="min-h-screen bg-white/90 p-4">
                 
                 <div className="flex justify-center mb-1">
-                    <p className="text-[#EDEBDD] font-['Inter'] bg-[#630000] w-full max-w-130 font-semibold text-[30px] rounded-2xl p-3 text-center">
+                    <p className="text-[#EDEBDD] font-['Inter'] bg-[#630000] w-full max-w-110 font-semibold text-[25px] rounded-2xl p-2 text-center">
                         Elementary Enrollment Form
                     </p>
                 </div>
