@@ -17,11 +17,9 @@ export default function ElementaryFormModal({
     setIsSubmitting(true);
     try {
       await ElementaryStudentService.updateStudent(selectedStudent.id, selectedStudent);
-      
-      // Success Feedback
+
       alert("Student record updated successfully!");
-      
-      // Cleanup
+
       if (onUpdateSuccess) onUpdateSuccess();
       setShowModal(false);
     } catch (error) {
@@ -30,7 +28,7 @@ export default function ElementaryFormModal({
       setIsSubmitting(false);
     }
   };
-  // Reusable Styles
+
   const readOnlyStyle = "border border-gray-200 rounded-lg px-4 py-2.5 bg-gray-100 cursor-not-allowed text-gray-500 w-full text-sm font-medium";
   const editableStyle = "border border-gray-300 rounded-lg px-4 py-2.5 bg-white focus:ring-2 focus:ring-red-800 focus:border-transparent outline-none w-full text-sm transition-all";
   const labelStyle = "text-[10px] font-bold mb-1.5 ml-1 text-gray-400 uppercase tracking-tight";
@@ -53,7 +51,6 @@ export default function ElementaryFormModal({
           </div>
 
           <div className="space-y-10">
-            {/* 1. READ-ONLY HEADER INFO */}
             <section className="bg-gray-50 p-6 rounded-2xl border border-gray-200">
               <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
                 <div className="flex flex-col col-span-2">
@@ -67,7 +64,6 @@ export default function ElementaryFormModal({
               </div>
             </section>
 
-            {/* 2. PERSONAL INFO */}
             <section>
               <h2 className="text-lg font-bold text-[#7A1C1C] mb-5 flex items-center gap-2">
                 <span className="w-1.5 h-6 bg-red-800 rounded-full"></span> Basic Information
@@ -80,12 +76,12 @@ export default function ElementaryFormModal({
                 <div className="flex flex-col md:col-span-2"><label className={labelStyle}>Birth Place</label><input name="birthplace" value={selectedStudent.place_of_birth || ""} onChange={handleChange} className={editableStyle}/></div>
                 <div className="flex flex-col"><label className={labelStyle}>Weight (kg)</label><input name="weight" value={selectedStudent.weight || ""} onChange={handleChange} className={editableStyle} /></div>
                 <div className="flex flex-col"><label className={labelStyle}>Height (cm)</label><input name="height" value={selectedStudent.height || ""} onChange={handleChange} className={editableStyle} /></div>
+                <div className="flex flex-col md:col-span-2"><label className={labelStyle}>Citizenship</label><input name="citizenship" value={selectedStudent.citizenship || ""} onChange={handleChange} className={editableStyle} /></div>
                 <div className="flex flex-col"><label className={labelStyle}>Mother Tongue</label><input name="mother_tongue" value={selectedStudent.mother_tongue || ""} onChange={handleChange} className={editableStyle}/></div>
                 <div className="flex flex-col"><label className={labelStyle}>Religion</label><input name="religion" value={selectedStudent.religion || ""} onChange={handleChange} className={editableStyle}/></div>
               </div>
             </section>
 
-            {/* 3. ADDITIONAL STATUS */}
                 <section className="bg-gray-50 p-6 rounded-2xl border border-gray-200 grid grid-cols-1 md:grid-cols-3 gap-6">
                   <div className="flex flex-col">
                     <label className={labelStyle}>Enrollment Status</label>
@@ -119,7 +115,6 @@ export default function ElementaryFormModal({
                   </div>
                 </section>
 
-            {/* 4. STUDENT ADDRESSES  */}
             <section className="grid grid-cols-1 md:grid-cols-2 gap-8">
               <div className="bg-[#EDEBDD]/40 p-6 rounded-2xl border border-[#EDEBDD]">
                 <p className="text-[11px] font-black text-red-800 mb-4 tracking-tighter uppercase flex items-center gap-2">
@@ -147,7 +142,6 @@ export default function ElementaryFormModal({
               </div>
             </section>
 
-            {/* 5. FAMILY BACKGROUND */}
             <section className="space-y-6">
               <h2 className="text-xl font-bold text-[#7A1C1C] mb-6 flex items-center gap-2">
                 <span className="w-1.5 h-6 bg-red-800 rounded-full"></span> Family Background

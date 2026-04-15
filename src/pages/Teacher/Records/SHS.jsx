@@ -11,7 +11,6 @@ export default function SeHighschool() {
   const [showModal, setShowModal] = useState(false);
   const [selectedStudent, setSelectedStudent] = useState(null);
 
-  // 1. Fetch function extracted for reuse (Initial load + Refresh after update)
   const fetchStudents = async () => {
     try {
       setLoading(true);
@@ -40,13 +39,10 @@ export default function SeHighschool() {
     });
   };
 
-  // 2. Updated handleUpdate to call the Senior High Service
   const handleUpdate = async () => {
     try {
-      // Calls the actual PATCH API in the background
       await SeHighSchoolStudentService.updateStudent(selectedStudent.id, selectedStudent);
-      
-      // Re-fetch data from database to keep the UI in sync
+
       await fetchStudents();
       setShowModal(false);
     } catch (error) {
@@ -114,7 +110,6 @@ export default function SeHighschool() {
                     </div>
                     <div className="p-4 border-r border-gray-100 text-gray-600">{student.grade_level}</div>
                     
-                    {/* 3. Section logic: Show '-' if student is Dropped */}
                     <div className="p-4 border-r border-gray-100 text-gray-600">
                       {student.status?.toLowerCase() === 'dropped' ? (
                         <span className="text-gray-400 font-bold">—</span>
@@ -162,7 +157,7 @@ export default function SeHighschool() {
           selectedStudent={selectedStudent}
           handleChange={handleChange}
           handleUpdate={handleUpdate}
-          onUpdateSuccess={fetchStudents} // In case the modal uses this prop instead
+          onUpdateSuccess={fetchStudents} 
         />
       </div>
     </section>

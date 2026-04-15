@@ -66,15 +66,13 @@ export default function Elementary() {
   return (
     <section className="h-screen w-full bg-cover bg-center relative overflow-hidden" style={{ backgroundImage: `url(${bg})` }}>
       <div className="absolute inset-0 bg-white/80 px-6 py-8 flex flex-col">
-        
-        {/* Header Section */}
+
         <div className="flex justify-center mb-8 shrink-0">
           <h1 className="bg-[#8B0000] text-white px-12 py-3 rounded-2xl text-lg md:text-xl font-semibold shadow-lg">
             Elementary Students Records
           </h1>
         </div>
 
-        {/* Main Content Card */}
         <div className="bg-white/90 backdrop-blur-md p-6 rounded-2xl shadow-xl flex flex-col flex-1 min-h-0 border border-white/50">
           
           <div className="flex flex-col md:flex-row md:justify-between md:items-center mb-6 gap-3 shrink-0">
@@ -97,10 +95,9 @@ export default function Elementary() {
             </div>
           </div>
 
-          {/* Table Container */}
           <div className="flex-1 overflow-auto border border-gray-200 rounded-xl bg-white shadow-inner">
             <div className="min-w-225"> 
-              {/* Table Header */}
+
               <div className="grid grid-cols-[0.5fr_2fr_0.8fr_1fr_1fr_0.7fr_1fr] bg-[#8B0000] text-white text-center font-semibold sticky top-0 z-10 shadow-md">
                 <div className="p-3 border-r border-white/10">#</div>
                 <div className="p-3 border-r border-white/10">Student Name</div>
@@ -111,7 +108,6 @@ export default function Elementary() {
                 <div className="p-3">Student File</div>
               </div>
 
-              {/* Table Body */}
               {loading ? (
                 <div className="p-10 text-center text-gray-500 font-medium">Fetching data from server...</div>
               ) : filteredStudents.length > 0 ? (
