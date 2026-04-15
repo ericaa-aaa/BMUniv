@@ -12,12 +12,6 @@ function Sidebar() {
   const [openEnrollment, setOpenEnrollment]= useState(false);
   const [activeItem, setActiveItem] = useState("");
 
-const [activeMenu, setActiveMenu] = useState(""); 
-
-const toggleEnrollment = () => {
-  setActiveMenu(activeMenu === "enrollment" ? "" : "enrollment");
-};
-
   const handleLogout = () => {
     localStorage.removeItem("token");
     localStorage.removeItem("activeUser");
