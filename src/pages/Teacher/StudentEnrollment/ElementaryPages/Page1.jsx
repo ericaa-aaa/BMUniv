@@ -328,15 +328,15 @@ const handleNext = async () => {
                         </div>
                     )}
 
-                    <div className="mt-10 ml-12">
+                    <div className="mt-16 ml-12">
 
                     <button 
                         type="button" 
                         onClick={handleNext} // Use the new handler here
-                        className="flex items-center gap-2 px-10 py-4 bg-[#630000] text-white rounded-xl font-bold hover:bg-red-800 shadow-lg transition-all"
+                        className="flex justify-end items-center ml-auto gap-2 px-6 py-3 bg-[#630000] text-white  text-[13px] rounded-xl font-bold hover:bg-red-800 shadow-lg transition-all"
                     >
                         <ArrowRight size={20} />
-                        NEXT: PARENT INFORMATION
+                        NEXT
                     </button>
                     </div>
                 </>
@@ -345,12 +345,12 @@ const handleNext = async () => {
             {/* --- PAGE 2: PARENT INFORMATION --- */}
             {step === 2 && (
                 <>
-                    <div className="pt-2 pl-12">
+                    <div className="pt-2 pl-25">
                         <p className="text-[#630000] text-[25px] font-semibold">Parent/Guardian Information</p>
                     </div>
 
                     {/* Father Section */}
-                    <div className="grid grid-cols-5 gap-y-5 justify-items-center max-w-7xl mx-auto mt-3">
+                    <div className="grid grid-cols-5 gap-y-5 justify-items-center max-w-7xl mx-auto mt-3 ">
                         <div className="flex flex-col gap-1">
                             <p className="text-[#1B1717] text-[14px] w-32">Father's Name</p>
                             <input {...register("father_last_name", { required: true })} type="text" className="border border-[#630000] shadow-sm text-[13px] tracking-wider w-40 h-10 p-3 rounded-[5px]" placeholder="Last Name"/>
@@ -488,17 +488,18 @@ const handleNext = async () => {
                             <input {...register("g_province", { required: true })} type="text" className="border border-[#630000] shadow-sm text-[13px] tracking-wider w-50 h-10 p-3 rounded-[5px]" placeholder="Province" />
                         </div>
                     </div>
-
-                    <div className="flex gap-5 pl-16 mt-6">
+<div className="flex justify-between">
+                    <div className="flex gap-5 pl-42 mt-10">
                         <p className='text-[#1B1717] text-[14px]'>Is this student a transferee? <span className="text-[#630000]">(✓) if yes</span></p>
                         <input {...register("is_transferee")} type="checkbox" className="w-5 h-5 accent-[#630000]" />
                     </div>
 
-                    <div className="mt-16 ml-12 flex gap-4 ">
+                    
+                    <div className="mt-8 ml-12 flex gap-4 text-[13px] ">
                         <button 
                             type="button" 
                             onClick={() => setStep(1)} 
-                            className="flex items-center gap-2 px-8 py-4 bg-[#1B1717] text-white rounded-xl font-bold hover:bg-gray-600 transition-all shadow-md"
+                            className="flex items-center gap-2 px-4 py-3 bg-[#1B1717] text-white rounded-xl font-bold hover:bg-gray-600 transition-all shadow-md"
                         >
                             <ArrowLeft size={20} />
                             BACK
@@ -506,11 +507,12 @@ const handleNext = async () => {
                         <button 
                             type="button"
                             onClick={handleNext} 
-                            className="flex items-center gap-2 px-10 py-4 bg-[#630000] text-white rounded-xl font-bold hover:bg-red-800 transition-all shadow-lg active:scale-95"
+                            className="flex items-center gap-2 px-6 py-3 bg-[#630000] text-white rounded-xl font-bold hover:bg-red-800 transition-all shadow-lg active:scale-95"
                         >
                             <Save size={20} />
-                            ENROLL & SAVE RECORD
+                            ENROLL
                         </button>
+                    </div>
                     </div>
                 </>
             )}
