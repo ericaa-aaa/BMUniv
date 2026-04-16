@@ -1,6 +1,7 @@
 import { IoMdCloseCircleOutline } from "react-icons/io";
 import { useState } from "react";
 import { HighSchoolStudentService } from "../../services/highschoolstudentservice";
+import toast, {Toaster} from "react-hot-toast";
 
 export default function JHSFormModal({
   showModal,
@@ -10,19 +11,28 @@ export default function JHSFormModal({
   onUpdateSuccess,
 }) {
   const [isSubmitting, setIsSubmitting] = useState(false);
+
   if (!showModal || !selectedStudent) return null;
 
   const handleUpdate = async () => {
+      const loadingToast = toast.loading("Updating student record...");
       setIsSubmitting(true);
+
       try {
         await HighSchoolStudentService.updateStudent(selectedStudent.id, selectedStudent);
         
-        alert("Student record updated successfully!");
+        toast.success("Record Updated Successfully!", {
+          id: loadingToast,
+          duration:3000,
+        })
 
         if (onUpdateSuccess) onUpdateSuccess();
-        setShowModal(false);
+
+        setTimeout(() => setShowModal(false), 1000 );
       } catch (error) {
-        alert(`Update failed: ${error.message}`);
+        toast.error(`Update failed: ${error.message}`, {
+          id: loadingToast,
+        });
       } finally {
         setIsSubmitting(false);
       }
@@ -33,6 +43,9 @@ export default function JHSFormModal({
   const labelStyle = "text-[10px] font-bold mb-1.5 ml-1 text-gray-400 uppercase tracking-tight";
 
   return (
+    <>
+    <Toaster position="top-center" reverseOrder={false} />
+
     <div className="fixed inset-0 bg-black/60 z-50 overflow-y-auto backdrop-blur-sm">
       <div className="min-h-screen flex items-center justify-center py-12 px-4">
         <div className="bg-white w-full max-w-5xl rounded-3xl shadow-2xl relative p-6 md:p-10 border border-gray-100">
@@ -90,7 +103,7 @@ export default function JHSFormModal({
                 <div className="flex flex-col md:col-span-2">
                   <label className={labelStyle}>Last School Attended (Elementary)</label>
                   <input 
-                    name="elementary_school" 
+                    name="elschool_attended" 
                     value={selectedStudent.elschool_attended || ""} 
                     onChange={handleChange} 
                     placeholder="Enter Elementary School Name"
@@ -100,7 +113,7 @@ export default function JHSFormModal({
                 <div className="flex flex-col">
                   <label className={labelStyle}>Year Completed</label>
                   <input 
-                    name="elementary_grad_year" 
+                    name="school_year" 
                     value={selectedStudent.school_year || ""} 
                     onChange={handleChange} 
                     placeholder="YYYY"
@@ -177,58 +190,36 @@ export default function JHSFormModal({
               </div>
             </section>
 
-            <section className="space-y-6">
-              <h2 className="text-xl font-bold text-[#7A1C1C] mb-6 flex items-center gap-2">
-                <span className="w-1.5 h-6 bg-red-800 rounded-full"></span> Family Background
-              </h2>
-              <div className="grid grid-cols-1 gap-8">
-                {[
-                  { 
-                    label: "FATHER", 
-                    fName: "father_first_name", lName: "father_last_name", contact: "father_contact", occup: "father_occupation",
-                    hNo: "f_house_no", str: "f_street", brgy: "f_barangay", mun: "f_municipality", prov: "f_province" 
-                  },
-                  { 
-                    label: "MOTHER", 
-                    fName: "mother_first_name", lName: "mother_last_name", contact: "mother_contact", occup: "mother_occupation",
-                    hNo: "m_house_no", str: "m_street", brgy: "m_barangay", mun: "m_municipality", prov: "m_province" 
-                  },
-                  { 
-                    label: "GUARDIAN", 
-                    fName: "guardian_first_name", lName: "guardian_last_name", contact: "guardian_contact", occup: "guardian_relationship",
-                    hNo: "g_house_no", str: "g_street", brgy: "g_barangay", mun: "g_municipality", prov: "g_province" 
-                  }
-                ].map((p) => (
-                  <div key={p.label} className="bg-gray-50 border border-gray-200 p-6 rounded-2xl space-y-6 shadow-sm">
-                    <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
-                      <div className="flex flex-col">
-                        <label className={labelStyle}>{p.label}'S NAME</label>
-                        <input value={`${selectedStudent[p.fName] || ''} ${selectedStudent[p.lName] || ''}`} readOnly className={readOnlyStyle} />
-                      </div>
-                      <div className="flex flex-col">
-                        <label className={labelStyle}>CONTACT NO. </label>
-                        <input name={p.contact} value={selectedStudent[p.contact] || ""} onChange={handleChange} className={editableStyle} />
-                      </div>
-                      <div className="flex flex-col md:col-span-2">
-                        <label className={labelStyle}>{p.label === "GUARDIAN" ? "RELATIONSHIP" : "OCCUPATION"}</label>
-                        <input name={p.occup} value={selectedStudent[p.occup] || ""} onChange={handleChange} className={editableStyle} />
+              {/* Family Background */}
+              <section className="space-y-6">
+                <h2 className="text-xl font-bold text-[#7A1C1C] mb-6 flex items-center gap-2">
+                  <span className="w-1.5 h-6 bg-red-800 rounded-full"></span> Family Background
+                </h2>
+                <div className="grid grid-cols-1 gap-8">
+                  {[
+                    { label: "FATHER", fName: "father_first_name", lName: "father_last_name", contact: "father_contact", occup: "father_occupation" },
+                    { label: "MOTHER", fName: "mother_first_name", lName: "mother_last_name", contact: "mother_contact", occup: "mother_occupation" },
+                    { label: "GUARDIAN", fName: "guardian_first_name", lName: "guardian_last_name", contact: "guardian_contact", occup: "guardian_relationship" }
+                  ].map((p) => (
+                    <div key={p.label} className="bg-gray-50 border border-gray-200 p-6 rounded-2xl space-y-6 shadow-sm">
+                      <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
+                        <div className="flex flex-col">
+                          <label className={labelStyle}>{p.label}'S NAME</label>
+                          <input value={`${selectedStudent[p.fName] || ''} ${selectedStudent[p.lName] || ''}`} readOnly className={readOnlyStyle} />
+                        </div>
+                        <div className="flex flex-col">
+                          <label className={labelStyle}>CONTACT NO. </label>
+                          <input name={p.contact} value={selectedStudent[p.contact] || ""} onChange={handleChange} className={editableStyle} />
+                        </div>
+                        <div className="flex flex-col md:col-span-2">
+                          <label className={labelStyle}>{p.label === "GUARDIAN" ? "RELATIONSHIP" : "OCCUPATION"}</label>
+                          <input name={p.occup} value={selectedStudent[p.occup] || ""} onChange={handleChange} className={editableStyle} />
+                        </div>
                       </div>
                     </div>
-
-                    <div className="pt-5 border-t border-gray-200">
-                      <p className="text-[10px] font-black text-gray-400 mb-4 tracking-widest uppercase italic">Default {p.label} Residence</p>
-                      <div className="grid grid-cols-2 md:grid-cols-5 gap-3">
-                        <input value={selectedStudent[p.hNo] || ""} readOnly className={readOnlyStyle} placeholder="No." />
-                        <input value={selectedStudent[p.str] || ""} readOnly className={readOnlyStyle} placeholder="Street" />
-                        <input value={selectedStudent[p.brgy] || ""} readOnly className={readOnlyStyle} placeholder="Brgy" />
-                        <input value={selectedStudent[p.mun] || ""} readOnly className={readOnlyStyle} placeholder="Mun" />
-                        <input value={selectedStudent[p.prov] || ""} readOnly className={readOnlyStyle} placeholder="Prov" />
-                      </div>
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </section>
+                  ))}
+                </div>
+              </section>
           </div>
 
           <div className="mt-12">
@@ -244,5 +235,6 @@ export default function JHSFormModal({
         </div>
       </div>
     </div>
+    </>
   );
 }
