@@ -80,7 +80,7 @@ const handleNext = async () => {
         ];
     }
 
-    const isStepValid = await trigger(fieldsToValidate);
+const isStepValid = await trigger(fieldsToValidate);
 
 if (isStepValid) {
     if (step === 2) {
@@ -90,13 +90,21 @@ if (isStepValid) {
         setStep(2);
     }
 } else {
-    // toast hehe
-    toast.error("Please fill in all required fields on this page.", {
+    // 1. Determine which message to show
+    let toastMessage = "Incomplete data. Please fill in all required fields.";
+
+    // 2. If the error is specifically the grade_level, overwrite the message
+    if (errors.grade_level) {
+        toastMessage = "Please enter a valid grade (1-6) and fill all required fields.";
+    }
+
+    // 3. Show the toast
+    toast.error(toastMessage, {
         position: "top-right",
-        style: {
-            borderRadius: '10px',
-            background: '#333',
-            color: '#fff',
+        style: { 
+            borderRadius: '10px', 
+            background: '#333', 
+            color: '#fff' 
         },
     });
 }
@@ -161,7 +169,7 @@ if (isStepValid) {
     
                         <div className="flex gap-5 items-center">
                             <p className="text-[#630000] text-[25px] font-semibold whitespace-nowrap">Grade Level:</p>
-                            <input {...register("grade_level", { required: true })} type="text" className={`border border-[#630000] shadow-sm text-[12px] w-13 h-8 p-3 rounded-[5px] ${errors.grade_level ? "border-red-500 bg-red-50" : "border-#630000"}`} />
+                            <input {...register("grade_level", { required: true, min: 1, max:6,valueAsNumber: true })} type="text" className={`border border-[#630000] shadow-sm text-[12px] w-13 h-8 p-3 rounded-[5px] ${errors.grade_level ? "border-red-500 bg-red-50" : "border-#630000"}`} />
                         </div>
 
                         {/* Photo*/}
