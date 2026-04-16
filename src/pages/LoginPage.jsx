@@ -41,7 +41,7 @@ export default function LoginPage() {
                 navigate("/student");
             } else {
                 // Default fallback if role is unexpected
-                navigate("/dashboard");
+                setError("The user doesn't have existing role.");
             }
         } else {
             setError(result.message || "Invalid credentials.");
