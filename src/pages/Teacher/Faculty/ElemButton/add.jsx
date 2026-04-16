@@ -44,16 +44,26 @@ useEffect(() => {
     }
 }, [selectedGrade, setValue]);
 
-  const onSubmit = async (data) => {
+const onSubmit = async (data) => {
     try {
       await FacultyTeacherService.addFaculty(data);
       alert("Faculty Record Saved Successfully!");
-      setShowAdd(false); 
+
+      // 1. Check if setShowAdd was passed as a prop
+      if (typeof setShowAdd === 'function') {
+        setShowAdd(false); 
+      } else {
+        // 2. If it's not a function (standalone page), refresh to show new data
+        window.location.reload(); 
+      }
+      
     } catch (error) {
       if (error.message === "SESSION_EXPIRED") {
         alert("Session expired. Please log in again.");
         window.location.href = "/";
       } else {
+        // Log the actual error for debugging
+        console.error("Submission Error:", error);
         alert("Error: " + error.message);
       }
     }
