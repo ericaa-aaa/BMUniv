@@ -95,13 +95,16 @@ export default function ElementaryFormModal({
                   <span className="w-1.5 h-6 bg-red-800 rounded-full"></span> Basic Information
                 </h2>
                 <div className="grid grid-cols-2 md:grid-cols-4 gap-x-4 gap-y-5">
-                  <div className="flex flex-col"><label className={labelStyle}>Age</label><input name="age" value={selectedStudent.age || ""} onChange={handleChange} className={editableStyle} /></div>
-                  <div className="flex flex-col"><label className={labelStyle}>Gender</label><input name="gender" value={selectedStudent.gender || ""} onChange={handleChange} className={editableStyle} /></div>
-                  <div className="flex flex-col"><label className={labelStyle}>Civil Status</label><input name="civil_status" value={selectedStudent.civil_status || ""} onChange={handleChange} className={editableStyle} /></div>
-                  <div className="flex flex-col"><label className={labelStyle}>Birthdate</label><input type="date" name="birthdate" value={selectedStudent.birthdate || ""} onChange={handleChange} className={editableStyle} /></div>
-                  <div className="flex flex-col md:col-span-2"> <label className={labelStyle}>Birth Place</label><input name="place_of_birth" value={selectedStudent.place_of_birth || ""} onChange={handleChange} className={editableStyle}/></div>
-                  <div className="flex flex-col"><label className={labelStyle}>Weight (kg)</label><input name="weight" value={selectedStudent.weight || ""} onChange={handleChange} className={editableStyle} /></div>
-                  <div className="flex flex-col"><label className={labelStyle}>Height (cm)</label><input name="height" value={selectedStudent.height || ""} onChange={handleChange} className={editableStyle} /></div>
+                <div className="flex flex-col"><label className={labelStyle}>Age</label><input name="age" value={selectedStudent.age || ""} onChange={handleChange} className={editableStyle} /></div>
+                <div className="flex flex-col"><label className={labelStyle}>Gender</label><input name="gender" value={selectedStudent.gender || ""} onChange={handleChange} className={editableStyle} /></div>
+                <div className="flex flex-col"><label className={labelStyle}>Civil Status</label><input name="civil_status" value={selectedStudent.civil_status || ""} onChange={handleChange} className={editableStyle} /></div>
+                <div className="flex flex-col"><label className={labelStyle}>Birthdate</label><input type="date" name="birthdate" value={selectedStudent.birthdate || ""} onChange={handleChange} className={editableStyle} /></div>
+                <div className="flex flex-col md:col-span-2"> <label className={labelStyle}>Birth Place</label><input name="place_of_birth" value={selectedStudent.place_of_birth || ""} onChange={handleChange} className={editableStyle}/></div>
+                <div className="flex flex-col"><label className={labelStyle}>Weight (kg)</label><input name="weight" value={selectedStudent.weight || ""} onChange={handleChange} className={editableStyle} /></div>
+                <div className="flex flex-col"><label className={labelStyle}>Height (cm)</label><input name="height" value={selectedStudent.height || ""} onChange={handleChange} className={editableStyle} /></div>
+                <div className="flex flex-col md:col-span-2"><label className={labelStyle}>Citizenship</label><input name="citizenship" value={selectedStudent.citizenship || ""} onChange={handleChange} className={editableStyle} /></div>
+                <div className="flex flex-col"><label className={labelStyle}>Mother Tongue</label><input name="mother_tongue" value={selectedStudent.mother_tongue || ""} onChange={handleChange} className={editableStyle}/></div>
+                <div className="flex flex-col"><label className={labelStyle}>Religion</label><input name="religion" value={selectedStudent.religion || ""} onChange={handleChange} className={editableStyle}/></div>
                 </div>
               </section>
 
