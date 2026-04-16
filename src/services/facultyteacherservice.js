@@ -1,10 +1,11 @@
 const API_BASE_URL = import.meta.env.VITE_BASE_URL;
 
 export const FacultyTeacherService = {
-    // 1. Fetch all faculty members
-    getFaculty: async () => {
+    // 1. MODIFIED: Fetch faculty members based on level (e.g., 'Elementary' or 'HighSchool')
+    getFaculty: async (level) => {
         try {
-            const response = await fetch(`${API_BASE_URL}/faculty`, {
+            // Updated URL to match the new Flask route: /faculty/<level>
+            const response = await fetch(`${API_BASE_URL}/faculty/${level}`, {
                 method: 'GET',
                 headers: {
                     'Content-Type': 'application/json',
@@ -18,40 +19,36 @@ export const FacultyTeacherService = {
 
             return await response.json();
         } catch (error) {
-            console.error("Service Error [getFaculty]:", error);
+            console.error(`Service Error [getFaculty - ${level}]:`, error);
             throw error;
         }
     },
 
-    // 2. Add a new Faculty member
+    // 2. MODIFIED: Add a new Faculty member (Now handles the 'level' field)
     addFaculty: async (data) => {
         const formData = new FormData();
         const token = localStorage.getItem("token");
 
-        // Prepare FormData
         Object.keys(data).forEach((key) => {
             if (key === "subjects" && Array.isArray(data.subjects)) {
-                // IMPORTANT: When sending multiple checkboxes (subjects) in FormData,
-                // you must append each ID individually so Flask can use getlist()
                 data.subjects.forEach(id => formData.append("subjects", id));
             } else if (key === "photo" && data.photo?.[0]) {
                 formData.append("photo", data.photo[0]);
             } else {
-                // Standard fields: firstname, lastname, email, position, etc.
+                // This will now include the 'level' you send from your form
                 formData.append(key, data[key]);
             }
         });
 
+        // The POST route remains /faculty, but the data now includes the level column
         const response = await fetch(`${API_BASE_URL}/faculty`, {
             method: "POST",
             headers: { 
                 "Authorization": `Bearer ${token}` 
-                // Note: Do NOT set Content-Type header when using FormData
             },
             body: formData,
         });
 
-        // Handle Token Expiry
         if (response.status === 401) {
             localStorage.removeItem("token");
             window.location.href = "/login";
@@ -66,39 +63,8 @@ export const FacultyTeacherService = {
         return await response.json();
     },
 
-    // 3. Update existing Faculty (PATCH)
-    updateFaculty: async (id, facultyData) => {
-        const token = localStorage.getItem("token");
-        
-        try {
-            const response = await fetch(`${API_BASE_URL}/faculty/${id}`, {
-                method: "PATCH",
-                headers: {
-                    "Content-Type": "application/json",
-                    "Authorization": `Bearer ${token}`
-                },
-                body: JSON.stringify(facultyData),
-            });
-
-            if (response.status === 401) {
-                localStorage.removeItem("token");
-                window.location.href = "/login";
-                throw new Error("SESSION_EXPIRED");
-            }
-
-            if (!response.ok) {
-                const errorData = await response.json().catch(() => ({}));
-                throw new Error(errorData.error || "Failed to update record");
-            }
-
-            return await response.json();
-        } catch (error) {
-            console.error("Service Error [updateFaculty]:", error);
-            throw error;
-        }
-    },
-
-    // 4. Helper: Fetch subjects by grade level (to populate checkboxes)
+    // ... updateFaculty and getSubjectsByGrade remain largely the same
+    // but ensure getSubjectsByGrade uses the correct IDs for HS vs Elem
     getSubjectsByGrade: async (grade) => {
         try {
             const response = await fetch(`${API_BASE_URL}/subjects-list/${grade}`);

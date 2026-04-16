@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { FaUserCircle } from "react-icons/fa";
 import { FacultyTeacherService } from '../../../../services/facultyteacherservice';
 
-export default function Display() {
+export default function DisplayElementary() {
   const [facultyList, setFacultyList] = useState([]);
   const [loading, setLoading] = useState(true);
 
@@ -10,10 +10,11 @@ export default function Display() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const data = await FacultyTeacherService.getFaculty();
+        // --- UPDATED: Pass "Elementary" to filter the API result ---
+        const data = await FacultyTeacherService.getFaculty("Elementary");
         setFacultyList(data);
       } catch (err) {
-        console.error("Failed to load faculty:", err);
+        console.error("Failed to load Elementary faculty:", err);
       } finally {
         setLoading(false);
       }
@@ -21,21 +22,21 @@ export default function Display() {
     fetchData();
   }, []);
 
-  if (loading) return <div className="p-10 text-center">Loading faculty...</div>;
+  if (loading) return <div className="p-10 text-center text-[#630000] font-bold">Loading Elementary Faculty...</div>;
 
   return (
-    <div className="p-5">
+    <div className="p-5 font-[Inter]">
       <h2 className="text-[#630000] text-3xl font-bold mb-8 ml-10">Elementary Faculty</h2>
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-y-12 gap-x-6 justify-items-center">
         
         {facultyList.length === 0 ? (
           <p className="col-span-full text-gray-500 italic text-xl mt-10">
-            No faculty members added yet.
+            No Elementary faculty members added yet.
           </p>
         ) : (
           facultyList.map((faculty, index) => (
-            <div key={index} className="flex flex-col items-center text-center">
+            <div key={faculty.id || index} className="flex flex-col items-center text-center p-4 border border-transparent hover:border-gray-200 rounded-2xl transition-all">
               <div className="mb-4">
                 <FaUserCircle className="text-gray-800 text-[100px]" />
               </div>
@@ -48,13 +49,17 @@ export default function Display() {
                 {faculty.position || "Faculty Member"}
               </p>
 
-              {/* Displaying assigned subjects if they exist */}  
-              <div className="mt-2 flex flex-wrap justify-center gap-1">
-                {faculty.subjects?.map((sub) => (
-                  <span key={sub.id} className="bg-[#630000] text-[#EDEBDD] text-[10px] px-2 py-0.5 rounded-full">
-                    {sub.name}
-                  </span>
-                ))}
+              {/* Displaying assigned subjects */}  
+              <div className="mt-3 flex flex-wrap justify-center gap-2 max-w-62.5">
+                {faculty.subjects && faculty.subjects.length > 0 ? (
+                  faculty.subjects.map((sub) => (
+                    <span key={sub.id} className="bg-[#630000] text-[#EDEBDD] text-[11px] px-3 py-1 rounded-full font-medium">
+                      {sub.name}
+                    </span>
+                  ))
+                ) : (
+                  <span className="text-gray-400 text-sm italic">No subjects assigned</span>
+                )}
               </div>
             </div>
           ))
