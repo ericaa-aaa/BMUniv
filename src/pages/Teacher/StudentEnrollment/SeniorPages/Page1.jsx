@@ -20,7 +20,7 @@ export default function EnrollmentForm() {
             age: "",
             birthdate: "",
             place_of_birth: "",
-            civil_status: "Single",
+            civil_status: "",
             gender: "",
             mother_tongue: "",
             religion: "",
