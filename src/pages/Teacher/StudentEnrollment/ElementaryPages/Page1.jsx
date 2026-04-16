@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import toast from 'react-hot-toast';
 import { useForm } from "react-hook-form";
 import { Paperclip, Save, ArrowRight, ArrowLeft } from "lucide-react";
 import { ElementaryStudentService } from "../../../../services/elementarystudentservice"
@@ -81,16 +82,24 @@ const handleNext = async () => {
 
     const isStepValid = await trigger(fieldsToValidate);
 
-    if (isStepValid) {
-        if (step === 2) {
-            console.log("Submitting final form...");
-            handleSubmit(onSubmit)(); 
-        } else {
-            setStep(2);
-        }
+if (isStepValid) {
+    if (step === 2) {
+        console.log("Submitting final form...");
+        handleSubmit(onSubmit)(); 
     } else {
-        alert("Please fill in all required fields on this page.");
+        setStep(2);
     }
+} else {
+    // Replace alert with toast
+    toast.error("Please fill in all required fields on this page.", {
+        position: "top-right",
+        style: {
+            borderRadius: '10px',
+            background: '#333',
+            color: '#fff',
+        },
+    });
+}
 };
 
 
@@ -152,7 +161,7 @@ const handleNext = async () => {
     
                         <div className="flex gap-5 items-center">
                             <p className="text-[#630000] text-[25px] font-semibold whitespace-nowrap">Grade Level:</p>
-                            <input {...register("grade_level")} type="text" className="border border-[#630000] shadow-sm text-[12px] w-13 h-8 p-3 rounded-[5px]" required />
+                            <input {...register("grade_level")} type="text" className="border border-[#630000] shadow-sm text-[12px] w-13 h-8 p-3 rounded-[5px]" />
                         </div>
 
                         {/* Photo*/}
@@ -336,7 +345,7 @@ const handleNext = async () => {
                         className="flex justify-end items-center ml-auto gap-2 px-6 py-3 bg-[#630000] text-white  text-[13px] rounded-xl font-bold hover:bg-red-800 shadow-lg transition-all"
                     >
                         <ArrowRight size={20} />
-                        NEXT
+                        NEXT 
                     </button>
                     </div>
                 </>

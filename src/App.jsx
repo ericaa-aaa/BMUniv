@@ -20,6 +20,8 @@ import ElemFaculty from './pages/Teacher/Faculty/ElemFaculty.jsx';
 import HSFaculty from './pages/Teacher/Faculty/HSfaculty.jsx';
 import SHSFaculty from './pages/Teacher/Faculty/SHSfaculty.jsx';
 
+import { Toaster } from 'react-hot-toast';
+
 function AppContent() {
   const location = useLocation();
 
@@ -30,6 +32,7 @@ function AppContent() {
 
   return (
     <div className="flex">
+      <Toaster position="top-right" /> 
       {/* mag shoshow ang sidebar pag nag false*/}
       {!hideSidebar && <Sidebar />} 
       
