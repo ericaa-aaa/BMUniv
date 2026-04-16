@@ -362,11 +362,11 @@ if (isStepValid) {
                     <div className="grid grid-cols-5 gap-y-5 justify-items-center max-w-7xl mx-auto mt-3 ">
                         <div className="flex flex-col gap-1">
                             <p className="text-[#1B1717] text-[14px] w-32">Father's Name</p>
-                            <input {...register("father_last_name", { required: true })} type="text" className="border border-[#630000] shadow-sm text-[13px] tracking-wider w-40 h-10 p-3 rounded-[5px]" placeholder="Last Name"/>
+                            <input {...register("father_last_name", { required: true })} type="text" className={`border border-[#630000] shadow-sm text-[13px] tracking-wider w-40 h-10 p-3 rounded-[5px] ${errors.father_last_name ? "border-red-500 bg-red-50" : "border-#630000"}`} placeholder="Last Name"/>
                         </div>
                         <div className="flex flex-col gap-1">
                             <p className="invisible text-[#1B1717] text-[14px] w-32">Father's Name</p>
-                            <input {...register("father_first_name", { required: true })} type="text" className="border border-[#630000] shadow-sm text-[13px] tracking-wider w-40 h-10 p-3 rounded-[5px]" placeholder="First Name" />
+                            <input {...register("father_first_name", { required: true })} type="text" className={`border border-[#630000] shadow-sm text-[13px] tracking-wider w-40 h-10 p-3 rounded-[5px] ${errors.father_first_name ? "border-red-500 bg-red-50" : "border-#630000"}`} placeholder="First Name" />
                         </div>
                         <div className="flex flex-col gap-1">
                             <p className="invisible text-[#1B1717] text-[14px] w-32">Father's Name</p>
@@ -378,43 +378,43 @@ if (isStepValid) {
                         </div>
                         <div className="flex flex-col gap-1">
                             <p className="text-[#1B1717] text-[14px]">Contact Number</p>
-                            <input {...register("father_contact", { required: true })} type="number" className="border border-[#630000] shadow-sm text-[13px] tracking-wider w-40 h-10 p-3 rounded-[5px]" placeholder="Contact #" />
+                            <input {...register("father_contact", { required: true })} type="number" className={`border border-[#630000] shadow-sm text-[13px] tracking-wider w-40 h-10 p-3 rounded-[5px] ${errors.father_contact ? "border-red-500 bg-red-50" : "border-#630000"}`} placeholder="Contact #" />
                         </div>
                         <div className="flex flex-col gap-1 col-span-4 mr-193">
                             <p className="text-[#1B1717] text-[14px]">Occupation</p>
-                            <input {...register("father_occupation", { required: true })} type="text" className="border border-[#630000] shadow-sm text-[13px] tracking-wider w-40 h-10 p-3 rounded-[5px]" placeholder="Occupation" />
+                            <input {...register("father_occupation", { required: true })} type="text" className={`border border-[#630000] shadow-sm text-[13px] tracking-wider w-40 h-10 p-3 rounded-[5px] ${errors.father_occupation ? "border-red-500 bg-red-50" : "border-#630000"}`} placeholder="Occupation" />
                         </div>
 
                         {/* Father's Address */}
                         <div className="flex flex-col gap-1 ml-9">
                             <p className="text-[#1B1717] text-[14px] w-32">Current Address</p>
-                            <input {...register("f_house_no", { required: true })} type="number" className="border border-[#630000] shadow-sm text-[13px] tracking-wider w-50 h-10 p-3 rounded-[5px]" placeholder="HouseNo" />
+                            <input {...register("f_house_no", { required: true })} type="number" className={`border border-[#630000] shadow-sm text-[13px] tracking-wider w-50 h-10 p-3 rounded-[5px] ${errors.f_house_no ? "border-red-500 bg-red-50" : "border-#630000"}`} placeholder="HouseNo" />
                         </div>
                         <div className="flex flex-col gap-1 ml-9">
                             <p className="invisible text-[#1B1717] text-[14px] w-32">Current Address</p>
-                            <input {...register("f_street", { required: true })} type="text" className="border border-[#630000] shadow-sm text-[13px] tracking-wider w-50 h-10 p-3 rounded-[5px]" placeholder="Street" />
+                            <input {...register("f_street", { required: true })} type="text" className={`border border-[#630000] shadow-sm text-[13px] tracking-wider w-50 h-10 p-3 rounded-[5px] ${errors.f_street ? "border-red-500 bg-red-50" : "border-#630000"}`} placeholder="Street" />
                         </div>
                         <div className="flex flex-col gap-1 ml-9">
                             <p className="invisible text-[#1B1717] text-[14px] w-32">Current Address</p>
-                            <input {...register("f_barangay", { required: true })} type="text" className="border border-[#630000] shadow-sm text-[13px] tracking-wider w-50 h-10 p-3 rounded-[5px]" placeholder="Barangay" />
+                            <input {...register("f_barangay", { required: true })} type="text" className={`border border-[#630000] shadow-sm text-[13px] tracking-wider w-50 h-10 p-3 rounded-[5px] ${errors.f_barangay ? "border-red-500 bg-red-50" : "border-#630000"}`} placeholder="Barangay" />
                         </div>
                         <div className="flex flex-col gap-1 ml-9">
                             <p className="invisible text-[#1B1717] text-[14px] w-32">Current Address</p>
-                            <input {...register("f_municipality", { required: true })} type="text" className="border border-[#630000] shadow-sm text-[13px] tracking-wider w-50 h-10 p-3 rounded-[5px]" placeholder="City" />
+                            <input {...register("f_municipality", { required: true })} type="text" className={`border border-[#630000] shadow-sm text-[13px] tracking-wider w-50 h-10 p-3 rounded-[5px] ${errors.f_municipality ? "border-red-500 bg-red-50" : "border-#630000"}`} placeholder="City" />
                         </div>
                         <div className="flex flex-col gap-1 ml-9">
                             <p className="invisible text-[#1B1717] text-[14px] w-32">Current Address</p>
-                            <input {...register("f_province", { required: true })} type="text" className="border border-[#630000] shadow-sm text-[13px] tracking-wider w-50 h-10 p-3 rounded-[5px]" placeholder="Province" />
+                            <input {...register("f_province", { required: true })} type="text" className={`border border-[#630000] shadow-sm text-[13px] tracking-wider w-50 h-10 p-3 rounded-[5px] ${errors.f_province ? "border-red-500 bg-red-50" : "border-#630000"}`} placeholder="Province" />
                         </div>
 
                         {/* Mother's  */}
                         <div className="flex flex-col gap-1">
                             <p className="text-[#1B1717] text-[14px]">Mother's Name</p>
-                            <input {...register("mother_last_name", { required: true })} type="text" className="border border-[#630000] shadow-sm text-[13px] tracking-wider w-40 h-10 p-3 rounded-[5px]" placeholder="Last Name" />
+                            <input {...register("mother_last_name", { required: true })} type="text" className={`border border-[#630000] shadow-sm text-[13px] tracking-wider w-40 h-10 p-3 rounded-[5px] ${errors.mother_last_name ? "border-red-500 bg-red-50" : "border-#630000"}`} placeholder="Last Name" />
                         </div>
                         <div className="flex flex-col gap-1">
                             <p className="invisible text-[#1B1717] text-[14px]">Mother's Name</p>
-                            <input {...register("mother_first_name", { required: true })} type="text" className="border border-[#630000] shadow-sm text-[13px] tracking-wider w-40 h-10 p-3 rounded-[5px]" placeholder="First Name" />
+                            <input {...register("mother_first_name", { required: true })} type="text" className={`border border-[#630000] shadow-sm text-[13px] tracking-wider w-40 h-10 p-3 rounded-[5px] ${errors.mother_first_name ? "border-red-500 bg-red-50" : "border-#630000"}`} placeholder="First Name" />
                         </div>
                         <div className="flex flex-col gap-1">
                             <p className="invisible text-[#1B1717] text-[14px]">Mother's Name</p>
@@ -426,40 +426,40 @@ if (isStepValid) {
                         </div>
                         <div className="flex flex-col gap-1 ">
                             <p className="text-[#1B1717] text-[14px]">Contact Number</p>
-                            <input {...register("mother_contact", { required: true })} type="number" className="border border-[#630000] shadow-sm text-[13px] w-40 h-10 p-3 rounded-[5px]" placeholder="Contact #" />
+                            <input {...register("mother_contact", { required: true })} type="number" className={`border border-[#630000] shadow-sm text-[13px] tracking-wider w-40 h-10 p-3 rounded-[5px] ${errors.mother_contact ? "border-red-500 bg-red-50" : "border-#630000"}`} placeholder="Contact #" />
                         </div><div className="flex flex-col gap-1 col-span-4 mr-193">
                             <p className="text-[#1B1717] text-[14px]">Occupation</p>
-                            <input {...register("mother_occupation", { required: true })} type="text" className="border border-[#630000] shadow-sm text-[13px] tracking-wider w-40 h-10 p-3 rounded-[5px]" placeholder="Occupation" />
+                            <input {...register("mother_occupation", { required: true })} type="text" className={`border border-[#630000] shadow-sm text-[13px] tracking-wider w-40 h-10 p-3 rounded-[5px] ${errors.mother_occupation ? "border-red-500 bg-red-50" : "border-#630000"}`} placeholder="Occupation" />
                         </div>
 
                         <div className="flex flex-col gap-1 ml-9">
                             <p className="text-[#1B1717] text-[14px]">Current Address</p>
-                            <input {...register("m_house_no", { required: true })} type="number" className="border border-[#630000] shadow-sm text-[13px] tracking-wider w-50 h-10 p-3 rounded-[5px]" placeholder="HouseNo" />
+                            <input {...register("m_house_no", { required: true })} type="number" className={`border border-[#630000] shadow-sm text-[13px] tracking-wider w-50 h-10 p-3 rounded-[5px] ${errors.m_house_no ? "border-red-500 bg-red-50" : "border-#630000"}`} placeholder="HouseNo" />
                         </div>
                         <div className="flex flex-col gap-1 ml-9">
                             <p className="invisible text-[#1B1717] text-[14px]">Current Address</p>
-                            <input {...register("m_street", { required: true })} type="text" className="border border-[#630000] shadow-sm text-[13px] tracking-wider w-50 h-10 p-3 rounded-[5px]" placeholder="Street" />
+                            <input {...register("m_street", { required: true })} type="text" className={`border border-[#630000] shadow-sm text-[13px] tracking-wider w-50 h-10 p-3 rounded-[5px] ${errors.m_street ? "border-red-500 bg-red-50" : "border-#630000"}`} placeholder="Street" />
                         </div>
                         <div className="flex flex-col gap-1 ml-9">
                             <p className="invisible text-[#1B1717] text-[14px]">Current Address</p>
-                            <input {...register("m_barangay", { required: true })} type="text" className="border border-[#630000] shadow-sm text-[13px] tracking-wider w-50 h-10 p-3 rounded-[5px]" placeholder="Barangay" />
+                            <input {...register("m_barangay", { required: true })} type="text" className={`border border-[#630000] shadow-sm text-[13px] tracking-wider w-50 h-10 p-3 rounded-[5px] ${errors.m_barangay ? "border-red-500 bg-red-50" : "border-#630000"}`} placeholder="Barangay" />
                         </div><div className="flex flex-col gap-1 ml-9">
                             <p className="invisible text-[#1B1717] text-[14px]">Current Address</p>
-                            <input {...register("m_municipality", { required: true })} type="text" className="border border-[#630000] shadow-sm text-[13px] tracking-wider w-50 h-10 p-3 rounded-[5px]" placeholder="City" />
+                            <input {...register("m_municipality", { required: true })} type="text" className={`border border-[#630000] shadow-sm text-[13px] tracking-wider w-50 h-10 p-3 rounded-[5px] ${errors.m_municipality ? "border-red-500 bg-red-50" : "border-#630000"}`} placeholder="City" />
                         </div>
                         <div className="flex flex-col gap-1 ml-9">
                             <p className="invisible text-[#1B1717] text-[14px]">Current Address</p>
-                            <input {...register("m_province", { required: true })} type="text" className="border border-[#630000] shadow-sm text-[13px] tracking-wider w-50 h-10 p-3 rounded-[5px]" placeholder="Province" />
+                            <input {...register("m_province", { required: true })} type="text" className={`border border-[#630000] shadow-sm text-[13px] tracking-wider w-50 h-10 p-3 rounded-[5px] ${errors.m_province ? "border-red-500 bg-red-50" : "border-#630000"}`} placeholder="Province" />
                         </div>
 
                     {/* Guardian Section */}
                         <div className="flex flex-col gap-1">
                             <p className="text-[#1B1717] text-[14px]">Guardian's Name</p>
-                            <input {...register("guardian_last_name", { required: true })} type="text" className="border border-[#630000] shadow-sm text-[13px] tracking-wider w-40 h-10 p-3 rounded-[5px]" placeholder="Last Name" />
+                            <input {...register("guardian_last_name", { required: true })} type="text" className={`border border-[#630000] shadow-sm text-[13px] tracking-wider w-40 h-10 p-3 rounded-[5px] ${errors.guardian_last_name ? "border-red-500 bg-red-50" : "border-#630000"}`} placeholder="Last Name" />
                         </div>
                         <div className="flex flex-col gap-1">
                             <p className="invisible text-[#1B1717] text-[14px]">Guardian's Name</p>
-                            <input {...register("guardian_first_name", { required: true })} type="text" className="border border-[#630000] shadow-sm text-[13px] tracking-wider w-40 h-10 p-3 rounded-[5px]" placeholder="First Name" />
+                            <input {...register("guardian_first_name", { required: true })} type="text" className={`border border-[#630000] shadow-sm text-[13px] tracking-wider w-40 h-10 p-3 rounded-[5px] ${errors.guardian_first_name ? "border-red-500 bg-red-50" : "border-#630000"}`} placeholder="First Name" />
                         </div>
                         <div className="flex flex-col gap-1">
                             <p className="invisible text-[#1B1717] text-[14px]">Guardian's Name</p>
@@ -471,30 +471,30 @@ if (isStepValid) {
                         </div>
                         <div className="flex flex-col gap-1">
                             <p className="text-[#1B1717] text-[14px]">Contact Number</p>
-                            <input {...register("guardian_contact", { required: true })} type="text" className="border border-[#630000] shadow-sm text-[13px] tracking-wider w-40 h-10 p-3 rounded-[5px]" placeholder="Contact #" />
+                            <input {...register("guardian_contact", { required: true })} type="text" className={`border border-[#630000] shadow-sm text-[13px] tracking-wider w-40 h-10 p-3 rounded-[5px] ${errors.guardian_contact ? "border-red-500 bg-red-50" : "border-#630000"}`} placeholder="Contact #" />
                         </div>
                         <div className="flex flex-col gap-1 col-span-4 mr-193">
                             <p className="text-[#1B1717] text-[14px]">Relationship</p>
-                            <input {...register("guardian_relationship", { required: true })} type="text" className="border border-[#630000] shadow-sm text-[13px] tracking-wider w-40 h-10 p-3 rounded-[5px]" placeholder="Relationship" />
+                            <input {...register("guardian_relationship", { required: true })} type="text" className={`border border-[#630000] shadow-sm text-[13px] tracking-wider w-40 h-10 p-3 rounded-[5px] ${errors.guardian_relationship ? "border-red-500 bg-red-50" : "border-#630000"}`} placeholder="Relationship" />
                         </div>
                         {/* Guardian's Address */}
                         <div className="flex flex-col gap-1 ml-9">
                             <p className="text-[#1B1717] text-[14px] w-32">Guardian Address</p>
-                            <input {...register("g_house_no", { required: true })} type="number" className="border border-[#630000] shadow-sm text-[13px] tracking-wider w-50 h-10 p-3 rounded-[5px]" placeholder="HouseNo" />
+                            <input {...register("g_house_no", { required: true })} type="number" className={`border border-[#630000] shadow-sm text-[13px] tracking-wider w-50 h-10 p-3 rounded-[5px] ${errors.g_house_no ? "border-red-500 bg-red-50" : "border-#630000"}`} placeholder="HouseNo" />
                         </div>
                         <div className="flex flex-col gap-1 ml-9">
                             <p className="invisible text-[#1B1717] text-[14px] w-32">Guardian Address</p>
-                            <input {...register("g_street", { required: true })} type="text" className="border border-[#630000] shadow-sm text-[13px] tracking-wider w-50 h-10 p-3 rounded-[5px]" placeholder="Street" />
+                            <input {...register("g_street", { required: true })} type="text" className={`border border-[#630000] shadow-sm text-[13px] tracking-wider w-50 h-10 p-3 rounded-[5px] ${errors.g_street ? "border-red-500 bg-red-50" : "border-#630000"}`} placeholder="Street" />
                         </div>
                         <div className="flex flex-col gap-1 ml-9">
                             <p className="invisible text-[#1B1717] text-[14px] w-32">Guardian Address</p>
-                            <input {...register("g_barangay", { required: true })} type="text" className="border border-[#630000] shadow-sm text-[13px] tracking-wider w-50 h-10 p-3 rounded-[5px]" placeholder="Barangay" />
+                            <input {...register("g_barangay", { required: true })} type="text" className={`border border-[#630000] shadow-sm text-[13px] tracking-wider w-50 h-10 p-3 rounded-[5px] ${errors.g_barangay ? "border-red-500 bg-red-50" : "border-#630000"}`} placeholder="Barangay" />
                         </div><div className="flex flex-col gap-1 ml-9">
                             <p className="invisible text-[#1B1717] text-[14px] w-32">Guardian Address</p>
-                            <input {...register("g_municipality", { required: true })} type="text" className="border border-[#630000] shadow-sm text-[13px] tracking-wider w-50 h-10 p-3 rounded-[5px]" placeholder="City" />
+                            <input {...register("g_municipality", { required: true })} type="text" className={`border border-[#630000] shadow-sm text-[13px] tracking-wider w-50 h-10 p-3 rounded-[5px] ${errors.g_municipality ? "border-red-500 bg-red-50" : "border-#630000"}`} placeholder="City" />
                         </div><div className="flex flex-col gap-1 ml-9">
                             <p className="invisible text-[#1B1717] text-[14px] w-32">Guardian Address</p>
-                            <input {...register("g_province", { required: true })} type="text" className="border border-[#630000] shadow-sm text-[13px] tracking-wider w-50 h-10 p-3 rounded-[5px]" placeholder="Province" />
+                            <input {...register("g_province", { required: true })} type="text" className={`border border-[#630000] shadow-sm text-[13px] tracking-wider w-50 h-10 p-3 rounded-[5px] ${errors.g_province ? "border-red-500 bg-red-50" : "border-#630000"}`} placeholder="Province" />
                         </div>
                     </div>
 <div className="flex justify-between">
