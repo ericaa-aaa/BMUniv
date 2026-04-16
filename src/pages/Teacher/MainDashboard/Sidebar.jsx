@@ -1,5 +1,3 @@
-//import b from '../../../assets/images/dashboard2.png'
-//import d from '../../../assets/images/dashboard5.png'
 import e from '../../../assets/images/signin4.png'
 
 import { useState } from 'react'
