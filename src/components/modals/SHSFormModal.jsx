@@ -20,10 +20,22 @@ export default function SHSFormModal({
         try {
           await SeHighSchoolStudentService.updateStudent(selectedStudent.id, selectedStudent);
 
-          toast.success("Student record updated successfully!", {
-            id: loadingToast,
-            duration: 3000,
-          });
+      toast.success('Student Record Updated Successfully!', {
+        id: loadingToast,
+        duration: 3000,
+        style: {
+          background: '#630000', 
+          color: '#EDEBDD', 
+          padding: '12px',
+          borderRadius: '8px',
+          border: '1px solid #810100', 
+          fontWeight: '500',
+        },
+        iconTheme: {
+          primary: '#EDEBDD', 
+          secondary: '#630000', 
+        },
+      });
 
           if (onUpdateSuccess) onUpdateSuccess();
 

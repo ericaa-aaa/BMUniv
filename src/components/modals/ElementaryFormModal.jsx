@@ -11,6 +11,7 @@ export default function ElementaryFormModal({
   onUpdateSuccess,
 }) {
   const [isSubmitting, setIsSubmitting] = useState(false);
+
   if (!showModal || !selectedStudent) return null;
 
   const handleUpdate = async () => {
@@ -20,9 +21,21 @@ export default function ElementaryFormModal({
     try {
       await ElementaryStudentService.updateStudent(selectedStudent.id, selectedStudent);
 
-      toast.success("Record updated successfully!", {
+      toast.success('Student Record Updated Successfully!', {
         id: loadingToast,
         duration: 3000,
+        style: {
+          background: '#630000', 
+          color: '#EDEBDD', 
+          padding: '12px',
+          borderRadius: '8px',
+          border: '1px solid #810100', 
+          fontWeight: '500',
+        },
+        iconTheme: {
+          primary: '#EDEBDD', 
+          secondary: '#630000', 
+        },
       });
 
       if (onUpdateSuccess) onUpdateSuccess();
