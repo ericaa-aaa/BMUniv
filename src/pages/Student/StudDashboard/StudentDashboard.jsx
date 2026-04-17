@@ -6,24 +6,13 @@ export default function StudentDashboard() {
   const [showMenu, setShowMenu] = useState(false);
 
   // --- DYNAMIC DATA STATE ---
-  const [student, setStudent] = useState({
-    name: "Loading...",
-    grade: "",
-    section: "",
-    category: "",
-    status: "", // Comma added here to fix your syntax
-  });
-
-  // --- LOAD DATA ON MOUNT ---
-  useEffect(() => {
-    setStudent({
-      name: localStorage.getItem("activeUser") || "Student User",
-      grade: localStorage.getItem("studentGrade") || "N/A",
-      section: localStorage.getItem("studentSection") || "Unassigned",
-      category: localStorage.getItem("studentCategory") || "Student",
-      status: localStorage.getItem("studentStatus") || "ENROLLED" // Load status
-    });
-  }, []);
+const [student, setStudent] = useState(() => ({
+    name: localStorage.getItem("activeUser") || "Student User",
+    grade: localStorage.getItem("studentGrade") || "N/A",
+    section: localStorage.getItem("studentSection") || "Unassigned",
+    category: localStorage.getItem("studentCategory") || "Student",
+    status: localStorage.getItem("studentStatus") || "ENROLLED"
+  }));
 
   return (
     <div className="flex h-screen bg-gray-100 overflow-hidden">
