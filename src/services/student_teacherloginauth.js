@@ -10,15 +10,19 @@ export const loginUser = async (username, password) => {
 
     const data = await res.json();
 
-    if (res.ok) {
-      localStorage.setItem("token", data.access_token);
-      localStorage.setItem("role", data.role);
-      
-      // CRITICAL: Store data.username (the First Name from backend)
-      localStorage.setItem("activeUser", data.username); 
-
-      return { success: true, role: data.role };
-    }
+if (res.ok) {
+  localStorage.setItem("token", data.access_token);
+  localStorage.setItem("role", data.role);
+  localStorage.setItem("activeUser", data.username);
+  
+  if (data.role === 'student') {
+    localStorage.setItem("studentGrade", data.grade || "");
+    localStorage.setItem("studentSection", data.section || "");
+    localStorage.setItem("studentCategory", data.category || ""); // "Elementary", etc.
+    localStorage.setItem("studentStatus", data.status || "ENROLLED");
+  }
+  return { success: true, role: data.role };
+}
     return { success: false, message: data.message };
   } catch (error) {
     return { success: false, message: "Server connection failed" };
