@@ -508,7 +508,7 @@ if (isStepValid) {
 <div className="flex justify-between">
                     <div className="flex gap-5 pl-42 mt-10">
                         <p className='text-[#1B1717] text-[14px]'>Is this student a transferee? <span className="text-[#630000]">(✓) if yes</span></p>
-                        <input {...register("is_transferee")} type="checkbox" className="w-5 h-5 accent-[#630000]" />
+                        <input {...register("is_transferee")} type="checkbox" className="w-5 h-5 accent-[#630000] " />
                     </div>
 
                     
