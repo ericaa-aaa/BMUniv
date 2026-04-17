@@ -81,15 +81,20 @@ export default function Elementary() {
             </h2>
 
             <div className="flex items-center gap-2">
-              <span className="font-medium text-gray-700">Search: </span>
-              <div className="relative flex items-center">
-                <CiSearch className="absolute left-3 text-gray-500 size-5" />
-                <input
-                  type="text"
-                  value={search}
+              <div className="relative flex items-center group">
+                {/* Search Icon */}
+                <CiSearch className="absolute left-3 text-gray-400 size-5 group-focus-within:text-[#8B0000] transition-colors" />
+                
+                {/* Search Input */}
+                <input 
+                  type="text" 
+                  value={search} 
                   onChange={(e) => setSearch(e.target.value)}
-                  placeholder="Search name, grade, or status..."
-                  className="border border-[#8B0000] rounded-lg pl-10 pr-3 py-1.5 outline-none focus:ring-2 focus:ring-red-300 w-72 transition-all"
+                  placeholder="Search by student name, grade level, or section..."
+                  className="w-96 py-2 pl-10 pr-4 border border-[#8B0000] rounded-lg outline-none 
+                            bg-white text-sm placeholder:text-gray-400
+                            focus:ring-2 focus:ring-red-100 focus:border-[#8B0000] 
+                            transition-all duration-200 shadow-sm"
                 />
               </div>
             </div>

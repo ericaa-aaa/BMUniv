@@ -3,7 +3,6 @@ import LoginPage from "./pages/LoginPage";
 import ElementaryRecords from "./pages/Teacher/Records/Elementary"
 import JHSRecords from "./pages/Teacher/Records/JHS"
 import SHSRecords from "./pages/Teacher/Records/SHS"
-import RLRecords from "./pages/Teacher/Records/RL.jsx"
 import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom';
 import StudentDashboard from './pages/Student/StudDashboard/StudentDashboard';
 import Dashboard from './pages/Teacher/MainDashboard/Dashboard';
@@ -49,7 +48,6 @@ function AppContent() {
           <Route path="/elemrec/*" element={<ElementaryRecords />} />
           <Route path="/jhsrec/*" element={<JHSRecords />} />
           <Route path="/shsrec/*" element={<SHSRecords />} />
-          <Route path='/rlrec/*' element={<RLRecords />}/>
 
             <Route path="/student" element={<StudentLayout />}>
               <Route index element={<StudentDashboard/>} />
