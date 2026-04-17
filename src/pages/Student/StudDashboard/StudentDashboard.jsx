@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { BiDotsHorizontalRounded } from "react-icons/bi";
 import Profile from "../../../assets/images/faculty1.png";
 
@@ -6,7 +6,7 @@ export default function StudentDashboard() {
   const [showMenu, setShowMenu] = useState(false);
 
   // --- DYNAMIC DATA STATE ---
-const [student, setStudent] = useState(() => ({
+const [student] = useState(() => ({
     name: localStorage.getItem("activeUser") || "Student User",
     grade: localStorage.getItem("studentGrade") || "N/A",
     section: localStorage.getItem("studentSection") || "Unassigned",
