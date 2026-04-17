@@ -5,10 +5,12 @@ export const FacultyTeacherService = {
     getFaculty: async (level) => {
         try {
             // Updated URL to match the new Flask route: /faculty/<level>
+            const token = localStorage.getItem("token"); // Get the token
             const response = await fetch(`${API_BASE_URL}/faculty/${level}`, {
                 method: 'GET',
                 headers: {
                     'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${token}` 
                 },
             });
 

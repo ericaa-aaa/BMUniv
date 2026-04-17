@@ -5,10 +5,12 @@ export const SeHighSchoolStudentService = {
     // 1. Fetch all students
     getStudents: async () => {
         try {
+            const token = localStorage.getItem("token"); // Get the token
             const response = await fetch(`${API_BASE_URL}/SeHighstudents`, {
                 method: 'GET',
                 headers: {
                     'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${token}` // Add this!
                 },
             });
 
@@ -26,18 +28,33 @@ export const SeHighSchoolStudentService = {
     },
 
     // 2. Enroll a new student (Consolidated logic)
-    enrollStudent: async (data) => {
-        const formData = new FormData();
-        const token = localStorage.getItem("token");
+    // enrollStudent: async (data) => {
+    //     const formData = new FormData();
+    //     const token = localStorage.getItem("token");
 
-        // Prepare FormData
-        Object.keys(data).forEach((key) => {
-            if (key === "photo" && data.photo?.[0]) {
+    //     // Prepare FormData
+    //     Object.keys(data).forEach((key) => {
+    //         if (key === "photo" && data.photo?.[0]) {
+    //             formData.append("photo", data.photo[0]);
+    //         } else {
+    //             formData.append(key, data[key]);
+    //         }
+    //     });
+    enrollStudent: async (data) => {
+    const formData = new FormData();
+    const token = localStorage.getItem("token");
+
+    Object.keys(data).forEach((key) => {
+        if (key === "photo") {
+            if (data.photo && data.photo[0]) {
                 formData.append("photo", data.photo[0]);
-            } else {
-                formData.append(key, data[key]);
             }
-        });
+            // If no photo, just skip it or append null—don't append the FileList object
+        } else {
+            // Ensure we don't send undefined/null as strings
+            formData.append(key, data[key] ?? "");
+        }
+    });
 
         const response = await fetch(`${API_BASE_URL}/SeHighstudents`, {
             method: "POST",

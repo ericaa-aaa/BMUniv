@@ -5,12 +5,19 @@ export const ElementaryStudentService = {
     // 1. Fetch all students
     getStudents: async () => {
         try {
+            const token = localStorage.getItem("token"); // Get the token
             const response = await fetch(`${API_BASE_URL}/Elstudents`, {
                 method: 'GET',
                 headers: {
                     'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${token}` // Add this!
                 },
             });
+
+            if (response.status === 401) {
+                window.location.href = "/login";
+                throw new Error("SESSION_EXPIRED");
+            }
 
             if (!response.ok) {
                 const errorData = await response.json().catch(() => ({}));
@@ -25,15 +32,30 @@ export const ElementaryStudentService = {
     },
 
     // 2. Enroll a new student (POST)
-    enrollStudent: async (data) => {
+    // enrollStudent: async (data) => {
+    //     const formData = new FormData();
+    //     const token = localStorage.getItem("token");
+
+    //     Object.keys(data).forEach((key) => {
+    //         if (key === "photo" && data.photo?.[0]) {
+    //             formData.append("photo", data.photo[0]);
+    //         } else {
+    //             formData.append(key, data[key]);
+    //         }
+    //     });
+        enrollStudent: async (data) => {
         const formData = new FormData();
         const token = localStorage.getItem("token");
 
         Object.keys(data).forEach((key) => {
-            if (key === "photo" && data.photo?.[0]) {
-                formData.append("photo", data.photo[0]);
+            if (key === "photo") {
+                if (data.photo && data.photo[0]) {
+                    formData.append("photo", data.photo[0]);
+                }
+                // If no photo, just skip it or append null—don't append the FileList object
             } else {
-                formData.append(key, data[key]);
+                // Ensure we don't send undefined/null as strings
+                formData.append(key, data[key] ?? "");
             }
         });
 

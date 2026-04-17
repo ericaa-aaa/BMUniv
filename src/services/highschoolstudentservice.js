@@ -6,10 +6,12 @@ export const HighSchoolStudentService = {
     // 1. Fetch all students
     getStudents: async () => {
         try {
+            const token = localStorage.getItem("token")
             const response = await fetch(`${API_BASE_URL}/Highstudents`, {
                 method: 'GET',
                 headers: {
                     'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${token}` 
                 },
             });
 
@@ -27,19 +29,33 @@ export const HighSchoolStudentService = {
     },
 
     // 2. Enroll a new student (Consolidated logic)
+    // enrollStudent: async (data) => {
+    //     const formData = new FormData();
+    //     const token = localStorage.getItem("token");
+
+    //     // Prepare FormData
+    //     Object.keys(data).forEach((key) => {
+    //         if (key === "photo" && data.photo?.[0]) {
+    //             formData.append("photo", data.photo[0]);
+    //         } else {
+    //             formData.append(key, data[key]);
+    //         }
+    //     });
     enrollStudent: async (data) => {
-        const formData = new FormData();
-        const token = localStorage.getItem("token");
+    const formData = new FormData();
+    const token = localStorage.getItem("token");
 
-        // Prepare FormData
-        Object.keys(data).forEach((key) => {
-            if (key === "photo" && data.photo?.[0]) {
+    Object.keys(data).forEach((key) => {
+        if (key === "photo") {
+            if (data.photo && data.photo[0]) {
                 formData.append("photo", data.photo[0]);
-            } else {
-                formData.append(key, data[key]);
             }
-        });
-
+            // If no photo, just skip it or append null—don't append the FileList object
+        } else {
+            // Ensure we don't send undefined/null as strings
+            formData.append(key, data[key] ?? "");
+        }
+    });
         const response = await fetch(`${API_BASE_URL}/Highstudents`, {
             method: "POST",
             headers: { 

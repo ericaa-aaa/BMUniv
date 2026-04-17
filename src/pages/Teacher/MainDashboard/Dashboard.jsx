@@ -32,11 +32,22 @@ function Dashboard() {
     fetchMySubjects();
   }, []);
 
-  useEffect(() => {
-    // 3. Fetch Enrollment Stats
+useEffect(() => {
     const fetchCounts = async () => {
       try {
-        const response = await fetch(`${import.meta.env.VITE_BASE_URL}/api/students/count`);
+        const token = localStorage.getItem("token"); // 1. Get the token
+        const response = await fetch(`${import.meta.env.VITE_BASE_URL}/api/students/count`, {
+          method: 'GET',
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${token}` // 2. Add the header
+          }
+        });
+
+        if (!response.ok) {
+           throw new Error(`HTTP error! status: ${response.status}`);
+        }
+
         const data = await response.json();
         setCounts({
           elementary: data.elementary,
