@@ -13,8 +13,10 @@ export const loginUser = async (username, password) => {
     if (res.ok) {
       localStorage.setItem("token", data.access_token);
       localStorage.setItem("role", data.role);
-      // Save the username here so the dashboard can find it!
-      localStorage.setItem("activeUser", username); 
+      
+      // CRITICAL: Store data.username (the First Name from backend)
+      localStorage.setItem("activeUser", data.username); 
+
       return { success: true, role: data.role };
     }
     return { success: false, message: data.message };

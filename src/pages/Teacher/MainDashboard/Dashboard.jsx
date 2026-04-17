@@ -4,8 +4,8 @@ import back from "../../../assets/images/bg.jpg";
 import { FacultyTeacherService } from '../../../services/facultyteacherservice';
 
 function Dashboard() {
-  const [currentTeacher, setCurrentTeacher] = useState("");
-  const [subjects, setSubjects] = useState([]); // Added missing state
+  const [firstName, setFirstName] = useState("");
+  const [subjects, setSubjects] = useState([]);
   const [counts, setCounts] = useState({
     elementary: 0,
     highSchool: 0,
@@ -13,15 +13,15 @@ function Dashboard() {
   });
 
   useEffect(() => {
-    const user = localStorage.getItem("activeUser");  
-    if (user) {
-      setCurrentTeacher(user);
+    // 1. Load the First Name stored during login
+    const storedName = localStorage.getItem("activeUser");  
+    if (storedName) {
+      setFirstName(storedName);
     }
 
-    // Fetch Teacher's Specific Subjects
+    // 2. Fetch Subjects
     const fetchMySubjects = async () => {
         try {
-            // Using the service we discussed to fetch based on the logged-in user
             const data = await FacultyTeacherService.getMySubjects();
             setSubjects(data);
         } catch (error) {
@@ -33,6 +33,7 @@ function Dashboard() {
   }, []);
 
   useEffect(() => {
+    // 3. Fetch Enrollment Stats
     const fetchCounts = async () => {
       try {
         const response = await fetch(`${import.meta.env.VITE_BASE_URL}/api/students/count`);
@@ -53,41 +54,49 @@ function Dashboard() {
   return (
     <section className="min-h-screen bg-cover bg-no-repeat bg-fixed bg-center"
              style={{ backgroundImage: `url(${back})` }}>
-      <div className="min-h-screen bg-white/75 p-4 pb-20"> {/* Added padding bottom */}
+      <div className="min-h-screen bg-white/75 p-4 pb-20">
       
         {/* User Profile Header */}
-        <div className="flex justify-end mr-10">
-          <p className='pt-12 font-["Inter"] text-[#1B1717] font-medium capitalize'>
-            {currentTeacher ? `Teacher ${currentTeacher}` : "Guest"}
-          </p>
-          <img src={profile} alt='Faculty' className='w-30 h-30' />
+        <div className="flex justify-end pt-10 pr-12">
+          <div className="flex items-center gap-4 group">
+            
+            {/* Text Info: Aligned to the center of the image */}
+            <div className="flex flex-col text-right justify-center">
+              <p className="text-[12px] font-bold text-gray-500 uppercase tracking-widest leading-none mb-1">
+                Faculty
+              </p>
+              <p className='font-["Inter"] text-[#1B1717] text-xl font-semibold capitalize leading-none'>
+                {firstName ? `Teacher ${firstName}` : "Faculty Teacher"}
+              </p>
+            </div>
+
+            {/* Profile Image: Added a clean border and consistent sizing */}
+            <div className="w-16 h-16 rounded-full overflow-hidden border-2 border-[#630000] p-0.5 bg-white shadow-sm transition-transform duration-300 group-hover:scale-105">
+              <img 
+                src={profile} 
+                alt='Faculty' 
+                className='w-full h-full rounded-full object-cover' 
+              />
+            </div>
+
+          </div>
         </div>
 
         {/* Enrollment Stats Row */}
         <div className="flex justify-around mt-17 font-['Inter'] font-semibold ">
-          <div className="bg-[#630000] rounded-xl w-70 h-35 text-center pt-6">
-            <h2 className="text-2xl font-bold text-[#EDEBDD] transition-all duration-500 hover:scale-110">
-                {counts.elementary}
-            </h2>
-            <div className='w-55 h-0.5 bg-white mt-5 mb-2 ml-7'></div>
-            <p className='text-[20px] text-[#EDEBDD]'>Elementary Students</p>
-          </div>
-
-          <div className="bg-[#630000] rounded-xl w-70 h-35 text-center pt-6">
-            <h2 className="text-2xl text-[#EDEBDD] font-bold transition-all duration-500 hover:scale-110">
-                {counts.highSchool}
-            </h2>
-            <div className='w-55 h-0.5 bg-white mt-5 mb-2 ml-7'></div>
-            <p className='text-[20px] text-[#EDEBDD]'>High School Enrolled</p>
-          </div>
-
-          <div className="bg-[#630000] rounded-xl w-70 h-35 text-center pt-6">
-            <h2 className="text-2xl font-bold text-[#EDEBDD] transition-all duration-500 hover:scale-110">
-                {counts.seniorHigh}
-            </h2>
-            <div className='w-55 h-0.5 bg-white mt-5 mb-2 ml-7'></div>
-            <p className='text-[20px] text-[#EDEBDD]'>SHS Enrolled</p>
-          </div>
+          {[
+            { label: "Elementary Students", count: counts.elementary },
+            { label: "High School Enrolled", count: counts.highSchool },
+            { label: "SHS Enrolled", count: counts.seniorHigh }
+          ].map((item, index) => (
+            <div key={index} className="bg-[#630000] rounded-xl w-70 h-35 text-center pt-6 shadow-lg">
+              <h2 className="text-2xl font-bold text-[#EDEBDD] transition-all duration-500 hover:scale-110">
+                  {item.count}
+              </h2>
+              <div className='w-55 h-0.5 bg-white mt-5 mb-2 mx-auto'></div>
+              <p className='text-[20px] text-[#EDEBDD]'>{item.label}</p>
+            </div>
+          ))}
         </div>
 
         {/* --- TEACHER'S SUBJECTS SECTION --- */}
@@ -107,7 +116,6 @@ function Dashboard() {
                 ) : (
                     <div className="col-span-full flex flex-col items-center justify-center py-10">
                          <p className="text-gray-500 italic text-lg">No subjects assigned to your account yet.</p>
-                         <p className="text-gray-400 text-sm">Please coordinate with the Registrar.</p>
                     </div>
                 )}
             </div>
