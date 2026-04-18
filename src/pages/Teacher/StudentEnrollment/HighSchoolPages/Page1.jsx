@@ -9,7 +9,7 @@ export default function EnrollmentForm() {
     const [photoPreview, setPhotoPreview] = useState(null);
 
     // Initialize React Hook Form with your exact default values + new address fields
-    const { register, handleSubmit, watch, setValue, trigger,  formState: { errors } } = useForm({
+    const { register, handleSubmit, watch, setValue, getValues, trigger,  formState: { errors } } = useForm({
         mode: "onBlur",
          shouldUseNativeValidation: true,
         defaultValues: {
@@ -89,17 +89,31 @@ const handleNext = async () => {
     // This checks EVERYTHING in the current step, including the 7-10 rule for grade_level
     const isStepValid = await trigger(fieldsToValidate);
 
-    if (isStepValid) {
-        if (step === 3) {
-            handleSubmit(onSubmit)(); 
-        } else {
-            setStep(prev => prev + 1);
-        }
+if (isStepValid) {
+    if (step === 3) {
+        // We call getValues() WITH parentheses to get the data
+        const dataToSend = getValues(); 
+
+        toast.promise(
+            onSubmit(dataToSend), 
+            {
+                loading: 'Processing enrollment...',
+                success: <b>Enrollment submitted successfully!</b>,
+                error: (err) => <b>{err.message === "SESSION_EXPIRED" ? "Session Expired" : "Submission Failed"}</b>,
+            },
+            {
+                style: { borderRadius: '10px', background: '#333', color: '#fff' },
+                position: "top-right"
+            }
+        );
     } else {
-        toast.error("Please enter a valid grade (7-10) and fill all required fields.", {
+        setStep(prev => prev + 1);
+    }
+    } else {
+        toast.error("Please fill all required fields.", {
             position: "top-right",
             style: { borderRadius: '10px', background: '#333', color: '#fff' },
-        });
+        })
     }
 };
 
@@ -130,21 +144,18 @@ const handleNext = async () => {
         }
     }, [photoFile]);
 
-        // Submission Logic
-    const onSubmit = async (data) => {
-        try {
-            await HighSchoolStudentService.enrollStudent(data);
-            alert("Student Record Saved Successfully!");
-            // Optional: redirect or reset form here
-        } catch (error) {
-            if (error.message === "SESSION_EXPIRED") {
-                alert("Session expired. Please log in again.");
-                window.location.href = "/";
-            } else {
-                alert("Error: " + error.message);
-            }
+
+const onSubmit = async (data) => {
+    try {
+        const result = await HighSchoolStudentService.enrollStudent(data);
+        return result; 
+    } catch (error) {
+        if (error.message === "SESSION_EXPIRED") {
+            setTimeout(() => { window.location.href = "/"; }, 2000);
         }
-    };
+        throw error; 
+    }
+};
 
     return (
         <form onSubmit={handleSubmit(onSubmit)} noValidate className="relative h-100 font-['Inter']">
@@ -160,7 +171,7 @@ const handleNext = async () => {
                             <div className="flex gap-5 items-center">
                                 <p className="text-[#630000] text-[25px] font-semibold whitespace-nowrap">Grade Level:</p>
                                     <input {...register("grade_level", { required: true, min: 7, max: 10,valueAsNumber: true })} 
-                                        type="text" className={`border border-[#630000] shadow-sm text-[12px] w-13 h-8 p-3 rounded-[5px] ${errors.grade_level ? "border-red-500 bg-red-50" : "border-#630000"}`} />
+                                        type="text" maxLength={2} className={`border border-[#630000] shadow-sm text-[12px] w-13 h-8 p-3 rounded-[5px] ${errors.grade_level ? "border-red-500 bg-red-50" : "border-#630000"}`} />
                             </div>
              
                             {/* Photo*/}
@@ -286,7 +297,7 @@ const handleNext = async () => {
                             <div className="grid grid-cols-5 gap-y-5 justify-items-center max-w-7xl mx-auto mt-3">
                                 <div className="flex flex-col gap-1">
                                     <p className="text-[#1B1717] text-[14px] ">Contact Number</p>
-                                    <input {...register("contact_number", { required: true })} type="number" className="border border-[#630000] shadow-sm text-[12px] w-40 h-10 p-3 rounded-[5px]" placeholder="09XXXXXXXXX" />
+                                    <input {...register("contact_number", { required: true })} type="tel" minLength={11}  maxLength={11} className="border border-[#630000] shadow-sm text-[12px] w-40 h-10 p-3 rounded-[5px]" placeholder="09XXXXXXXXX" />
                                 </div>
 
                                 <div className="flex flex-col gap-1 col-span-1">
@@ -398,7 +409,7 @@ const handleNext = async () => {
 
                                 <div className="flex flex-col gap-1">
                                     <p className="text-[#1B1717] text-[14px]">Contact Number</p>
-                                    <input {...register("father_contact", { required: true })} type="number" className={`border border-[#630000] shadow-sm text-[13px] tracking-wider w-40 h-10 p-3 rounded-[5px] ${errors.father_contact ? "border-red-500 bg-red-50" : "border-#630000"}`} placeholder="Contact #" />
+                                    <input {...register("father_contact", { required: true })} type="tel" minLength={11}  maxLength={11} className={`border border-[#630000] shadow-sm text-[13px] tracking-wider w-40 h-10 p-3 rounded-[5px] ${errors.father_contact ? "border-red-500 bg-red-50" : "border-#630000"}`} placeholder="Contact #" />
                                 </div>
 
                                 <div className="flex flex-col gap-1 col-span-4 mr-193">
@@ -455,7 +466,7 @@ const handleNext = async () => {
 
                                 <div className="flex flex-col gap-1 ">
                                     <p className="text-[#1B1717] text-[14px]">Contact Number</p>
-                                    <input {...register("mother_contact", { required: true })} type="number" className={`border border-[#630000] shadow-sm text-[13px] tracking-wider w-40 h-10 p-3 rounded-[5px] ${errors.mother_contact ? "border-red-500 bg-red-50" : "border-#630000"}`} placeholder="Contact #" />
+                                    <input {...register("mother_contact", { required: true })} type="tel" minLength={11}  maxLength={11} className={`border border-[#630000] shadow-sm text-[13px] tracking-wider w-40 h-10 p-3 rounded-[5px] ${errors.mother_contact ? "border-red-500 bg-red-50" : "border-#630000"}`} placeholder="Contact #" />
                                 </div>
                                 
                                 <div className="flex flex-col gap-1 col-span-4 mr-193">
@@ -511,7 +522,7 @@ const handleNext = async () => {
 
                                     <div className="flex flex-col gap-1">
                                         <p className="text-[#1B1717] text-[14px]">Contact Number</p>
-                                        <input {...register("guardian_contact", { required: true })} type="text" className={`border border-[#630000] shadow-sm text-[13px] tracking-wider w-40 h-10 p-3 rounded-[5px] ${errors.guardian_contact ? "border-red-500 bg-red-50" : "border-#630000"}`} placeholder="Contact #" />
+                                        <input {...register("guardian_contact", { required: true })} type="tel" minLength={11}  maxLength={11} className={`border border-[#630000] shadow-sm text-[13px] tracking-wider w-40 h-10 p-3 rounded-[5px] ${errors.guardian_contact ? "border-red-500 bg-red-50" : "border-#630000"}`} placeholder="Contact #" />
                                     </div>
 
                                     <div className="flex flex-col gap-1 col-span-4 mr-193">

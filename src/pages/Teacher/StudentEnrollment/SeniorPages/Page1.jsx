@@ -10,8 +10,6 @@ export default function EnrollmentForm() {
 
     // Initialize React Hook Form with your exact default values + new address fields
     const { register, handleSubmit, watch, setValue, trigger, formState: { errors } } = useForm({
-         mode: "onBlur",
-         shouldUseNativeValidation: true,
         defaultValues: {
             grade_level: "",
             lastname: "",
@@ -288,12 +286,12 @@ const handleNext = async () => {
                             <div className="grid grid-cols-5 gap-y-5 justify-items-center max-w-7xl mx-auto mt-3">
                                 <div className="flex flex-col gap-1">
                                     <p className="text-[#1B1717] text-[14px] ">Contact Number</p>
-                                    <input {...register("contact_number", { required: true })} type="number" className="border border-[#630000] shadow-sm text-[12px] w-40 h-10 p-3 rounded-[5px]" placeholder="09XXXXXXXXX" />
+                                    <input {...register("contact_number", { required: true})} type="tel" minLength={11}  maxLength={11} className="border border-[#630000] shadow-sm text-[12px] w-40 h-10 p-3 rounded-[5px]" placeholder="09XXXXXXXXX" />
                                 </div>
 
                                 <div className="flex flex-col gap-1 col-span-1">
                                     <p className="text-[#1B1717] text-[14px] ">Email Address</p>
-                                    <input {...register("email_address", { required: true })} type="email" className={`border border-[#630000] shadow-sm text-[13px] tracking-wider h-10 p-3 rounded-[5px] w-40 ${errors.email_address ? "border-red-500 bg-red-50" : "border-#630000"}`} placeholder="email@example.com" />
+                                    <input {...register("email_address", { required: true })} type="email"  className={`border border-[#630000] shadow-sm text-[13px] tracking-wider h-10 p-3 rounded-[5px] w-40 ${errors.email_address ? "border-red-500 bg-red-50" : "border-#630000"}`} placeholder="email@example.com" />
                                 </div>
              
                                 <div className="flex flex-col gap-1 col-start-1 ml-9">
@@ -398,7 +396,7 @@ const handleNext = async () => {
 
                                 <div className="flex flex-col gap-1">
                                     <p className="text-[#1B1717] text-[14px]">Contact Number</p>
-                                    <input {...register("father_contact", { required: true })} type="number" className={`border border-[#630000] shadow-sm text-[13px] tracking-wider w-40 h-10 p-3 rounded-[5px] ${errors.father_contact ? "border-red-500 bg-red-50" : "border-#630000"}`} placeholder="Contact #" />
+                                    <input {...register("father_contact", { required: true })} type="tel" minLength={11}  maxLength={11} className={`border border-[#630000] shadow-sm text-[13px] tracking-wider w-40 h-10 p-3 rounded-[5px] ${errors.father_contact ? "border-red-500 bg-red-50" : "border-#630000"}`} placeholder="Contact #" />
                                 </div>
 
                                 <div className="flex flex-col gap-1 col-span-4 mr-193">
@@ -455,7 +453,7 @@ const handleNext = async () => {
 
                                 <div className="flex flex-col gap-1 ">
                                     <p className="text-[#1B1717] text-[14px]">Contact Number</p>
-                                    <input {...register("mother_contact", { required: true })} type="number" className={`border border-[#630000] shadow-sm text-[13px] tracking-wider w-40 h-10 p-3 rounded-[5px] ${errors.mother_contact ? "border-red-500 bg-red-50" : "border-#630000"}`} placeholder="Contact #" />
+                                    <input {...register("mother_contact", { required: true })} type="tel" minLength={11}  maxLength={11} className={`border border-[#630000] shadow-sm text-[13px] tracking-wider w-40 h-10 p-3 rounded-[5px] ${errors.mother_contact ? "border-red-500 bg-red-50" : "border-#630000"}`} placeholder="Contact #" />
                                 </div>
                                 
                                 <div className="flex flex-col gap-1 col-span-4 mr-193">
@@ -511,7 +509,7 @@ const handleNext = async () => {
 
                                     <div className="flex flex-col gap-1">
                                         <p className="text-[#1B1717] text-[14px]">Contact Number</p>
-                                        <input {...register("guardian_contact", { required: true })} type="text" className={`border border-[#630000] shadow-sm text-[13px] tracking-wider w-40 h-10 p-3 rounded-[5px] ${errors.guardian_contact ? "border-red-500 bg-red-50" : "border-#630000"}`} placeholder="Contact #" />
+                                        <input {...register("guardian_contact", { required: true })} type="tel" minLength={11}  maxLength={11} className={`border border-[#630000] shadow-sm text-[13px] tracking-wider w-40 h-10 p-3 rounded-[5px] ${errors.guardian_contact ? "border-red-500 bg-red-50" : "border-#630000"}`} placeholder="Contact #" />
                                     </div>
 
                                     <div className="flex flex-col gap-1 col-span-4 mr-193">
