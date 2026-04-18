@@ -28,7 +28,8 @@ export default function DisplayElementary() {
     <div className="p-5 font-[Inter]">
       <h2 className="text-[#630000] text-3xl font-bold mb-8 ml-10">Elementary Faculty</h2>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-y-12 gap-x-6 justify-items-center">
+      <div className="flex-1 overflow-auto border border-gray-200 rounded-xl bg-[#faf9f6] shadow-inner h-180">
+        <div className="min-w-225 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-y-12 gap-x-6 justify-items-center ">
         
         {facultyList.length === 0 ? (
           <p className="col-span-full text-gray-500 italic text-xl mt-10">
@@ -45,13 +46,14 @@ export default function DisplayElementary() {
                 Teacher {faculty.firstname} {faculty.middlename?.charAt(0)}. {faculty.lastname} {faculty.ext || ""}
               </h3>
 
-              <p className="text-gray-600 text-lg">
+              <p className="text-[#630000] text-lg">
                 {faculty.position || "Faculty Member"}
               </p>
             </div>
           ))
         )}
       </div>
+    </div>
     </div>
   );
 }
