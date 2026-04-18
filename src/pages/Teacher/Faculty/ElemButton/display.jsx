@@ -36,7 +36,7 @@ export default function DisplayElementary() {
           </p>
         ) : (
           facultyList.map((faculty, index) => (
-            <div key={faculty.id || index} className="flex flex-col items-center text-center p-4 border border-transparent hover:border-gray-200 rounded-2xl transition-all">
+            <div key={faculty.id || index} className="flex flex-col items-center text-center p-4 mt-10 border-2 border-transparent hover:border-[#edebdd] rounded-2xl transition-all">
               <div className="mb-4">
                 <FaUserCircle className="text-gray-800 text-[100px]" />
               </div>
@@ -48,19 +48,6 @@ export default function DisplayElementary() {
               <p className="text-gray-600 text-lg">
                 {faculty.position || "Faculty Member"}
               </p>
-
-              {/* Displaying assigned subjects */}  
-              <div className="mt-3 flex flex-wrap justify-center gap-2 max-w-62.5">
-                {faculty.subjects && faculty.subjects.length > 0 ? (
-                  faculty.subjects.map((sub) => (
-                    <span key={sub.id} className="bg-[#630000] text-[#EDEBDD] text-[11px] px-3 py-1 rounded-full font-medium">
-                      {sub.name}
-                    </span>
-                  ))
-                ) : (
-                  <span className="text-gray-400 text-sm italic">No subjects assigned</span>
-                )}
-              </div>
             </div>
           ))
         )}

@@ -65,7 +65,7 @@ useEffect(() => {
   return (
     <section className="min-h-screen bg-cover bg-no-repeat bg-fixed bg-center"
              style={{ backgroundImage: `url(${back})` }}>
-      <div className="min-h-screen bg-white/75 p-4 pb-20">
+      <div className="min-h-screen bg-white/90 p-4 pb-20">
       
         {/* User Profile Header */}
         <div className="flex justify-end pt-10 pr-12">
