@@ -68,7 +68,7 @@ const handleNext = async () => {
     if (step === 1) {
         fieldsToValidate = [
             "lastname", "firstname", "age", "civil_status", "gender", "grade_level", "email_address", "citizenship",
-            "birthdate", "place_of_birth", "mother_tongue", "religion", "weight", "height", 
+            "birthdate", "place_of_birth", "mother_tongue", "religion", "weight", "height", "contact_number",
             "curr_house_no", "curr_street", "curr_barangay", "curr_municipality", "curr_province"
         ];
         if (!isPermanentSame) {
@@ -286,7 +286,7 @@ const handleNext = async () => {
                             <div className="grid grid-cols-5 gap-y-5 justify-items-center max-w-7xl mx-auto mt-3">
                                 <div className="flex flex-col gap-1">
                                     <p className="text-[#1B1717] text-[14px] ">Contact Number</p>
-                                    <input {...register("contact_number")} type="number" className="border border-[#630000] shadow-sm text-[12px] w-40 h-10 p-3 rounded-[5px]" placeholder="09XXXXXXXXX" />
+                                    <input {...register("contact_number", { required: true })} type="number" className="border border-[#630000] shadow-sm text-[12px] w-40 h-10 p-3 rounded-[5px]" placeholder="09XXXXXXXXX" />
                                 </div>
 
                                 <div className="flex flex-col gap-1 col-span-1">
