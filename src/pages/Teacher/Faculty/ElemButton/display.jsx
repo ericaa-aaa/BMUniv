@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { FaUserCircle } from "react-icons/fa";
-import { FacultyTeacherService } from '../../../../services/facultyteacherservice';
+import { FacultyTeacherService } from '../../../../services/facultyteacherservice.js';
 
 export default function DisplayElementary() {
   const [facultyList, setFacultyList] = useState([]);
@@ -14,7 +14,7 @@ export default function DisplayElementary() {
         const data = await FacultyTeacherService.getFaculty("Elementary");
         setFacultyList(data);
       } catch (err) {
-        console.error("Failed to load Elementary faculty:", err);
+        console.error("Failed to load Elementary faculty:", err );
       } finally {
         setLoading(false);
       }
