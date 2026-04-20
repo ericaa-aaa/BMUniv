@@ -1,7 +1,7 @@
 const API_BASE_URL = import.meta.env.VITE_BASE_URL;
 
 export const loginUser = async (username, password) => {
-  // Guard clause for missing URL
+
   if (!API_BASE_URL) {
     console.error("VITE_BASE_URL is missing! Check your .env file.");
     return { success: false, message: "Frontend Config Error" };
@@ -14,10 +14,10 @@ export const loginUser = async (username, password) => {
       body: JSON.stringify({ username, password }),
     });
 
-    // Check if the response is actually JSON before parsing
+   
     const contentType = res.headers.get("content-type");
     if (!contentType || !contentType.includes("application/json")) {
-      const text = await res.text(); // Get the HTML/Text error from server
+      const text = await res.text(); 
       console.error("Server returned non-JSON:", text);
       return { success: false, message: "Server error: Invalid response format" };
     }
@@ -41,10 +41,10 @@ export const loginUser = async (username, password) => {
     return { success: false, message: data.message || "Invalid credentials" };
 
   } catch (error) {
-    // THIS IS WHERE YOU SEE THE REAL ERROR
+
     console.error("Login Fetch Error:", error); 
     
-    // Check for specific network failures
+   
     if (error.name === 'TypeError' && error.message === 'Failed to fetch') {
        return { success: false, message: "Netork Error: Is the Flask server running?" };
     }

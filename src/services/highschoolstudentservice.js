@@ -1,9 +1,9 @@
-// HighSchoolStudentService.js (Consider renaming to ElementaryStudentService.js if that's the intent)
+
 
 const API_BASE_URL = import.meta.env.VITE_BASE_URL;
 
 export const HighSchoolStudentService = {
-    // 1. Fetch all students
+
     getStudents: async () => {
         try {
             const token = localStorage.getItem("token")
@@ -16,7 +16,7 @@ export const HighSchoolStudentService = {
             });
 
             if (!response.ok) {
-                // Try to get error message from server if it exists
+             
                 const errorData = await response.json().catch(() => ({}));
                 throw new Error(errorData.message || `Server error: ${response.status}`);
             }
@@ -24,23 +24,10 @@ export const HighSchoolStudentService = {
             return await response.json();
         } catch (error) {
             console.error("Service Error [getStudents]:", error);
-            throw error; // Re-throw so the UI component can catch it and show an error state
+            throw error; 
         }
     },
 
-    // 2. Enroll a new student (Consolidated logic)
-    // enrollStudent: async (data) => {
-    //     const formData = new FormData();
-    //     const token = localStorage.getItem("token");
-
-    //     // Prepare FormData
-    //     Object.keys(data).forEach((key) => {
-    //         if (key === "photo" && data.photo?.[0]) {
-    //             formData.append("photo", data.photo[0]);
-    //         } else {
-    //             formData.append(key, data[key]);
-    //         }
-    //     });
     enrollStudent: async (data) => {
     const formData = new FormData();
     const token = localStorage.getItem("token");
@@ -50,9 +37,9 @@ export const HighSchoolStudentService = {
             if (data.photo && data.photo[0]) {
                 formData.append("photo", data.photo[0]);
             }
-            // If no photo, just skip it or append null—don't append the FileList object
+       
         } else {
-            // Ensure we don't send undefined/null as strings
+
             formData.append(key, data[key] ?? "");
         }
     });
@@ -60,12 +47,11 @@ export const HighSchoolStudentService = {
             method: "POST",
             headers: { 
                 "Authorization": `Bearer ${token}` 
-                // Let the browser set the Content-Type boundary automatically
+  
             },
             body: formData,
         });
 
-        // Handle Token Expiry
         if (response.status === 401) {
             localStorage.removeItem("token");
             window.location.href = "/login"; // Optional: Force redirect
@@ -79,7 +65,7 @@ export const HighSchoolStudentService = {
 
         return await response.json();
     },
-    // 3. Update existing student (PATCH)
+
     updateStudent: async (id, studentData) => {
         const token = localStorage.getItem("token");
         

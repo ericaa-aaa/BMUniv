@@ -1,11 +1,10 @@
 const API_BASE_URL = import.meta.env.VITE_BASE_URL;
 
 export const FacultyTeacherService = {
-    // 1. MODIFIED: Fetch faculty members based on level (e.g., 'Elementary' or 'HighSchool')
     getFaculty: async (level) => {
         try {
-            // Updated URL to match the new Flask route: /faculty/<level>
-            const token = localStorage.getItem("token"); // Get the token
+      
+            const token = localStorage.getItem("token"); 
             const response = await fetch(`${API_BASE_URL}/faculty/${level}`, {
                 method: 'GET',
                 headers: {
@@ -26,7 +25,7 @@ export const FacultyTeacherService = {
         }
     },
 
-    // 2. MODIFIED: Add a new Faculty member (Now handles the 'level' field)
+
     addFaculty: async (data) => {
         const formData = new FormData();
         const token = localStorage.getItem("token");
@@ -37,12 +36,12 @@ export const FacultyTeacherService = {
             } else if (key === "photo" && data.photo?.[0]) {
                 formData.append("photo", data.photo[0]);
             } else {
-                // This will now include the 'level' you send from your form
+            
                 formData.append(key, data[key]);
             }
         });
 
-        // The POST route remains /faculty, but the data now includes the level column
+    
         const response = await fetch(`${API_BASE_URL}/faculty`, {
             method: "POST",
             headers: { 
@@ -65,8 +64,7 @@ export const FacultyTeacherService = {
         return await response.json();
     },
 
-    // ... updateFaculty and getSubjectsByGrade remain largely the same
-    // but ensure getSubjectsByGrade uses the correct IDs for HS vs Elem
+
     getSubjectsByGrade: async (grade) => {
         try {
             const response = await fetch(`${API_BASE_URL}/subjects-list/${grade}`);

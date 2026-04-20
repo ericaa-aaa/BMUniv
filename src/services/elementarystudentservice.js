@@ -1,16 +1,16 @@
-// ElementaryStudentService.js
+
 const API_BASE_URL = import.meta.env.VITE_BASE_URL;
 
 export const ElementaryStudentService = {
-    // 1. Fetch all students
+    
     getStudents: async () => {
         try {
-            const token = localStorage.getItem("token"); // Get the token
+            const token = localStorage.getItem("token"); 
             const response = await fetch(`${API_BASE_URL}/Elstudents`, {
                 method: 'GET',
                 headers: {
                     'Content-Type': 'application/json',
-                    'Authorization': `Bearer ${token}` // Add this!
+                    'Authorization': `Bearer ${token}` 
                 },
             });
 
@@ -31,18 +31,7 @@ export const ElementaryStudentService = {
         }
     },
 
-    // 2. Enroll a new student (POST)
-    // enrollStudent: async (data) => {
-    //     const formData = new FormData();
-    //     const token = localStorage.getItem("token");
 
-    //     Object.keys(data).forEach((key) => {
-    //         if (key === "photo" && data.photo?.[0]) {
-    //             formData.append("photo", data.photo[0]);
-    //         } else {
-    //             formData.append(key, data[key]);
-    //         }
-    //     });
         enrollStudent: async (data) => {
         const formData = new FormData();
         const token = localStorage.getItem("token");
@@ -52,9 +41,9 @@ export const ElementaryStudentService = {
                 if (data.photo && data.photo[0]) {
                     formData.append("photo", data.photo[0]);
                 }
-                // If no photo, just skip it or append null—don't append the FileList object
+             
             } else {
-                // Ensure we don't send undefined/null as strings
+            
                 formData.append(key, data[key] ?? "");
             }
         });
@@ -81,7 +70,7 @@ export const ElementaryStudentService = {
         return await response.json();
     },
 
-    // 3. Update existing student (PATCH)
+  
     updateStudent: async (id, studentData) => {
         const token = localStorage.getItem("token");
         

@@ -1,9 +1,9 @@
-// HighSchoolStudentService.js (Consider renaming to ElementaryStudentService.js if that's the intent)
+
 
 const API_BASE_URL = "http://127.0.0.1:5000";
 
 export const RLStudentService = {
-    // 1. Fetch all students
+
     getStudents: async () => {
         try {
             const response = await fetch(`${API_BASE_URL}/RLstudents`, {
@@ -14,7 +14,7 @@ export const RLStudentService = {
             });
 
             if (!response.ok) {
-                // Try to get error message from server if it exists
+          
                 const errorData = await response.json().catch(() => ({}));
                 throw new Error(errorData.message || `Server error: ${response.status}`);
             }
@@ -22,16 +22,16 @@ export const RLStudentService = {
             return await response.json();
         } catch (error) {
             console.error("Service Error [getStudents]:", error);
-            throw error; // Re-throw so the UI component can catch it and show an error state
+            throw error; 
         }
     },
 
-    // 2. Enroll a new student (Consolidated logic)
+  
     enrollStudent: async (data) => {
         const formData = new FormData();
         const token = localStorage.getItem("token");
 
-        // Prepare FormData
+
         Object.keys(data).forEach((key) => {
             if (key === "photo" && data.photo?.[0]) {
                 formData.append("photo", data.photo[0]);
@@ -44,15 +44,15 @@ export const RLStudentService = {
             method: "POST",
             headers: { 
                 "Authorization": `Bearer ${token}` 
-                // Let the browser set the Content-Type boundary automatically
+              
             },
             body: formData,
         });
 
-        // Handle Token Expiry
+
         if (response.status === 401) {
             localStorage.removeItem("token");
-            window.location.href = "/login"; // Optional: Force redirect
+            window.location.href = "/login"; 
             throw new Error("SESSION_EXPIRED");
         }
 

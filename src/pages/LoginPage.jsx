@@ -23,7 +23,7 @@ export default function LoginPage() {
         password: "",
     });
 
-    // 1. State for the error message
+  
     const [error, setError] = useState("");
 
     const handleLogin = async (e) => {
@@ -34,13 +34,13 @@ export default function LoginPage() {
         const result = await loginUser(form.username, form.password);
 
         if (result.success) {   
-            // Check the role returned from the database
+            
             if (result.role === "teacher") {
                 navigate("/teacher");
             } else if (result.role === "student") {
                 navigate("/student");
             } else {
-                // Default fallback if role is unexpected
+                
                 setError("The user doesn't have existing role.");
             }
         } else {
@@ -82,7 +82,7 @@ export default function LoginPage() {
                             <button type="button" onClick={() => setPassword(!showPassword)}>{showPassword ? <FaEyeSlash /> : <FaEye />}</button>
                         </div>
 
-                        {/* 3. Error message display under the password field */}
+                   
                         {error && (
                             <p className="text-red-600 text-sm font-medium mt-1">
                                 {error}
