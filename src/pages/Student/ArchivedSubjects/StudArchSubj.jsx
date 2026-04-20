@@ -21,7 +21,7 @@ export default function ArchivedSubjects() {
   ];
 
   return (
-    <div className="p-8 bg-gray-100 min-h-screen">
+    <div className="p-8 bg-gray-100">
     {/* STUDENT INFO CARD */}
       <div className="rounded-3xl overflow-hidden h-56 shadow-lg relative mb-10"
         style={{

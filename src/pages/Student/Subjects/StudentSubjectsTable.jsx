@@ -14,7 +14,7 @@ export default function StudentSubjects() {
   ];
 
   return (
-    <div className="p-8 bg-gray-100 min-h-screen">
+    <div className="p-8 bg-gray-100">
       {/* STUDENT INFO CARD */}
       <div className="rounded-3xl overflow-hidden h-56 shadow-lg relative"
         style={{
