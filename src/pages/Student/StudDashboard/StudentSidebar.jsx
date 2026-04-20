@@ -1,8 +1,9 @@
 import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import logo from "../../../assets/images/signin4.png";
-import studentsIcon from "../../../assets/images/dashboard1.png";
+//import studentsIcon from "../../../assets/images/dashboard1.png";
 import { RiLogoutBoxLine } from "react-icons/ri";
+import { IoIosPeople } from "react-icons/io";
 
 export default function StudentSidebar() {
   const navigate = useNavigate();
@@ -50,8 +51,7 @@ export default function StudentSidebar() {
         <div>
           <div onClick={() => { setOpenSubjects(!openSubjects); }} 
             className={`group flex items-center gap-3 cursor-pointer py-2 px-7 rounded transition-colors duration-300 ${openSubjects === "subjects" ? 'bg-[#EDEBDD]' : 'hover:bg-[#EDEBDD]'}`}>
-            <img src={studentsIcon} alt="subjects" 
-              className={`w-7 h-6 transition-all duration-300 ${openSubjects === "subjects" ? 'brightness-0' : 'group-hover:brightness-0'}`} />
+            <IoIosPeople className={`w-6 h-5 transition-all duration-300 ${openSubjects === "subjects" ? 'brightness-0' : 'group-hover:brightness-0'}`} />
             <Link to="/student/studsubj" className={`transition-colors duration-300 ${openSubjects === "subjects" ? 'text-[#1B1717] font-extrabold' : 'text-[#EDEBDD] group-hover:text-[#1B1717] font-normal'}`}>
               Student Subjects
             </Link>

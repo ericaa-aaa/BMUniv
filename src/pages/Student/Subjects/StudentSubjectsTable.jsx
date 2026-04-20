@@ -1,3 +1,4 @@
+import React from "react";
 import { User } from "lucide-react";
 
 export default function StudentSubjects() {
@@ -38,27 +39,21 @@ export default function StudentSubjects() {
       </div>
 
       {/* SUBJECT GRID TABLE */}
-      <div className="mt-8 bg-white rounded-2xl shadow-lg overflow-hidden">
-        {/* Table Header */}
-        <div className="grid grid-cols-[1fr_2fr_1.5fr_1fr] bg-[#7B0000] text-white text-center font-semibold sticky top-0 z-10 shadow-md">
-          <div className="p-4 border-r border-white/10">Course Code</div>
-          <div className="p-4 border-r border-white/10">Subjects</div>
-          <div className="p-4 border-r border-white/10">Teacher</div>
-          <div className="p-4">Schedule</div>
-        </div>
-
-        {/* Table Body */}
-        <div className="flex flex-col">
+      <div className="mt-8 overflow-hidden rounded-2xl shadow-lg border border-white">
+        <div className="grid grid-cols-[1fr_2fr_1.5fr_1fr] bg-white gap-0.5">
+          {/* Table Header */}
+          <div className="p-4 bg-[#7B0000] text-white text-center font-semibold sticky top-0 z-10">Course Code</div>
+          <div className="p-4 bg-[#7B0000] text-white text-center font-semibold sticky top-0 z-10">Subjects</div>
+          <div className="p-4 bg-[#7B0000] text-white text-center font-semibold sticky top-0 z-10">Teacher</div>
+          <div className="p-4 bg-[#7B0000] text-white text-center font-semibold sticky top-0 z-10">Schedule</div>
+          {/* Table Body */}
           {subjects.map((item, index) => (
-            <div 
-              key={index} 
-              className="grid grid-cols-[1fr_2fr_1.5fr_1fr] bg-[#ECE9DF] border-b border-white text-center items-center text-sm"
-            >
-              <div className="p-4 border-r border-white/20">{item.course_code}</div>
-              <div className="p-4 border-r border-white/20 font-medium">{item.subject}</div>
-              <div className="p-4 border-r border-white/20">{item.teacher}</div>
-              <div className="p-4">{item.schedule}</div>
-            </div>
+            <React.Fragment key={index}>
+              <div className="p-4 bg-[#ECE9DF] text-center text-sm">{item.course_code}</div>
+              <div className="p-4 bg-[#ECE9DF] text-center text-sm font-medium">{item.subject}</div>
+              <div className="p-4 bg-[#ECE9DF] text-center text-sm">{item.teacher}</div>
+              <div className="p-4 bg-[#ECE9DF] text-center text-sm">{item.schedule}</div>
+            </React.Fragment>
           ))}
         </div>
       </div>

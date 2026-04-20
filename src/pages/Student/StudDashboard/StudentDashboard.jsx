@@ -1,8 +1,9 @@
 import { useState } from "react";
 import { BiDotsHorizontalRounded } from "react-icons/bi";
-import { IoClose } from "react-icons/io5"; // Added missing import
-import { FaEye, FaEyeSlash } from "react-icons/fa"; // Added missing import
+import { IoClose } from "react-icons/io5"; 
 import Profile from "../../../assets/images/faculty1.png";
+import { TfiAnnouncement } from "react-icons/tfi";
+import { AiOutlineSchedule } from "react-icons/ai";
 
 export default function StudentDashboard() {
   const [showMenu, setShowMenu] = useState(false);
@@ -28,7 +29,7 @@ export default function StudentDashboard() {
       alert("Passwords do not match.");
       return;
     }
-    // Add your API logic here
+
     alert("Password updated successfully!");
     setShowPasswordModal(false);
     setShowPassword(false);
@@ -46,10 +47,7 @@ export default function StudentDashboard() {
   return (
     <div className="flex h-screen bg-gray-100 overflow-hidden">
       <div className="flex-1 p-8 space-y-6 overflow-y-auto">
-        
-        {/* PROFILE HEADER */}
-        <div 
-          className="rounded-3xl overflow-hidden h-56 shadow-lg relative"
+        <div className="rounded-3xl overflow-hidden h-56 shadow-lg relative"
           style={{
             backgroundImage: "url('https://images.unsplash.com/photo-1562774053-701939374585')",
             backgroundSize: "cover",
@@ -74,7 +72,6 @@ export default function StudentDashboard() {
               </p>
             </div>
 
-            {/* THREE DOTS MENU */}
             <div className="absolute top-2 right-6 z-20">
               <button onClick={() => setShowMenu(!showMenu)} className="p-1 hover:bg-black/10 rounded-full transition-colors">
                 <BiDotsHorizontalRounded size={32} className="text-black" />
@@ -82,29 +79,23 @@ export default function StudentDashboard() {
 
               {showMenu && (
                 <div className="absolute right-0 mt-2 w-48 bg-white rounded-xl shadow-xl border border-gray-100 overflow-hidden">
-                  <button 
-                    onClick={() => {
+                  <button onClick={() => {
                       setShowPasswordModal(true);
-                      setShowMenu(false);
-                    }}
+                      setShowMenu(false);}}
                     className="w-full text-left px-4 py-3 hover:bg-gray-50 text-sm font-medium transition-colors">
                     Update Password
                   </button>
-                </div>
-              )}
+                </div> )}
             </div>
           </div>
         </div>
 
-        {/* PASSWORD MODAL */}
         {showPasswordModal && (
           <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-100 backdrop-blur-sm">
             <div className="bg-white w-full max-w-md rounded-2xl shadow-2xl p-8 relative mx-4">
-              <button 
-                onClick={() => {
+              <button onClick={() => {
                   setShowPasswordModal(false);
-                  setShowPassword(false);
-                }} 
+                  setShowPassword(false);}} 
                 className="absolute top-4 right-4 text-gray-400 hover:text-black transition-colors">
                 <IoClose size={28} />
               </button>
@@ -118,29 +109,18 @@ export default function StudentDashboard() {
                   { name: "confirmPassword", placeholder: "Confirm Password" }
                 ].map((field) => (
                   <div key={field.name} className="relative flex items-center">
-                    <input
-                      type={showPassword ? "text" : "password"}
-                      name={field.name}
-                      placeholder={field.placeholder}
-                      value={passwordForm[field.name]}
-                      onChange={handleChange}
-                      required
-                      className="w-full border rounded-lg px-4 py-3 pr-12 outline-none focus:ring-2 focus:ring-[#7A1C1C] border-gray-300 transition-all"
-                    />
-                    <button 
-                      type="button" 
-                      onClick={() => setShowPassword(!showPassword)}
-                      className="absolute right-4 text-gray-400 hover:text-[#7A1C1C] transition-colors"
-                    >
-                      {showPassword ? <FaEyeSlash size={18} /> : <FaEye size={18} />}
-                    </button>
+                    <input type={showPassword ? "text" : "password"}
+                      name={field.name} placeholder={field.placeholder}
+                      value={passwordForm[field.name]} onChange={handleChange}
+                      required className="w-full border rounded-lg px-4 py-3 pr-12 outline-none focus:ring-2 focus:ring-[#7A1C1C] border-gray-300 transition-all"/>
+                        <button type="button" onClick={() => setShowPassword(!showPassword)}
+                          className="absolute right-4 text-gray-400 hover:text-[#7A1C1C] transition-colors" >
+                          {showPassword ? <FaEyeSlash size={18} /> : <FaEye size={18} />}
+                        </button>
                   </div>
                 ))}
 
-                <button 
-                  type="submit" 
-                  className="w-full bg-[#7A1C1C] text-white py-3 rounded-lg font-semibold hover:bg-[#5a1515] transition-all mt-4 active:scale-95 shadow-md"
-                >
+                <button type="submit" className="w-full bg-[#7A1C1C] text-white py-3 rounded-lg font-semibold hover:bg-[#5a1515] transition-all mt-4 active:scale-95 shadow-md">
                   Save Changes
                 </button>
               </form>
@@ -148,15 +128,20 @@ export default function StudentDashboard() {
           </div>
         )}
 
-        {/* CONTENT SECTIONS */}
         <div className="bg-[#EDEBDD] h-48 rounded-xl shadow-sm border border-black/5 p-6">
-            <h3 className="text-lg font-bold text-[#7B0000] mb-2 uppercase tracking-tight">Announcements</h3>
+            <h3 className="flex items-center gap-2 text-lg font-bold text-[#7B0000] mb-2 uppercase tracking-tight">
+                <TfiAnnouncement className="shrink-0 font-bold" /> 
+                <span>Announcements</span>
+            </h3>
             <p className="text-gray-500 italic">No new announcements today.</p>
         </div>
         
-        <div className="bg-[#EDEBDD] h-72 rounded-xl p-6 overflow-auto shadow-sm border border-black/5">
-            <h3 className="text-lg font-bold text-[#7B0000] mb-4 uppercase tracking-tight">Schedule & Tasks</h3>
-            <div className="flex flex-col items-center justify-center h-full opacity-30">
+        <div className="bg-[#EDEBDD] h-72 rounded-xl p-6 overflow-hidden shadow-sm border border-black/5 flex flex-col">
+            <h3 className="flex items-center gap-2 text-lg font-bold text-[#7B0000] mb-4 uppercase tracking-tight">
+                <AiOutlineSchedule className="shrink-0" />
+                <span>Schedule & Tasks</span>
+            </h3>
+            <div className="flex flex-col items-center justify-center grow opacity-30">
                 <p className="text-xl font-semibold">Course Content Coming Soon</p>
             </div>
         </div>
