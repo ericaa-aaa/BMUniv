@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import logo from "../../../assets/images/signin4.png";
 import studentsIcon from "../../../assets/images/dashboard1.png";
+import { RiLogoutBoxLine } from "react-icons/ri";
 
 export default function StudentSidebar() {
   const navigate = useNavigate();
@@ -78,21 +79,7 @@ export default function StudentSidebar() {
 
       <div className="mt-auto">
         <button onClick={handleLogout} className="flex items-center gap-2 cursor-pointer text-[#EDEBDD] hover:text-white transition-all group">
-          <svg 
-            xmlns="http://www.w3.org/2000/svg" 
-            width="24" 
-            height="24" 
-            viewBox="0 0 24 24" 
-            fill="none" 
-            stroke="currentColor" 
-            strokeWidth="2" 
-            strokeLinecap="round" 
-            strokeLinejoin="round" 
-            className="lucide lucide-skip-forward group-hover:scale-110 transition-transform">
-
-            <path d="M21 4v16"/>
-            <path d="M6.029 4.285A2 2 0 0 0 3 6v12a2 2 0 0 0 3.029 1.715l9.997-5.998a2 2 0 0 0 .003-3.432z"/>
-          </svg>
+        <RiLogoutBoxLine className='text-4xl'/>
           <span className="font-medium">Log Out</span>
         </button>
       </div>
