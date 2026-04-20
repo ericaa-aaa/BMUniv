@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { BiDotsHorizontalRounded } from "react-icons/bi";
+import { PiDotsThreeCircleDuotone } from "react-icons/pi";
 import { IoClose } from "react-icons/io5"; 
 import { User as UserIcon } from "lucide-react"; 
 import { TfiAnnouncement } from "react-icons/tfi";
@@ -72,7 +72,7 @@ export default function StudentDashboard() {
 
             <div className="absolute top-2 right-6 z-20">
               <button onClick={() => setShowMenu(!showMenu)} className="p-1 hover:bg-black/10 rounded-full transition-colors">
-                <BiDotsHorizontalRounded size={32} className="text-black" />
+                <PiDotsThreeCircleDuotone size={32} className="text-black" />
               </button>
 
               {showMenu && (

@@ -1,13 +1,13 @@
 import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import logo from "../../../assets/images/signin4.png";
-//import studentsIcon from "../../../assets/images/dashboard1.png";
+import { TbLayoutDashboardFilled } from "react-icons/tb";
 import { RiLogoutBoxLine } from "react-icons/ri";
 import { IoIosPeople } from "react-icons/io";
+import { FaArchive } from "react-icons/fa";
 
 export default function StudentSidebar() {
   const navigate = useNavigate();
-  //const [activeItem, setActiveItem] = useState("dashboard");
   const [openDashboard, setOpenDashboard] = useState(false);
   const [openSubjects, setOpenSubjects] = useState(false);
   const [openArchived, setOpenArchived] = useState(false);
@@ -31,17 +31,7 @@ export default function StudentSidebar() {
         <div>
           <div onClick={() => { setOpenDashboard(!openDashboard)}} 
             className={`group flex items-center gap-3 cursor-pointer py-2 px-7 rounded transition-colors duration-300 ${openDashboard === "dashboard" ? 'bg-[#EDEBDD]' : 'hover:bg-[#EDEBDD]'}`}>
-            <svg 
-              xmlns="http://www.w3.org/2000/svg" width="23" height="23" viewBox="0 0 24 24" fill="none" 
-              stroke={openDashboard === "dashboard" ? "#1B1717" : "#EDEBDD"} 
-              strokeWidth={openDashboard === "dashboard" ? "3" : "2"} 
-              strokeLinecap="round" strokeLinejoin="round" 
-              className="transition-[stroke] duration-300 group-hover:stroke-[#1B1717]">
-              <rect width="7" height="9" x="3" y="3" rx="1" />
-              <rect width="7" height="5" x="14" y="3" rx="1" />
-              <rect width="7" height="9" x="14" y="12" rx="1" />
-              <rect width="7" height="5" x="3" y="16" rx="1" />
-            </svg>
+            <TbLayoutDashboardFilled className={`w-6 h-5 transition-all duration-300 ${openSubjects === "subjects" ? 'brightness-0' : 'group-hover:brightness-0'}`} />
             <Link to="/student" className={`transition-colors duration-300 ${openDashboard === "dashboard" ? 'text-[#1B1717] font-extrabold' : 'text-[#EDEBDD] group-hover:text-[#1B1717] font-normal'}`}>
               Dashboard
             </Link>
@@ -61,15 +51,7 @@ export default function StudentSidebar() {
         <div>
           <div onClick={() => { setOpenArchived(!openArchived); }}
             className={`group flex items-center gap-3 cursor-pointer py-2 px-7 rounded transition-colors ${openArchived ? 'bg-[#EDEBDD]' : 'hover:bg-[#EDEBDD]'}`} >
-            <svg 
-              xmlns="http://www.w3.org/2000/svg" width="23" height="23" viewBox="0 0 24 24" 
-              fill="none" stroke={openArchived ? "#1B1717" : "#EDEBDD"} strokeWidth="2" 
-              strokeLinecap="round" strokeLinejoin="round" 
-              className="transition-[stroke] duration-300 group-hover:stroke-[#1B1717]">
-              <rect width="20" height="5" x="2" y="3" rx="1"/>
-              <path d="M4 8v11a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8"/>
-              <path d="M10 12h4"/>
-            </svg>
+            <FaArchive className={`w-6 h-5 transition-all duration-300 ${openSubjects === "subjects" ? 'brightness-0' : 'group-hover:brightness-0'}`}  />
             <Link to="/student/archsubj" className={`transition-colors duration-300 ${openArchived ? 'text-[#1B1717] font-extrabold' : 'text-[#EDEBDD] group-hover:text-[#1B1717] font-normal'}`}>
               Archived Subjects
             </Link>
