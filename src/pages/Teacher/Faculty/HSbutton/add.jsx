@@ -1,12 +1,11 @@
 import { useForm } from "react-hook-form";
 import { useState, useEffect } from "react";
-import toast from 'react-hot-toast';
 import { FacultyTeacherService } from "../../../../services/facultyteacherservice";
 
 export default function AddJHS({ setShowAdd }) {
   const [availableSubjects, setAvailableSubjects] = useState([]);
   
-  const { register, handleSubmit, watch, trigger, setValue, reset, formState: { errors } } = useForm({
+  const { register, handleSubmit, watch, setValue } = useForm({
     defaultValues: {
         // This 'level' matches your MySQL ENUM/Column name
         level: "HighSchool", 
@@ -20,42 +19,6 @@ export default function AddJHS({ setShowAdd }) {
         subjects: [], 
     }
   });
-
-  const handleAddFaculty = async () => {
-    // 1. Define fields to check
-    const fieldsToValidate = ["lastname", "firstname", "email_address", "grade_level", "position"];
-
-    // 2. Trigger validation
-    const isFormValid = await trigger(fieldsToValidate);
-
-    if (isFormValid) {
-        // 3. Get the clean data directly from the form
-        const formData = watch(); 
-        
-        // 4. Run the submission logic
-        toast.promise(
-            FacultyTeacherService.addFaculty(formData), 
-            {
-                loading: 'Adding faculty teacher...',
-                success: <b>Faculty added successfully!</b>,
-                error: (err) => <b>{err.message === "SESSION_EXPIRED" ? "Session Expired" : "Failed to add"}</b>,
-            },
-            {
-                style: { borderRadius: '10px', background: '#333', color: '#fff' },
-                position: "top-right"
-            }
-        ).then(() => {
-            // SUCCESS: 
-            setShowAdd(false); // This closes the modal and clears the warning!
-            reset();           // Optional: Clears the form fields for next time
-        });
-    } else {
-        toast.error("Please fill all required fields.", {
-            position: "top-right",
-            style: { borderRadius: '10px', background: '#333', color: '#fff' },
-        });
-    }
-};
 
   const selectedGrade = watch("grade_level");
 
@@ -80,15 +43,27 @@ export default function AddJHS({ setShowAdd }) {
 
   const onSubmit = async (data) => {
     try {
-      const result = await FacultyTeacherService.addFaculty(data);
-        return result; 
+      // The service uses FormData, so 'data' will be appended correctly
+      await FacultyTeacherService.addFaculty(data);
+      alert("Junior High Faculty Record Saved Successfully!");
+
+      if (typeof setShowAdd === 'function') {
+        setShowAdd(false); 
+      } else {
+        // If not in a modal, refresh to see the list
+        window.location.reload(); 
+      }
+      
     } catch (error) {
-        if (error.message === "SESSION_EXPIRED") {
-            setTimeout(() => { window.location.href = "/"; }, 2000);
-        }
-        throw error; 
+      if (error.message === "SESSION_EXPIRED") {
+        alert("Session expired. Please log in again.");
+        window.location.href = "/";
+      } else {
+        console.error("Submission Error:", error);
+        alert("Error: " + error.message);
+      }
     }
-};
+  };
 
   return (
     <form onSubmit={handleSubmit(onSubmit)} className="relative h-auto pb-10 font-[Inter]">
@@ -98,51 +73,35 @@ export default function AddJHS({ setShowAdd }) {
       </div>
 
       {/* Main Form Fields */}
-      <div className="grid grid-cols-4 gap-y-5 justify-items-center max-w-7xl mx-auto pt-13">
-        <div className="flex flex-col gap-1">
+      <div className="bg-[#EDEBDD] w-full py-7 px-4 ml-12 mt-5 rounded-2xl flex flex-col gap-8 max-w-[90%]">
+        <div className="flex gap-7 items-center ml-7">
           <p className="text-[#1B1717] text-[14px]">Teacher's Name:</p>
-          <input {...register("lastname", { required: true })} className={`border border-[#630000] shadow-sm text-[13px] tracking-wider h-10 p-3 rounded-[5px] w-40 ${errors.lastname ? "border-red-500 bg-red-50" : "border-#630000"}`} placeholder="Last Name" />
-        </div>
-        
-        <div className="flex flex-col gap-1">
-          <p className="text-[#1B1717] text-[14px] invisible">Teacher's Name:</p>
-          <input {...register("firstname", { required: true })} className={`border border-[#630000] shadow-sm text-[13px] tracking-wider h-10 p-3 rounded-[5px] w-40 ${errors.firstname ? "border-red-500 bg-red-50" : "border-#630000"}`} placeholder="First Name"/>
+          <input {...register("lastname")} className="border text-[12px] w-30 h-10 p-3 rounded-[5px] bg-white" placeholder="Last Name" required />
+          <input {...register("firstname")} className="border text-[12px] w-30 h-10 p-3 rounded-[5px] bg-white" placeholder="First Name" required />
+          <input {...register("middlename")} className="border text-[12px] w-30 h-10 p-3 rounded-[5px] bg-white" placeholder="Middle Name" />
+          <input {...register("ext")} className="border text-[12px] w-20 h-10 p-3 rounded-[5px] bg-white" placeholder="Ext" />
         </div>
 
-        <div className="flex flex-col gap-1">
-          <p className="text-[#1B1717] text-[14px] invisible">Teacher's Name:</p>
-          <input {...register("middlename")} className="border text-[12px] w-40 h-10 p-3 rounded-[5px] bg-white" placeholder="Middle Name" />
-        </div>
-
-        <div className="flex flex-col gap-1">
-          <p className="text-[#1B1717] text-[14px] invisible">Teacher's Name:</p>
-          <input {...register("ext")} className="border text-[12px] w-40 h-10 p-3 rounded-[5px] bg-white" placeholder="Ext" />
-        </div>
-
-        <div className="flex flex-col gap-1">
+        <div className="flex gap-7 items-center ml-7">
           <p className="text-[#1B1717] text-[14px]">Email Address:</p>
-          <input {...register("email_address", { required: true })} type="email" className={`border border-[#630000] shadow-sm text-[13px] tracking-wider h-10 p-3 rounded-[5px] w-40 ${errors.email_address ? "border-red-500 bg-red-50" : "border-#630000"}`} placeholder="Email Address" />
-        </div> 
-
-        <div className="flex flex-col gap-1"> 
+          <input {...register("email_address")} type="email" className="border text-[12px] w-50 h-10 p-3 rounded-[5px] bg-white" placeholder="Email Address" required />
+          
           <p className="text-[#1B1717] text-[14px] ml-7">Grade Level</p>
-          <select {...register("grade_level", { required: true })} className={`border border-[#630000] shadow-sm text-[13px] tracking-wider h-10 p-3 rounded-[5px] w-40 ${errors.grade_level ? "border-red-500 bg-red-50" : "border-#630000"}`}>
+          <select {...register("grade_level")} className="border text-[12px] w-30 h-10 p-2 rounded-[5px]" required>
             <option value="">Select</option>
             <option value="7">Grade 7</option>
             <option value="8">Grade 8</option>
             <option value="9">Grade 9</option>
             <option value="10">Grade 10</option>    
           </select>
-        </div>
 
-        <div className="flex flex-col gap-1">
           <p className="text-[#1B1717] text-[14px] ml-7">Position</p>
-          <input {...register("position", { required: true })} className={`border border-[#630000] shadow-sm text-[13px] tracking-wider h-10 p-3 rounded-[5px] w-40 ${errors.position ? "border-red-500 bg-red-50" : "border-#630000"}`} placeholder="Position"/>
+          <input {...register("position")} className="border text-[12px] w-40 h-10 p-3 rounded-[5px] bg-white" placeholder="Position" required />
         </div>
       </div>
 
       {/* Subject Section */}
-      <div className="pl-12 pt-14">
+      <div className="pl-12 pt-10">
         <p className="text-[#630000] text-[25px] font-semibold">Subjects To Teach</p>
         {selectedGrade && (
             <p className="text-[12px] text-gray-500 italic">
@@ -170,8 +129,8 @@ export default function AddJHS({ setShowAdd }) {
       </div>
 
       {/* Submit Button */}
-      <div className="flex justify-center mt-10"> 
-        <button type="submit" onClick={handleAddFaculty} className="flex justify-center mt-46 gap-2 px-6 py-3 bg-[#630000] text-white text-[15px] rounded-xl font-bold hover:bg-red-800 shadow-lg transition-all">
+      <div className="flex justify-center mt-20"> 
+        <button type="submit" className="bg-[#630000] text-[#EDEBDD] text-[20px] px-10 py-3 rounded-xl font-bold hover:bg-[#800000] transition-colors">
           Add JHS Faculty
         </button>
       </div>

@@ -28,8 +28,7 @@ export default function DisplayElementary() {
     <div className="p-5 font-[Inter]">
       <h2 className="text-[#630000] text-3xl font-bold mb-8 ml-10">Elementary Faculty</h2>
 
-      <div className="flex-1 overflow-auto border border-gray-200 rounded-xl bg-[#faf9f6] shadow-inner h-180">
-        <div className="min-w-225 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-y-12 gap-x-6 justify-items-center ">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-y-12 gap-x-6 justify-items-center">
         
         {facultyList.length === 0 ? (
           <p className="col-span-full text-gray-500 italic text-xl mt-10">
@@ -37,7 +36,7 @@ export default function DisplayElementary() {
           </p>
         ) : (
           facultyList.map((faculty, index) => (
-            <div key={faculty.id || index} className="flex flex-col items-center text-center p-4 mt-10 border-2 border-transparent hover:border-[#edebdd] rounded-2xl transition-all">
+            <div key={faculty.id || index} className="flex flex-col items-center text-center p-4 border border-transparent hover:border-gray-200 rounded-2xl transition-all">
               <div className="mb-4">
                 <FaUserCircle className="text-gray-800 text-[100px]" />
               </div>
@@ -46,14 +45,26 @@ export default function DisplayElementary() {
                 Teacher {faculty.firstname} {faculty.middlename?.charAt(0)}. {faculty.lastname} {faculty.ext || ""}
               </h3>
 
-              <p className="text-[#630000] text-lg">
+              <p className="text-gray-600 text-lg">
                 {faculty.position || "Faculty Member"}
               </p>
+
+              {/* Displaying assigned subjects */}  
+              <div className="mt-3 flex flex-wrap justify-center gap-2 max-w-62.5">
+                {faculty.subjects && faculty.subjects.length > 0 ? (
+                  faculty.subjects.map((sub) => (
+                    <span key={sub.id} className="bg-[#630000] text-[#EDEBDD] text-[11px] px-3 py-1 rounded-full font-medium">
+                      {sub.name}
+                    </span>
+                  ))
+                ) : (
+                  <span className="text-gray-400 text-sm italic">No subjects assigned</span>
+                )}
+              </div>
             </div>
           ))
         )}
       </div>
-    </div>
     </div>
   );
 }

@@ -15,13 +15,13 @@ export default function ElemFaculty() {
 
   return (
     <section className="h-screen bg-cover bg-no-repeat bg-fixed bg-center" style={{ backgroundImage: `url(${back})` }}>
-      <div className="min-h-screen bg-white/90 p-4">
+      <div className="min-h-screen bg-white/75 p-4">
         
-        <div className="flex justify-center mb-5 mt-2 gap-10">
+        <div className="flex justify-center mb-5 gap-10">
           
           <button 
             onClick={() => setView('display')}
-            className={`w-full max-w-70 font-semibold text-[25px] rounded-2xl p-2 text-center transition-colors font-['Inter'] ${
+            className={`w-full max-w-80 font-semibold text-[30px] rounded-2xl p-3 text-center transition-colors ${
               view === 'display' ? 'bg-[#630000] text-[#EDEBDD]' : 'bg-[#EDEBDD] text-[#630000]'
             }`}
           >
@@ -30,7 +30,7 @@ export default function ElemFaculty() {
 
           <button 
             onClick={() => setView('add')}
-            className={`w-full max-w-70 font-semibold font-['Inter'] text-[25px] rounded-2xl p-2 text-center transition-colors ${
+            className={`w-full max-w-80 font-semibold text-[30px] rounded-2xl p-3 text-center transition-colors ${
               view === 'add' ? 'bg-[#630000] text-[#EDEBDD]' : 'bg-[#EDEBDD] text-[#630000]'
             }`}
           >
