@@ -74,21 +74,35 @@ export default function AddElementary({ setShowAdd }) {
         <p className="text-[#630000] text-[25px] font-semibold">Elementary Teacher's Information</p>
       </div>
 
-      <div className="bg-[#EDEBDD] w-full py-7 px-4 ml-12 mt-5 rounded-2xl flex flex-col gap-8 max-w-[90%]">
-        <div className="flex gap-7 items-center ml-7">
+      <div className="grid grid-cols-4 gap-y-5 justify-items-center max-w-7xl mx-auto  pt-12">
+        <div className="flex flex-col gap-1">
           <p className="text-[#1B1717] text-[14px]">Teacher's Name:</p>
-          <input {...register("lastname")} type="text" className="border text-[12px] w-30 h-10 p-3 rounded-[5px] bg-white" placeholder="Last Name" required />
-          <input {...register("firstname")} type="text" className="border text-[12px] w-30 h-10 p-3 rounded-[5px] bg-white" placeholder="First Name" required />
-          <input {...register("middlename")} type="text" className="border text-[12px] w-30 h-10 p-3 rounded-[5px] bg-white" placeholder="Middle Name" />
-          <input {...register("ext")} type="text" className="border text-[12px] w-20 h-10 p-3 rounded-[5px] bg-white" placeholder="Ext" />
+          <input {...register("lastname")} type="text" className="border border-[#630000] shadow-sm text-[13px] tracking-wider h-10 p-3 rounded-[5px] w-40" placeholder="Last Name"/>
         </div>
 
-        <div className="flex gap-7 items-center ml-7">
+        <div className="flex flex-col gap-1">
+          <p className="text-[#1B1717] text-[14px] invisible">Teacher's Name:</p>
+          <input {...register("firstname")} type="text" className="border border-[#630000] shadow-sm text-[13px] tracking-wider h-10 p-3 rounded-[5px] w-40" placeholder="First Name" />
+        </div>
+
+        <div className="flex flex-col gap-1">
+          <p className="text-[#1B1717] text-[14px] invisible">Teacher's Name:</p>
+          <input {...register("middlename")} type="text" className="border border-[#630000] shadow-sm text-[13px] tracking-wider h-10 p-3 rounded-[5px] w-40" placeholder="Middle Name" />
+        </div>
+
+        <div className="flex flex-col gap-1">
+          <p className="text-[#1B1717] text-[14px] invisible">Teacher's Name:</p>
+          <input {...register("ext")} type="text" className="border border-[#630000] shadow-sm text-[13px] tracking-wider h-10 p-3 rounded-[5px] w-40" placeholder="Ext" />
+        </div>
+
+        <div className="flex flex-col gap-1">
           <p className="text-[#1B1717] text-[14px]">Email Address:</p>
-          <input {...register("email_address")} type="email" className="border text-[12px] w-30 h-10 p-3 rounded-[5px] bg-white" placeholder="Email Address" required />
-          
-          <p className="text-[#1B1717] text-[14px] ml-7">Grade Level</p>
-            <select {...register("grade_level")} className="border text-[12px] w-30 h-10 p-2 rounded-[5px]" required>
+          <input {...register("email_address")} type="email" className="border border-[#630000] shadow-sm text-[13px] tracking-wider h-10 p-3 rounded-[5px] w-40" placeholder="Email Address" />
+        </div>
+
+        <div className="flex flex-col gap-1">
+          <p className="text-[#1B1717] text-[14px] ">Grade Level</p>
+            <select {...register("grade_level")} className="border border-[#630000] shadow-sm text-[13px] tracking-wider h-10 p-3 rounded-[5px] w-40">
                 <option value="">Select</option>
                 <option value="1">Grade 1</option>
                 <option value="2">Grade 2</option>
@@ -97,13 +111,15 @@ export default function AddElementary({ setShowAdd }) {
                 <option value="5">Grade 5</option>
                 <option value="6">Grade 6</option>    
             </select>
+        </div>
 
-          <p className="text-[#1B1717] text-[14px] ml-7">Position</p>
-          <input {...register("position")} type="text" className="border text-[12px] w-30 h-10 p-3 rounded-[5px] bg-white" placeholder="Position" required />
+        <div className="flex flex-col gap-1">
+          <p className="text-[#1B1717] text-[14px]">Position</p>
+          <input {...register("position")} type="text" className="border border-[#630000] shadow-sm text-[13px] tracking-wider h-10 p-3 rounded-[5px] w-40" placeholder="Position"/>
         </div>
       </div>
 
-      <div className="pl-12 pt-10">
+      <div className="pl-12 pt-15">
         <p className="text-[#630000] text-[25px] font-semibold">Subjects To Teach</p>
         <p className="text-[12px] text-gray-500">
             {selectedGrade && ["1", "2", "3"].includes(selectedGrade) 
@@ -130,8 +146,8 @@ export default function AddElementary({ setShowAdd }) {
         )}
       </div>
 
-      <div className="flex justify-center mt-20 gap-4"> 
-        <button type="submit" className="bg-[#630000] text-[#EDEBDD] text-[20px] px-10 py-3 rounded-xl font-bold hover:bg-[#800000] transition-colors">
+      <div className="flex justify-center mt-50 gap-4"> 
+        <button type="submit" className="bg-[#630000] text-[#EDEBDD] text-[15px] px-6 py-3 rounded-xl font-bold hover:bg-red-800 shadow-lg transition-all">
           Add Elementary Faculty
         </button>
       </div>
