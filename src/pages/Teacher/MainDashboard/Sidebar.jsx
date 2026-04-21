@@ -91,15 +91,13 @@ function Sidebar() {
         
        <div>
         <div onClick={() => setOpenRecords(!openRecords)}
-          className={`group flex items-center gap-3 cursor-pointer py-2 px-7 rounded transition-colors ${openRecords 
-            ? 'bg-[#EDEBDD]' 
-            : 'hover:bg-[#EDEBDD]'}`}>
-          <div className="flex items-center gap-5 cursor-pointer">
+          className="group flex items-center gap-3 cursor-pointer py-2 px-7 rounded relative hover:bg-[#EDEBDD]">
+          <div className="flex items-center gap-3 cursor-pointer">
             <svg 
               xmlns="http://www.w3.org/2000/svg" width="23" height="23" viewBox="0 0 24 24" 
-              fill="none" stroke={openRecords ? "#1B1717" : "#EDEBDD"}  strokeWidth="2" 
+              fill="none" stroke="#EDEBDD" strokeWidth={`${openRecords ? "3" : "2"}`} 
               strokeLinecap="round" strokeLinejoin="round" 
-              className="transition-[stroke] duration-300 group-hover:stroke-[#1B1717]">
+              className="lucide lucide-layout-dashboard transition-[stroke] duration-300 group-hover:stroke-[#1B1717]">
                 
               <path d="M15.5 2H11a2 2 0 0 0-2 2v1" />
               <path d="M7 18a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h7.5L17 4.5" />
@@ -107,9 +105,9 @@ function Sidebar() {
               <path d="M17 7v4a2 2 0 0 0 2 2h1" />
             </svg>
 
-            <a className={`transition-colors duration-300 ${openRecords 
-                ? 'text-[#1B1717]' 
-                : 'text-[#EDEBDD] group-hover:text-[#1B1717]' }`}>Student Records
+            <a className={`whitespace-nowrap transition-colors duration-300 text-[#EDEBDD] group-hover:text-[#1B1717] ${openRecords 
+                ? 'font-extrabold' 
+                : 'font-normal' }`}>Student Records
             </a>
           </div>
         </div>
