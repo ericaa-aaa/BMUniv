@@ -28,7 +28,7 @@ export default function DisplayElementary() {
     <div className="p-5 font-[Inter]">
       <h2 className="text-[#630000] text-3xl font-bold mb-8 ml-10">Elementary Faculty</h2>
 
-      <div className="flex-1 overflow-auto border border-[#630000] rounded-xl bg-white/70 shadow-inner h-180">
+      <div className="flex-1 overflow-auto border border-[#630000] rounded-xl bg-white/70 shadow-inner h-180 mt-10">
         <div className="min-w-225 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-y-12 gap-x-6 justify-items-center ">
         
         {facultyList.length === 0 ? (
