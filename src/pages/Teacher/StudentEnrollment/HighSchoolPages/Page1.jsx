@@ -171,7 +171,7 @@ const onSubmit = async (data) => {
                             <div className="flex gap-5 items-center">
                                 <p className="text-[#630000] text-[25px] font-semibold whitespace-nowrap">Grade Level:</p>
                                     <input {...register("grade_level", { required: true, min: 7, max: 10,valueAsNumber: true })} 
-                                        type="text" maxLength={2} className={`border border-[#630000] shadow-sm text-[12px] w-13 h-8 p-3 rounded-[5px] ${errors.grade_level ? "border-red-500 bg-red-50" : "border-#630000"}`} />
+                                        type="text" maxLength={2} className={`border border-[#630000]  shadow-sm text-[12px] w-13 h-8 p-3 rounded-[5px] ${errors.grade_level ? "border-red-500 bg-red-50" : "border-#630000"}`} />
                             </div>
              
                             {/* Photo*/}

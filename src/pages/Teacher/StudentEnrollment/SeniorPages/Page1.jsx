@@ -532,7 +532,7 @@ const onSubmit = async (data) => {
                                     {/* Guardian's Address */}
                                     <div className="flex flex-col gap-1 ml-9">
                                         <p className="text-[#1B1717] text-[14px] w-32">Guardian Address</p>
-                                        <input {...register("g_house_no", { required: true })} type="number" className={`border border-[#630000] shadow-sm text-[13px] tracking-wider w-50 h-10 p-3 rounded-[5px] ${errors.g_house_no ? "border-red-500 bg-red-50" : "border-#630000"}`} placeholder="HouseNo" />
+                                        <input {...register("g_house_no", { required: true })} type="number" maxLength={11} minLength={11} className={`border border-[#630000] shadow-sm text-[13px] tracking-wider w-50 h-10 p-3 rounded-[5px] ${errors.g_house_no ? "border-red-500 bg-red-50" : "border-#630000"}`} placeholder="HouseNo" />
                                     </div>
 
                                     <div className="flex flex-col gap-1 ml-9">
@@ -615,7 +615,7 @@ const onSubmit = async (data) => {
                     </div>    
 
                     <div className="flex gap-5 mt-6 pl-43">
-                        <p className='text-[#1B1717] text-[14px]'>Is this student a transferee? <span className="text-[#630000]">(✓) if yes</span></p>
+                        <p className='text-[#1B1717]  ext-[14px]'>Is this student a transferee? <span className="text-[#630000]">(✓) if yes</span></p>
                         <input {...register("is_transferee")} type="checkbox" className="w-5 h-5 accent-[#630000]" />
                     </div>
 

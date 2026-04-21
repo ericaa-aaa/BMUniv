@@ -82,14 +82,16 @@ export default function EnrollmentForm() {
 
         if (isStepValid) {
             if (step === 2) {
-    const dataToSend = getValues(); 
+
+        const dataToSend = getValues(); 
 
             toast.promise(
                 onSubmit(dataToSend), 
                 {
                     loading: 'Processing enrollment...',
                     success: <b>Enrollment submitted successfully!</b>,
-                    error: (err) => <b>{err.message === "SESSION_EXPIRED" ? "Session Expired" : "Submission Failed"}</b>,
+                    error: (err) =>
+                    <b>{err.message === "SESSION_EXPIRED" ? "Session Expired" : "Submission Failed"}</b>,
                 },
                 {
                     style: { borderRadius: '10px', background: '#333', color: '#fff' },
@@ -159,10 +161,12 @@ const onSubmit = async (data) => {
 
                     {/* Attachment Button & Preview */}
                     <div className="flex items-center justify-between w-full pl-12 pr-12 pt-2">
-        
                         <div className="flex gap-5 items-center">
                         <p className="text-[#630000] text-[25px] font-semibold whitespace-nowrap">Grade Level:</p>
-                        <input {...register("grade_level", { required: true, min: 1, max:6,valueAsNumber: true })} type="text" className={`border border-[#630000] shadow-sm text-[12px] w-13 h-8 p-3 rounded-[5px] ${errors.grade_level ? "border-red-500 bg-red-50" : "border-#630000"}`} />
+                        <input {...register("grade_level", { required: "Grade Level is required", valueAsNumber: true,
+                            min:{value:1, message: "Grade level must be between 1-6",},
+                            max:{value:6, message: "Grade level must be between 1-6",},
+                         })} type="text" maxLength={1} className={`border border-[#630000] shadow-sm text-[12px] w-13 h-8 p-3 rounded-[5px] ${errors.grade_level ? "border-red-500 bg-red-50" : "border-#630000"}`} />
                     </div>
 
                     {/* Photo*/}
@@ -395,7 +399,7 @@ const onSubmit = async (data) => {
 
                 <div className="flex flex-col gap-1">
                     <p className="text-[#1B1717] text-[14px]">Contact Number</p>
-                    <input {...register("father_contact", { required: true })} type="number" className={`border border-[#630000] shadow-sm text-[13px] tracking-wider w-40 h-10 p-3 rounded-[5px] ${errors.father_contact ? "border-red-500 bg-red-50" : "border-#630000"}`} placeholder="Contact #" />
+                    <input {...register("father_contact", { required: true })} type="number" maxLength={11} minLength={11} className={`border border-[#630000] shadow-sm text-[13px] tracking-wider w-40 h-10 p-3 rounded-[5px] ${errors.father_contact ? "border-red-500 bg-red-50" : "border-#630000"}`} placeholder="Contact #" />
                 </div>
 
                 <div className="flex flex-col gap-1 col-span-4 mr-193">
@@ -452,7 +456,7 @@ const onSubmit = async (data) => {
 
                 <div className="flex flex-col gap-1 ">
                     <p className="text-[#1B1717] text-[14px]">Contact Number</p>
-                    <input {...register("mother_contact", { required: true })} type="number" className={`border border-[#630000] shadow-sm text-[13px] tracking-wider w-40 h-10 p-3 rounded-[5px] ${errors.mother_contact ? "border-red-500 bg-red-50" : "border-#630000"}`} placeholder="Contact #" />
+                    <input {...register("mother_contact", { required: true })} type="number" maxLength={11} minLength={11} className={`border border-[#630000] shadow-sm text-[13px] tracking-wider w-40 h-10 p-3 rounded-[5px] ${errors.mother_contact ? "border-red-500 bg-red-50" : "border-#630000"}`} placeholder="Contact #" />
                 </div>
 
                 <div className="flex flex-col gap-1 col-span-4 mr-193">
@@ -508,7 +512,7 @@ const onSubmit = async (data) => {
 
                 <div className="flex flex-col gap-1">
                     <p className="text-[#1B1717] text-[14px]">Contact Number</p>
-                    <input {...register("guardian_contact", { required: true })} type="text" className={`border border-[#630000] shadow-sm text-[13px] tracking-wider w-40 h-10 p-3 rounded-[5px] ${errors.guardian_contact ? "border-red-500 bg-red-50" : "border-#630000"}`} placeholder="Contact #" />
+                    <input {...register("guardian_contact", { required: true })} type="text" maxLength={11} minLength={11} className={`border border-[#630000] shadow-sm text-[13px] tracking-wider w-40 h-10 p-3 rounded-[5px] ${errors.guardian_contact ? "border-red-500 bg-red-50" : "border-#630000"}`} placeholder="Contact #" />
                 </div>
 
                 <div className="flex flex-col gap-1 col-span-4 mr-193">

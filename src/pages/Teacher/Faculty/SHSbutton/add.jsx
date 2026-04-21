@@ -140,7 +140,7 @@ export default function AddSHS({ setShowAdd }) {
         )}
       </div>
 
-      <div className="flex justify-center mt-50"> 
+      <div className="flex justify-center mt-45"> 
         <button type="submit" className="bg-[#630000] text-[#EDEBDD] text-[15px] px-6 py-3 rounded-xl font-bold hover:bg-red-800 shadow-lg transition-all">
           Add Senior High Faculty
         </button>
