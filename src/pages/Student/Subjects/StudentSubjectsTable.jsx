@@ -28,7 +28,7 @@ export default function StudentSubjects() {
             </div>
             <h2 className="text-2xl font-semibold">Dela Cruz, Juan M.</h2>
           </div>
-          <div className="space-y-3 text-lg font-semibold text-[#7B0000]">
+          <div className="pr-17 space-y-3 text-lg font-semibold text-[#7B0000]">
             <p>▸ Batangas Metropolitan University</p>
             <p>▸ Grade 12 - ABM</p>
             <p>▸ Second Semester</p>

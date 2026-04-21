@@ -4,7 +4,11 @@ import { User } from "lucide-react";
 export default function ArchivedSubjects() {
   const archived = [
     { subject: "Computer", teacher: "Mendoza, Ayan L.", schoolYear: "2024-2025", },
-    { subject: "Values Education", teacher: "Villanueva, Precy Z.", schoolYear: "2024-2025", },
+    { subject: "filipino", teacher: "Villanueva, Precy Z.", schoolYear: "2024-2025", },
+    { subject: "English", teacher: "Reyes, Carlo C.", schoolYear: "2024-2025", },
+    { subject: "Mathematics", teacher: "Mendoza, Ayan L.", schoolYear: "2024-2025", },
+    { subject: "Science", teacher: "Balabo, Maine M.", schoolYear: "2024-2025", },
+    { subject: "Araling panlipunan", teacher: "Princess R.Precy Z.", schoolYear: "2024-2025", },
     { subject: "Music", teacher: "Ramos, Merly K.", schoolYear: "2023-2024",}, ];
 
   return (
@@ -21,7 +25,7 @@ export default function ArchivedSubjects() {
             </div>
             <h2 className="text-2xl font-semibold">Dela Cruz, Juan M.</h2>
           </div>
-            <div className="space-y-3 text-lg font-semibold text-[#7B0000]">
+            <div className="pr-17 space-y-3 text-lg font-semibold text-[#7B0000]">
               <p>▸ Batangas Metropolitan University</p>
               <p>▸ Grade 12 - ABM</p>
               <p>▸ Second Semester</p>
@@ -30,26 +34,20 @@ export default function ArchivedSubjects() {
         </div>
       </div>
 
-        <div className="bg-white rounded-2xl shadow-lg overflow-hidden">
-          <div className="bg-[#7B0000] text-white px-6 py-4 text-xl font-bold border-b border-white/20">
-            Archived Subjects
-          </div>
-            <div className="w-full">
-              <div className="grid grid-cols-[2fr_1.5fr_1fr] bg-[#8B0000] text-white text-center font-semibold sticky top-0 z-10 shadow-md">
-                <div className="p-4 border-r border-white/10">Subject</div>
-                <div className="p-4 border-r border-white/10">Teacher</div>
-                <div className="p-4">School Year</div>
-              </div>
-              <div className="flex flex-col">
+            <div className="overflow-hidden rounded-2xl shadow-lg">
+              <div className="grid grid-cols-[2fr_1.5fr_1fr] bg-white gap-0.5">
+                <div className="p-4 bg-[#7B0000] text-white text-center font-semibold">Subject</div>
+                <div className="p-4 bg-[#7B0000] text-white text-center font-semibold">Teacher</div>
+                <div className="p-4 bg-[#7B0000] text-white text-center font-semibold">School Year</div>
                 {archived.map((item, index) => (
-                  <div key={index} className="grid grid-cols-[2fr_1.5fr_1fr] bg-[#ECE9DF] border-b border-white text-center items-center text-sm">
-                    <div className="p-5 border-r border-white/20 font-medium">{item.subject}</div>
-                    <div className="p-5 border-r border-white/20">{item.teacher}</div>
-                    <div className="p-5">{item.schoolYear}</div>
-                  </div> ))}
+                  <React.Fragment key={index}>
+                    <div className="p-4 bg-[#ECE9DF] text-center text-sm font-medium"> {item.subject} </div>
+                    <div className="p-4 bg-[#ECE9DF] text-center text-sm">{item.teacher}</div>
+                    <div className="p-4 bg-[#ECE9DF] text-center text-sm">{item.schoolYear} </div>
+                  </React.Fragment> ))}
               </div>
             </div>
+
         </div>
-    </div>
   );
 }
