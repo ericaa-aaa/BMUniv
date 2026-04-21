@@ -51,7 +51,7 @@ export const ElementaryStudentService = {
         const response = await fetch(`${API_BASE_URL}/Elstudents`, {
             method: "POST",
             headers: { 
-                "Authorization": `Bearer ${token}` 
+                "Authorization": `Bearer ${token}`  
             },
             body: formData,
         });
