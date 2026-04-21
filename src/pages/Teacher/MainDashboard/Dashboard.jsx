@@ -40,7 +40,7 @@ useEffect(() => {
           method: 'GET',
           headers: {
             'Content-Type': 'application/json',
-            'Authorization': `Bearer ${token}` 
+            'Authorization': `Bearer ${token}` // 2. Add the header
           }
         });
 
@@ -65,7 +65,7 @@ useEffect(() => {
   return (
     <section className="min-h-screen bg-cover bg-no-repeat bg-fixed bg-center"
              style={{ backgroundImage: `url(${back})` }}>
-      <div className="min-h-screen bg-white/75 p-4 pb-20">
+      <div className="min-h-screen bg-white/75 p-4 pb-5">
       
         {/* User Profile Header */}
         <div className="flex justify-end pt-10 pr-12">
@@ -94,44 +94,92 @@ useEffect(() => {
         </div>
 
         {/* Enrollment Stats Row */}
-        <div className="flex justify-around mt-17 font-['Inter'] font-semibold ">
-          {[
-            { label: "Elementary Students", count: counts.elementary },
-            { label: "High School Enrolled", count: counts.highSchool },
-            { label: "SHS Enrolled", count: counts.seniorHigh }
-          ].map((item, index) => (
-            <div key={index} className="bg-[#630000] rounded-xl w-70 h-35 text-center pt-6 shadow-lg">
-              <h2 className="text-2xl font-bold text-[#EDEBDD] transition-all duration-500 hover:scale-110">
-                  {item.count}
-              </h2>
-              <div className='w-55 h-0.5 bg-white mt-5 mb-2 mx-auto'></div>
-              <p className='text-[20px] text-[#EDEBDD]'>{item.label}</p>
-            </div>
-          ))}
-        </div>
+        {/* border-collapse - merge border para di magkaron ng double line */}
+        <table className="mt-17 font-['Inter'] font-semibold border border-collapse mx-auto max-w-7xl w-full"> 
+          {/* table body pag tbody ay main content pag thead naman ay pang header */}
+          <tbody>
+            {/* tr ay isang horizontal na row */}
+            <tr>
+              {/* .map ay loop na nag rereturn ng something. kunware sa code na to, tinitreat nya as a-b-c so instead 
+              na magsulat ng <th> na madami, gumamit ng .map para tawagin ang mga label ng sunod-sunod (array). Prang sinasabi ng .map na
+              "Take this list and turn each item into <th>" */}
+              {[
+                "Elementary Students",
+                "High School Enrolled",
+                "SHS Enrolled"
+              ].map((label, index) => (
+                // header cell ang th, automatic bold and center the data
+                <th
+                // key ay position ng item sa isang array. for example ang high school ang index nya ay 1 dahil nag start ang bilang sa 0.
+                  key={index} 
+                  className="border-2 border-[#edebdd] bg-[#630000] px-6 py-3 text-center text-[#edebdd]">
+                  
+                  {label}
+                </th>
+              ))}
+            </tr>
 
-        {/* --- TEACHER'S SUBJECTS SECTION --- */}
-        <div className='bg-[#EDEBDD] w-[90%] mx-auto mt-11 rounded-[15px] p-8 shadow-md min-h-75'>
-            <h3 className="text-[#630000] text-2xl font-bold mb-6 border-b-2 border-[#630000] pb-2 w-fit">
-                My Assigned Subjects
-            </h3>
-            
-            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6">
-                {subjects.length > 0 ? (
-                    subjects.map((sub) => (
-                        <div key={sub.id} className="bg-white p-5 rounded-lg border-l-8 border-[#630000] shadow-sm transform transition hover:-translate-y-1">
-                            <p className="text-gray-500 text-xs font-bold uppercase tracking-wider">Grade {sub.grade}</p>
-                            <p className="text-[#1B1717] text-lg font-bold mt-1">{sub.name}</p>
-                        </div>
-                    ))
-                ) : (
-                    <div className="col-span-full flex flex-col items-center justify-center py-10">
-                         <p className="text-gray-500 italic text-lg">No subjects assigned to your account yet.</p>
-                    </div>
-                )}
-            </div>
-        </div>
+            <tr>
+              {[
+                counts.elementary,
+                counts.highSchool,
+                counts.seniorHigh
+              ].map ((count, index) => (
+                // td ay ginagamit sa mga actual values hehe
+                //key ay ginagamit para ma track ang mga element. At ano ang mga element? yung ay yung mga elem etc and numbers. 
+                // .map in addition ay parang inuutusan mo na, for each label display "elem" or for each count dispkay "16"
+                // and since the labels and counts are aligned or sinulat ng naayon sa pagkakasunod sunod, nag laline up sila coreesponds sa kanilang 
+                // labels and counts. gets?
+                <td key={index}
+                className='border-2 border-[#edebdd] bg-[#810100] px-6 py-4 text-center text-[#edebdd] font-bold text-xl'>
+                    {count}
+                </td>
+              ))}
+            </tr>
+          </tbody>
+        </table>
+
+        <h3 className="text-[#630000] font-['Inter'] text-[25px] font-bold mt-30 ml-19">
+          My Assigned Subjects
+        </h3>
+        
+        <table className='mt-7 font-["Inter"] font-semibold border border-collapse mx-auto max-w-7xl w-full'>
+          <thead>
+            <tr>
+                {[
+                  "Grade",
+                  "Subject",
+                  "Section",
+                  "Schedule"
+                ].map((header, index) => (
+                  <th key= {index} className="border-2 border-[#edebdd] bg-[#630000] text-[17px] px-10 py-3 text-center text-[#edebdd]">
+                    {header}
+                  </th>
+                ))}
+            </tr>
+          </thead>
+
+          <tbody>
+            {subjects.map((sub, index) => (
+              <tr key={index}>
+                <td className='border-2 border-[#edebdd] px-4 py-2 text-center bg-white/85 text-[#630000] [15px]'>
+                    {sub.grade ?? "NA"} 
+                </td>
+                <td className='border-2 border-[#edebdd] px-2 py-2 text-center bg-white/85 text-[#630000] text-[15px] tracking-wider'>
+                    {sub.name ?? "NA"}
+                </td>
+                <td className='border-2 border-[#edebdd] px-4 py-2 text-center bg-white/85 text-[#630000] [15px]'>
+                    {sub.section ?? "NA"}
+                </td>
+                <td className='border-2 border-[#edebdd] px-2 py-2 text-center bg-white/85 text-[#630000] [15px]'>
+                    {sub.schedule ?? "NA"}
+                </td>
+              </tr>
+              ))}   
+          </tbody>
+        </table>
       </div>
+
     </section>
   );
 }
