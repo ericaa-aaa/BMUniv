@@ -15,7 +15,6 @@ export default function StudentSubjects() {
 
   return (
     <div className="p-8 bg-gray-100">
-      {/* STUDENT INFO CARD */}
       <div className="rounded-3xl overflow-hidden h-56 shadow-lg relative"
         style={{
           backgroundImage: "url('https://images.unsplash.com/photo-1562774053-701939374585')",
@@ -38,23 +37,19 @@ export default function StudentSubjects() {
         </div>
       </div>
 
-      {/* SUBJECT GRID TABLE */}
-      <div className="mt-8 overflow-hidden rounded-2xl shadow-lg border border-white">
+      <div className="mt-8 overflow-hidden rounded-2xl shadow-lg ">
         <div className="grid grid-cols-[1fr_2fr_1.5fr_1fr] bg-white gap-0.5">
-          {/* Table Header */}
-          <div className="p-4 bg-[#7B0000] text-white text-center font-semibold sticky top-0 z-10">Course Code</div>
-          <div className="p-4 bg-[#7B0000] text-white text-center font-semibold sticky top-0 z-10">Subjects</div>
-          <div className="p-4 bg-[#7B0000] text-white text-center font-semibold sticky top-0 z-10">Teacher</div>
-          <div className="p-4 bg-[#7B0000] text-white text-center font-semibold sticky top-0 z-10">Schedule</div>
-          {/* Table Body */}
-          {subjects.map((item, index) => (
-            <React.Fragment key={index}>
-              <div className="p-4 bg-[#ECE9DF] text-center text-sm">{item.course_code}</div>
-              <div className="p-4 bg-[#ECE9DF] text-center text-sm font-medium">{item.subject}</div>
-              <div className="p-4 bg-[#ECE9DF] text-center text-sm">{item.teacher}</div>
-              <div className="p-4 bg-[#ECE9DF] text-center text-sm">{item.schedule}</div>
-            </React.Fragment>
-          ))}
+          <div className="p-4 bg-[#7B0000] text-white text-center font-semibold ">Course Code</div>
+          <div className="p-4 bg-[#7B0000] text-white text-center font-semibold ">Subjects</div>
+          <div className="p-4 bg-[#7B0000] text-white text-center font-semibold ">Teacher</div>
+          <div className="p-4 bg-[#7B0000] text-white text-center font-semibold ">Schedule</div>
+            {subjects.map((item, index) => (
+              <React.Fragment key={index}>
+                <div className="p-4 bg-[#ECE9DF] text-center text-sm">{item.course_code}</div>
+                <div className="p-4 bg-[#ECE9DF] text-center text-sm font-medium">{item.subject}</div>
+                <div className="p-4 bg-[#ECE9DF] text-center text-sm">{item.teacher}</div>
+                <div className="p-4 bg-[#ECE9DF] text-center text-sm">{item.schedule}</div>
+              </React.Fragment> ))}
         </div>
       </div>
     </div>

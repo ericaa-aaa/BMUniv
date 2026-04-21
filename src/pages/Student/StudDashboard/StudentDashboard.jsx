@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { PiDotsThreeCircleDuotone } from "react-icons/pi";
+import { PiDotsThreeCircleLight } from "react-icons/pi";
 import { IoClose } from "react-icons/io5"; 
 import { User as UserIcon } from "lucide-react"; 
 import { TfiAnnouncement } from "react-icons/tfi";
@@ -62,17 +62,18 @@ export default function StudentDashboard() {
                 {student.name}
               </h2>
             </div>
-
-            <div className="space-y-1 text-lg font-semibold text-[#7B0000]">
-              <p>▸ Batangas Metropolitan University</p>
-              <p>▸ {student.category} - Grade {student.grade}</p>
-              <p className="text-gray-600 italic"> ▸ Section: {student.section}</p>
-              <p className={student.status === "ENROLLED" ? "text-green-600" : "text-amber-600"}> ▸ {student.status}</p>
+            <div className="m-2 p-2 pr-15">
+              <div className="space-y-3 text-lg font-semibold text-[#7B0000]">
+                <p>▸ Batangas Metropolitan University</p>
+                <p>▸ {student.category} - Grade {student.grade}</p>
+                <p> ▸ Section: {student.section}</p>
+                <p className={student.status === "ENROLLED" ? "text-green-600" : "text-amber-600"}> ▸ {student.status}</p>
+              </div>
             </div>
 
             <div className="absolute top-2 right-6 z-20">
               <button onClick={() => setShowMenu(!showMenu)} className="p-1 hover:bg-black/10 rounded-full transition-colors">
-                <PiDotsThreeCircleDuotone size={32} className="text-black" />
+                <PiDotsThreeCircleLight size={32} className="text-black" />
               </button>
 
               {showMenu && (
@@ -80,11 +81,12 @@ export default function StudentDashboard() {
                   <button onClick={() => {
                       setShowPasswordModal(true);
                       setShowMenu(false);}}
-                    className="w-full text-left px-4 py-3 hover:bg-gray-50 text-sm font-medium transition-colors">
+                    className="w-full text-left px-4 py-3 hover:bg-gray-50 text-sm font-medium transition-colors border-2 border-[#630000] rounded-xl">
                     Update Password
                   </button>
                 </div> )}
             </div>
+
           </div>
         </div>
 
