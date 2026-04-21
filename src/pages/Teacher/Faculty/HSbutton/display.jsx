@@ -37,7 +37,7 @@ export default function DisplayHighSchool() {
           </p>
         ) : (
           facultyList.map((faculty) => (
-            <div key={faculty.id} className="flex flex-col items-center text-center p-4">
+            <div key={faculty.id} className="flex flex-col items-center text-center p-10">
               
               <div className="mb-4">
                 <FaUserCircle className="text-gray-800 text-[100px]" />

@@ -115,7 +115,7 @@ export default function AddJHS({ setShowAdd }) {
       </div>
 
       {/* Subject Section */}
-      <div className="pl-12 pt-10">
+      <div className="pl-12 pt-15">
         <p className="text-[#630000] text-[25px] font-semibold">Subjects To Teach</p>
         {selectedGrade && (
             <p className="text-[12px] text-gray-500 italic">

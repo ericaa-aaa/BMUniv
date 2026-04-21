@@ -27,7 +27,8 @@ export default function DisplaySHS() {
     <div className="p-5 font-[Inter]">
       <h2 className="text-[#630000] text-3xl font-bold mb-8 ml-10">Senior High School Faculty</h2>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-y-12 gap-x-6 justify-items-center">
+      <div className="flex-1 overflow-auto border border-[#630000] rounded-xl bg-white/70 shadow-inner h-180 mt-10">
+        <div className="min-w-225 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-y-12 gap-x-6 justify-items-center ">
         
         {facultyList.length === 0 ? (
           <p className="col-span-full text-gray-500 italic text-xl mt-10">
@@ -35,7 +36,7 @@ export default function DisplaySHS() {
           </p>
         ) : (
           facultyList.map((faculty, index) => (
-            <div key={faculty.id || index} className="flex flex-col items-center text-center">
+            <div key={faculty.id || index} className="flex flex-col items-center text-center p-10">
               
               <div className="mb-4">
                 <FaUserCircle className="text-gray-800 text-[100px]" />
@@ -48,27 +49,12 @@ export default function DisplaySHS() {
               <p className="text-gray-600 text-lg font-medium">
                 {faculty.position || "SHS Instructor"}
               </p>
-
-              {/* Display SHS Specific Subjects */}
-              <div className="mt-3 flex flex-wrap justify-center gap-2 max-w-62.5">
-                {faculty.subjects && faculty.subjects.length > 0 ? (
-                  faculty.subjects.map((sub) => (
-                    <span 
-                      key={sub.id} 
-                      className="bg-[#630000] text-[#EDEBDD] text-[10px] px-2 py-1 rounded-full font-semibold"
-                    >
-                      {sub.name} (G{sub.grade})
-                    </span>
-                  ))
-                ) : (
-                  <span className="text-gray-400 italic text-sm">No specialized subjects assigned</span>
-                )}
-              </div>
               
             </div>
           ))
         )}
       </div>
+    </div>
     </div>
   );
 }

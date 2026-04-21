@@ -21,7 +21,7 @@ export default function ElemFaculty() {
           
           <button 
             onClick={() => setView('display')}
-            className={`w-full max-w-80 font-semibold text-[30px] rounded-2xl p-3 text-center transition-colors ${
+            className={`w-67 h-13 font-['Inter'] font-semibold text-[25px] rounded-2xl text-center transition-colors ${
               view === 'display' ? 'bg-[#630000] text-[#EDEBDD]' : 'bg-[#EDEBDD] text-[#630000]'
             }`}
           >
@@ -30,7 +30,7 @@ export default function ElemFaculty() {
 
           <button 
             onClick={() => setView('add')}
-            className={`w-full max-w-80 font-semibold text-[30px] rounded-2xl p-3 text-center transition-colors ${
+            className={`w-67 h-13 font-['Inter'] font-semibold text-[25px] rounded-2xl text-center transition-colors ${
               view === 'add' ? 'bg-[#630000] text-[#EDEBDD]' : 'bg-[#EDEBDD] text-[#630000]'
             }`}
           >

@@ -60,37 +60,63 @@ export default function AddSHS({ setShowAdd }) {
   };
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)} className="relative h-auto pb-10 font-[Inter]">
+    <form onSubmit={handleSubmit(onSubmit)} className="relative h-auto pb-10 font-[Inter] H-100">
       <div className="pl-12 pt-5">
         <p className="text-[#630000] text-[25px] font-semibold">Senior High Teacher's Information</p>
       </div>
 
-      <div className="bg-[#EDEBDD] w-full py-7 px-4 ml-12 mt-5 rounded-2xl flex flex-col gap-8 max-w-[90%]">
-        <div className="flex gap-7 items-center ml-7">
+      <div className="grid grid-cols-4 gap-y-5 justify-items-center max-w-7xl mx-auto  pt-12">
+        <div className="flex flex-col gap-1">
           <p className="text-[#1B1717] text-[14px]">Teacher's Name:</p>
-          <input {...register("lastname")} className="border text-[12px] w-30 h-10 p-3 rounded-[5px] bg-white" placeholder="Last Name" required />
-          <input {...register("firstname")} className="border text-[12px] w-30 h-10 p-3 rounded-[5px] bg-white" placeholder="First Name" required />
-          <input {...register("middlename")} className="border text-[12px] w-30 h-10 p-3 rounded-[5px] bg-white" placeholder="Middle Name" />
-          <input {...register("ext")} className="border text-[12px] w-20 h-10 p-3 rounded-[5px] bg-white" placeholder="Ext" />
+          <input {...register("lastname")} className="border border-[#630000] shadow-sm text-[13px] tracking-wider h-10 p-3 rounded-[5px] w-40" placeholder="Last Name" />
         </div>
 
-        <div className="flex gap-7 items-center ml-7">
-          <p className="text-[#1B1717] text-[14px]">Email Address:</p>
-          <input {...register("email_address")} type="email" className="border text-[12px] w-50 h-10 p-3 rounded-[5px] bg-white" placeholder="Email Address" required />
-          
-          <p className="text-[#1B1717] text-[14px] ml-7">Grade Level</p>
-          <select {...register("grade_level")} className="border text-[12px] w-30 h-10 p-2 rounded-[5px]" required>
-            <option value="">Select</option>
-            <option value="11">Grade 11</option>
-            <option value="12">Grade 12</option>
-          </select>
+        <div className="flex flex-col gap-1">
+          <p className="text-[#1B1717] text-[14px] invisible">Teacher's Name:</p>
+          <input {...register("firstname")} className="border border-[#630000] shadow-sm text-[13px] tracking-wider h-10 p-3 rounded-[5px] w-40" placeholder="First Name" />
+        </div>
 
-          <p className="text-[#1B1717] text-[14px] ml-7">Position</p>
-          <input {...register("position")} className="border text-[12px] w-40 h-10 p-3 rounded-[5px] bg-white" placeholder="Position" required />
+        <div className="flex flex-col gap-1">
+          <p className="text-[#1B1717] text-[14px] invisible">Teacher's Name:</p>
+          <input {...register("middlename")} className="border border-[#630000] shadow-sm text-[13px] tracking-wider h-10 p-3 rounded-[5px] w-40" placeholder="Middle Name" />
+        </div>
+
+        <div className="flex flex-col gap-1">
+          <p className="text-[#1B1717] text-[14px] invisible">Teacher's Name:</p>
+          <input {...register("ext")} className="border border-[#630000] shadow-sm text-[13px] tracking-wider h-10 p-3 rounded-[5px] w-40" placeholder="Ext" />
+        </div>
+
+        <div className="flex flex-col gap-1">
+          <p className="text-[#1B1717] text-[14px]">Email Address:</p>
+          <input {...register("email_address")} type="email" className="border border-[#630000] shadow-sm text-[13px] tracking-wider h-10 p-3 rounded-[5px] w-40" placeholder="Email Address" />
+        </div>
+        <div className="flex flex-col gap-1">
+          <p className="text-[#1B1717] text-[14px]">Grade Level</p>
+          <select {...register("grade_level")} className="border border-[#630000] shadow-sm text-[13px] tracking-wider h-10 p-2 rounded-[5px] w-40" >
+            <option value="">Select</option>
+            <option value="7">Grade 11</option>
+            <option value="8">Grade 12</option>    
+          </select>
+        </div>
+
+        <div className="flex flex-col gap-1">
+          <p className="text-[#1B1717] text-[14px]">Strand</p>
+          <select {...register("grade_level")} className="border border-[#630000] shadow-sm text-[13px] tracking-wider h-10 p-2 rounded-[5px] w-40" >
+            <option value="">Select</option>
+            <option value="7">HUMMS</option>
+            <option value="8">STEM</option>    
+            <option value="8">ABM</option> 
+            <option value="8">GAS</option> 
+          </select>
+        </div>
+
+        <div className="flex flex-col gap-1">
+          <p className="text-[#1B1717] text-[14px] ">Position</p>
+          <input {...register("position")} className="border border-[#630000] shadow-sm text-[13px] tracking-wider h-10 p-3 rounded-[5px] w-40" placeholder="Position"/>
         </div>
       </div>
 
-      <div className="pl-12 pt-10">
+      <div className="pl-12 pt-15">
         <p className="text-[#630000] text-[25px] font-semibold">Subjects To Teach</p>
         <p className="text-[12px] text-gray-500 italic">Select the specific subjects this teacher will handle.</p>
       </div>
@@ -114,8 +140,8 @@ export default function AddSHS({ setShowAdd }) {
         )}
       </div>
 
-      <div className="flex justify-center mt-20"> 
-        <button type="submit" className="bg-[#630000] text-[#EDEBDD] text-[20px] px-10 py-3 rounded-xl font-bold">
+      <div className="flex justify-center mt-50"> 
+        <button type="submit" className="bg-[#630000] text-[#EDEBDD] text-[15px] px-6 py-3 rounded-xl font-bold hover:bg-red-800 shadow-lg transition-all">
           Add Senior High Faculty
         </button>
       </div>
