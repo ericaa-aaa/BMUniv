@@ -24,19 +24,35 @@ export const loginUser = async (username, password) => {
 
     const data = await res.json();
 
-    if (res.ok) {
-      localStorage.setItem("token", data.access_token);
-      localStorage.setItem("role", data.role);
-      localStorage.setItem("activeUser", data.username);
+    // if (res.ok) {
+    //   localStorage.setItem("token", data.access_token);
+    //   localStorage.setItem("role", data.role);
+    //   localStorage.setItem("activeUser", data.username);
       
-      if (data.role === 'student') {
-        localStorage.setItem("studentGrade", data.grade || "");
-        localStorage.setItem("studentSection", data.section || "");
-        localStorage.setItem("studentCategory", data.category || "");
-        localStorage.setItem("studentStatus", data.status || "ENROLLED");
-      }
-      return { success: true, role: data.role };
-    }
+    //   if (data.role === 'student') {
+    //     localStorage.setItem("studentGrade", data.grade || "");
+    //     localStorage.setItem("studentSection", data.section || "");
+    //     localStorage.setItem("studentCategory", data.category || "");
+    //     localStorage.setItem("studentStatus", data.status || "ENROLLED");
+    //   }
+    //   return { success: true, role: data.role };
+    // }
+
+    if (res.ok) {
+  localStorage.setItem("token", data.access_token);
+  localStorage.setItem("role", data.primary_role); // ✅ FIXED
+  localStorage.setItem("activeUser", data.username);
+
+  if (data.primary_role === 'student') {
+    localStorage.setItem("studentGrade", data.grade || "");
+    localStorage.setItem("studentSection", data.section || "");
+    localStorage.setItem("studentCategory", data.category || "");
+    localStorage.setItem("studentStatus", data.status || "ENROLLED");
+  }
+
+  return { success: true, role: data.primary_role }; // ✅ FIXED
+}
+
 
     return { success: false, message: data.message || "Invalid credentials" };
 
