@@ -372,7 +372,7 @@ const onSubmit = async (data) => {
              
                                 <button 
                                      type="button" onClick={handleNext} // Use the new handler here
-                                     className="flex justify-end items-center ml-auto gap-2 px-6 py-3 bg-[#630000] text-white  text-[13px] rounded-xl font-bold hover:bg-red-800 shadow-lg transition-all">
+                                     className="flex justify-end items-center ml-auto gap-2 px-6 py-3 bg-[#630000] text-white text-[13px] rounded-xl font-bold hover:bg-red-800 shadow-lg transition-all">
                                      <ArrowRight size={20} />NEXT 
                                 </button>
                             </div>

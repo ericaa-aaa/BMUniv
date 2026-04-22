@@ -1,11 +1,12 @@
 import { useForm } from "react-hook-form";
+import toast from 'react-hot-toast';
 import { useState, useEffect } from "react";
 import { FacultyTeacherService } from "../../../../services/facultyteacherservice";
 
-export default function AddElementary({ setShowAdd }) {
+export default function AddElementary() {
   const [availableSubjects, setAvailableSubjects] = useState([]);
   
-  const { register, handleSubmit, watch, setValue } = useForm({
+  const { register, watch, setValue, getValues, trigger, formState: { errors }} = useForm({
     defaultValues: {
         // --- ADDED LEVEL KEY ---
         level: "Elementary", 
@@ -19,6 +20,37 @@ export default function AddElementary({ setShowAdd }) {
         subjects: [],    
     }
   });
+
+  const handleNext = async () => {
+    let fieldsToValidate = [
+      "lastname", "firstname", "email_address", "grade_level", "position"
+    ];
+
+    const isValid = await trigger (fieldsToValidate);
+    if (!isValid){
+
+      toast.error("Please fill all required fields.", {
+                position: "top-right",
+                style: { borderRadius: '10px', background: '#333', color: '#fff' },
+        });
+        return;
+      }
+
+        const dataToSend = getValues();
+            toast.promise(
+                onSubmit(dataToSend), 
+                {
+                    loading: 'Processing enrollment...',
+                    success: <b>Enrollment submitted successfully!</b>,
+                    error: (err) =>
+                    <b>{err.message === "SESSION_EXPIRED" ? "Session Expired" : "Submission Failed"}</b>,
+                },
+                {
+                    style: { borderRadius: '10px', background: '#333', color: '#fff' },
+                    position: "top-right"
+                }
+            );
+    };
 
   const selectedGrade = watch("grade_level");
 
@@ -46,30 +78,19 @@ export default function AddElementary({ setShowAdd }) {
   }, [selectedGrade, setValue]);
 
   const onSubmit = async (data) => {
-    try {
-      // Data now includes 'level: "Elementary"' automatically from defaultValues
-      await FacultyTeacherService.addFaculty(data);
-      alert("Elementary Faculty Record Saved Successfully!");
-
-      if (typeof setShowAdd === 'function') {
-        setShowAdd(false); 
-      } else {
-        window.location.reload(); 
+      try {
+          const result = await FacultyTeacherService.addFaculty(data);
+          return result; 
+      } catch (error) {
+          if (error.message === "SESSION_EXPIRED") {
+              setTimeout(() => { window.location.href = "/"; }, 2000);
+          }
+          throw error; 
       }
-      
-    } catch (error) {
-      if (error.message === "SESSION_EXPIRED") {
-        alert("Session expired. Please log in again.");
-        window.location.href = "/";
-      } else {
-        console.error("Submission Error:", error);
-        alert("Error: " + error.message);
-      }
-    }
   };
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)} className="relative h-100 font-[Inter]">
+    <form className="relative h-100 font-[Inter]">
       <div className="pl-12 pt-5">
         <p className="text-[#630000] text-[25px] font-semibold">Elementary Teacher's Information</p>
       </div>
@@ -77,12 +98,12 @@ export default function AddElementary({ setShowAdd }) {
       <div className="grid grid-cols-4 gap-y-5 justify-items-center max-w-7xl mx-auto  pt-12">
         <div className="flex flex-col gap-1">
           <p className="text-[#1B1717] text-[14px]">Teacher's Name:</p>
-          <input {...register("lastname")} type="text" className="border border-[#630000] shadow-sm text-[13px] tracking-wider h-10 p-3 rounded-[5px] w-40" placeholder="Last Name"/>
+          <input {...register("lastname", { required: true })} type="text" className={`border border-[#630000] shadow-sm text-[13px] tracking-wider h-10 p-3 rounded-[5px] w-40 ${errors.lastname ? "border-red-500 bg-red-50" : "border-#630000"}`} placeholder="Last Name"/>
         </div>
 
         <div className="flex flex-col gap-1">
           <p className="text-[#1B1717] text-[14px] invisible">Teacher's Name:</p>
-          <input {...register("firstname")} type="text" className="border border-[#630000] shadow-sm text-[13px] tracking-wider h-10 p-3 rounded-[5px] w-40" placeholder="First Name" />
+          <input {...register("firstname", { required: true })} type="text" className={`border border-[#630000] shadow-sm text-[13px] tracking-wider h-10 p-3 rounded-[5px] w-40 ${errors.firstname ? "border-red-500 bg-red-50" : "border-#630000"}`} placeholder="First Name" />
         </div>
 
         <div className="flex flex-col gap-1">
@@ -97,12 +118,12 @@ export default function AddElementary({ setShowAdd }) {
 
         <div className="flex flex-col gap-1">
           <p className="text-[#1B1717] text-[14px]">Email Address:</p>
-          <input {...register("email_address")} type="email" className="border border-[#630000] shadow-sm text-[13px] tracking-wider h-10 p-3 rounded-[5px] w-40" placeholder="Email Address" />
+          <input {...register("email_address", { required: true })} type="email" className={`border border-[#630000] shadow-sm text-[13px] tracking-wider h-10 p-3 rounded-[5px] w-40 ${errors.email_address ? "border-red-500 bg-red-50" : "border-#630000"}`} placeholder="Email Address" />
         </div>
 
         <div className="flex flex-col gap-1">
           <p className="text-[#1B1717] text-[14px] ">Grade Level</p>
-            <select {...register("grade_level")} className="border border-[#630000] shadow-sm text-[13px] tracking-wider h-10 p-3 rounded-[5px] w-40">
+            <select {...register("grade_level", { required: true })} className={`border border-[#630000] shadow-sm text-[13px] tracking-wider h-10 p-3 rounded-[5px] w-40 ${errors.grade_level ? "border-red-500 bg-red-50" : "border-#630000"}`}>
                 <option value="">Select</option>
                 <option value="1">Grade 1</option>
                 <option value="2">Grade 2</option>
@@ -115,7 +136,7 @@ export default function AddElementary({ setShowAdd }) {
 
         <div className="flex flex-col gap-1">
           <p className="text-[#1B1717] text-[14px]">Position</p>
-          <input {...register("position")} type="text" className="border border-[#630000] shadow-sm text-[13px] tracking-wider h-10 p-3 rounded-[5px] w-40" placeholder="Position"/>
+          <input {...register("position", { required: true })} type="text" className={`border border-[#630000] shadow-sm text-[13px] tracking-wider h-10 p-3 rounded-[5px] w-40 ${errors.position ? "border-red-500 bg-red-50" : "border-#630000"}`} placeholder="Position"/>
         </div>
       </div>
 
@@ -147,7 +168,7 @@ export default function AddElementary({ setShowAdd }) {
       </div>
 
       <div className="flex justify-center mt-50 gap-4"> 
-        <button type="submit" className="bg-[#630000] text-[#EDEBDD] text-[15px] px-6 py-3 rounded-xl font-bold hover:bg-red-800 shadow-lg transition-all">
+        <button type="button" onClick={handleNext} className="bg-[#630000] text-[#EDEBDD] text-[15px] px-6 py-3 rounded-xl font-bold hover:bg-red-800 shadow-lg transition-all">
           Add Elementary Faculty
         </button>
       </div>

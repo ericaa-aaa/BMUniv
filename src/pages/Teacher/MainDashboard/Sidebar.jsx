@@ -27,7 +27,7 @@ function Sidebar() {
       <nav className="flex flex-col gap-6 font-['Inter'] font-medium">
         <div>
             <div onClick={() => setActiveItem("dashboard")} className="group flex items-center gap-3 cursor-pointer py-2 px-7 rounded mb-6 relative hover:bg-[#EDEBDD]">
-              <svg xmlns="http://www.w3.org/2000/svg" width="23" height="23" viewBox="0 0 24 24" fill="none" stroke="currentcolor" strokeWidth={`${activeItem === "dashboard" ? "3" : "2"}`}  strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-layout-dashboard transition-colors group-hover:text-[#1B1717]">
+              <svg xmlns="http://www.w3.org/2000/svg" width="23" height="23" viewBox="0 0 24 24" fill="none" stroke="currentcolor" strokeWidth={`${activeItem === "dashboard" ? "3" : "2 "}`}  strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-layout-dashboard transition-colors group-hover:text-[#1B1717]">
                 <rect width="7" height="9" x="3" y="3" rx="1" />
                 <rect width="7" height="5" x="14" y="3" rx="1" />
                 <rect width="7" height="9" x="14" y="12" rx="1" />
