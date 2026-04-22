@@ -167,7 +167,7 @@ export default function AddElementary() {
         )}
       </div>
 
-      <div className="flex justify-center mt-50 gap-4"> 
+      <div className="flex justify-center fixed right-200 bottom-10 gap-4"> 
         <button type="button" onClick={handleNext} className="bg-[#630000] text-[#EDEBDD] text-[15px] px-6 py-3 rounded-xl font-bold hover:bg-red-800 shadow-lg transition-all">
           Add Elementary Faculty
         </button>

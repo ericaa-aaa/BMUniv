@@ -15,7 +15,7 @@ export default function Elementary() {
             <div className="min-h-screen bg-white/90 p-4">
 
                 <div className="flex justify-center">
-                    <p className="flex justify-center text-[#EDEBDD] font-['Inter'] bg-[#630000] w-130 font-semibold text-[30px] rounded-2xl p-3">SHS Enrollment Form</p>
+                    <p className="text-[#EDEBDD] font-['Inter'] bg-[#630000] w-full max-w-110 font-semibold text-[25px] rounded-2xl p-2 text-center">SHS Enrollment Form</p>
                 </div>
 
                 <Page1 />
