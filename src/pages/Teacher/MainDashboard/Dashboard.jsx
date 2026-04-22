@@ -82,7 +82,7 @@ useEffect(() => {
             </div>
 
             {/* Profile Image: Added a clean border and consistent sizing */}
-            <div className="w-12 h-12 rounded-full overflow-hidden border-2 border-[#630000] p-0.5 bg-white shadow-sm transition-transform duration-300 group-hover:scale-105">
+            <div className="w-24 h-24 rounded-full overflow-hidden border-2 border-[#630000] p-0.5 bg-white shadow-sm transition-transform duration-300 group-hover:scale-105">
               <img 
                 src={profile} 
                 alt='Faculty' 
@@ -95,7 +95,7 @@ useEffect(() => {
 
         {/* Enrollment Stats Row */}
         {/* border-collapse - merge border para di magkaron ng double line */}
-        <table className="mt-6 font-['Inter'] font-semibold border border-collapse mx-auto max-w-7xl w-full"> 
+        <table className="mt-15 font-['Inter'] font-semibold border border-collapse mx-auto max-w-7xl w-full"> 
           {/* table body pag tbody ay main content pag thead naman ay pang header */}
           <tbody>
             {/* tr ay isang horizontal na row */}
@@ -139,11 +139,12 @@ useEffect(() => {
           </tbody>
         </table>
 
-        <h3 className="text-[#630000] font-['Inter'] text-[25px] font-bold mt-10 px-10">
+
+        <h3 className="text-[#630000] font-['Inter'] text-[25px] font-bold fixed left-95 bottom-110 px-10">
           My Assigned Subjects
         </h3>
         
-        <div className="max-h-75 overflow-y-auto overflow-hidden mt-4">
+        <div className="h-75 w-320 overflow-y-auto overflow-hidden mt-4 fixed left-105 bottom-30">
         <table className='font-["Inter"] border border-collapse mx-auto max-w-7xl w-full'>
           <thead>
             <tr>
@@ -181,7 +182,6 @@ useEffect(() => {
         </table>
       </div>
       </div>
-
     </section>
   );
 }

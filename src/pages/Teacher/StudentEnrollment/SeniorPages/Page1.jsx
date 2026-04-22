@@ -5,10 +5,9 @@ import { Paperclip, Save, ArrowRight, ArrowLeft } from "lucide-react";
 import { SeHighSchoolStudentService } from "../../../../services/sehighstudentservice";
 
 export default function EnrollmentForm() {
-    const [step, setStep] = useState(1); // 1 for Student Information, 2 for Parent/Guardian
+    const [step, setStep] = useState(1); 
     const [photoPreview, setPhotoPreview] = useState(null);
 
-    // Initialize React Hook Form with your exact default values + new address fields
     const { register, handleSubmit, watch, setValue, getValues, trigger, formState: { errors } } = useForm({
         defaultValues: {
             grade_level: "",
@@ -298,7 +297,7 @@ const onSubmit = async (data) => {
                             <div className="grid grid-cols-5 gap-y-5 justify-items-center max-w-7xl mx-auto mt-3">
                                 <div className="flex flex-col gap-1">
                                     <p className="text-[#1B1717] text-[14px] ">Contact Number</p>
-                                    <input {...register("contact_number", { required: true})} type="tel" minLength={11}  maxLength={11} className="border border-[#630000] shadow-sm text-[12px] w-40 h-10 p-3 rounded-[5px]" placeholder="09XXXXXXXXX" />
+                                    <input {...register("contact_number", { required: true})} type="tel" pattern="[0-9]{3}-[0-9]{2}-[0-9]{3}" minLength={11}  maxLength={11} className={`border border-[#630000] shadow-sm text-[13px] tracking-wider h-10 p-3 rounded-[5px] w-40 ${errors.contact_number ? "border-red-500 bg-red-50" : "border-#630000"}`} placeholder="09XXXXXXXXX" />
                                 </div>
 
                                 <div className="flex flex-col gap-1 col-span-1">
@@ -368,7 +367,7 @@ const onSubmit = async (data) => {
                                 </div>
                             )}
              
-                            <div className="mt-16 ml-12">
+                            <div className="fixed right-10 bottom-5">
              
                                 <button 
                                      type="button" onClick={handleNext} // Use the new handler here
@@ -408,7 +407,7 @@ const onSubmit = async (data) => {
 
                                 <div className="flex flex-col gap-1">
                                     <p className="text-[#1B1717] text-[14px]">Contact Number</p>
-                                    <input {...register("father_contact", { required: true })} type="tel" minLength={11}  maxLength={11} className={`border border-[#630000] shadow-sm text-[13px] tracking-wider w-40 h-10 p-3 rounded-[5px] ${errors.father_contact ? "border-red-500 bg-red-50" : "border-#630000"}`} placeholder="Contact #" />
+                                    <input {...register("father_contact", { required: true })} type="tel" pattern="[0-9]{3}-[0-9]{2}-[0-9]{3}" minLength={11}  maxLength={11} className={`border border-[#630000] shadow-sm text-[13px] tracking-wider w-40 h-10 p-3 rounded-[5px] ${errors.father_contact ? "border-red-500 bg-red-50" : "border-#630000"}`} placeholder="Contact #" />
                                 </div>
 
                                 <div className="flex flex-col gap-1 col-span-4 mr-193">
@@ -465,7 +464,7 @@ const onSubmit = async (data) => {
 
                                 <div className="flex flex-col gap-1 ">
                                     <p className="text-[#1B1717] text-[14px]">Contact Number</p>
-                                    <input {...register("mother_contact", { required: true })} type="tel" minLength={11}  maxLength={11} className={`border border-[#630000] shadow-sm text-[13px] tracking-wider w-40 h-10 p-3 rounded-[5px] ${errors.mother_contact ? "border-red-500 bg-red-50" : "border-#630000"}`} placeholder="Contact #" />
+                                    <input {...register("mother_contact", { required: true })} type="tel" pattern="[0-9]{3}-[0-9]{2}-[0-9]{3}" minLength={11}  maxLength={11} className={`border border-[#630000] shadow-sm text-[13px] tracking-wider w-40 h-10 p-3 rounded-[5px] ${errors.mother_contact ? "border-red-500 bg-red-50" : "border-#630000"}`} placeholder="Contact #" />
                                 </div>
                                 
                                 <div className="flex flex-col gap-1 col-span-4 mr-193">
@@ -521,7 +520,7 @@ const onSubmit = async (data) => {
 
                                     <div className="flex flex-col gap-1">
                                         <p className="text-[#1B1717] text-[14px]">Contact Number</p>
-                                        <input {...register("guardian_contact", { required: true })} type="tel" minLength={11}  maxLength={11} className={`border border-[#630000] shadow-sm text-[13px] tracking-wider w-40 h-10 p-3 rounded-[5px] ${errors.guardian_contact ? "border-red-500 bg-red-50" : "border-#630000"}`} placeholder="Contact #" />
+                                        <input {...register("guardian_contact", { required: true })} type="tel" pattern="[0-9]{3}-[0-9]{2}-[0-9]{3}" minLength={11}  maxLength={11} className={`border border-[#630000] shadow-sm text-[13px] tracking-wider w-40 h-10 p-3 rounded-[5px] ${errors.guardian_contact ? "border-red-500 bg-red-50" : "border-#630000"}`} placeholder="Contact #" />
                                     </div>
 
                                     <div className="flex flex-col gap-1 col-span-4 mr-193">

@@ -283,7 +283,7 @@ const onSubmit = async (data) => {
         </div>
         
         {/* Contact INfo */}
-        <div className="pl-25 pt-3">
+        <div className="pl-25 pt-3" type="tel" pattern="[0-9]{3}-[0-9]{2}-[0-9]{3}4">
             <p className="text-[#630000] text-[25px] font-semibold">Contact Information</p>
         </div>
 
@@ -399,7 +399,7 @@ const onSubmit = async (data) => {
 
                 <div className="flex flex-col gap-1">
                     <p className="text-[#1B1717] text-[14px]">Contact Number</p>
-                    <input {...register("father_contact", { required: true })} type="number" maxLength={11} minLength={11} className={`border border-[#630000] shadow-sm text-[13px] tracking-wider w-40 h-10 p-3 rounded-[5px] ${errors.father_contact ? "border-red-500 bg-red-50" : "border-#630000"}`} placeholder="Contact #" />
+                    <input {...register("father_contact", { required: true })} type="tel" pattern="[0-9]{3}-[0-9]{2}-[0-9]{3}" maxLength={11} minLength={11} className={`border border-[#630000] shadow-sm text-[13px] tracking-wider w-40 h-10 p-3 rounded-[5px] ${errors.father_contact ? "border-red-500 bg-red-50" : "border-#630000"}`} placeholder="Contact #" />
                 </div>
 
                 <div className="flex flex-col gap-1 col-span-4 mr-193">
@@ -456,7 +456,7 @@ const onSubmit = async (data) => {
 
                 <div className="flex flex-col gap-1 ">
                     <p className="text-[#1B1717] text-[14px]">Contact Number</p>
-                    <input {...register("mother_contact", { required: true })} type="number" maxLength={11} minLength={11} className={`border border-[#630000] shadow-sm text-[13px] tracking-wider w-40 h-10 p-3 rounded-[5px] ${errors.mother_contact ? "border-red-500 bg-red-50" : "border-#630000"}`} placeholder="Contact #" />
+                    <input {...register("mother_contact", { required: true })} type="tel" pattern="[0-9]{3}-[0-9]{2}-[0-9]{3}" maxLength={11} minLength={11} className={`border border-[#630000] shadow-sm text-[13px] tracking-wider w-40 h-10 p-3 rounded-[5px] ${errors.mother_contact ? "border-red-500 bg-red-50" : "border-#630000"}`} placeholder="Contact #" />
                 </div>
 
                 <div className="flex flex-col gap-1 col-span-4 mr-193">
@@ -512,7 +512,7 @@ const onSubmit = async (data) => {
 
                 <div className="flex flex-col gap-1">
                     <p className="text-[#1B1717] text-[14px]">Contact Number</p>
-                    <input {...register("guardian_contact", { required: true })} type="text" maxLength={11} minLength={11} className={`border border-[#630000] shadow-sm text-[13px] tracking-wider w-40 h-10 p-3 rounded-[5px] ${errors.guardian_contact ? "border-red-500 bg-red-50" : "border-#630000"}`} placeholder="Contact #" />
+                    <input {...register("guardian_contact", { required: true })} type="tel" pattern="[0-9]{3}-[0-9]{2}-[0-9]{3}" maxLength={11} minLength={11} className={`border border-[#630000] shadow-sm text-[13px] tracking-wider w-40 h-10 p-3 rounded-[5px] ${errors.guardian_contact ? "border-red-500 bg-red-50" : "border-#630000"}`} placeholder="Contact #" />
                 </div>
 
                 <div className="flex flex-col gap-1 col-span-4 mr-193">
