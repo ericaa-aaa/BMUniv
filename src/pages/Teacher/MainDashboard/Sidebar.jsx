@@ -114,21 +114,21 @@ function Sidebar() {
 
          {openRecords && (
           <div className='ml-6 mt-2 flex flex-col gap-2 text-sm'>
-            <div onClick={() => setActiveItem("elementary")} className="flex items-center gap-3 cursor-pointer rounded transition">
-              <span className={`w-3 h-3 rounded-full border-2 ${activeItem === "elementary" ? "bg-[#EDEBDD]" : "bg-[#1B1717]"}`}></span>
-              <Link to="/teacher/elemrec" className={`cursor-pointer ${activeItem === "elementary" ? 'underline' : 'hover:underline'}`}>
+            <div onClick={() => setActiveItem("elementaryrecord")} className="flex items-center gap-3 cursor-pointer rounded transition">
+              <span className={`w-3 h-3 rounded-full border-2 ${activeItem === "elementaryrecord" ? "bg-[#EDEBDD]" : "bg-[#1B1717]"}`}></span>
+              <Link to="/teacher/elemrec" className={`cursor-pointer ${activeItem === "elementaryrecord" ? 'underline' : 'hover:underline'}`}>
                 Elementary Records
               </Link>
             </div>
-            <div onClick={() => setActiveItem("jhs")} className="flex items-center gap-3 cursor-pointer rounded transition">
-              <span className={`w-3 h-3 rounded-full border-2 ${activeItem === "jhs" ? "bg-[#EDEBDD]" : "bg-[#1B1717]"}`}></span>
-              <Link to="/teacher/jhsrec" className={`cursor-pointer ${activeItem === "jhs" ? 'underline' : 'hover:underline'}`}>
+            <div onClick={() => setActiveItem("jhsrecord")} className="flex items-center gap-3 cursor-pointer rounded transition">
+              <span className={`w-3 h-3 rounded-full border-2 ${activeItem === "jhsrecord" ? "bg-[#EDEBDD]" : "bg-[#1B1717]"}`}></span>
+              <Link to="/teacher/jhsrec" className={`cursor-pointer ${activeItem === "jhsrecord" ? 'underline' : 'hover:underline'}`}>
                 Junior High School Records
               </Link>
             </div>
-            <div onClick={() => setActiveItem("shs")} className="flex items-center gap-3 cursor-pointer rounded transition">
-              <span className={`w-3 h-3 rounded-full border-2 ${activeItem === "shs" ? "bg-[#EDEBDD]" : "bg-[#1B1717]"}`}></span>
-              <Link to="/teacher/shsrec" className={`cursor-pointer ${activeItem === "shs" ? 'underline' : 'hover:underline'}`}>
+            <div onClick={() => setActiveItem("shsrecord")} className="flex items-center gap-3 cursor-pointer rounded transition">
+              <span className={`w-3 h-3 rounded-full border-2 ${activeItem === "shsrecord" ? "bg-[#EDEBDD]" : "bg-[#1B1717]"}`}></span>
+              <Link to="/teacher/shsrec" className={`cursor-pointer ${activeItem === "shsrecord" ? 'underline' : 'hover:underline'}`}>
                 Senior High School Records
               </Link>
             </div>
