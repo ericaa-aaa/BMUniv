@@ -68,7 +68,7 @@ export default function Elementary() {
       <div className="absolute inset-0 bg-white/80 px-6 py-8 flex flex-col">
 
         <div className="flex justify-center mb-8 shrink-0">
-          <h1 className="bg-[#8B0000] text-white px-12 py-3 rounded-2xl text-lg md:text-xl font-semibold shadow-lg">
+          <h1 className="bg-[#630000] font-['Inter'] text-white px-12 py-3 rounded-2xl text-lg md:text-xl font-semibold shadow-lg">
             Elementary Students Records
           </h1>
         </div>
@@ -89,7 +89,7 @@ export default function Elementary() {
                   onChange={(e) => setSearch(e.target.value)}
                   placeholder="Search by student name, grade level, or section..."
                   className="w-96 py-2 pl-10 pr-4 border border-[#810100] rounded-lg outline-none 
-                            bg-white text-sm placeholder:text-gray-400
+                            bg-white text-sm placeholder:text-gray-400 font-['Inter']
                             focus:ring-2 focus:ring-red-100 focus:border-[#630000] 
                             transition-all duration-200 shadow-sm"
                 />
@@ -100,7 +100,7 @@ export default function Elementary() {
           <div className="flex-1 overflow-auto border border-gray-200 rounded-xl bg-white shadow-inner">
             <div className="min-w-225"> 
 
-              <div className="grid grid-cols-[0.5fr_2fr_0.8fr_1fr_1fr_0.7fr_1fr] bg-[#8B0000] text-white text-center font-semibold sticky top-0 z-10 shadow-md">
+              <div className="grid grid-cols-[0.5fr_2fr_0.8fr_1fr_1fr_0.7fr_1fr] bg-[#630000] font-['Inter'] text-white text-center font-semibold sticky top-0 z-10 shadow-md">
                 <div className="p-3 border-r border-white/10">#</div>
                 <div className="p-3 border-r border-white/10">Student Name</div>
                 <div className="p-3 border-r border-white/10">Grade Level</div>
@@ -115,8 +115,8 @@ export default function Elementary() {
               ) : filteredStudents.length > 0 ? (
                 filteredStudents.map((student, index) => (
                   <div key={student.id} 
-                    className="grid grid-cols-[0.5fr_2fr_0.8fr_1fr_1fr_0.7fr_1fr] text-center border-b border-gray-100 hover:bg-red-50/50 transition-colors items-center">
-                    <div className="p-4 border-r border-gray-100 text-gray-500">{index + 1}</div>
+                    className="font-['Inter'] grid grid-cols-[0.5fr_2fr_0.8fr_1fr_1fr_0.7fr_1fr] text-center border-b border-gray-100 hover:bg-red-50/50 transition-colors items-center">
+                    <div className="p-4 font-['Inter'] border-r border-gray-100 text-gray-500">{index + 1}</div>
                     <div className="p-4 text-left border-r border-gray-100 font-medium text-gray-800">
                       {student.fullname}
                     </div>
@@ -148,7 +148,7 @@ export default function Elementary() {
                       )}
                     </div>
                     <div className="p-4">
-                      <button onClick={() => openModal(student)} className="bg-red-50 text-[#630000] px-4 py-1.5 rounded-lg text-sm font-semibold hover:bg-[#8B0000] hover:text-white transition-all shadow-sm">
+                      <button onClick={() => openModal(student)} className="bg-red-50 text-[#630000] px-4 py-1.5 rounded-lg text-sm font-['Inter'] font-semibold hover:bg-[#8B0000] hover:text-white transition-all shadow-sm">
                         View Form
                       </button>
                     </div>

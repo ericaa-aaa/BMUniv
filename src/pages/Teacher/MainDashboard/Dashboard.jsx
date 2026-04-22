@@ -3,7 +3,7 @@ import profile from '../../../assets/images/faculty1.png';
 import back from "../../../assets/images/bg.jpg";
 import { FacultyTeacherService } from '../../../services/facultyteacherservice';
 
-function Dashboard() {
+export default function TeacherDashboard() {
   const [firstName, setFirstName] = useState("");
   const [subjects, setSubjects] = useState([]);
   const [counts, setCounts] = useState({
@@ -63,9 +63,9 @@ useEffect(() => {
   }, []);
 
   return (
-    <section className="min-h-screen bg-cover bg-no-repeat bg-fixed bg-center"
-             style={{ backgroundImage: `url(${back})` }}>
-      <div className="min-h-screen bg-white/75 p-4 pb-5">
+    <section className="w-full h-full bg-cover bg-no-repeat bg-fixed bg-center"
+           style={{ backgroundImage: `url(${back})` }}>
+     <div className="w-full h-full bg-white/75">
       
         {/* User Profile Header */}
         <div className="flex justify-end pt-10 pr-12">
@@ -82,7 +82,7 @@ useEffect(() => {
             </div>
 
             {/* Profile Image: Added a clean border and consistent sizing */}
-            <div className="w-16 h-16 rounded-full overflow-hidden border-2 border-[#630000] p-0.5 bg-white shadow-sm transition-transform duration-300 group-hover:scale-105">
+            <div className="w-12 h-12 rounded-full overflow-hidden border-2 border-[#630000] p-0.5 bg-white shadow-sm transition-transform duration-300 group-hover:scale-105">
               <img 
                 src={profile} 
                 alt='Faculty' 
@@ -95,7 +95,7 @@ useEffect(() => {
 
         {/* Enrollment Stats Row */}
         {/* border-collapse - merge border para di magkaron ng double line */}
-        <table className="mt-17 font-['Inter'] font-semibold border border-collapse mx-auto max-w-7xl w-full"> 
+        <table className="mt-6 font-['Inter'] font-semibold border border-collapse mx-auto max-w-7xl w-full"> 
           {/* table body pag tbody ay main content pag thead naman ay pang header */}
           <tbody>
             {/* tr ay isang horizontal na row */}
@@ -131,7 +131,7 @@ useEffect(() => {
                 // and since the labels and counts are aligned or sinulat ng naayon sa pagkakasunod sunod, nag laline up sila coreesponds sa kanilang 
                 // labels and counts. gets?
                 <td key={index}
-                className='border-2 border-[#edebdd] bg-[#810100] px-6 py-4 text-center text-[#edebdd] font-bold text-xl'>
+                className='border-2 border-[#edebdd] bg-[#810100] px-6 py-2 text-center text-[#edebdd] font-bold text-xl'>
                     {count}
                 </td>
               ))}
@@ -139,11 +139,12 @@ useEffect(() => {
           </tbody>
         </table>
 
-        <h3 className="text-[#630000] font-['Inter'] text-[25px] font-bold mt-30 ml-19">
+        <h3 className="text-[#630000] font-['Inter'] text-[25px] font-bold mt-10 px-10">
           My Assigned Subjects
         </h3>
         
-        <table className='mt-7 font-["Inter"] font-semibold border border-collapse mx-auto max-w-7xl w-full'>
+        <div className="max-h-75 overflow-y-auto overflow-hidden mt-4">
+        <table className='font-["Inter"] border border-collapse mx-auto max-w-7xl w-full'>
           <thead>
             <tr>
                 {[
@@ -179,9 +180,8 @@ useEffect(() => {
           </tbody>
         </table>
       </div>
+      </div>
 
     </section>
   );
 }
-
-export default Dashboard;

@@ -30,6 +30,7 @@ export default function SHSFormModal({
           borderRadius: '8px',
           border: '1px solid #810100', 
           fontWeight: '500',
+          fontFamily: 'Inter',
         },
         iconTheme: {
           primary: '#EDEBDD', 
@@ -49,9 +50,9 @@ export default function SHSFormModal({
         }
       };
 
-  const readOnlyStyle = "border border-gray-200 rounded-lg px-4 py-2.5 bg-gray-100 cursor-not-allowed text-gray-500 w-full text-sm font-medium";
-  const editableStyle = "border border-gray-300 rounded-lg px-4 py-2.5 bg-white focus:ring-2 focus:ring-red-800 focus:border-transparent outline-none w-full text-sm transition-all";
-  const labelStyle = "text-[10px] font-bold mb-1.5 ml-1 text-gray-400 uppercase tracking-tight";
+  const readOnlyStyle = "font-['Inter'] border border-gray-200 rounded-lg px-4 py-2.5 bg-gray-100 cursor-not-allowed text-gray-500 w-full text-sm font-medium";
+  const editableStyle = "font-['Inter'] border border-gray-300 rounded-lg px-4 py-2.5 bg-white focus:ring-2 focus:ring-red-800 focus:border-transparent outline-none w-full text-sm transition-all";
+  const labelStyle = "font-['Inter'] text-[10px] font-bold mb-1.5 ml-1 text-gray-400 uppercase tracking-tight";
 
   return (
     <>
@@ -68,7 +69,7 @@ export default function SHSFormModal({
             <IoMdCloseCircleOutline size={28} />
           </button>
 
-          <div className="bg-red-800 text-white text-center py-5 rounded-2xl mb-10 shadow-md">
+          <div className="bg-[#630000] font-['Inter'] text-white text-center py-5 rounded-2xl mb-10 shadow-md">
             <h1 className="text-2xl font-black uppercase tracking-widest">Senior High Student Record</h1>
             <p className="text-red-100 text-[10px] mt-1 opacity-80 italic font-medium">Update Information System</p>
           </div>
@@ -89,11 +90,11 @@ export default function SHSFormModal({
             </section>
 
             <section>
-              <h2 className="text-lg font-bold text-[#7A1C1C] mb-5 flex items-center gap-2">
+              <h2 className="font-['Inter'] text-lg font-bold text-[#7A1C1C] mb-5 flex items-center gap-2">
                 <span className="w-1.5 h-6 bg-red-800 rounded-full"></span> Educational Background
               </h2>
               <div className="space-y-4">
-{/* elem */}
+
                 <div className="grid grid-cols-1 md:grid-cols-4 gap-4 bg-gray-50/50 p-4 rounded-xl border border-gray-100">
                   <div className="flex flex-col md:col-span-3">
                     <label className={labelStyle}>Last Elementary School Attended</label>
@@ -104,7 +105,7 @@ export default function SHSFormModal({
                     <input name="school_year" value={selectedStudent.school_year || ""} onChange={handleChange} className={editableStyle} placeholder="YYYY-YYYY" />
                   </div>
                 </div>
-{/* jhs */}
+
                 <div className="grid grid-cols-1 md:grid-cols-4 gap-4 bg-gray-50/50 p-4 rounded-xl border border-gray-100">
                   <div className="flex flex-col md:col-span-3">
                     <label className={labelStyle}>Last Junior High School Attended</label>
@@ -119,21 +120,21 @@ export default function SHSFormModal({
             </section>
 
             <section>
-              <h2 className="text-lg font-bold text-[#7A1C1C] mb-5 flex items-center gap-2">
+              <h2 className="font-['Inter'] text-lg font-bold text-[#7A1C1C] mb-5 flex items-center gap-2">
                 <span className="w-1.5 h-6 bg-red-800 rounded-full"></span> Basic Information
               </h2>
-              <div className="grid grid-cols-2 md:grid-cols-4 gap-x-4 gap-y-5">
-                <div className="flex flex-col"><label className={labelStyle}>Age</label><input name="age" value={selectedStudent.age || ""} onChange={handleChange} className={editableStyle} /></div>
-                <div className="flex flex-col"><label className={labelStyle}>Gender</label><input name="gender" value={selectedStudent.gender || ""} onChange={handleChange} className={editableStyle} /></div>
-                <div className="flex flex-col"><label className={labelStyle}>Civil Status</label><input name="civil_status" value={selectedStudent.civil_status || ""} onChange={handleChange} className={editableStyle} /></div>
-                <div className="flex flex-col"><label className={labelStyle}>Birthdate</label><input type="date" name="birthdate" value={selectedStudent.birthdate || ""} onChange={handleChange} className={editableStyle} /></div>
-                <div className="flex flex-col md:col-span-2"> <label className={labelStyle}>Birth Place</label><input name="place_of_birth" value={selectedStudent.place_of_birth || ""} onChange={handleChange} className={editableStyle}/></div>
-                <div className="flex flex-col"><label className={labelStyle}>Weight (kg)</label><input name="weight" value={selectedStudent.weight || ""} onChange={handleChange} className={editableStyle} /></div>
-                <div className="flex flex-col"><label className={labelStyle}>Height (cm)</label><input name="height" value={selectedStudent.height || ""} onChange={handleChange} className={editableStyle} /></div>
-                <div className="flex flex-col md:col-span-2"><label className={labelStyle}>Citizenship</label><input name="citizenship" value={selectedStudent.citizenship || ""} onChange={handleChange} className={editableStyle} /></div>
-                <div className="flex flex-col"><label className={labelStyle}>Mother Tongue</label><input name="mother_tongue" value={selectedStudent.mother_tongue || ""} onChange={handleChange} className={editableStyle}/></div>
-                <div className="flex flex-col"><label className={labelStyle}>Religion</label><input name="religion" value={selectedStudent.religion || ""} onChange={handleChange} className={editableStyle}/></div>
-              </div>
+                <div className="grid grid-cols-2 md:grid-cols-4 gap-x-4 gap-y-5">
+                  <div className="flex flex-col"><label className={labelStyle}>Age</label><input name="age" value={selectedStudent.age || ""} onChange={handleChange} className={editableStyle} /></div>
+                  <div className="flex flex-col"><label className={labelStyle}>Gender</label><input name="gender" value={selectedStudent.gender || ""} onChange={handleChange} className={editableStyle} /></div>
+                  <div className="flex flex-col"><label className={labelStyle}>Civil Status</label><input name="civil_status" value={selectedStudent.civil_status || ""} onChange={handleChange} className={editableStyle} /></div>
+                  <div className="flex flex-col"><label className={labelStyle}>Birthdate</label><input type="date" name="birthdate" value={selectedStudent.birthdate || ""} onChange={handleChange} className={editableStyle} /></div>
+                  <div className="flex flex-col md:col-span-2"> <label className={labelStyle}>Birth Place</label><input name="place_of_birth" value={selectedStudent.place_of_birth || ""} onChange={handleChange} className={editableStyle}/></div>
+                  <div className="flex flex-col"><label className={labelStyle}>Weight (kg)</label><input name="weight" value={selectedStudent.weight || ""} onChange={handleChange} className={editableStyle} /></div>
+                  <div className="flex flex-col"><label className={labelStyle}>Height (cm)</label><input name="height" value={selectedStudent.height || ""} onChange={handleChange} className={editableStyle} /></div>
+                  <div className="flex flex-col md:col-span-2"><label className={labelStyle}>Citizenship</label><input name="citizenship" value={selectedStudent.citizenship || ""} onChange={handleChange} className={editableStyle} /></div>
+                  <div className="flex flex-col"><label className={labelStyle}>Mother Tongue</label><input name="mother_tongue" value={selectedStudent.mother_tongue || ""} onChange={handleChange} className={editableStyle}/></div>
+                  <div className="flex flex-col"><label className={labelStyle}>Religion</label><input name="religion" value={selectedStudent.religion || ""} onChange={handleChange} className={editableStyle}/></div>
+                </div>
             </section>
 
             <section className="bg-gray-50 p-6 rounded-2xl border border-gray-200 grid grid-cols-1 md:grid-cols-3 gap-6">
@@ -175,8 +176,8 @@ export default function SHSFormModal({
             </section>
 
             <section className="grid grid-cols-1 md:grid-cols-2 gap-8">
-              <div className="bg-[#EDEBDD]/40 p-6 rounded-2xl border border-[#EDEBDD]">
-                <p className="text-[11px] font-black text-red-800 mb-4 tracking-tighter uppercase flex items-center gap-2">
+              <div className="p-6 rounded-2xl border border-gray-300 bg-gray-100/40">
+                <p className="font-['Inter'] text-[11px] font-black text-red-800 mb-4 tracking-tighter uppercase flex items-center gap-2">
                   <span className="w-2 h-2 bg-red-800 rounded-full"></span> Current Residence
                 </p>
                 <div className="grid grid-cols-2 gap-3">
@@ -187,8 +188,8 @@ export default function SHSFormModal({
                   <input name="curr_province" placeholder="Province" value={selectedStudent.curr_province || ""} onChange={handleChange} className={`${editableStyle} col-span-2`} />
                 </div>
               </div>
-              <div className="bg-[#EDEBDD]/40 p-6 rounded-2xl border border-[#EDEBDD]">
-                <p className="text-[11px] font-black text-red-800 mb-4 tracking-tighter uppercase flex items-center gap-2">
+              <div className="p-6 rounded-2xl border border-gray-300 bg-gray-100/40">
+                <p className="font-['Inter'] text-[11px] font-black text-red-800 mb-4 tracking-tighter uppercase flex items-center gap-2">
                   <span className="w-2 h-2 bg-red-800 rounded-full"></span> Permanent Residence
                 </p>
                 <div className="grid grid-cols-2 gap-3">
@@ -203,7 +204,7 @@ export default function SHSFormModal({
 
               {/* Family Background */}
              <section className="space-y-6">
-                <h2 className="text-xl font-bold text-[#7A1C1C] mb-6 flex items-center gap-2">
+                <h2 className="font-['Inter'] text-xl font-bold text-[#7A1C1C] mb-6 flex items-center gap-2">
                   <span className="w-1.5 h-6 bg-red-800 rounded-full"></span> Family Background
                 </h2>
                 <div className="grid grid-cols-1 gap-8">
@@ -237,7 +238,7 @@ export default function SHSFormModal({
             <button 
               onClick={handleUpdate} 
               disabled={isSubmitting}
-              className={`w-full text-white py-5 rounded-2xl font-black text-lg shadow-xl transition-all active:scale-[0.98] ${
+              className={`w-full text-white py-5 rounded-2xl font-['Inter'] font-black text-lg shadow-xl transition-all active:scale-[0.98] ${
                 isSubmitting ? "bg-gray-400 cursor-wait" : "bg-red-800 hover:bg-red-900"
               }`}>
               {isSubmitting ? "UPDATING RECORD..." : "SAVE UPDATED RECORD"}

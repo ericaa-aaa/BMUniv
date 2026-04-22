@@ -12,7 +12,7 @@ export default function ArchivedSubjects() {
     { subject: "Music", teacher: "Ramos, Merly K.", schoolYear: "2023-2024",}, ];
 
   return (
-    <div className="p-8 bg-gray-100">
+    <div className="font-['Inter'] p-8 bg-gray-100">
       <div className="rounded-3xl overflow-hidden h-56 shadow-lg relative mb-10"
         style={{
           backgroundImage: "url('https://images.unsplash.com/photo-1562774053-701939374585')",
