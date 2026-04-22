@@ -8,7 +8,7 @@ export default function AddElementary() {
   
   const { register, watch, setValue, getValues, trigger, formState: { errors }} = useForm({
     defaultValues: {
-        // --- ADDED LEVEL KEY ---
+
         level: "Elementary", 
         lastname: "",
         firstname: "",
@@ -40,8 +40,8 @@ export default function AddElementary() {
             toast.promise(
                 onSubmit(dataToSend), 
                 {
-                    loading: 'Processing enrollment...',
-                    success: <b>Enrollment submitted successfully!</b>,
+                    loading: 'Processing faculty...',
+                    success: <b>Faculty added successfully!</b>,
                     error: (err) =>
                     <b>{err.message === "SESSION_EXPIRED" ? "Session Expired" : "Submission Failed"}</b>,
                 },
