@@ -60,7 +60,7 @@ export default function SeHighschool() {
       <div className="absolute inset-0 bg-white/80 px-6 py-8 flex flex-col">
         
         <div className="flex justify-center mb-8 shrink-0">
-          <h1 className="bg-[#8B0000] text-white px-12 py-3 rounded-2xl text-lg md:text-xl font-semibold shadow-lg">
+          <h1 className="bg-[#630000] text-white font-['Inter'] px-12 py-3 rounded-2xl text-lg md:text-xl font-semibold shadow-lg">
             Senior Highschool Students Records
           </h1>
         </div>
@@ -81,7 +81,7 @@ export default function SeHighschool() {
                   onChange={(e) => setSearch(e.target.value)}
                   placeholder="Search by student name, grade level, or section..."
                   className="w-96 py-2 pl-10 pr-4 border border-[#810100] rounded-lg outline-none 
-                            bg-white text-sm placeholder:text-gray-400
+                            bg-white text-sm placeholder:text-gray-400 font-['Inter']
                             focus:ring-2 focus:ring-red-100 focus:border-[#630000] 
                             transition-all duration-200 shadow-sm"
                 />
@@ -89,10 +89,10 @@ export default function SeHighschool() {
             </div>
           </div>
 
-          <div className="flex-1 overflow-auto border border-gray-200 rounded-xl bg-white shadow-inner">
+          <div className="font-['Inter'] flex-1 overflow-auto border border-gray-200 rounded-xl bg-white shadow-inner">
             <div className="min-w-225"> 
               
-              <div className="grid grid-cols-[0.5fr_2fr_0.8fr_1fr_1fr_0.7fr_1fr] bg-[#8B0000] text-white text-center font-semibold sticky top-0 z-10 shadow-md">
+              <div className="grid grid-cols-[0.5fr_2fr_0.8fr_1fr_1fr_0.7fr_1fr] bg-[#630000] font-['Inter'] text-white text-center font-semibold sticky top-0 z-10 shadow-md">
                 <div className="p-3 border-r border-white/10">#</div>
                 <div className="p-3 border-r border-white/10">Student Name</div>
                 <div className="p-3 border-r border-white/10">Grade Level</div>
@@ -136,7 +136,7 @@ export default function SeHighschool() {
 
                     <div className="p-4 border-r border-gray-100 flex justify-center">
                       {student.photo_url ? (
-                        <img src={student.photo_url} alt="Profile" className="h-20 w-20 object-cover border" />
+                        <img src={student.photo_url} alt="Profile" className="h-16 w-16 rounded-md object-cover border" />
                       ) : (
                         <span className="text-gray-300 text-xs italic">No Image</span>
                       )}
@@ -150,7 +150,7 @@ export default function SeHighschool() {
                 ))
               ) : (
                 <div className="p-10 text-center text-gray-400 italic">
-                  No students found.
+                  No records match "{search}"
                 </div>
               )}
             </div>

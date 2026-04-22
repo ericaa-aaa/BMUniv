@@ -44,6 +44,7 @@ export default function StudentDashboard() {
         background: '#7A1C1C',
         color: '#EDEBDD',
         fontWeight: 'bold',
+        fontFamily: 'Inter',
         borderRadius: '12px',
         border: '1px solid #5a1515',
       },
@@ -85,12 +86,12 @@ export default function StudentDashboard() {
               <div className="w-24 h-24 bg-black rounded-full flex items-center justify-center">
                 <UserIcon size={50} className="text-white" />
               </div>
-              <h2 className="text-2xl font-semibold text-gray-800 uppercase">
+              <h2 className="font-['Inter'] text-2xl font-semibold text-gray-800 uppercase">
                 {student.name}
               </h2>
             </div>
             <div className="m-2 p-2 pr-15">
-              <div className="space-y-3 text-lg font-semibold text-[#7B0000]">
+              <div className="font-['Inter'] space-y-3 text-lg font-semibold text-[#7B0000]">
                 <p>▸ Batangas Metropolitan University</p>
                 <p>▸ {student.category} - Grade {student.grade}</p>
                 <p> ▸ Section: {student.section}</p>
@@ -112,7 +113,7 @@ export default function StudentDashboard() {
                       setShowPasswordModal(true);
                       setShowMenu(false);
                     }}
-                    className="w-full text-left px-4 py-3 hover:bg-gray-50 text-sm font-medium transition-colors border-2 border-[#630000] rounded-xl"
+                    className="font-['Inter'] w-full text-left px-4 py-3 hover:bg-gray-50 text-sm font-medium transition-colors border-2 border-[#630000] rounded-xl"
                   >
                     Update Password
                   </button>
@@ -123,7 +124,7 @@ export default function StudentDashboard() {
         </div>
 
         {showPasswordModal && (
-          <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-100 backdrop-blur-sm">
+          <div className="font-['Inter'] fixed inset-0 bg-black/50 flex items-center justify-center z-100 backdrop-blur-sm">
             <div className="bg-white w-full max-w-md rounded-2xl shadow-2xl p-8 relative mx-4">
               <button
                 onClick={() => {
@@ -134,7 +135,7 @@ export default function StudentDashboard() {
               >
                 <IoClose size={28} />
               </button>
-              <h2 className="text-2xl font-bold text-[#7A1C1C] mb-6">Update Password</h2>
+              <h2 className="text-2xl font-bold text-[#7A1C1C] mb-6 ">Update Password</h2>
               <form onSubmit={handlePasswordUpdate} className="space-y-4">
                 {[
                   { name: "currentPassword", placeholder: "Current Password" },
@@ -172,7 +173,7 @@ export default function StudentDashboard() {
           </div>
         )}
 
-        <div className="bg-[#EDEBDD] h-48 rounded-xl shadow-sm border border-black/5 p-6">
+        <div className="bg-[#EDEBDD] font-['Inter'] h-48 rounded-xl shadow-sm border border-black/5 p-6">
           <h3 className="flex items-center gap-2 text-lg font-bold text-[#7B0000] mb-2 uppercase tracking-tight">
             <TfiAnnouncement className="shrink-0 font-bold" />
             <span>Announcements</span>
@@ -180,7 +181,7 @@ export default function StudentDashboard() {
           <p className="text-gray-500 italic">No new announcements today.</p>
         </div>
 
-        <div className="bg-[#EDEBDD] h-72 rounded-xl p-6 overflow-hidden shadow-sm border border-black/5 flex flex-col">
+        <div className="bg-[#EDEBDD] font-['Inter'] h-72 rounded-xl p-6 overflow-hidden shadow-sm border border-black/5 flex flex-col">
           <h3 className="flex items-center gap-2 text-lg font-bold text-[#7B0000] mb-4 uppercase tracking-tight">
             <AiOutlineSchedule className="shrink-0" />
             <span>Schedule & Tasks</span>

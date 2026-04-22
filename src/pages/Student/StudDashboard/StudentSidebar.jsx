@@ -32,7 +32,7 @@ export default function StudentSidebar() {
           <div onClick={() => { setOpenDashboard(!openDashboard)}} 
             className={`group flex items-center gap-3 cursor-pointer py-2 px-7 rounded transition-colors duration-300 
             ${openDashboard === "dashboard" ? 'bg-[#EDEBDD]' : 'hover:bg-[#EDEBDD]'}`}>
-            <TbLayoutDashboardFilled className={`w-6 h-5 transition-all duration-300 
+            <TbLayoutDashboardFilled className={`text-2xl transition-all duration-300 
               ${openSubjects === "subjects" ? 'brightness-0' : 'group-hover:brightness-0'}`} />
               <Link to="/student" className={`transition-colors duration-300 
                 ${openDashboard === "dashboard" ? 'text-[#1B1717] font-extrabold' : 'text-[#EDEBDD] group-hover:text-[#1B1717] font-normal'}`}>
@@ -45,7 +45,7 @@ export default function StudentSidebar() {
           <div onClick={() => { setOpenSubjects(!openSubjects); }} 
             className={`group flex items-center gap-3 cursor-pointer py-2 px-7 rounded transition-colors duration-300 
             ${openSubjects === "subjects" ? 'bg-[#EDEBDD]' : 'hover:bg-[#EDEBDD]'}`}>
-            <IoIosPeople className={`w-6 h-5 transition-all duration-300 
+            <IoIosPeople className={`text-2xl transition-all duration-300 
               ${openSubjects === "subjects" ? 'brightness-0' : 'group-hover:brightness-0'}`} />
               <Link to="/student/studsubj" className={`transition-colors duration-300 
                 ${openSubjects === "subjects" ? 'text-[#1B1717] font-extrabold' : 'text-[#EDEBDD] group-hover:text-[#1B1717] font-normal'}`}>
@@ -56,12 +56,12 @@ export default function StudentSidebar() {
 
         <div>
           <div onClick={() => { setOpenArchived(!openArchived); }}
-            className={`group flex items-center gap-3 cursor-pointer py-2 px-7 rounded transition-colors 
-            ${openArchived ? 'bg-[#EDEBDD]' : 'hover:bg-[#EDEBDD]'}`} >
-            <FaArchive className={`w-6 h-5 transition-all duration-300 
+            className={`group flex items-center gap-3 cursor-pointer py-2 px-7 rounded transition-colors duration-300 
+            ${openArchived === "archives" ? 'bg-[#EDEBDD]' : 'hover:bg-[#EDEBDD]'}`} >
+            <FaArchive className={`text-2xl transition-all duration-300 
               ${openSubjects === "subjects" ? 'brightness-0' : 'group-hover:brightness-0'}`}  />
               <Link to="/student/archsubj" className={`transition-colors duration-300 
-                ${openArchived ? 'text-[#1B1717] font-extrabold' : 'text-[#EDEBDD] group-hover:text-[#1B1717] font-normal'}`}>
+                ${openArchived === "archives" ? 'text-[#1B1717] font-extrabold' : 'text-[#EDEBDD] group-hover:text-[#1B1717] font-normal'}`}>
                 Archived Subjects
               </Link>
           </div>
@@ -70,7 +70,7 @@ export default function StudentSidebar() {
       </nav>
 
         <div className="mt-auto">
-          <button onClick={handleLogout} className="flex items-center gap-2 cursor-pointer text-[#EDEBDD] hover:text-white transition-all group">
+          <button onClick={handleLogout} className="font-['Inter'] flex items-center gap-2 cursor-pointer text-[#EDEBDD] hover:text-white transition-all group">
           <RiLogoutBoxLine className='text-4xl'/>
             <span className="font-medium">Log Out</span>
           </button>

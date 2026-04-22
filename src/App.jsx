@@ -5,7 +5,7 @@ import JHSRecords from "./pages/Teacher/Records/JHS"
 import SHSRecords from "./pages/Teacher/Records/SHS"
 import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom';
 import StudentDashboard from './pages/Student/StudDashboard/StudentDashboard';
-import Dashboard from './pages/Teacher/MainDashboard/Dashboard';
+import TeacherDashboard from './pages/Teacher/MainDashboard/Dashboard';
 import ElementaryEnrollment from './pages/Teacher/StudentEnrollment/Elementary';
 import HighSchool from './pages/Teacher/StudentEnrollment/HighSchool';
 import SHS from './pages/Teacher/StudentEnrollment/SHS';
@@ -13,6 +13,8 @@ import StudSubj from "./pages/Student/Subjects/StudentSubjectsTable.jsx";
 import ArchSubj from './pages/Student/ArchivedSubjects/StudArchSubj.jsx';
 import Sidebar from './pages/Teacher/MainDashboard/Sidebar.jsx';
 import StudentLayout from './pages/Student/StudentLayout.jsx';
+
+import TeacherLayout from './pages/Teacher/TeacherLayout.jsx';
 
 //Faculty imports
 import ElemFaculty from './pages/Teacher/Faculty/ElemFaculty.jsx';
@@ -25,35 +27,39 @@ function AppContent() {
   const location = useLocation();
 
   // Hide yung sidebar kapag yung path ay "/" OR if it starts with "/student"
-  const hideSidebar = 
+  //const hideSidebar = 
     location.pathname === "/" || 
     location.pathname.startsWith("/student");
 
   return (
     <div className="flex">
       <Toaster position="top-right" /> 
-      {/* mag shoshow ang sidebar pag nag false*/}
-      {!hideSidebar && <Sidebar />} 
+      {/* mag shoshow ang sidebar pag nag false
+      {!hideSidebar && <Sidebar />} */}
       
       <div className="flex-1">
         <Routes>
           <Route path="/" element={<LoginPage />} />
-          <Route path="/teacher/*" element={<Dashboard/>} />
-          <Route path="/elem" element={<ElementaryEnrollment/>} />
-          <Route path="/hs" element={<HighSchool/>} />
-          <Route path="/shs" element={<SHS/>} />
-          <Route path="/elemfaculty" element={<ElemFaculty/>} />
-          <Route path="/hsfaculty" element={<HSFaculty/>} />
-          <Route path="/shsfaculty" element={<SHSFaculty/>} />
-          <Route path="/elemrec/*" element={<ElementaryRecords />} />
-          <Route path="/jhsrec/*" element={<JHSRecords />} />
-          <Route path="/shsrec/*" element={<SHSRecords />} />
 
             <Route path="/student" element={<StudentLayout />}>
               <Route index element={<StudentDashboard/>} />
               <Route path="/student/studsubj/*" element={<StudSubj />}/>
               <Route path="/student/archsubj/*" element={<ArchSubj />}/>
             </Route>
+
+              <Route path='/teacher' element={<TeacherLayout />}>
+                <Route index element={<TeacherDashboard/> }/>
+                  <Route path="/teacher/elem/*" element={<ElementaryEnrollment/>} />
+                  <Route path="/teacher/hs/*" element={<HighSchool/>} />
+                  <Route path="/teacher/shs/*" element={<SHS/>} />
+                  <Route path="/teacher/elemfaculty/*" element={<ElemFaculty/>} />
+                  <Route path="/teacher/hsfaculty/*" element={<HSFaculty/>} />
+                  <Route path="/teacher/shsfaculty/*" element={<SHSFaculty/>} />
+                  <Route path="/teacher/elemrec/*" element={<ElementaryRecords />} />
+                  <Route path="/teacher/jhsrec/*" element={<JHSRecords />} />
+                  <Route path="/teacher/shsrec/*" element={<SHSRecords />} />
+
+              </Route>
 
         </Routes>
       </div>
