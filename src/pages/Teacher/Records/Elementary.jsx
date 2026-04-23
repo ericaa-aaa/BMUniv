@@ -213,6 +213,7 @@ export default function Elementary() {
           handleChange={handleChange}
           handleUpdate={handleUpdate}
           onUpdateSuccess={fetchStudents}
+          onDeleteSuccess={fetchStudents}
         />
       </div>
     </section>
