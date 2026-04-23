@@ -142,13 +142,13 @@ export default function TeacherDashboard() {
         </table>
 
         <div className="pt-12 font-['Inter']">
-          <div className="max-w-350 mx-auto mt-4">
+          <div className="max-w-7xl mx-auto mt-4">
             <div className="text-[#630000] font-['Inter'] text-[25px] font-bold text-left">
               <p>My Assigned Subjects</p>
             </div>
           </div>
 
-          <div className="max-w-350 mx-auto mt-4 grid grid-cols-3 gap-5">
+          <div className="max-w-7xl mx-auto mt-4 grid grid-cols-3 gap-4 ">
             {subjects.map((sub, index) => (
               <div
                 key={index}
