@@ -131,7 +131,7 @@ function Sidebar() {
                   }
                   `}
                 >
-                  HS Enrollment
+                  JHS Enrollment
                 </Link>
               </div>
               <div
@@ -222,7 +222,7 @@ function Sidebar() {
                   to="/teacher/jhsrec"
                   className={`cursor-pointer ${activeItem === "jhsrecords" ? "underline" : "hover:underline"}`}
                 >
-                  Junior High School Records
+                  JHS Records
                 </Link>
               </div>
               <div
@@ -236,7 +236,7 @@ function Sidebar() {
                   to="/teacher/shsrec"
                   className={`cursor-pointer ${activeItem === "shsrecords" ? "underline" : "hover:underline"}`}
                 >
-                  Senior High School Records
+                  SHS Records
                 </Link>
               </div>
             </div>
@@ -317,7 +317,7 @@ function Sidebar() {
                     activeItem === "hsfaculty" ? "underline" : "hover:underline"
                   }`}
                 >
-                  HS Faculty
+                  JHS Faculty
                 </Link>
               </div>
 

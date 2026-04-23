@@ -305,7 +305,7 @@ export default function EnrollmentForm() {
                     No Photo
                   </span>
                 )}
-              </div>
+              </div> 
 
               {/* Overlapping Icon Button */}
               <div className="absolute bottom-0 right-0 translate-x-1 translate-y-1">
