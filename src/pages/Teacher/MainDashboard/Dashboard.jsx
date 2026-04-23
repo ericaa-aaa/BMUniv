@@ -148,28 +148,7 @@ export default function TeacherDashboard() {
             </div>
           </div>
 
-        <h3 className="text-[#630000] font-['Inter'] text-[25px] font-bold fixed left-95 bottom-110 px-10">
-          My Assigned Subjects
-        </h3>
-        
-        <div className="h-75 w-7xl overflow-y-auto overflow-hidden mt-4 fixed left-105 bottom-30">
-        <table className='font-["Inter"] border border-collapse mx-auto max-w-7xl w-full'>
-          <thead>
-            <tr>
-                {[
-                  "Grade",
-                  "Subject",
-                  "Section",
-                  "Schedule"
-                ].map((header, index) => (
-                  <th key= {index} className="border-2 border-[#edebdd] bg-[#630000] text-[17px] px-10 py-3 text-center text-[#edebdd]">
-                    {header}
-                  </th>
-                ))}
-            </tr>
-          </thead>
-
-          <tbody>
+          <div className="max-w-340 mx-auto mt-4 grid grid-cols-3 gap-5">
             {subjects.map((sub, index) => (
               <div
                 key={index}
@@ -192,7 +171,6 @@ export default function TeacherDashboard() {
             ))}
           </div>
         </div>
-        
       </div>
     </section>
   );
