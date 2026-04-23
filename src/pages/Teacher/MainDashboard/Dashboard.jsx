@@ -4,6 +4,22 @@ import back from "../../../assets/images/bg.jpg";
 import { FacultyTeacherService } from "../../../services/facultyteacherservice";
 
 export default function TeacherDashboard() {
+  // const is a variable na hindi pwedeng baguhin. 
+  // useState ay isang hook na ginagamit para mag manage ng state sa functional components. 
+  // ano ang state? state ay isang object na nag store ng data na pwedeng mag change over time.
+  // Sa code na to, may tatlong state variables tayo: firstName, subjects, at counts.
+  // para saan ang tatlong state variables na to?
+  // firstName - para i store ang pangalan ng teacher na naka login. 
+  // subjects - para i store ang listahan ng mga subjects na assigned sa teacher. 
+  // counts - para i store ang bilang ng mga estudyante sa bawat level (elementary, high school, senior high).
+  // ano ang elementary, high school, at senior high?
+  // elementary - mga estudyante na nasa elementary level (grade 1-6)
+  // high school - mga estudyante na nasa high school level (grade 7-10)
+  // senior high - mga estudyante na nasa senior high level (grade 11-12)
+  // saan galing ang mga data na to? at paano sila nakakakuha ng data?
+  // firstName - galing sa localStorage, kung saan naka store ang pangalan ng teacher during login. 
+  // subjects - galing sa API call gamit ang FacultyTeacherService.getMySubjects(), na nag re retrieve ng listahan ng subjects assigned sa teacher.
+  // counts - galing sa API call gamit ang fetch function, na nag re retrieve ng bilang ng mga estudyante sa bawat level.
   const [firstName, setFirstName] = useState("");
   const [subjects, setSubjects] = useState([]);
   const [counts, setCounts] = useState({
@@ -13,13 +29,12 @@ export default function TeacherDashboard() {
   });
 
   useEffect(() => {
-    // 1. Load the First Name stored during login
+ 
     const storedName = localStorage.getItem("activeUser");
     if (storedName) {
       setFirstName(storedName);
     }
 
-    // 2. Fetch Subjects
     const fetchMySubjects = async () => {
       try {
         const data = await FacultyTeacherService.getMySubjects();
@@ -35,14 +50,14 @@ export default function TeacherDashboard() {
   useEffect(() => {
     const fetchCounts = async () => {
       try {
-        const token = localStorage.getItem("token"); // 1. Get the token
+        const token = localStorage.getItem("token"); // Get the token
         const response = await fetch(
           `${import.meta.env.VITE_BASE_URL}/api/students/count`,
           {
             method: "GET",
             headers: {
               "Content-Type": "application/json",
-              Authorization: `Bearer ${token}`, // 2. Add the header
+              Authorization: `Bearer ${token}`, // Add the header
             },
           },
         );
@@ -161,7 +176,8 @@ export default function TeacherDashboard() {
                 <div className="text-[25px] font-bold mb-2">
                   {sub.name ?? "NA"}
                 </div>
-
+                {/* // ano ang Number()? Number() ay isang built-in function sa JavaScript na ginagamit para i convert ang isang value sa number type. 
+                Sa code na to, ginagamit ito para i convert ang sub.grade (na pwedeng string) sa number para ma check kung ito ay 11 o 12. */}
                 {[11, 12].includes(Number(sub.grade)) && sub.courseCode && (
                   <div className="text-sm mt-2 font-medium">
                     {sub.courseCode}
