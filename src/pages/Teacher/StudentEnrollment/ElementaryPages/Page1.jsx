@@ -291,11 +291,10 @@ export default function EnrollmentForm() {
               <input
                 {...register("grade_level", {
                   required: "Grade Level is required",
-                  min: 1, max:6, valueAsNumber: true }
+                  min: 1, max:6,valueAsNumber: true }
                 )}
-                type="number"
-                max={6}
-                min={1}
+                type="text"
+                maxLength={1}
                 className={`border border-[#630000] shadow-sm text-[12px] w-13 h-8 p-3 rounded-[5px] ${errors.grade_level ? "border-red-500 bg-red-50" : "border-#630000"}`}
               />
             </div>
