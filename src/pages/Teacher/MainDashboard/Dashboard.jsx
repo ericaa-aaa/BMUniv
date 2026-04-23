@@ -164,50 +164,14 @@ export default function TeacherDashboard() {
 
                 {[11, 12].includes(Number(sub.grade)) && sub.courseCode && (
                   <div className="text-sm mt-2 font-medium">
-                    {sub.courseCode}{" "}
+                    {sub.courseCode}
                   </div>
                 )}
               </div>
             ))}
           </div>
         </div>
-        {/* <div className="w-7xl overflow-y-auto overflow-hidden mt-4 flex justify-center">
-          <table className=' border border-collapse '>
-            <thead>
-              <tr>
-                {["Grade", "Subject"].map(
-                  (header, index) => (
-                    <th
-                      key={index}
-                      className="border-2 border-[#edebdd] bg-[#630000] text-[17px] px-10 py-3 text-center text-[#edebdd]"
-                    >
-                      {header}
-                    </th>
-                  ),
-                )}
-              </tr>
-            </thead>
-
-            <tbody>
-              {subjects.map((sub, index) => (
-                <tr key={index}>
-                  <td className="border-2 border-[#edebdd] px-4 py-2 text-center bg-white/85 text-[#630000] [15px]">
-                    {sub.grade ?? "NA"}
-                  </td>
-                  <td className="border-2 border-[#edebdd] px-2 py-2 text-center bg-white/85 text-[#630000] text-[15px] tracking-wider">
-                    {sub.name ?? "NA"}
-                  </td>
-                  <td className="border-2 border-[#edebdd] px-4 py-2 text-center bg-white/85 text-[#630000] [15px]">
-                    {sub.section ?? "NA"}
-                  </td>
-                  <td className="border-2 border-[#edebdd] px-2 py-2 text-center bg-white/85 text-[#630000] [15px]">
-                    {sub.schedule ?? "NA"}
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        </div> */}
+        
       </div>
     </section>
   );
