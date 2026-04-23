@@ -3,7 +3,7 @@ import { Outlet } from "react-router";
 
 export default function TeacherLayout(){
     return (
-        <div className="flex">
+        <div className="flex h-full">
             <TeacherSidebar />
             <div className="flex-1 bg-[#f5f5f5]">
                 <Outlet />

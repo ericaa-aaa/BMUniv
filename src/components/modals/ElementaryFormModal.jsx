@@ -19,7 +19,7 @@ export default function ElementaryFormModal({
     setIsSubmitting(true);
 
     try {
-      await ElementaryStudentService.updateStudent(selectedStudent.id, selectedStudent);
+      await ElementaryStudentService.updateStudent(selectedStudent);
 
       toast.success('Student Record Updated Successfully!', {
         id: loadingToast,
@@ -71,7 +71,7 @@ export default function ElementaryFormModal({
             </button>
 
             <div className="bg-[#810100] text-white text-center py-5 rounded-2xl mb-10 shadow-md">
-              <h1 className="text-2xl font-black uppercase tracking-widest font-['Inter']">Student Record</h1>
+              <h1 className="text-2xl font-black uppercase tracking-widest font-['Inter']">buttonStudent Record</h1>
               <p className="text-red-100 text-[10px] mt-1 opacity-80 italic font-medium font-['Inter']">Update Information System</p>
             </div>
 
