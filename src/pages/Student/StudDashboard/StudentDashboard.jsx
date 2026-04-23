@@ -1,10 +1,8 @@
 import { useState } from "react";
-import { PiDotsThreeCircleLight } from "react-icons/pi";
 import { IoClose } from "react-icons/io5";
 import { User as UserIcon } from "lucide-react";
 import { TfiAnnouncement } from "react-icons/tfi";
 import { AiOutlineSchedule } from "react-icons/ai";
-import { FaEye, FaEyeSlash } from "react-icons/fa";
 import toast, { Toaster } from "react-hot-toast";
 
 export default function StudentDashboard() {
@@ -103,7 +101,11 @@ export default function StudentDashboard() {
 
             <div className="absolute top-2 right-6 z-20">
               <button onClick={() => setShowMenu(!showMenu)} className="p-1 hover:bg-black/10 rounded-full transition-colors">
-                <PiDotsThreeCircleLight size={32} className="text-black" />
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M8.625 12a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Zm0 0H8.25m4.125 0a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Zm0 0H12m4.125 0a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Zm0 0h-.375M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" 
+                  className="text-black" /> 
+                </svg>
+
               </button>
 
               {showMenu && (
@@ -157,7 +159,16 @@ export default function StudentDashboard() {
                       onClick={() => setShowPassword(!showPassword)}
                       className="absolute right-4 text-gray-400 hover:text-[#7A1C1C] transition-colors"
                     >
-                      {showPassword ? <FaEyeSlash size={18} /> : <FaEye size={18} />}
+                      {showPassword ? <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="size-6">
+                        <path d="M12 15a3 3 0 1 0 0-6 3 3 0 0 0 0 6Z" />
+                        <path fill-rule="evenodd" d="M1.323 11.447C2.811 6.976 7.028 3.75 12.001 3.75c4.97 0 9.185 3.223 10.675 7.69.12.362.12.752 0 1.113-1.487 4.471-5.705 7.697-10.677 7.697-4.97 0-9.186-3.223-10.675-7.69a1.762 1.762 0 0 1 0-1.113ZM17.25 12a5.25 5.25 0 1 1-10.5 0 5.25 5.25 0 0 1 10.5 0Z" clip-rule="evenodd" />
+                      </svg>
+                      : <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="size-6">
+                        <path d="M3.53 2.47a.75.75 0 0 0-1.06 1.06l18 18a.75.75 0 1 0 1.06-1.06l-18-18ZM22.676 12.553a11.249 11.249 0 0 1-2.631 4.31l-3.099-3.099a5.25 5.25 0 0 0-6.71-6.71L7.759 4.577a11.217 11.217 0 0 1 4.242-.827c4.97 0 9.185 3.223 10.675 7.69.12.362.12.752 0 1.113Z" />
+                        <path d="M15.75 12c0 .18-.013.357-.037.53l-4.244-4.243A3.75 3.75 0 0 1 15.75 12ZM12.53 15.713l-4.243-4.244a3.75 3.75 0 0 0 4.244 4.243Z" />
+                        <path d="M6.75 12c0-.619.107-1.213.304-1.764l-3.1-3.1a11.25 11.25 0 0 0-2.63 4.31c-.12.362-.12.752 0 1.114 1.489 4.467 5.704 7.69 10.675 7.69 1.5 0 2.933-.294 4.242-.827l-2.477-2.477A5.25 5.25 0 0 1 6.75 12Z" />
+                      </svg>
+                      }
                     </button>
                   </div>
                 ))}
@@ -181,7 +192,7 @@ export default function StudentDashboard() {
           <p className="text-gray-500 italic">No new announcements today.</p>
         </div>
 
-        <div className="bg-[#EDEBDD] font-['Inter'] h-72 rounded-xl p-6 overflow-hidden shadow-sm border border-black/5 flex flex-col">
+        <div className="bg-[#EDEBDD] font-['Inter'] h-102 rounded-xl p-6 overflow-hidden shadow-sm border border-black/5 flex flex-col">
           <h3 className="flex items-center gap-2 text-lg font-bold text-[#7B0000] mb-4 uppercase tracking-tight">
             <AiOutlineSchedule className="shrink-0" />
             <span>Schedule & Tasks</span>
