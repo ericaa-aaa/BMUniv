@@ -367,7 +367,7 @@ const onSubmit = async (data) => {
                                 </div>
                             )}
              
-                            <div className="mt-16 ml-12">
+                            <div className="fixed right-10 bottom-10">
              
                                 <button 
                                      type="button" onClick={handleNext} // Use the new handler here
@@ -566,7 +566,7 @@ const onSubmit = async (data) => {
                                     </div>
             
                                 
-                                    <div className="mt-8 ml-12 flex items-center gap-3">
+                                    <div className="fixed right-10 bottom-10 flex gap-4 items-center">
                                         <button 
                                             type="button" 
                                             onClick={() => setStep(1)} 
@@ -621,7 +621,7 @@ const onSubmit = async (data) => {
                         <input {...register("schorecipient")} type="checkbox" className="w-5 h-5 accent-[#630000]" />
                     </div>
  
-                    <div className="fixed bottom-3 right-8 z-50">
+                    <div className="fixed right-10 bottom-10 flex gap-4">
                         <div className="flex gap-4 text-[13px]">
                             <button 
                                 type="button" 

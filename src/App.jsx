@@ -37,15 +37,8 @@ function AppContent() {
 
   return (
     <>
-      {/* <div className="flex">
-        
-        mag shoshow ang sidebar pag nag false
-        {!hideSidebar && <Sidebar />}
-
-        <div className="flex-1"></div>
-      </div> */}
       
-      <Toaster position="top-right" />
+      <Toaster />
 
       <Routes>
         <Route path="/" element={<LoginPage />} />
