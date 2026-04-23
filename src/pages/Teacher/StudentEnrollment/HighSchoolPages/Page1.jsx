@@ -197,7 +197,7 @@ export default function EnrollmentForm() {
 
       if (errors.grade_level) {
         errorMessage =
-          "Please enter a valid grade (1-6) and fill all the required fields.";
+          "Please enter a valid grade (7-10) and fill all the required fields.";
       }
       toast.error(errorMessage, {
         position: "top-right",
