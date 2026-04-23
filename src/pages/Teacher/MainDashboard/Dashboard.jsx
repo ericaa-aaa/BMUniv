@@ -144,7 +144,7 @@ useEffect(() => {
           My Assigned Subjects
         </h3>
         
-        <div className="h-75 w-320 overflow-y-auto overflow-hidden mt-4 fixed left-105 bottom-30">
+        <div className="h-75 w-7xl overflow-y-auto overflow-hidden mt-4 fixed left-105 bottom-30">
         <table className='font-["Inter"] border border-collapse mx-auto max-w-7xl w-full'>
           <thead>
             <tr>

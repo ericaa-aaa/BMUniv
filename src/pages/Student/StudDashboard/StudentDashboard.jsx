@@ -1,8 +1,5 @@
 import { useState } from "react";
-import { IoClose } from "react-icons/io5";
-import { User as UserIcon } from "lucide-react";
-import { TfiAnnouncement } from "react-icons/tfi";
-import { AiOutlineSchedule } from "react-icons/ai";
+import { User } from "lucide-react";
 import toast, { Toaster } from "react-hot-toast";
 
 export default function StudentDashboard() {
@@ -82,7 +79,7 @@ export default function StudentDashboard() {
           <div className="absolute inset-0 bg-white/70 flex items-center justify-between px-10">
             <div className="flex items-center gap-5">
               <div className="w-24 h-24 bg-black rounded-full flex items-center justify-center">
-                <UserIcon size={50} className="text-white" />
+               <User size={50} className="text-white" />
               </div>
               <h2 className="font-['Inter'] text-2xl font-semibold text-gray-800 uppercase">
                 {student.name}
@@ -135,7 +132,10 @@ export default function StudentDashboard() {
                 }}
                 className="absolute top-4 right-4 text-gray-400 hover:text-black transition-colors"
               >
-                <IoClose size={28} />
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="m9.75 9.75 4.5 4.5m0-4.5-4.5 4.5M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
+                </svg>
+
               </button>
               <h2 className="text-2xl font-bold text-[#7A1C1C] mb-6 ">Update Password</h2>
               <form onSubmit={handlePasswordUpdate} className="space-y-4">
@@ -186,7 +186,10 @@ export default function StudentDashboard() {
 
         <div className="bg-[#EDEBDD] font-['Inter'] h-48 rounded-xl shadow-sm border border-black/5 p-6">
           <h3 className="flex items-center gap-2 text-lg font-bold text-[#7B0000] mb-2 uppercase tracking-tight">
-            <TfiAnnouncement className="shrink-0 font-bold" />
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M10.34 15.84c-.688-.06-1.386-.09-2.09-.09H7.5a4.5 4.5 0 1 1 0-9h.75c.704 0 1.402-.03 2.09-.09m0 9.18c.253.962.584 1.892.985 2.783.247.55.06 1.21-.463 1.511l-.657.38c-.551.318-1.26.117-1.527-.461a20.845 20.845 0 0 1-1.44-4.282m3.102.069a18.03 18.03 0 0 1-.59-4.59c0-1.586.205-3.124.59-4.59m0 9.18a23.848 23.848 0 0 1 8.835 2.535M10.34 6.66a23.847 23.847 0 0 0 8.835-2.535m0 0A23.74 23.74 0 0 0 18.795 3m.38 1.125a23.91 23.91 0 0 1 1.014 5.395m-1.014 8.855c-.118.38-.245.754-.38 1.125m.38-1.125a23.91 23.91 0 0 0 1.014-5.395m0-3.46c.495.413.811 1.035.811 1.73 0 .695-.316 1.317-.811 1.73m0-3.46a24.347 24.347 0 0 1 0 3.46" />
+            </svg>
+
             <span>Announcements</span>
           </h3>
           <p className="text-gray-500 italic">No new announcements today.</p>
@@ -194,7 +197,9 @@ export default function StudentDashboard() {
 
         <div className="bg-[#EDEBDD] font-['Inter'] h-102 rounded-xl p-6 overflow-hidden shadow-sm border border-black/5 flex flex-col">
           <h3 className="flex items-center gap-2 text-lg font-bold text-[#7B0000] mb-4 uppercase tracking-tight">
-            <AiOutlineSchedule className="shrink-0" />
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M9 12h3.75M9 15h3.75M9 18h3.75m3 .75H18a2.25 2.25 0 0 0 2.25-2.25V6.108c0-1.135-.845-2.098-1.976-2.192a48.424 48.424 0 0 0-1.123-.08m-5.801 0c-.065.21-.1.433-.1.664 0 .414.336.75.75.75h4.5a.75.75 0 0 0 .75-.75 2.25 2.25 0 0 0-.1-.664m-5.8 0A2.251 2.251 0 0 1 13.5 2.25H15c1.012 0 1.867.668 2.15 1.586m-5.8 0c-.376.023-.75.05-1.124.08C9.095 4.01 8.25 4.973 8.25 6.108V8.25m0 0H4.875c-.621 0-1.125.504-1.125 1.125v11.25c0 .621.504 1.125 1.125 1.125h9.75c.621 0 1.125-.504 1.125-1.125V9.375c0-.621-.504-1.125-1.125-1.125H8.25ZM6.75 12h.008v.008H6.75V12Zm0 3h.008v.008H6.75V15Zm0 3h.008v.008H6.75V18Z" />
+            </svg>
             <span>Schedule & Tasks</span>
           </h3>
           <div className="flex flex-col items-center justify-center grow opacity-30">
