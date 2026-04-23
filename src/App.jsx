@@ -36,37 +36,40 @@ function AppContent() {
   location.pathname === "/" || location.pathname.startsWith("/student");
 
   return (
-    // <div className="flex">
-    //   <Toaster position="top-right" />
-    //   {/* mag shoshow ang sidebar pag nag false
-    //   {!hideSidebar && <Sidebar />} */}
+    <>
+      {/* <div className="flex">
+        
+        mag shoshow ang sidebar pag nag false
+        {!hideSidebar && <Sidebar />}
 
-    //   <div className="flex-1 h-full">
+        <div className="flex-1"></div>
+      </div> */}
+      
+      <Toaster position="top-right" />
 
-    //   </div>
-    // </div>
-    <Routes>
-      <Route path="/" element={<LoginPage />} />
+      <Routes>
+        <Route path="/" element={<LoginPage />} />
 
-      <Route path="/student" element={<StudentLayout />}>
-        <Route index element={<StudentDashboard />} />
-        <Route path="/student/studsubj/*" element={<StudSubj />} />
-        <Route path="/student/archsubj/*" element={<ArchSubj />} />
-      </Route>
+        <Route path="/student" element={<StudentLayout />}>
+          <Route index element={<StudentDashboard />} />
+          <Route path="/student/studsubj/*" element={<StudSubj />} />
+          <Route path="/student/archsubj/*" element={<ArchSubj />} />
+        </Route>
 
-      <Route path="/teacher" element={<TeacherLayout />}>
-        <Route index element={<TeacherDashboard />} />
-        <Route path="/teacher/elem/*" element={<ElementaryEnrollment />} />
-        <Route path="/teacher/hs/*" element={<HighSchool />} />
-        <Route path="/teacher/shs/*" element={<SHS />} />
-        <Route path="/teacher/elemfaculty/*" element={<ElemFaculty />} />
-        <Route path="/teacher/hsfaculty/*" element={<HSFaculty />} />
-        <Route path="/teacher/shsfaculty/*" element={<SHSFaculty />} />
-        <Route path="/teacher/elemrec/*" element={<ElementaryRecords />} />
-        <Route path="/teacher/jhsrec/*" element={<JHSRecords />} />
-        <Route path="/teacher/shsrec/*" element={<SHSRecords />} />
-      </Route>
-    </Routes>
+        <Route path="/teacher" element={<TeacherLayout />}>
+          <Route index element={<TeacherDashboard />} />
+          <Route path="/teacher/elem/*" element={<ElementaryEnrollment />} />
+          <Route path="/teacher/hs/*" element={<HighSchool />} />
+          <Route path="/teacher/shs/*" element={<SHS />} />
+          <Route path="/teacher/elemfaculty/*" element={<ElemFaculty />} />
+          <Route path="/teacher/hsfaculty/*" element={<HSFaculty />} />
+          <Route path="/teacher/shsfaculty/*" element={<SHSFaculty />} />
+          <Route path="/teacher/elemrec/*" element={<ElementaryRecords />} />
+          <Route path="/teacher/jhsrec/*" element={<JHSRecords />} />
+          <Route path="/teacher/shsrec/*" element={<SHSRecords />} />
+        </Route>
+      </Routes>
+    </>
   );
 }
 
