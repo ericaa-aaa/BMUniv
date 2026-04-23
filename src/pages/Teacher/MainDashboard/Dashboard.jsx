@@ -141,18 +141,18 @@ export default function TeacherDashboard() {
           </tbody>
         </table>
 
-        <div className="pt-12">
-          <div className="max-w-340 mx-auto mt-4">
+        <div className="pt-12 font-['Inter']">
+          <div className="max-w-350 mx-auto mt-4">
             <div className="text-[#630000] font-['Inter'] text-[25px] font-bold text-left">
               <p>My Assigned Subjects</p>
             </div>
           </div>
 
-          <div className="max-w-340 mx-auto mt-4 grid grid-cols-3 gap-5">
+          <div className="max-w-350 mx-auto mt-4 grid grid-cols-3 gap-5">
             {subjects.map((sub, index) => (
               <div
                 key={index}
-                className="bg-white border-2 border-[#630000] rounded-xl p-4 text-left text-[#630000] shadow-sm pl-8"
+                className="bg-[#edebdd] border-2 border-b-6 rounded-xl p-4 text-left text-[#630000] shadow-sm pl-8 mt-10"
               >
                 <div className="text-[17px] font-bold mb-2">
                   {sub.grade ? `Grade ${sub.grade}` : "NA"}
