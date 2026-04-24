@@ -71,11 +71,11 @@ export const ElementaryStudentService = {
     },
 
   
-    updateStudent: async (studentData) => {
+    updateStudent: async (id,studentData) => {
         const token = localStorage.getItem("token");
         
         try {
-            const response = await fetch(`${API_BASE_URL}/Elstudents/${studentData.id}`, {
+            const response = await fetch(`${API_BASE_URL}/Elstudents/${id}`, {
                 method: "PATCH",
                 headers: {
                     "Content-Type": "application/json",

@@ -9,7 +9,7 @@ export default function ElementaryFormModal({
   selectedStudent,
   handleChange,
   onUpdateSuccess,
-  onDeleteSuccess,
+  onDeleteSuccess
 }) {
   const [isSubmitting, setIsSubmitting] = useState(false);
 
@@ -50,7 +50,7 @@ export default function ElementaryFormModal({
       setIsSubmitting(false);
     }
   };
-const handleDelete = async () => {
+   const handleDelete = async () => {
   const loadingToast = toast.loading("Deleting student record...");
   setIsSubmitting(true);
 
@@ -69,7 +69,7 @@ const handleDelete = async () => {
     });
 
 
-    if (onDeleteSuccess) await onDeleteSuccess(); // e.g., to refresh list
+    if (onDeleteSuccess) onDeleteSuccess(); 
     setTimeout(() => setShowModal(false), 1000);
     
   } catch (error) {
@@ -244,13 +244,13 @@ const handleDelete = async () => {
                 }`}>
                 {isSubmitting ? "UPDATING RECORD..." : "SAVE UPDATED RECORD"}
               </button>
-                <button 
+               <button 
                 onClick={handleDelete} 
                 disabled={isSubmitting}
                 className={`w-full text-white py-5 rounded-2xl font-black text-lg shadow-xl transition-all active:scale-[0.98] ${
                   isSubmitting ? "bg-gray-400 cursor-wait" : "bg-red-800 hover:bg-red-900"
                 }`}>
-                {isSubmitting ? "DELETING RECORD..." : "DELETE RECORD"}
+                {isSubmitting ? "UPDATING RECORD..." : "DELETE RECORD"}
               </button>
             </div>
           </div>
@@ -259,6 +259,7 @@ const handleDelete = async () => {
     </>
   );
 }
+
   // const enrollmentstat = ElementaryStudentService.getStudents(selectedStudent.status)
   
   // and if enrollmentstat == "Enrolled"
