@@ -102,7 +102,7 @@ export default function ElementaryFormModal({
               <IoMdCloseCircleOutline size={28} />
             </button>
 
-            <div className="bg-red-800 text-white text-center py-5 rounded-2xl mb-10 shadow-md">
+            <div className="bg-[#630000] font-['Inter'] text-white text-center py-5 rounded-2xl mb-10 shadow-md">
               <h1 className="text-2xl font-black uppercase tracking-widest">
                 Student Record
               </h1>
