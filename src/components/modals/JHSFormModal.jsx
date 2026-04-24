@@ -1,7 +1,7 @@
 import { IoMdCloseCircleOutline } from "react-icons/io";
 import { useState } from "react";
 import { HighSchoolStudentService } from "../../services/highschoolstudentservice";
-import toast, {Toaster} from "react-hot-toast";
+import toast, { Toaster } from "react-hot-toast";
 
 export default function JHSFormModal({
   showModal,
@@ -15,45 +15,51 @@ export default function JHSFormModal({
   if (!showModal || !selectedStudent) return null;
 
   const handleUpdate = async () => {
-      const loadingToast = toast.loading("Updating student record...");
-      setIsSubmitting(true);
+    const loadingToast = toast.loading("Updating student record...");
+    setIsSubmitting(true);
 
-      try {
-        await HighSchoolStudentService.updateStudent(selectedStudent.id, selectedStudent);
-        
-      toast.success('Student Record Updated Successfully!', {
+    try {
+      await HighSchoolStudentService.updateStudent(
+        selectedStudent.id,
+        selectedStudent,
+      );
+
+      toast.success("Student Record Updated Successfully!", {
         id: loadingToast,
         duration: 3000,
         style: {
-          background: '#630000', 
-          color: '#EDEBDD', 
-          padding: '12px',
-          borderRadius: '8px',
-          border: '1px solid #810100', 
-          fontWeight: '500',
-          fontFamily: 'Inter',
+          background: "#630000",
+          color: "#EDEBDD",
+          padding: "12px",
+          borderRadius: "8px",
+          border: "1px solid #810100",
+          fontWeight: "500",
+          fontFamily: "Inter",
         },
         iconTheme: {
-          primary: '#EDEBDD', 
-          secondary: '#630000', 
+          primary: "#EDEBDD",
+          secondary: "#630000",
         },
       });
 
-        if (onUpdateSuccess) onUpdateSuccess();
+      if (onUpdateSuccess) onUpdateSuccess();
 
-        setTimeout(() => setShowModal(false), 1000 );
-      } catch (error) {
-        toast.error(`Update failed: ${error.message}`, {
-          id: loadingToast,
-        });
-      } finally {
-        setIsSubmitting(false);
-      }
-    };
+      setTimeout(() => setShowModal(false), 1000);
+    } catch (error) {
+      toast.error(`Update failed: ${error.message}`, {
+        id: loadingToast,
+      });
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
 
-  const readOnlyStyle = "font-['Inter'] border border-gray-200 rounded-lg px-4 py-2.5 bg-gray-100 cursor-not-allowed text-gray-500 w-full text-sm font-medium";
-  const editableStyle = "font-['Inter'] border border-gray-300 rounded-lg px-4 py-2.5 bg-white focus:ring-2 focus:ring-red-800 focus:border-transparent outline-none w-full text-sm transition-all";
-  const labelStyle = "font-['Inter'] text-[10px] font-bold mb-1.5 ml-1 text-gray-400 uppercase tracking-tight";
+  const readOnlyStyle =
+    "font-['Inter'] border border-gray-200 rounded-lg px-4 py-2.5 bg-gray-100 cursor-not-allowed text-gray-500 w-full text-sm font-medium";
+  const editableStyle =
+    "font-['Inter'] border border-gray-300 rounded-lg px-4 py-2.5 bg-white focus:ring-2 focus:ring-red-800 focus:border-transparent outline-none w-full text-sm transition-all";
+  const labelStyle =
+    "font-['Inter'] text-[10px] font-bold mb-1.5 ml-1 text-gray-400 uppercase tracking-tight";
 
   return (
     <>
