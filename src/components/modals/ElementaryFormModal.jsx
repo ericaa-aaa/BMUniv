@@ -454,7 +454,7 @@ export default function ElementaryFormModal({
                 className={`w-full text-white py-5 rounded-2xl font-black text-lg shadow-xl transition-all active:scale-[0.98] ${
                   isSubmitting
                     ? "bg-gray-400 cursor-wait"
-                    : "bg-red-800 hover:bg-red-900"
+                    : "bg-[#630000] hover:bg-[#810100]"
                 }`}
               >
                 {isSubmitting ? "UPDATING RECORD..." : "SAVE UPDATED RECORD"}
@@ -462,10 +462,10 @@ export default function ElementaryFormModal({
               <button
                 onClick={handleDelete}
                 disabled={isSubmitting}
-                className={`w-full text-white py-5 rounded-2xl font-black text-lg shadow-xl transition-all active:scale-[0.98] ${
+                className={`w-full text-white py-5 rounded-2xl mt-2 font-black text-lg shadow-xl transition-all active:scale-[0.98] ${
                   isSubmitting
                     ? "bg-gray-400 cursor-wait"
-                    : "bg-red-800 hover:bg-red-900"
+                    : "bg-[#630000] hover:bg-[#810100]"
                 }`}
               >
                 {isSubmitting ? "UPDATING RECORD..." : "DELETE RECORD"}
