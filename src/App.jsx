@@ -43,14 +43,13 @@ function AppContent() {
 
       <Routes>
         <Route path="/" element={<LoginPage />} />
-         <Route element={<ProtectedRoute />}> 
+        
         <Route path="/student" element={<StudentLayout />}>
           <Route index element={<StudentDashboard />} />
           <Route path="/student/studsubj/*" element={<StudSubj />} />
           <Route path="/student/archsubj/*" element={<ArchSubj />} />
         </Route>
-        </Route>
-    <Route element={<ProtectedRoute />}>  
+     <Route element={<ProtectedRoute />}> 
         <Route path="/teacher" element={<TeacherLayout />}>
           <Route index element={<TeacherDashboard />} />
           <Route path="/teacher/elem/*" element={<ElementaryEnrollment />} />

@@ -24,7 +24,6 @@ export const loginUser = async (username, password) => {
 
     const data = await res.json();
 
-
     if (res.ok) {
   localStorage.setItem("token", data.access_token);
   localStorage.setItem("role", data.primary_role); 
