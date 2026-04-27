@@ -9,6 +9,7 @@ import {
   Route,
   useLocation,
 } from "react-router-dom";
+import ProtectedRoute from "./ProtectedRoute.jsx";
 import StudentDashboard from "./pages/Student/StudDashboard/StudentDashboard";
 import TeacherDashboard from "./pages/Teacher/MainDashboard/Dashboard";
 import ElementaryEnrollment from "./pages/Teacher/StudentEnrollment/Elementary";
@@ -42,13 +43,14 @@ function AppContent() {
 
       <Routes>
         <Route path="/" element={<LoginPage />} />
-
+         <Route element={<ProtectedRoute />}> 
         <Route path="/student" element={<StudentLayout />}>
           <Route index element={<StudentDashboard />} />
           <Route path="/student/studsubj/*" element={<StudSubj />} />
           <Route path="/student/archsubj/*" element={<ArchSubj />} />
         </Route>
-
+        </Route>
+    <Route element={<ProtectedRoute />}>  
         <Route path="/teacher" element={<TeacherLayout />}>
           <Route index element={<TeacherDashboard />} />
           <Route path="/teacher/elem/*" element={<ElementaryEnrollment />} />
@@ -60,6 +62,7 @@ function AppContent() {
           <Route path="/teacher/elemrec/*" element={<ElementaryRecords />} />
           <Route path="/teacher/jhsrec/*" element={<JHSRecords />} />
           <Route path="/teacher/shsrec/*" element={<SHSRecords />} />
+        </Route>
         </Route>
       </Routes>
     </>
