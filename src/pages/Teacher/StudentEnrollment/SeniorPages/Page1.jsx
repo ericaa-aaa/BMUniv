@@ -260,7 +260,6 @@ export default function EnrollmentForm() {
 
   return (
     <form
-      onSubmit={handleSubmit(onSubmit)}
       className="relative h-100 pb-20 font-['Inter']"
     >
       {/* --- PAGE 1: STUDENT INFORMATION --- */}

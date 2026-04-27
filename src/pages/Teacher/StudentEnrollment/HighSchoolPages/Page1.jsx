@@ -18,8 +18,6 @@ export default function EnrollmentForm() {
     trigger,
     formState: { errors },
   } = useForm({
-    mode: "onBlur",
-    shouldUseNativeValidation: true,
     defaultValues: {
       grade_level: "",
       lastname: "",
@@ -105,6 +103,7 @@ export default function EnrollmentForm() {
         "civil_status",
         "gender",
         "grade_level",
+        "contact_number",
         "email_address",
         "citizenship",
         "birthdate",
@@ -256,8 +255,6 @@ export default function EnrollmentForm() {
 
   return (
     <form
-      onSubmit={handleSubmit(onSubmit)}
-      noValidate
       className="relative h-100 font-['Inter']"
     >
       {/*  PAGE 1: STUDENT INFORMATION */}
@@ -503,7 +500,7 @@ export default function EnrollmentForm() {
                 pattern="[0-9]{3}-[0-9]{2}-[0-9]{3}"
                 minLength={11}
                 maxLength={11}
-                className="border border-[#630000] shadow-sm text-[12px] w-40 h-10 p-3 rounded-[5px]"
+                className={`border border-[#630000] shadow-sm text-[12px] w-40 h-10 p-3 rounded-[5px] ${errors.contact_number ? "border-red-500 bg-red-50" : "border-#630000"}`}
                 placeholder="09XXXXXXXXX"
               />
             </div>
