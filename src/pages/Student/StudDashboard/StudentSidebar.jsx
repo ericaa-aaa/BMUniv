@@ -10,7 +10,12 @@ export default function StudentSidebar() {
 
   const handleLogout = () => {
     localStorage.removeItem("token");
-    localStorage.removeItem("activeUser");
+    localStorage.removeItem("activeUser");  
+    localStorage.removeItem("studentGrade")
+    localStorage.removeItem("studentSection")
+    localStorage.removeItem("studentCategory")
+    localStorage.removeItem("studentStatus")
+    localStorage.removeItem('role')
     navigate("/", { replace: true });
   };
 

@@ -12,6 +12,7 @@ function Sidebar() {
   const handleLogout = () => {
     localStorage.removeItem("token");
     localStorage.removeItem("activeUser");
+    localStorage.removeItem("role")
     navigate("/", { replace: true });
   };
 
