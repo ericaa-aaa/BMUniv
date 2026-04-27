@@ -9,6 +9,7 @@ export default function JHSFormModal({
   selectedStudent,
   handleChange,
   onUpdateSuccess,
+  onDeleteSuccess,
 }) {
   const [isSubmitting, setIsSubmitting] = useState(false);
 
@@ -47,6 +48,33 @@ export default function JHSFormModal({
       setTimeout(() => setShowModal(false), 1000);
     } catch (error) {
       toast.error(`Update failed: ${error.message}`, {
+        id: loadingToast,
+      });
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
+
+    const handleDelete = async () => {
+    const loadingToast = toast.loading("Deleting student record...");
+    setIsSubmitting(true);
+
+    try {
+      await HighSchoolStudentService.deleteStudent(selectedStudent.id);
+
+      toast.success("Student Record Deleted Successfully!", {
+        id: loadingToast,
+        duration: 3000,
+        style: {
+          background: "#630000",
+          color: "#EDEBDD",
+        },
+      });
+
+      if (onDeleteSuccess) onDeleteSuccess();
+      setTimeout(() => setShowModal(false), 1000);
+    } catch (error) {
+      toast.error(`Delete failed: ${error.message}`, {
         id: loadingToast,
       });
     } finally {
@@ -463,13 +491,24 @@ export default function JHSFormModal({
               <button
                 onClick={handleUpdate}
                 disabled={isSubmitting}
-                className={`w-full text-white py-5 rounded-2xl font-black font-['Inter'] text-lg shadow-xl transition-all active:scale-[0.98] ${
+                className={`w-full text-white py-5 rounded-2xl font-black text-lg shadow-xl transition-all active:scale-[0.98] ${
                   isSubmitting
                     ? "bg-gray-400 cursor-wait"
-                    : "bg-red-800 hover:bg-red-900"
+                    : "bg-[#630000] hover:bg-[#810100]"
                 }`}
               >
                 {isSubmitting ? "UPDATING RECORD..." : "SAVE UPDATED RECORD"}
+              </button>
+              <button
+                onClick={handleDelete}
+                disabled={isSubmitting}
+                className={`w-full text-white py-5 rounded-2xl mt-2 font-black text-lg shadow-xl transition-all active:scale-[0.98] ${
+                  isSubmitting
+                    ? "bg-gray-400 cursor-wait"
+                    : "bg-[#630000] hover:bg-[#810100]"
+                }`}
+              >
+                {isSubmitting ? "UPDATING RECORD..." : "DELETE RECORD"}
               </button>
             </div>
           </div>
