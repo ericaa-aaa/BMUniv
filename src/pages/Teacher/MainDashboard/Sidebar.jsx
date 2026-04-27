@@ -13,6 +13,7 @@ function Sidebar() {
     localStorage.removeItem("token");
     localStorage.removeItem("activeUser");
     localStorage.removeItem("role")
+    localStorage.removeItem("permissions")
     navigate("/", { replace: true });
   };
 

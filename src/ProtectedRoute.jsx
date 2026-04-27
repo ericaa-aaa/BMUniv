@@ -25,3 +25,43 @@ useEffect(() => {
 
   return isAuthenticated ? <Outlet /> : <Navigate to="/" replace />;
 }
+// import { Navigate, Outlet } from "react-router-dom";
+// import { useEffect, useState } from "react";
+
+// export default function ProtectedRoute() {
+//   const [isAuthenticated, setIsAuthenticated] = useState(null);
+
+//   useEffect(() => {
+//     const verifyToken = async () => {
+//       try {
+//         const res = await fetch(`${import.meta.env.VITE_BASE_URL}/verify-token`, {
+//           method: "GET",
+//           credentials: "include", // This sends your cookies automatically
+//           // Remove the headers object if you aren't using Bearer tokens manually
+//         });
+
+
+//         if (res.ok) {
+//           setIsAuthenticated(true);
+//         } else {
+//           setIsAuthenticated(false);
+//         }
+//       } catch (error) {
+//         console.error("Verification error:", error);
+//         setIsAuthenticated(false);
+//       }
+//     };
+
+//     verifyToken();
+//   }, []);
+
+//   if (isAuthenticated === null) {
+//     return (
+//       <div className="flex justify-center items-center h-screen">
+//         <p>Loading session...</p>
+//       </div>
+//     );
+//   }
+
+//   return isAuthenticated ? <Outlet /> : <Navigate to="/" replace />;
+// }
