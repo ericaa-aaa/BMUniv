@@ -25,6 +25,11 @@ useEffect(() => {
 
   return isAuthenticated ? <Outlet /> : <Navigate to="/" replace />;
 }
+
+
+// cookies
+
+
 // import { Navigate, Outlet } from "react-router-dom";
 // import { useEffect, useState } from "react";
 
