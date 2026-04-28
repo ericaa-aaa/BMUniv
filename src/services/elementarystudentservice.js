@@ -7,7 +7,7 @@ export const ElementaryStudentService = {
         try {
             const token = localStorage.getItem("token"); 
             const response = await fetch(`${API_BASE_URL}/Elstudents`, {
-                method: 'GET',
+                method: 'GET',  
                 headers: {
                     'Content-Type': 'application/json',
                     'Authorization': `Bearer ${token}` 

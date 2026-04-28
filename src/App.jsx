@@ -9,7 +9,7 @@ import {
   Route,
   useLocation,
 } from "react-router-dom";
-import ProtectedRoute from "./ProtectedRoute.jsx";
+import ProtectedRoute from "./ProtectedRoute.jsx";  
 import StudentDashboard from "./pages/Student/StudDashboard/StudentDashboard";
 import TeacherDashboard from "./pages/Teacher/MainDashboard/Dashboard";
 import ElementaryEnrollment from "./pages/Teacher/StudentEnrollment/Elementary";
@@ -63,7 +63,7 @@ function AppContent() {
           <Route path="/teacher/jhsrec/*" element={<JHSRecords />} />
           <Route path="/teacher/shsrec/*" element={<SHSRecords />} />
         </Route>
-        </Route>
+        </Route>  
       </Routes>
     </>
   );
