@@ -12,6 +12,8 @@ export default function SHSFormModal({
   onDeleteSuccess,
 }) {
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [showDeleteConfirm, setShowDeleteConfirm] = useState(false);
+  
   if (!showModal || !selectedStudent) return null;
 
   const handleUpdate = async () => {
@@ -511,8 +513,7 @@ export default function SHSFormModal({
                 </div>
               </section>
             </div>
-
-            <div className="mt-12">
+            <div className="mt-12 space-y-3">
               <button
                 onClick={handleUpdate}
                 disabled={isSubmitting}
@@ -524,17 +525,44 @@ export default function SHSFormModal({
               >
                 {isSubmitting ? "UPDATING RECORD..." : "SAVE UPDATED RECORD"}
               </button>
-              <button
-                onClick={handleDelete}
-                disabled={isSubmitting}
-                className={`w-full text-white py-5 rounded-2xl mt-2 font-black text-lg shadow-xl transition-all active:scale-[0.98] ${
-                  isSubmitting
-                    ? "bg-gray-400 cursor-wait"
-                    : "bg-[#630000] hover:bg-[#810100]"
-                }`}
-              >
-                {isSubmitting ? "UPDATING RECORD..." : "DELETE RECORD"}
-              </button>
+
+              {/* DELETE BUTTON SECTION */}
+              {selectedStudent.status !== "Enrolled" && (
+                <div className="pt-2">
+                  {!showDeleteConfirm ? (
+                    <button
+                      onClick={() => setShowDeleteConfirm(true)}
+                      disabled={isSubmitting}
+                      className="w-full text-red-800 border-2 border-red-800 py-4 rounded-2xl font-black text-lg hover:bg-red-50 transition-all active:scale-[0.98]"
+                    >
+                      DELETE RECORD
+                    </button>
+                  ) : (
+                    <div className="bg-red-50 p-6 rounded-2xl border border-red-200 text-center animate-in fade-in zoom-in duration-300">
+                      <p className="text-red-900 font-bold mb-4">
+                        Are you sure you want to delete this record? 
+                        <br/><span className="text-xs font-medium uppercase opacity-70">This action cannot be undone.</span>
+                      </p>
+                      <div className="flex gap-4">
+                        <button
+                          onClick={handleDelete}
+                          disabled={isSubmitting}
+                          className="flex-1 bg-red-700 text-white py-3 rounded-xl font-bold hover:bg-red-800 transition-colors shadow-lg"
+                        >
+                          {isSubmitting ? "DELETING..." : "YES, DELETE"}
+                        </button>
+                        <button
+                          onClick={() => setShowDeleteConfirm(false)}
+                          disabled={isSubmitting}
+                          className="flex-1 bg-gray-200 text-gray-700 py-3 rounded-xl font-bold hover:bg-gray-300 transition-colors"
+                        >
+                          CANCEL
+                        </button>
+                      </div>
+                    </div>
+                  )}
+                </div>
+              )}
             </div>
           </div>
         </div>
