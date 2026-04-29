@@ -2,16 +2,23 @@ import React, { useState, useEffect } from "react";
 
 export default function StudentSubjects() {
 
+<<<<<<< HEAD
   const [subjects, setSubjects] = useState([]);
   const [loading, setLoading] = useState(true);
   const [student] = useState(() => ({
     name: localStorage.getItem("activeUser") || "Student User",
     grade: localStorage.getItem("studentGrade") || "N/A",
     strand: localStorage.getItem("studentStrand") || "", // Add this
+=======
+  const [student] = useState(() => ({
+    name: localStorage.getItem("activeUser") || "Student User",
+    grade: localStorage.getItem("studentGrade") || "N/A",
+>>>>>>> cdb86ecfab39b868756dd5acd3de447f30d5c8df
     section: localStorage.getItem("studentSection") || "Unassigned",
     category: localStorage.getItem("studentCategory") || "Student",
     status: localStorage.getItem("studentStatus") || "ENROLLED",
   }));
+<<<<<<< HEAD
   useEffect(() => {
     const fetchSubjects = async () => {
       try {
@@ -32,6 +39,13 @@ export default function StudentSubjects() {
     }
   }, [student.grade, student.strand]); 
 
+=======
+
+  const statusColors = {
+    Enrolled: "text-green-600",
+    Dropped: "text-red-500",
+  };
+>>>>>>> cdb86ecfab39b868756dd5acd3de447f30d5c8df
 
   return (
     <div className="font-['Inter'] p-8 bg-gray-100 ">
@@ -46,6 +60,7 @@ export default function StudentSubjects() {
       >
         <div className="absolute inset-0 bg-white/70 flex items-center justify-between px-10">
           <div className="flex items-center gap-5">
+<<<<<<< HEAD
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="size-32">
               <path fillRule="evenodd" d="M18.685 19.097A9.723 9.723 0 0 0 21.75 12c0-5.385-4.365-9.75-9.75-9.75S2.25 6.615 2.25 12a9.723 9.723 0 0 0 3.065 7.097A9.716 9.716 0 0 0 12 21.75a9.716 9.716 0 0 0 6.685-2.653Zm-12.54-1.285A7.486 7.486 0 0 1 12 15a7.486 7.486 0 0 1 5.855 2.812A8.224 8.224 0 0 1 12 20.25a8.224 8.224 0 0 1-5.855-2.438ZM15.75 9a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0Z" clipRule="evenodd" />
             </svg>
@@ -57,6 +72,33 @@ export default function StudentSubjects() {
               <p>▸ {student.category} - Grade {student.grade}</p>
               <p>▸ Section: {student.section}</p>
               <p className={student.status === "ENROLLED" ? "text-green-600" : "text-red-500"}>
+=======
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 24 24"
+              fill="currentColor"
+              class="size-32"
+            >
+              <path
+                fill-rule="evenodd"
+                d="M18.685 19.097A9.723 9.723 0 0 0 21.75 12c0-5.385-4.365-9.75-9.75-9.75S2.25 6.615 2.25 12a9.723 9.723 0 0 0 3.065 7.097A9.716 9.716 0 0 0 12 21.75a9.716 9.716 0 0 0 6.685-2.653Zm-12.54-1.285A7.486 7.486 0 0 1 12 15a7.486 7.486 0 0 1 5.855 2.812A8.224 8.224 0 0 1 12 20.25a8.224 8.224 0 0 1-5.855-2.438ZM15.75 9a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0Z"
+                clip-rule="evenodd"
+              />
+            </svg>
+            <h2 className="font-['Inter'] text-2xl font-semibold text-gray-800 uppercase">
+              {student.name}
+            </h2>
+          </div>
+
+          <div className="m-2 p-2 pr-15">
+            <div className="font-['Inter'] space-y-3 text-lg font-semibold text-[#7B0000]">
+              <p>▸ Batangas Metropolitan University</p>
+              <p>
+                ▸ {student.category} - Grade {student.grade}
+              </p>
+              <p> ▸ Section: {student.section}</p>
+              <p className={statusColors[student.status] || " "}>
+>>>>>>> cdb86ecfab39b868756dd5acd3de447f30d5c8df
                 ▸ {student.status}
               </p>
             </div>

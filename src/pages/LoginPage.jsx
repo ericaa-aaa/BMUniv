@@ -75,6 +75,7 @@ export default function LoginPage() {
                             <input
                                 type={showPassword ? "text" : "password"}
                                 placeholder="Password"
+                                autoComplete="on"
                                 className="w-full p-2 outline-none bg-transparent"
                                 value={form.password}
                                 onChange={(e) => setForm({ ...form, password: e.target.value })}
