@@ -52,38 +52,35 @@ export default function AddSHS() {
             );
     };
 
-  const selectedGrade = watch("grade_level");
+              const selectedGrade = watch("grade_level");
+              const selectedStrand = watch("strand");
 
-  // Fetch SHS subjects dynamically based on Grade 11 or 12
-  useEffect(() => {
-    if (selectedGrade) {
-        // We strip the "Grade " prefix if your API expects just numbers (e.g., "11")
-        const gradeValue = selectedGrade.replace("Grade ", "");
-        FacultyTeacherService.getSubjectsByGrade(gradeValue)
-            .then(data => {
-                setAvailableSubjects(data);
-                // For SHS, we usually DON'T auto-check all because teachers are specialized
-                setValue("subjects", []); 
-            })
-            .catch(err => console.error("Failed to fetch SHS subjects:", err));
-    } else {
-        setAvailableSubjects([]);
-        setValue("subjects", []);
-    }
-  }, [selectedGrade, setValue]);
+              useEffect(() => {
+                  // Only fetch if BOTH selections are made
+                  if (selectedGrade && selectedStrand) {
+                      const gradeValue = selectedGrade.replace("Grade", "");
+                      FacultyTeacherService.getSubjectsByGradeSHS(gradeValue, selectedStrand)
+                          .then(data => {
+                              setAvailableSubjects(data);
+                              setValue("subjects", []); 
+                          })
+                          .catch(err => console.error(err));
+                  } else {
+                      setAvailableSubjects([]);
+                  }
+              }, [selectedGrade, selectedStrand, setValue]);
 
-  const onSubmit = async (data) => {
-      try {
-          const result = await FacultyTeacherService.addFaculty(data);
-          return result; 
-      } catch (error) {
-          if (error.message === "SESSION_EXPIRED") {
-              setTimeout(() => { window.location.href = "/"; }, 2000);
-          }
-          throw error; 
-      }
-  };
-
+                const onSubmit = async (data) => {
+                    try {
+                        const result = await FacultyTeacherService.addFaculty(data);
+                        return result; 
+                    } catch (error) {
+                        if (error.message === "SESSION_EXPIRED") {
+                            setTimeout(() => { window.location.href = "/"; }, 2000);
+                        }
+                        throw error; 
+                    }
+                };
   return (
     <form className="relative h-auto pb-10 font-[Inter] H-100">
       <div className="pl-12 pt-5">
@@ -119,8 +116,8 @@ export default function AddSHS() {
           <p className="text-[#1B1717] text-[14px]">Grade Level</p>
           <select {...register("grade_level", { required: true })} className={`border border-[#630000] shadow-sm text-[13px] tracking-wider h-10 p-3 rounded-[5px] w-40 ${errors.grade_level ? "border-red-500 bg-red-50" : "border-#630000"}`} >
             <option value="">Select</option>
-            <option value="7">Grade 11</option>
-            <option value="8">Grade 12</option>    
+            <option value="11">Grade 11</option>
+            <option value="12">Grade 12</option>    
           </select>
         </div>
 

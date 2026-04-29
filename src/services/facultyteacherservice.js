@@ -75,6 +75,7 @@ export const FacultyTeacherService = {
             throw error;
         }
     },
+    
     getMySubjects: async () => {
     const token = localStorage.getItem("token");
     const response = await fetch(`${API_BASE_URL}/my-subjects`, {
@@ -86,5 +87,18 @@ export const FacultyTeacherService = {
     });
     if (!response.ok) throw new Error("Failed to fetch subjects");
     return await response.json();
-}
+    },
+
+    getSubjectsByGradeSHS: async (grade, strand) => {
+    try {
+
+        const response = await fetch(`${API_BASE_URL}/subjects-list/${grade}/${strand}`);
+        
+        if (!response.ok) throw new Error("Could not fetch subjects");
+        return await response.json();
+    } catch (error) {
+        console.error("Service Error [getSubjectsByGrade]:", error);
+        throw error;
+    }
+    },
 };
