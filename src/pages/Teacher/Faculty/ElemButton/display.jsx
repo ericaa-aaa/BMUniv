@@ -6,11 +6,9 @@ export default function DisplayElementary() {
   const [facultyList, setFacultyList] = useState([]);
   const [loading, setLoading] = useState(true);
 
-  // Fetch data on component mount
   useEffect(() => {
     const fetchData = async () => {
       try {
-        // --- UPDATED: Pass "Elementary" to filter the API result ---
         const data = await FacultyTeacherService.getFaculty("Elementary");
         setFacultyList(data);
       } catch (err) {
