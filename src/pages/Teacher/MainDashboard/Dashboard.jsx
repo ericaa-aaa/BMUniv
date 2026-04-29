@@ -4,22 +4,6 @@ import back from "../../../assets/images/bg.jpg";
 import { FacultyTeacherService } from "../../../services/facultyteacherservice";
 
 export default function TeacherDashboard() {
-  // const is a variable na hindi pwedeng baguhin. 
-  // useState ay isang hook na ginagamit para mag manage ng state sa functional components. 
-  // ano ang state? state ay isang object na nag store ng data na pwedeng mag change over time.
-  // Sa code na to, may tatlong state variables tayo: firstName, subjects, at counts.
-  // para saan ang tatlong state variables na to?
-  // firstName - para i store ang pangalan ng teacher na naka login. 
-  // subjects - para i store ang listahan ng mga subjects na assigned sa teacher. 
-  // counts - para i store ang bilang ng mga estudyante sa bawat level (elementary, high school, senior high).
-  // ano ang elementary, high school, at senior high?
-  // elementary - mga estudyante na nasa elementary level (grade 1-6)
-  // high school - mga estudyante na nasa high school level (grade 7-10)
-  // senior high - mga estudyante na nasa senior high level (grade 11-12)
-  // saan galing ang mga data na to? at paano sila nakakakuha ng data?
-  // firstName - galing sa localStorage, kung saan naka store ang pangalan ng teacher during login. 
-  // subjects - galing sa API call gamit ang FacultyTeacherService.getMySubjects(), na nag re retrieve ng listahan ng subjects assigned sa teacher.
-  // counts - galing sa API call gamit ang fetch function, na nag re retrieve ng bilang ng mga estudyante sa bawat level.
   const [firstName, setFirstName] = useState("");
   const [subjects, setSubjects] = useState([]);
   const [counts, setCounts] = useState({
@@ -39,6 +23,7 @@ export default function TeacherDashboard() {
       try {
         const data = await FacultyTeacherService.getMySubjects();
         setSubjects(data);
+        // error handling
       } catch (error) {
         console.error("Error loading subjects:", error);
       }
@@ -50,14 +35,14 @@ export default function TeacherDashboard() {
   useEffect(() => {
     const fetchCounts = async () => {
       try {
-        const token = localStorage.getItem("token"); // Get the token
+        const token = localStorage.getItem("token"); 
         const response = await fetch(
           `${import.meta.env.VITE_BASE_URL}/api/students/count`,
           {
             method: "GET",
             headers: {
               "Content-Type": "application/json",
-              Authorization: `Bearer ${token}`, // Add the header
+              Authorization: `Bearer ${token}`, 
             },
           },
         );
@@ -89,7 +74,6 @@ export default function TeacherDashboard() {
         {/* User Profile Header */}
         <div className="flex justify-end pt-10 pr-12">
           <div className="flex items-center gap-4 group">
-            {/* Text Info: Aligned to the center of the image */}
             <div className="flex flex-col text-right justify-center">
               <p className="text-[12px] font-bold text-gray-500 uppercase tracking-widest leading-none mb-1">
                 Faculty
@@ -99,7 +83,6 @@ export default function TeacherDashboard() {
               </p>
             </div>
 
-            {/* Profile Image: Added a clean border and consistent sizing */}
             <div className="w-24 h-24 rounded-full overflow-hidden border-2 border-[#630000] p-0.5 bg-white shadow-sm transition-transform duration-300 group-hover:scale-105">
               <img
                 src={profile}
@@ -111,11 +94,8 @@ export default function TeacherDashboard() {
         </div>
 
         {/* Enrollment Stats Row */}
-        {/* border-collapse - merge border para di magkaron ng double line */}
         <table className="mt-15 font-['Inter'] font-semibold border border-collapse mx-auto max-w-7xl w-full mb-10">
-          {/* table body pag tbody ay main content pag thead naman ay pang header */}
           <tbody>
-            {/* tr ay isang horizontal na row */}
             <tr>
               {/* .map ay loop na nag rereturn ng something. kunware sa code na to, tinitreat nya as a-b-c so instead 
               na magsulat ng <th> na madami, gumamit ng .map para tawagin ang mga label ng sunod-sunod (array). Prang sinasabi ng .map na
@@ -125,7 +105,6 @@ export default function TeacherDashboard() {
                 "High School Enrolled",
                 "SHS Enrolled",
               ].map((label, index) => (
-                // header cell ang th, automatic bold and center the data
                 <th
                   // key ay position ng item sa isang array. for example ang high school ang index nya ay 1 dahil nag start ang bilang sa 0.
                   key={index}
@@ -140,7 +119,7 @@ export default function TeacherDashboard() {
               {[counts.elementary, counts.highSchool, counts.seniorHigh].map(
                 (count, index) => (
                   // td ay ginagamit sa mga actual values hehe
-                  //key ay ginagamit para ma track ang mga element. At ano ang mga element? yung ay yung mga elem etc and numbers.
+                  //key ay ginagamit para ma track ang mga element. 
                   // .map in addition ay parang inuutusan mo na, for each label display "elem" or for each count dispkay "16"
                   // and since the labels and counts are aligned or sinulat ng naayon sa pagkakasunod sunod, nag laline up sila coreesponds sa kanilang
                   // labels and counts. gets?
@@ -163,7 +142,7 @@ export default function TeacherDashboard() {
             </div>
           </div>
 
-          <div className="max-w-7xl mx-auto mt-4 grid grid-cols-3 gap-4 ">
+          <div className="w-7xl mx-auto mt-4 grid grid-cols-3 gap-4 ">
             {subjects.map((sub, index) => (
               <div
                 key={index}

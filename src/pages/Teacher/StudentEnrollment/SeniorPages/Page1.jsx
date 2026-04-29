@@ -723,8 +723,7 @@ export default function EnrollmentForm() {
               <p className="text-[#1B1717] text-[14px]">Contact Number</p>
               <input
                 {...register("father_contact", { required: true })}
-                type="tel"
-                pattern="[0-9]{3}-[0-9]{2}-[0-9]{3}"
+                type="number"
                 minLength={11}
                 maxLength={11}
                 className={`border border-[#630000] shadow-sm text-[13px] tracking-wider w-40 h-10 p-3 rounded-[5px] ${errors.father_contact ? "border-red-500 bg-red-50" : "border-#630000"}`}
@@ -850,8 +849,7 @@ export default function EnrollmentForm() {
               <p className="text-[#1B1717] text-[14px]">Contact Number</p>
               <input
                 {...register("mother_contact", { required: true })}
-                type="tel"
-                pattern="[0-9]{3}-[0-9]{2}-[0-9]{3}"
+                type="number"
                 minLength={11}
                 maxLength={11}
                 className={`border border-[#630000] shadow-sm text-[13px] tracking-wider w-40 h-10 p-3 rounded-[5px] ${errors.mother_contact ? "border-red-500 bg-red-50" : "border-#630000"}`}
@@ -976,8 +974,7 @@ export default function EnrollmentForm() {
               <p className="text-[#1B1717] text-[14px]">Contact Number</p>
               <input
                 {...register("guardian_contact", { required: true })}
-                type="tel"
-                pattern="[0-9]{3}-[0-9]{2}-[0-9]{3}"
+                type="number"
                 minLength={11}
                 maxLength={11}
                 className={`border border-[#630000] shadow-sm text-[13px] tracking-wider w-40 h-10 p-3 rounded-[5px] ${errors.guardian_contact ? "border-red-500 bg-red-50" : "border-#630000"}`}

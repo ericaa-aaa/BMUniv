@@ -1,26 +1,14 @@
 import React, { useState, useEffect } from "react";
 import toast from 'react-hot-toast';
-// bakit react-hook-form? 
-// react-hook-form ay isang library na ginagamit para i manage ang state at validation ng forms sa React applications, 
-// na nagbibigay ng simple at efficient na paraan para mag handle ng form data at errors.
+//library para sa mga forms
+//hindi na need gumawa ng state per input
 import { useForm } from "react-hook-form";
 import { Paperclip, Save, ArrowRight, ArrowLeft } from "lucide-react";
-//para saan ang ElementaryStudentService?
-// ElementaryStudentService ay isang service module na nag co contain ng functions para mag interact 
-// sa backend API endpoints related sa enrollment ng elementary students, tulad ng pag submit ng enrollment data.
 import { ElementaryStudentService } from "../../../../services/elementarystudentservice"
 
 export default function EnrollmentForm() {
-  const [step, setStep] = useState(1); // 1 for Student Information, 2 for Parent/Guardian
+  const [step, setStep] = useState(1);
   const [photoPreview, setPhotoPreview] = useState(null);
-
-  // register - isang function na ginagamit para i register ang input fields sa react-hook-form, para ma manage ang kanilang state at validation.
-  // handleSubmit - isang function na ginagamit para i handle ang form submission, na nag va validate ng form at tumatawag sa onSubmit handler kung valid.
-  // watch - isang function na ginagamit para i watch ang mga pagbabago sa input fields, at mag return ng kanilang current values.
-  // setValue - isang function na ginagamit para i programmatically set ang value ng isang input field.
-  // getValues - isang function na ginagamit para i get ang current values ng lahat ng registered input fields, karaniwang ginagamit sa onSubmit para makuha ang buong form data.
-  // trigger - isang function na ginagamit para i trigger ang validation ng specific fields, at mag return ng boolean kung valid o hindi.
-  // formState: { errors } - isang object na nag co contain ng validation errors para sa bawat field, na ginagamit para mag display ng error messages o mag style ng input fields kapag may error.
 
   const {
     register,
@@ -33,29 +21,29 @@ export default function EnrollmentForm() {
   } = useForm({
     defaultValues: {
       grade_level: "",
-      lastname: "Cash",
-      firstname: "G",
+      lastname: "",
+      firstname: "",
       middlename: "",
       ext: "",
-      age: "7",
-      birthdate: "07/10/2016",
-      place_of_birth: "g",
-      civil_status: "g",
+      age: "",
+      birthdate: "",
+      place_of_birth: "",
+      civil_status: "",
       gender: "",
-      citizenship: "g",
-      mother_tongue: "g",
-      religion: "g",
-      weight: "30",
-      height: "45",
+      citizenship: "",
+      mother_tongue: "",
+      religion: "",
+      weight: "",
+      height: "",
       is_ip_community: false,
       contact_number: "",
-      email_address: "gcajs@gmail.com",
-      curr_house_no: "1234",
-      curr_street: "t",
-      curr_barangay: "t",
-      curr_municipality: "t",
-      curr_province: "t",
-      is_permanent_same: true,
+      email_address: "",
+      curr_house_no: "",
+      curr_street: "",
+      curr_barangay: "",
+      curr_municipality: "",
+      curr_province: "",
+      is_permanent_same: false,
       perm_house_no: "",
       perm_street: "",
       perm_barangay: "",
@@ -234,21 +222,11 @@ export default function EnrollmentForm() {
     setValue,
   ]);
 
-  // Handle Photo Preview
   useEffect(() => {
     if (photoFile && photoFile[0]) {
       setPhotoPreview(URL.createObjectURL(photoFile[0]));
     }
   }, [photoFile]);
-
-  //ano ang onSubmit?
-  // onSubmit ay isang function na ginagamit bilang handler para sa form submission, na tumatanggap ng form data bilang
-  // argument at nag pe perform ng actions tulad ng pag send ng data sa server o pag display ng success/error messages.
-  // Sa code na ito, onSubmit ay isang async function na nag e enroll ng student gamit ang
-  // ElementaryStudentService at nag ha handle ng session expiration case.
-  // para saan ang code 152 hanggang 161?
-  // Sa code na ito, ginagamit ang toast.promise para mag display ng loading, success,
-  // at error messages sa user habang nag e enroll ng student.
 
   const onSubmit = async (data) => {
     try {
@@ -267,7 +245,6 @@ export default function EnrollmentForm() {
   return (
     <form
       onSubmit={handleSubmit(onSubmit)}
-      noValidate
       className="relative h-100 font-['Inter'] "
     >
       {/* PAGE 1: STUDENT INFORMATION */}
@@ -293,7 +270,7 @@ export default function EnrollmentForm() {
                   required: "Grade Level is required",
                   min: 1, max:6,valueAsNumber: true }
                 )}
-                type="text"
+                type="number"
                 maxLength={1}
                 className={`border border-[#630000] shadow-sm text-[12px] w-13 h-8 p-3 rounded-[5px] ${errors.grade_level ? "border-red-500 bg-red-50" : "border-#630000"}`}
               />
@@ -340,12 +317,7 @@ export default function EnrollmentForm() {
             <div className="flex flex-col gap-1">
               <p className="text-[#1B1717] text-[14px]">Student Name:</p>
               {/* // bakit naka true ang required? 
-                required: true means that the field is required and must be filled out before the form can be submitted.
-                // ano ang ${errors.lastname ? "border-red-500 bg-red-50" : "border-#630000"}?
-                // This is a conditional class name that changes the border color and background color of the input 
-                field based on whether there is an error for the "lastname" field. 
-                If there is an error, it applies a red border and light red background to indicate a validation issue. 
-                If there is no error, it applies the default border color. */}
+                required: true means that the field is required and must be filled out before the form can be submitted. */}
               <input
                 {...register("lastname", { required: true })}
                 type="text"
@@ -739,8 +711,7 @@ export default function EnrollmentForm() {
               <p className="text-[#1B1717] text-[14px]">Contact Number</p>
               <input
                 {...register("father_contact", { required: true })}
-                type="tel"
-                pattern="[0-9]{3}-[0-9]{2}-[0-9]{3}"
+                type="number"
                 maxLength={11}
                 minLength={11}
                 className={`border border-[#630000] shadow-sm text-[13px] tracking-wider w-40 h-10 p-3 rounded-[5px] ${errors.father_contact ? "border-red-500 bg-red-50" : "border-#630000"}`}
@@ -866,8 +837,7 @@ export default function EnrollmentForm() {
               <p className="text-[#1B1717] text-[14px]">Contact Number</p>
               <input
                 {...register("mother_contact", { required: true })}
-                type="tel"
-                pattern="[0-9]{3}-[0-9]{2}-[0-9]{3}"
+                type="number"
                 maxLength={11}
                 minLength={11}
                 className={`border border-[#630000] shadow-sm text-[13px] tracking-wider w-40 h-10 p-3 rounded-[5px] ${errors.mother_contact ? "border-red-500 bg-red-50" : "border-#630000"}`}
@@ -992,8 +962,7 @@ export default function EnrollmentForm() {
               <p className="text-[#1B1717] text-[14px]">Contact Number</p>
               <input
                 {...register("guardian_contact", { required: true })}
-                type="tel"
-                pattern="[0-9]{3}-[0-9]{2}-[0-9]{3}"
+                type="number"
                 maxLength={11}
                 minLength={11}
                 className={`border border-[#630000] shadow-sm text-[13px] tracking-wider w-40 h-10 p-3 rounded-[5px] ${errors.guardian_contact ? "border-red-500 bg-red-50" : "border-#630000"}`}
