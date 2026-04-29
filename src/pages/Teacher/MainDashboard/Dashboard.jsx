@@ -136,29 +136,29 @@ export default function TeacherDashboard() {
         </table>
 
         <div className="pt-12 font-['Inter']">
-          <div className="max-w-7xl mx-auto mt-4">
-            <div className="text-[#630000] font-['Inter'] text-[25px] font-bold text-left">
+          <div className="max-w-7xl mx-auto">
+            <div className="text-[#630000] font-['Inter'] text-[23px] font-bold text-left">
               <p>My Assigned Subjects</p>
             </div>
           </div>
 
-          <div className="w-7xl mx-auto mt-4 grid grid-cols-3 gap-4 ">
+          <div className="max-w-7xl mx-auto grid grid-cols-3 gap-4">
             {subjects.map((sub, index) => (
               <div
                 key={index}
                 className="bg-[#edebdd] border-2 border-b-6 rounded-xl p-4 text-left text-[#630000] shadow-sm pl-8 mt-10"
               >
-                <div className="text-[17px] font-bold mb-2">
+                <div className="text-[15px] font-bold mb-2">
                   {sub.grade ? `Grade ${sub.grade}` : "NA"}
                 </div>
 
-                <div className="text-[25px] font-bold mb-2">
+                <div className="text-[19px] font-bold mb-2">
                   {sub.name ?? "NA"}
                 </div>
                 {/* // ano ang Number()? Number() ay isang built-in function sa JavaScript na ginagamit para i convert ang isang value sa number type. 
                 Sa code na to, ginagamit ito para i convert ang sub.grade (na pwedeng string) sa number para ma check kung ito ay 11 o 12. */}
                 {[11, 12].includes(Number(sub.grade)) && sub.courseCode && (
-                  <div className="text-sm mt-2 font-medium">
+                  <div className="text-[15px] mt-2 font-medium">
                     {sub.courseCode}
                   </div>
                 )}

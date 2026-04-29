@@ -125,7 +125,7 @@ export default function AddSHS() {
           <p className="text-[#1B1717] text-[14px]">Strand</p>
           <select {...register("strand")} className="border border-[#630000] shadow-sm text-[13px] tracking-wider h-10 p-3 rounded-[5px] w-40" >
             <option value="">Select</option>
-            <option value="HUMMS">HUMMS</option>
+            <option value="HUMSS">HUMMS</option>
             <option value="STEM">STEM</option>    
             <option value="ABM">ABM</option> 
             <option value="GAS">GAS</option> 
