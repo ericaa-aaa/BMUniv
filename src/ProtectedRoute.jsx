@@ -25,6 +25,30 @@ useEffect(() => {
 
   return isAuthenticated ? <Outlet /> : <Navigate to="/" replace />;
 }
+// fdshfsao
+
+// useEffect(() => {
+//   const token = localStorage.getItem("token");
+//   if (!token) {
+//     setIsAuthenticated(false);
+//     return;
+//   }
+
+//   fetch(`${import.meta.env.VITE_BASE_URL}/verify-token`, {
+//     headers: { Authorization: `Bearer ${token}` }
+//   })
+//   .then(res => {
+//     // If 403 or 401, set to false
+//     if (!res.ok) {
+//       setIsAuthenticated(false);
+//       return;
+//     }
+//     // Optional: Parse JSON to check role if necessary
+//     // res.json().then(data => { if(data.role !== 'teacher') ... })
+//     setIsAuthenticated(true);
+//   })
+//   .catch(() => setIsAuthenticated(false));
+// }, []);
 
 
 // cookies
