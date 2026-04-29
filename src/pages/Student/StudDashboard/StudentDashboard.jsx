@@ -63,8 +63,13 @@ export default function StudentDashboard() {
     grade: localStorage.getItem("studentGrade") || "N/A",
     section: localStorage.getItem("studentSection") || "Unassigned",
     category: localStorage.getItem("studentCategory") || "Student",
-    status: localStorage.getItem("studentStatus") || "ENROLLED",
+    status: localStorage.getItem("studentStatus") || " ",
   }));
+
+  const statusColors = {
+  Enrolled: "text-green-600",
+  Dropped: "text-red-500",
+};
 
   return (
     <div className="flex bg-gray-100 overflow-hidden">
@@ -105,14 +110,7 @@ export default function StudentDashboard() {
                   ▸ {student.category} - Grade {student.grade}
                 </p>
                 <p> ▸ Section: {student.section}</p>
-                <p
-                  className={
-                    student.status === "ENROLLED"
-                      ? "text-green-600"
-                      : "text-red-500"
-                  }
-                >
-                  {" "}
+                <p className={statusColors[student.status] || " "}>
                   ▸ {student.status}
                 </p>
               </div>

@@ -74,7 +74,7 @@ export default function StudentSubjects() {
         }}
       >
         <div className="absolute inset-0 bg-white/70 flex items-center justify-between px-10">
-          <div className="flex items-center gap-5">
+            <div className="flex items-center gap-5">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 viewBox="0 0 24 24"
@@ -87,8 +87,11 @@ export default function StudentSubjects() {
                   clip-rule="evenodd"
                 />
               </svg>
-            <h2 className="text-2xl font-semibold">Dela Cruz, Juan M.</h2>
-          </div>
+              <h2 className="font-['Inter'] text-2xl font-semibold text-gray-800 uppercase">
+                {student.name}
+              </h2>
+            </div>
+            
             <div className="m-2 p-2 pr-15">
               <div className="font-['Inter'] space-y-3 text-lg font-semibold text-[#7B0000]">
                 <p>▸ Batangas Metropolitan University</p>
