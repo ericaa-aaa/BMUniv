@@ -1,4 +1,5 @@
 import React from "react";
+import { useState } from "react";
 import { User } from "lucide-react";
 
 export default function StudentSubjects() {
@@ -53,6 +54,14 @@ export default function StudentSubjects() {
     },
   ];
 
+    const [student] = useState(() => ({
+      name: localStorage.getItem("activeUser") || "Student User",
+      grade: localStorage.getItem("studentGrade") || "N/A",
+      section: localStorage.getItem("studentSection") || "Unassigned",
+      category: localStorage.getItem("studentCategory") || "Student",
+      status: localStorage.getItem("studentStatus") || "ENROLLED",
+    }));
+
   return (
     <div className="font-['Inter'] p-8 bg-gray-100">
       <div
@@ -80,12 +89,25 @@ export default function StudentSubjects() {
               </svg>
             <h2 className="text-2xl font-semibold">Dela Cruz, Juan M.</h2>
           </div>
-          <div className="pr-17 space-y-3 text-lg font-semibold text-[#7B0000]">
-            <p>▸ Batangas Metropolitan University</p>
-            <p>▸ Grade 12 - ABM</p>
-            <p>▸ Second Semester</p>
-            <p className="text-green-600">▸ ENROLLED</p>
-          </div>
+            <div className="m-2 p-2 pr-15">
+              <div className="font-['Inter'] space-y-3 text-lg font-semibold text-[#7B0000]">
+                <p>▸ Batangas Metropolitan University</p>
+                <p>
+                  ▸ {student.category} - Grade {student.grade}
+                </p>
+                <p> ▸ Section: {student.section}</p>
+                <p
+                  className={
+                    student.status === "ENROLLED"
+                      ? "text-green-600"
+                      : "text-red-500"
+                  }
+                >
+                  {" "}
+                  ▸ {student.status}
+                </p>
+              </div>
+            </div>
         </div>
       </div>
 

@@ -100,7 +100,7 @@ export default function StudentDashboard() {
             </div>
             <div className="m-2 p-2 pr-15">
               <div className="font-['Inter'] space-y-3 text-lg font-semibold text-[#7B0000]">
-                <p>▸ Batangas Metropolitan University</p>
+                <p>▸ Batangas Metropolitan University</p>PRAC 12
                 <p>
                   ▸ {student.category} - Grade {student.grade}
                 </p>
