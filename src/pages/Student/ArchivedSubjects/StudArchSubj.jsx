@@ -90,7 +90,7 @@ export default function ArchivedSubjects() {
         </div>
       </div>
 
-      <div className="overflow-hidden rounded-2xl shadow-lg">
+      <div className="overflow-hidden rounded-2xl mt-5 shadow-lg">
         <div className="grid grid-cols-[2fr_1.5fr_1fr] bg-white gap-0.5">
           <div className="p-4 bg-[#7B0000] text-white text-center font-semibold">
             Subject
