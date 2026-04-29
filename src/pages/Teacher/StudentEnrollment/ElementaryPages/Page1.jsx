@@ -261,7 +261,7 @@ export default function EnrollmentForm() {
 
           {/* Attachment Button & Preview */}
           <div className="flex items-center justify-between w-full pl-12 pr-12 pt-2">
-            <div className="flex gap-5">
+            <div className="flex gap-5 items-center">
               <p className="text-[#630000] text-[25px] font-semibold">
                 Grade Level:
               </p>

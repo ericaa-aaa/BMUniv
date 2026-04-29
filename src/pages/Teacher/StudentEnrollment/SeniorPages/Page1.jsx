@@ -201,7 +201,7 @@ export default function EnrollmentForm() {
 
       if (errors.grade_level) {
         errorMessage =
-          "Please enter a valid grade (1-6) and fill all required fields.";
+          "Please enter a valid grade (11-12) and fill all required fields.";
       }
       toast.error(errorMessage, {
         position: "top-right",
@@ -274,9 +274,9 @@ export default function EnrollmentForm() {
             accept="image/*"
           />
 
-          <div className="flex items-center justify-between w-full pl-12 pr-12 pt-2">
+          <div className="flex items-center justify-between w-full pl-12 pr-12 pt-3">
             <div className="flex gap-5 items-center">
-              <p className="text-[#630000] text-[25px] font-semibold whitespace-nowrap">
+              <p className="text-[#630000] text-[25px] font-semibold">
                 Grade Level:
               </p>
               <input
@@ -505,7 +505,7 @@ export default function EnrollmentForm() {
                 pattern="[0-9-]{11,15}"
                 minLength={11}
                 maxLength={11}
-                className={`border border-[#630000] shadow-sm text-[13px] tracking-wider h-10 p-3 rounded-[5px] w-40 ${errors.contact_number ? "border-red-500 bg-red-50" : "border-#630000"}`}
+                className={`border border-[#630000] shadow-sm text-[12px] tracking-wider w-40 h-10 p-3 rounded-[5px] ${errors.contact_number ? "border-red-500 bg-red-50" : "border-#630000"}`}
                 placeholder="09XXXXXXXXX"
               />
             </div>
