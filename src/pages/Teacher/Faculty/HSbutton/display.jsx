@@ -46,10 +46,14 @@ export default function DisplayHighSchool() {
               <h3 className="text-black font-bold text-xl leading-tight">
                 Teacher {faculty.firstname} {faculty.middlename ? `${faculty.middlename.charAt(0)}.` : ""} {faculty.lastname} {faculty.ext || ""}
               </h3>
+              <h3>
+                Grade {faculty.grade_level}
+              </h3>
 
               <p className="text-gray-600 text-lg font-medium">
                 {faculty.position || "JHS Instructor"}
               </p>
+              
               
             </div>
           ))
