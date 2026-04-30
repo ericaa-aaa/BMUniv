@@ -37,9 +37,17 @@ export default function DisplayElementary() {
           facultyList.map((faculty, index) => (
             <div key={faculty.id || index} className="flex flex-col items-center text-center p-4 mt-10 border-2 border-transparent hover:border-[#edebdd] rounded-2xl transition-all">
               <div className="mb-4">
-                <FaUserCircle className="text-gray-800 text-[100px]" />
+                {faculty.photo_url ? (
+                <img
+                  src={faculty.photo_url}
+                  alt={`${faculty.firstname} ${faculty.lastname}`}
+                  className="w-24 h-24 rounded-full object-cover" // Add styling
+                  onError={(e) => { e.target.src = '/default-avatar.png'; }} // Fallback if image fails
+                />
+              ) : (
+                <FaUserCircle className="text-gray-300 text-[100px]" />
+              )}
               </div>
-              
               <h3 className='text-gray-600'>
                 Grade {faculty.grade_level} Teacher
               </h3>
