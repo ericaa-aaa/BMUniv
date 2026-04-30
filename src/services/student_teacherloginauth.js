@@ -35,6 +35,10 @@ export const loginUser = async (username, password) => {
     localStorage.setItem("studentCategory", data.category || "");
     localStorage.setItem("studentStatus", data.status || "ENROLLED");
   }
+    else if (data.primary_role === 'teacher') {
+    localStorage.setItem("teacherGrade", data.grade || "N/A");
+  }
+
 
   return { success: true, role: data.primary_role }; 
 }

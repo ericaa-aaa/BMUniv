@@ -14,6 +14,7 @@ function Sidebar() {
     localStorage.removeItem("activeUser");
     localStorage.removeItem("role")
     localStorage.removeItem("permissions")
+    localStorage.removeItem('teacherGrade')
     navigate("/", { replace: true });
   };
 

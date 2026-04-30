@@ -5,6 +5,7 @@ import { FacultyTeacherService } from "../../../services/facultyteacherservice";
 
 export default function TeacherDashboard() {
   const [firstName, setFirstName] = useState("");
+  const [grade, setGrade] = useState("");
   const [subjects, setSubjects] = useState([]);
   const [counts, setCounts] = useState({
     elementary: 0,
@@ -15,9 +16,11 @@ export default function TeacherDashboard() {
   useEffect(() => {
  
     const storedName = localStorage.getItem("activeUser");
-    if (storedName) {
-      setFirstName(storedName);
-    }
+    const storedGrade = localStorage.getItem("teacherGrade");
+
+    if (storedName) setFirstName(storedName);
+    if (storedGrade) setGrade(storedGrade);
+
 
     const fetchMySubjects = async () => {
       try {
@@ -80,6 +83,7 @@ export default function TeacherDashboard() {
               <p className='font-["Inter"] text-[#1B1717] text-xl font-semibold capitalize leading-none'>
                 {firstName ? `Teacher ${firstName}` : "Faculty Teacher"}
               </p>
+              <p>Assigned Grade: {grade}</p>
             </div>
 
             <div className="w-24 h-24 rounded-full overflow-hidden border-2 border-[#630000] p-0.5 bg-white shadow-sm transition-transform duration-300 group-hover:scale-105">
