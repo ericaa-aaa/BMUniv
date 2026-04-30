@@ -92,6 +92,7 @@ export default function EnrollmentForm() {
 
     if (step === 1) {
       fieldsToValidate = [
+        "photo",
         "lastname",
         "firstname",
         "age",
@@ -163,6 +164,8 @@ export default function EnrollmentForm() {
     if (isStepValid) {
       if (step === 2) {
         const dataToSend = getValues();
+
+        // toast.promise properly handles pending/success/error states
         toast.promise(
           onSubmit(dataToSend),
           {
@@ -185,13 +188,16 @@ export default function EnrollmentForm() {
         setStep((prev) => prev + 1);
       }
     } else {
+      // Determine the most specific error message
       let errorMessage = "Please fill all required fields.";
-
       if (errors.grade_level) {
         errorMessage =
           "Please enter a valid grade (1-6) and fill all required fields.";
+      } else if (errors.photo) {
+        errorMessage = "Please put an image";
       }
 
+      // Show only one error toast
       toast.error(errorMessage, {
         position: "top-right",
         style: { borderRadius: "10px", background: "#333", color: "#fff" },
@@ -257,7 +263,12 @@ export default function EnrollmentForm() {
             type="file"
             id="p-input"
             className="hidden"
-            {...register("photo")}
+            {...register("photo", {
+              validate: (value) => {
+                if (!value || value.length === 0) return "Photo is required";
+                return true;
+              },
+            })}
             accept="image/*"
           />
 
@@ -487,9 +498,7 @@ export default function EnrollmentForm() {
           </div>
 
           {/* Contact INfo */}
-          <div
-            className="pl-25 pt-3"
-          >
+          <div className="pl-25 pt-3">
             <p className="text-[#630000] text-[25px] font-semibold">
               Contact Information
             </p>
