@@ -3,7 +3,7 @@ import React, { useState, useEffect } from "react";
 export default function StudentSubjects() {
 
   const [subjects, setSubjects] = useState([]);
-  const [loading, setLoading] = useState(true);
+  const [ setLoading] = useState(true);
   const [student] = useState(() => ({
     name: localStorage.getItem("activeUser") || "Student User",
     grade: localStorage.getItem("studentGrade") || "N/A",
@@ -30,7 +30,7 @@ export default function StudentSubjects() {
     if (student.grade !== "N/A") {
       fetchSubjects();
     }
-  }, [student.grade, student.strand]); 
+  }, [setLoading, student.grade, student.strand]); 
 
 
   return (
