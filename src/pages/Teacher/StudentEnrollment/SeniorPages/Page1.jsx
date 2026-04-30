@@ -97,6 +97,7 @@ export default function EnrollmentForm() {
 
     if (step === 1) {
       fieldsToValidate = [
+        "photo",
         "lastname",
         "firstname",
         "age",
@@ -181,7 +182,7 @@ export default function EnrollmentForm() {
             success: <b>Enrollment submitted successfully!</b>,
             error: (err) => (
               <b>
-                {err.message === "SESSION_EXPIRED"
+                {err.message === SESSION_EXPIRED
                   ? "Session Expired"
                   : "Submission Failed"}
               </b>
@@ -196,16 +197,20 @@ export default function EnrollmentForm() {
         setStep((prev) => prev + 1);
       }
     } else {
+      // Determine the most specific error message
       let errorMessage = "Please fill all required fields.";
-
       if (errors.grade_level) {
         errorMessage =
-          "Please enter a valid grade (11-12) and fill all required fields.";
+          "Please enter a valid grade (1-6) and fill all required fields.";
+      } else if (errors.photo) {
+        errorMessage = "Please put an image";
       }
+
+      // Show only one error toast
       toast.error(errorMessage, {
         position: "top-right",
         style: { borderRadius: "10px", background: "#333", color: "#fff" },
-    });
+      });
     }
   };
 
@@ -269,7 +274,12 @@ export default function EnrollmentForm() {
             type="file"
             id="p-input"
             className="hidden"
-            {...register("photo")}
+            {...register("photo", {
+              validate: (value) => {
+                if (!value || value.length === 0) return "Photo is required";
+                return true;
+              },
+            })}
             accept="image/*"
           />
 
