@@ -1,10 +1,12 @@
 import { useForm } from "react-hook-form";
 import toast from "react-hot-toast";
 import { useState, useEffect } from "react";
+import { Paperclip} from "lucide-react";
 import { FacultyTeacherService } from "../../../../services/facultyteacherservice";
 
 export default function AddElementary() {
   const [availableSubjects, setAvailableSubjects] = useState([]);
+  const [photoPreview, setPhotoPreview] = useState(null);
 
   const {
     register,
@@ -67,6 +69,7 @@ export default function AddElementary() {
   };
 
   const selectedGrade = watch("grade_level");
+  const photoFile = watch("photo");
 
   useEffect(() => {
     if (selectedGrade) {
@@ -88,6 +91,12 @@ export default function AddElementary() {
     }
   }, [selectedGrade, setValue]);
 
+  useEffect(() => {
+    if (photoFile && photoFile[0]) {
+      setPhotoPreview(URL.createObjectURL(photoFile[0]));
+    }
+  }, [photoFile]);
+
   const onSubmit = async (data) => {
     try {
       const result = await FacultyTeacherService.addFaculty(data);
@@ -104,13 +113,49 @@ export default function AddElementary() {
 
   return (
     <form className="relative h-100 font-[Inter]">
-      <div className="pl-12 pt-5">
-        <p className="text-[#630000] text-[25px] font-semibold">
-          Elementary Teacher's Information
-        </p>
+      <input
+        type="file"
+        id="p-input"
+        className="hidden"
+        {...register("photo")}
+        accept="image/*"
+      />
+      <div className="flex items-center justify-between w-full pl-12 pr-12 pt-2">
+        <div className="flex gap-5 items-center">
+          <p className="text-[#630000] text-[25px] font-semibold">
+            Elementary Teacher's Information
+          </p>
+        </div>
+
+        <div className="relative w-24 h-24">
+          {/* Photo Circle */}
+          <div className="w-full h-full bg-[#EDEBDD] rounded-full border-2 border-[#630000] flex items-center justify-center overflow-hidden">
+            {photoPreview ? (
+              <img
+                src={photoPreview}
+                className="w-full h-full object-cover"
+                alt="Preview"
+              />
+            ) : (
+              <span className="text-[10px] text-gray-400 text-center">
+                No Photo
+              </span>
+            )}
+          </div>
+
+          {/* Overlapping Icon Button */}
+          <div className="absolute bottom-0 right-0 translate-x-1 translate-y-1">
+            <label
+              htmlFor="p-input"
+              className="p-2 bg-[#630000] text-white rounded-full block cursor-pointer hover:bg-red-900 transition-colors shadow-md border-2 border-white"
+            >
+              <Paperclip size={18} />
+            </label>
+          </div>
+        </div>
       </div>
 
-      <div className="grid grid-cols-4 gap-y-5 justify-items-center max-w-7xl mx-auto  pt-12">
+      <div className="grid grid-cols-4 gap-y-5 justify-items-center max-w-7xl mx-auto pt-5">
         <div className="flex flex-col gap-1">
           <p className="text-[#1B1717] text-[14px]">Teacher's Name:</p>
           <input
@@ -183,7 +228,7 @@ export default function AddElementary() {
           </select>
         </div>
 
-        <div className="flex flex-col gap-1"> 
+        <div className="flex flex-col gap-1">
           <p className="text-[#1B1717] text-[14px]">Title</p>
           <input
             {...register("position", { required: true })}
