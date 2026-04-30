@@ -7,6 +7,7 @@ export default function TeacherDashboard() {
   const [firstName, setFirstName] = useState("");
   const [grade, setGrade] = useState("");
   const [subjects, setSubjects] = useState([]);
+  const [profilePhoto, setProfilePhoto] = useState(null); 
   const [counts, setCounts] = useState({
     elementary: 0,
     highSchool: 0,
@@ -17,10 +18,11 @@ export default function TeacherDashboard() {
  
     const storedName = localStorage.getItem("activeUser");
     const storedGrade = localStorage.getItem("teacherGrade");
+    const storedPhoto = localStorage.getItem("profilePhoto");
 
     if (storedName) setFirstName(storedName);
     if (storedGrade) setGrade(storedGrade);
-
+    if (storedPhoto) setProfilePhoto(storedPhoto);
 
     const fetchMySubjects = async () => {
       try {
@@ -30,7 +32,6 @@ export default function TeacherDashboard() {
         console.error("Error loading subjects:", error);
       }
     };
-
     fetchMySubjects();
   }, []);
 
@@ -65,7 +66,7 @@ export default function TeacherDashboard() {
     };
 
     fetchCounts();
-  }, []);
+  }, []); 
 
   return (
     <section
@@ -86,10 +87,14 @@ export default function TeacherDashboard() {
             </div>
 
             <div className="w-24 h-24 rounded-full overflow-hidden border-2 border-[#630000] p-0.5 bg-white shadow-sm transition-transform duration-300 group-hover:scale-105">
-              <img
-                src={profile}
-                alt="Faculty"
+              <img 
+                src={profilePhoto || profile} 
+                alt="Faculty" 
                 className="w-full h-full rounded-full object-cover"
+                onError={(e) => {
+                  e.target.onerror = null
+                  e.target.src = profile; 
+                }}
               />
             </div>
           </div>
