@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import toast from "react-hot-toast";
 import { useForm } from "react-hook-form";
 import { Paperclip, Save, ArrowRight, ArrowLeft } from "lucide-react";
@@ -10,7 +10,6 @@ export default function EnrollmentForm() {
 
   const {
     register,
-    handleSubmit,
     watch,
     setValue,
     getValues,
@@ -286,8 +285,12 @@ export default function EnrollmentForm() {
                   max: 12,
                   valueAsNumber: true,
                 })}
-                type="text"
-                maxLength={2}
+                type="number"
+                onKeyDown={(e) => {
+    if (e.currentTarget.value.length >= 2 && e.key.length === 1 && e.key !== 'e') {
+      e.preventDefault();
+    }
+  }}
                 className={`border border-[#630000] shadow-sm text-[12px] w-13 h-8 p-3 rounded-[5px] ${errors.grade_level ? "border-red-500 bg-red-50" : "border-#630000"}`}
               />
             </div>
@@ -502,8 +505,6 @@ export default function EnrollmentForm() {
               <input
                 {...register("contact_number", { required: true })}
                 type="tel"
-                pattern="[0-9-]{11,15}"
-                minLength={11}
                 maxLength={11}
                 className={`border border-[#630000] shadow-sm text-[12px] tracking-wider w-40 h-10 p-3 rounded-[5px] ${errors.contact_number ? "border-red-500 bg-red-50" : "border-#630000"}`}
                 placeholder="09XXXXXXXXX"
@@ -513,7 +514,7 @@ export default function EnrollmentForm() {
             <div className="flex flex-col gap-1 col-span-1">
               <p className="text-[#1B1717] text-[14px] ">Email Address</p>
               <input
-                {...register("email_address", { required: true })}
+                {...register("email_address", { required: true})}
                 type="email"
                 className={`border border-[#630000] shadow-sm text-[13px] tracking-wider h-10 p-3 rounded-[5px] w-40 ${errors.email_address ? "border-red-500 bg-red-50" : "border-#630000"}`}
                 placeholder="email@example.com"
@@ -723,8 +724,7 @@ export default function EnrollmentForm() {
               <p className="text-[#1B1717] text-[14px]">Contact Number</p>
               <input
                 {...register("father_contact", { required: true })}
-                type="number"
-                minLength={11}
+                type="tel"
                 maxLength={11}
                 className={`border border-[#630000] shadow-sm text-[13px] tracking-wider w-40 h-10 p-3 rounded-[5px] ${errors.father_contact ? "border-red-500 bg-red-50" : "border-#630000"}`}
                 placeholder="Contact #"
@@ -849,8 +849,7 @@ export default function EnrollmentForm() {
               <p className="text-[#1B1717] text-[14px]">Contact Number</p>
               <input
                 {...register("mother_contact", { required: true })}
-                type="number"
-                minLength={11}
+                type="tel"
                 maxLength={11}
                 className={`border border-[#630000] shadow-sm text-[13px] tracking-wider w-40 h-10 p-3 rounded-[5px] ${errors.mother_contact ? "border-red-500 bg-red-50" : "border-#630000"}`}
                 placeholder="Contact #"
@@ -974,8 +973,7 @@ export default function EnrollmentForm() {
               <p className="text-[#1B1717] text-[14px]">Contact Number</p>
               <input
                 {...register("guardian_contact", { required: true })}
-                type="number"
-                minLength={11}
+                type="tel"
                 maxLength={11}
                 className={`border border-[#630000] shadow-sm text-[13px] tracking-wider w-40 h-10 p-3 rounded-[5px] ${errors.guardian_contact ? "border-red-500 bg-red-50" : "border-#630000"}`}
                 placeholder="Contact #"

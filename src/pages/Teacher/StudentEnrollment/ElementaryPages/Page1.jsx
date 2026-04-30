@@ -1,10 +1,10 @@
-import React, { useState, useEffect } from "react";
-import toast from 'react-hot-toast';
+import { useState, useEffect } from "react";
+import toast from "react-hot-toast";
 //library para sa mga forms
 //hindi na need gumawa ng state per input
 import { useForm } from "react-hook-form";
 import { Paperclip, Save, ArrowRight, ArrowLeft } from "lucide-react";
-import { ElementaryStudentService } from "../../../../services/elementarystudentservice"
+import { ElementaryStudentService } from "../../../../services/elementarystudentservice";
 
 export default function EnrollmentForm() {
   const [step, setStep] = useState(1);
@@ -100,6 +100,7 @@ export default function EnrollmentForm() {
         "grade_level",
         "email_address",
         "birthdate",
+        "citizenship",
         "place_of_birth",
         "mother_tongue",
         "religion",
@@ -165,7 +166,7 @@ export default function EnrollmentForm() {
         toast.promise(
           onSubmit(dataToSend),
           {
-            loading: "Processing enrollment...", // Quotes added
+            loading: "Processing enrollment...",
             success: <b>Enrollment submitted successfully!</b>,
             error: (err) => (
               <b>
@@ -176,7 +177,7 @@ export default function EnrollmentForm() {
             ),
           },
           {
-            style: { borderRadius: "10px", background: "#333", color: "#fff" }, // Quotes added
+            style: { borderRadius: "10px", background: "#333", color: "#fff" },
             position: "top-right",
           },
         );
@@ -184,16 +185,17 @@ export default function EnrollmentForm() {
         setStep((prev) => prev + 1);
       }
     } else {
-    let errorMessage = "Please fill all required fields.";
-    
-    if (errors.grade_level) {
-        errorMessage = "Please enter a valid grade (1-6) and fill all required fields.";
-    }
+      let errorMessage = "Please fill all required fields.";
 
-    toast.error(errorMessage, {
+      if (errors.grade_level) {
+        errorMessage =
+          "Please enter a valid grade (1-6) and fill all required fields.";
+      }
+
+      toast.error(errorMessage, {
         position: "top-right",
         style: { borderRadius: "10px", background: "#333", color: "#fff" },
-    });
+      });
     }
   };
 
@@ -268,10 +270,20 @@ export default function EnrollmentForm() {
               <input
                 {...register("grade_level", {
                   required: "Grade Level is required",
-                  min: 1, max:6,valueAsNumber: true }
-                )}
+                  min: 1,
+                  max: 6,
+                  valueAsNumber: true,
+                })}
                 type="number"
-                maxLength={1}
+                onKeyDown={(e) => {
+                  if (
+                    e.currentTarget.value.length >= 1 &&
+                    e.key.length === 1 &&
+                    e.key !== "e"
+                  ) {
+                    e.preventDefault();
+                  }
+                }}
                 className={`border border-[#630000] shadow-sm text-[12px] w-13 h-8 p-3 rounded-[5px] ${errors.grade_level ? "border-red-500 bg-red-50" : "border-#630000"}`}
               />
             </div>
@@ -477,8 +489,6 @@ export default function EnrollmentForm() {
           {/* Contact INfo */}
           <div
             className="pl-25 pt-3"
-            type="tel"
-            pattern="[0-9]{3}-[0-9]{2}-[0-9]{3}4"
           >
             <p className="text-[#630000] text-[25px] font-semibold">
               Contact Information
@@ -490,7 +500,8 @@ export default function EnrollmentForm() {
               <p className="text-[#1B1717] text-[14px] ">Contact Number</p>
               <input
                 {...register("contact_number")}
-                type="number"
+                type="tel"
+                maxLength={11}
                 className="border border-[#630000] shadow-sm text-[12px] w-40 h-10 p-3 rounded-[5px]"
                 placeholder="09XXXXXXXXX"
               />
@@ -711,9 +722,8 @@ export default function EnrollmentForm() {
               <p className="text-[#1B1717] text-[14px]">Contact Number</p>
               <input
                 {...register("father_contact", { required: true })}
-                type="number"
+                type="tel"
                 maxLength={11}
-                minLength={11}
                 className={`border border-[#630000] shadow-sm text-[13px] tracking-wider w-40 h-10 p-3 rounded-[5px] ${errors.father_contact ? "border-red-500 bg-red-50" : "border-#630000"}`}
                 placeholder="Contact #"
               />
@@ -837,9 +847,8 @@ export default function EnrollmentForm() {
               <p className="text-[#1B1717] text-[14px]">Contact Number</p>
               <input
                 {...register("mother_contact", { required: true })}
-                type="number"
+                type="tel"
                 maxLength={11}
-                minLength={11}
                 className={`border border-[#630000] shadow-sm text-[13px] tracking-wider w-40 h-10 p-3 rounded-[5px] ${errors.mother_contact ? "border-red-500 bg-red-50" : "border-#630000"}`}
                 placeholder="Contact #"
               />
@@ -962,9 +971,8 @@ export default function EnrollmentForm() {
               <p className="text-[#1B1717] text-[14px]">Contact Number</p>
               <input
                 {...register("guardian_contact", { required: true })}
-                type="number"
+                type="tel"
                 maxLength={11}
-                minLength={11}
                 className={`border border-[#630000] shadow-sm text-[13px] tracking-wider w-40 h-10 p-3 rounded-[5px] ${errors.guardian_contact ? "border-red-500 bg-red-50" : "border-#630000"}`}
                 placeholder="Contact #"
               />

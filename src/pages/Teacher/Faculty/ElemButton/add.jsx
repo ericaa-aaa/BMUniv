@@ -183,13 +183,13 @@ export default function AddElementary() {
           </select>
         </div>
 
-        <div className="flex flex-col gap-1">
-          <p className="text-[#1B1717] text-[14px]">Position</p>
+        <div className="flex flex-col gap-1"> 
+          <p className="text-[#1B1717] text-[14px]">Title</p>
           <input
             {...register("position", { required: true })}
             type="text"
             className={`border border-[#630000] shadow-sm text-[13px] tracking-wider h-10 p-3 rounded-[5px] w-40 ${errors.position ? "border-red-500 bg-red-50" : "border-#630000"}`}
-            placeholder="Position"
+            placeholder="Title"
           />
         </div>
       </div>

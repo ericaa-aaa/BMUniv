@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import toast from "react-hot-toast";
 import { useForm } from "react-hook-form";
 import { Paperclip, Save, ArrowRight, ArrowLeft } from "lucide-react";
@@ -120,13 +120,14 @@ export default function EnrollmentForm() {
         "curr_province",
       ];
       if (!isPermanentSame) {
-        fieldsToValidate.push(
+        fieldsToValidate = [
+          ...fieldsToValidate,
           "perm_house_no",
           "perm_street",
           "perm_barangay",
           "perm_municipality",
           "perm_province",
-        );
+        ];
       }
     } else if (step === 2) {
       fieldsToValidate = [
@@ -255,6 +256,7 @@ export default function EnrollmentForm() {
 
   return (
     <form
+      onSubmit={handleSubmit(onSubmit)}
       className="relative h-100 font-['Inter']"
     >
       {/*  PAGE 1: STUDENT INFORMATION */}
@@ -281,8 +283,16 @@ export default function EnrollmentForm() {
                   max: 10,
                   valueAsNumber: true,
                 })}
-                type="text"
-                maxLength={2}
+                type="number"
+                onKeyDown={(e) => {
+                  if (
+                    e.currentTarget.value.length >= 2 &&
+                    e.key.length === 1 &&
+                    e.key !== "e"
+                  ) {
+                    e.preventDefault();
+                  }
+                }}
                 className={`border border-[#630000]  shadow-sm text-[12px] w-13 h-8 p-3 rounded-[5px] ${errors.grade_level ? "border-red-500 bg-red-50" : "border-#630000"}`}
               />
             </div>
@@ -302,7 +312,7 @@ export default function EnrollmentForm() {
                     No Photo
                   </span>
                 )}
-              </div> 
+              </div>
 
               {/* Overlapping Icon Button */}
               <div className="absolute bottom-0 right-0 translate-x-1 translate-y-1">
@@ -496,8 +506,7 @@ export default function EnrollmentForm() {
               <p className="text-[#1B1717] text-[14px] ">Contact Number</p>
               <input
                 {...register("contact_number", { required: true })}
-                type="number"
-                minLength={11}
+                type="tel"
                 maxLength={11}
                 className={`border border-[#630000] shadow-sm text-[12px] w-40 h-10 p-3 rounded-[5px] ${errors.contact_number ? "border-red-500 bg-red-50" : "border-#630000"}`}
                 placeholder="09XXXXXXXXX"
@@ -719,8 +728,7 @@ export default function EnrollmentForm() {
               <p className="text-[#1B1717] text-[14px]">Contact Number</p>
               <input
                 {...register("father_contact", { required: true })}
-                type="number"
-                minLength={11}
+                type="tel"
                 maxLength={11}
                 className={`border border-[#630000] shadow-sm text-[13px] tracking-wider w-40 h-10 p-3 rounded-[5px] ${errors.father_contact ? "border-red-500 bg-red-50" : "border-#630000"}`}
                 placeholder="Contact #"
@@ -845,8 +853,7 @@ export default function EnrollmentForm() {
               <p className="text-[#1B1717] text-[14px]">Contact Number</p>
               <input
                 {...register("mother_contact", { required: true })}
-                type="number"
-                minLength={11}
+                type="tel"
                 maxLength={11}
                 className={`border border-[#630000] shadow-sm text-[13px] tracking-wider w-40 h-10 p-3 rounded-[5px] ${errors.mother_contact ? "border-red-500 bg-red-50" : "border-#630000"}`}
                 placeholder="Contact #"
@@ -970,8 +977,7 @@ export default function EnrollmentForm() {
               <p className="text-[#1B1717] text-[14px]">Contact Number</p>
               <input
                 {...register("guardian_contact", { required: true })}
-                type="number"
-                minLength={11}
+                type="tel"
                 maxLength={11}
                 className={`border border-[#630000] shadow-sm text-[13px] tracking-wider w-40 h-10 p-3 rounded-[5px] ${errors.guardian_contact ? "border-red-500 bg-red-50" : "border-#630000"}`}
                 placeholder="Contact #"

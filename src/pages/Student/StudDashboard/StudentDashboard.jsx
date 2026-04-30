@@ -18,44 +18,42 @@ export default function StudentDashboard() {
     });
   };
 
-  const handlePasswordUpdate = (e) => {
+const handlePasswordUpdate = async (e) => {
     e.preventDefault();
-
     if (passwordForm.newPassword !== passwordForm.confirmPassword) {
-      toast.error("Passwords do not match.", {
-        style: {
-          borderRadius: "10px",
-          background: "#333",
-          color: "#fff",
-        },
-      });
-      return;
+        toast.error("Passwords do not match.");
+        return;
     }
+    try {
+        const token = localStorage.getItem('token');
+        if (!token) {
+            throw new Error("No authorization token found. Please log in.");
+        }
 
-    toast.success("Password updated successfully!", {
-      duration: 4000,
-      style: {
-        background: "#7A1C1C",
-        color: "#EDEBDD",
-        fontWeight: "bold",
-        fontFamily: "Inter",
-        borderRadius: "12px",
-        border: "1px solid #5a1515",
-      },
-      iconTheme: {
-        primary: "#EDEBDD",
-        secondary: "#7A1C1C",
-      },
-    });
+        const res = await fetch(`${import.meta.env.VITE_BASE_URL}/change-password`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token}` 
+            },
+            body: JSON.stringify({
+                currentPassword: passwordForm.currentPassword,
+                newPassword: passwordForm.newPassword,
+            }),
+        });
 
-    setShowPasswordModal(false);
-    setShowPassword(false);
-    setPasswordForm({
-      currentPassword: "",
-      newPassword: "",
-      confirmPassword: "",
-    });
-  };
+        const data = await res.json();
+        if (!res.ok) {
+            throw new Error(data.message || "Failed to update password");
+        }
+        
+        toast.success(data.message || "Password updated successfully!");
+        setShowPasswordModal(false);
+        setPasswordForm({ currentPassword: '', newPassword: '', confirmPassword: '' });
+    } catch (err) {
+        toast.error(err.message);
+    }
+};
 
   const [student] = useState(() => ({
     name: localStorage.getItem("activeUser") || "Student User",
@@ -292,3 +290,73 @@ export default function StudentDashboard() {
     </div>
   );
 }
+// const handlePasswordUpdate = async (e) => {
+//   e.preventDefault();
+
+//   if (passwordForm.newPassword !== passwordForm.confirmPassword) {
+//     toast.error("Passwords do not match.", {
+//       style: {
+//         borderRadius: "10px",
+//         background: "#333",
+//         color: "#fff",
+//       },
+//     });
+//     return;
+//   }
+
+//   try {
+//     const token = localStorage.getItem("access_token"); // make sure you store this on login
+
+//     const res = await fetch("http://localhost:5000/change-password", {
+//       method: "POST",
+//       headers: {
+//         "Content-Type": "application/json",
+//         Authorization: `Bearer ${token}`,
+//       },
+//       body: JSON.stringify({
+//         currentPassword: passwordForm.currentPassword,
+//         newPassword: passwordForm.newPassword,
+//       }),
+//     });
+
+//     const data = await res.json();
+
+//     if (!res.ok) {
+//       throw new Error(data.message || "Failed to update password");
+//     }
+
+//     // ✅ success toast (your existing style preserved)
+//     toast.success(data.message || "Password updated successfully!", {
+//       duration: 4000,
+//       style: {
+//         background: "#7A1C1C",
+//         color: "#EDEBDD",
+//         fontWeight: "bold",
+//         fontFamily: "Inter",
+//         borderRadius: "12px",
+//         border: "1px solid #5a1515",
+//       },
+//       iconTheme: {
+//         primary: "#EDEBDD",
+//         secondary: "#7A1C1C",
+//       },
+//     });
+
+//     setShowPasswordModal(false);
+//     setShowPassword(false);
+//     setPasswordForm({
+//       currentPassword: "",
+//       newPassword: "",
+//       confirmPassword: "",
+//     });
+
+//   } catch (err) {
+//     toast.error(err.message, {
+//       style: {
+//         borderRadius: "10px",
+//         background: "#333",
+//         color: "#fff",
+//       },
+//     });
+//   }
+// };
