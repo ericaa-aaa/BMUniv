@@ -23,7 +23,6 @@ export default function TeacherDashboard() {
       try {
         const data = await FacultyTeacherService.getMySubjects();
         setSubjects(data);
-        // error handling
       } catch (error) {
         console.error("Error loading subjects:", error);
       }
@@ -155,8 +154,6 @@ export default function TeacherDashboard() {
                 <div className="text-[19px] font-bold mb-2">
                   {sub.name ?? "NA"}
                 </div>
-                {/* // ano ang Number()? Number() ay isang built-in function sa JavaScript na ginagamit para i convert ang isang value sa number type. 
-                Sa code na to, ginagamit ito para i convert ang sub.grade (na pwedeng string) sa number para ma check kung ito ay 11 o 12. */}
                 {[11, 12].includes(Number(sub.grade)) && sub.courseCode && (
                   <div className="text-[15px] mt-2 font-medium">
                     {sub.courseCode}
