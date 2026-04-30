@@ -19,7 +19,7 @@ import StudSubj from "./pages/Student/Subjects/StudentSubjectsTable.jsx";
 import ArchSubj from "./pages/Student/ArchivedSubjects/StudArchSubj.jsx";
 import Sidebar from "./pages/Teacher/MainDashboard/Sidebar.jsx";
 import StudentLayout from "./pages/Student/StudentLayout.jsx";
-
+import Settings from "./pages/Teacher/Settings.jsx";
 import TeacherLayout from "./pages/Teacher/TeacherLayout.jsx";
 
 //Faculty imports
@@ -62,6 +62,7 @@ function AppContent() {
           <Route path="/teacher/elemrec/*" element={<ElementaryRecords />} />
           <Route path="/teacher/jhsrec/*" element={<JHSRecords />} />
           <Route path="/teacher/shsrec/*" element={<SHSRecords />} />
+          <Route path="/teacher/settings/*" element={<Settings />} />
         </Route>
         </Route>  
       </Routes>
