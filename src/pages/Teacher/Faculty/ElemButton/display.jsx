@@ -43,7 +43,9 @@ export default function DisplayElementary() {
               <h3 className="text-black font-bold text-xl leading-tight">
                 Teacher {faculty.firstname} {faculty.middlename?.charAt(0)}. {faculty.lastname} {faculty.ext || ""}
               </h3>
-
+              <h3>
+                Grade {faculty.grade_level}
+              </h3>
               <p className="text-[#630000] text-lg">
                 {faculty.position || "Faculty Member"}
               </p>
