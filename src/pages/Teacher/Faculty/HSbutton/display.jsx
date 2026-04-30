@@ -43,15 +43,14 @@ export default function DisplayHighSchool() {
                 <FaUserCircle className="text-gray-800 text-[100px]" />
               </div>
 
-              <h3 className="text-black font-bold text-xl leading-tight">
-                Teacher {faculty.firstname} {faculty.middlename ? `${faculty.middlename.charAt(0)}.` : ""} {faculty.lastname} {faculty.ext || ""}
+              <h3 className='text-gray-600'>
+                Grade {faculty.grade_level} Teacher
               </h3>
-              <h3>
-                Grade {faculty.grade_level}
+              <h3 className="text-black font-bold text-xl leading-tight mt-1">
+                {faculty.firstname} {faculty.middlename?.charAt(0)}. {faculty.lastname} {faculty.ext || ""}
               </h3>
-
-              <p className="text-gray-600 text-lg font-medium">
-                {faculty.position || "JHS Instructor"}
+              <p className="text-[#630000] text-lg font-bold">
+                {faculty.position || "Faculty Member"}
               </p>
               
               
