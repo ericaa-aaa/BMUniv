@@ -74,16 +74,15 @@ export default function TeacherDashboard() {
     >
       <div className="w-full h-full bg-white/75">
         {/* User Profile Header */}
-        <div className="flex justify-end pt-10 pr-12">
-          <div className="flex items-center gap-4 group">
-            <div className="flex flex-col text-right justify-center">
-              <p className="text-[12px] font-bold text-gray-500 uppercase tracking-widest leading-none mb-1">
-                Faculty
-              </p>
-              <p className='font-["Inter"] text-[#1B1717] text-xl font-semibold capitalize leading-none'>
+        <div className="flex justify-end pt-10 pr-12 font-['Inter']">
+          <div className="flex items-center gap-7 group">
+            <div className="flex flex-col text-right justify-center gap-2">
+              <p className=' text-[#1B1717] text-xl font-semibold capitalize leading-none'>
                 {firstName ? `Teacher ${firstName}` : "Faculty Teacher"}
               </p>
-              <p>Assigned Grade: {grade}</p>
+              <p className="text-[13px] font-bold text-[#810100] uppercase tracking-widest leading-none mb-1">
+                Grade {grade} Teacher
+              </p>
             </div>
 
             <div className="w-24 h-24 rounded-full overflow-hidden border-2 border-[#630000] p-0.5 bg-white shadow-sm transition-transform duration-300 group-hover:scale-105">
