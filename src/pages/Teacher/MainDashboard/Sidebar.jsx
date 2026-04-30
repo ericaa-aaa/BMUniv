@@ -1,6 +1,7 @@
 import e from "../../../assets/images/signin4.png";
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import { TbSettingsStar } from "react-icons/tb";
 
 function Sidebar() {
   const navigate = useNavigate();
@@ -351,38 +352,18 @@ function Sidebar() {
           )}
         </div>
 
-         <div
-            onClick={() => setOpenSettings(!openSettings)}
-            className="group flex items-center gap-3 cursor-pointer py-2 px-7 rounded transition-colors hover:bg-[#EDEBDD]"
+          <div
+            onClick={() => setActiveItem("settings")}
+            className="group flex items-center gap-3 mr-5 cursor-pointer py-2 px-7 rounded mb-6 relative hover:bg-[#EDEBDD]"
           >
-            <svg
-              xmlns="http://w3.org"
-              width="23"
-              height="23"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth={`${openSettings ? "3" : "2"}`}
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              className="lucide lucide-user-round-plus group-hover:stroke-[#1B1717]"
-            >
-              <path d="M2 21a8 8 0 0 1 13.292-6" />
-              <circle cx="10" cy="8" r="5" />
-              <path d="M19 16v6" />
-              <path d="M22 19h-6" />
-            </svg>
-            <a
-              className={`whitespace-nowrap transition-colors duration-300 text-[#EDEBDD] group-hover:text-[#1B1717] ${
-                openSettings ? "font-extrabold" : "font-normal"
-              }`}
+            <TbSettingsStar className={`w-7 h-7 stroke-2 group-hover:stroke-[#1B1717] ${activeItem === "settings" ? "3" : "2"}`} />
+            <Link
+              to="/teacher/settings"
+              className={`transition-colors after:absolute after:inset-0 text-[#EDEBDD] hover:text-[#1B1717]
+            ${activeItem === "settings" ? "font-extrabold" : "font-normal"}`}
             >
               Settings
-            </a>
-           <Link 
-                  to="/teacher/settings"
-                  className={`cursor-pointer ${activeItem === "settings" ? "underline" : "hover:underline"}`}
-                ></Link>
+            </Link>
           </div>
 
       </nav>

@@ -19,7 +19,7 @@ import StudSubj from "./pages/Student/Subjects/StudentSubjectsTable.jsx";
 import ArchSubj from "./pages/Student/ArchivedSubjects/StudArchSubj.jsx";
 import Sidebar from "./pages/Teacher/MainDashboard/Sidebar.jsx";
 import StudentLayout from "./pages/Student/StudentLayout.jsx";
-import Settings from "./pages/Teacher/Settings.jsx";
+import Settings from "../../BMUniv/src/pages/Teacher/SideSettings/Settings.jsx"
 import TeacherLayout from "./pages/Teacher/TeacherLayout.jsx";
 
 //Faculty imports
