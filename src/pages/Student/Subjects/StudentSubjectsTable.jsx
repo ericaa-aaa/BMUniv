@@ -1,6 +1,5 @@
 import React from "react";
 import { useState } from "react";
-import { User } from "lucide-react";
 
 export default function StudentSubjects() {
   const subjects = [

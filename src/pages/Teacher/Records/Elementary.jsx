@@ -13,7 +13,7 @@ export default function Elementary() {
 
   useEffect(() => {
     fetchStudents();
-  }, []);
+  }, [ ]);
 
   const fetchStudents = async () => {
     try {
@@ -48,8 +48,7 @@ export default function Elementary() {
 
     return result.sort((a, b) => {
       const gradeDiff =
-        getGradeNumber(a.grade_level) -
-        getGradeNumber(b.grade_level);
+        getGradeNumber(a.grade_level) - getGradeNumber(b.grade_level);
 
       if (gradeDiff !== 0) return gradeDiff;
 
@@ -73,7 +72,7 @@ export default function Elementary() {
     try {
       await ElementaryStudentService.updateStudent(
         selectedStudent.id,
-        selectedStudent
+        selectedStudent,
       );
       await fetchStudents();
       setShowModal(false);

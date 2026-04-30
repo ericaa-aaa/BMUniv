@@ -1,5 +1,4 @@
 import { useState } from "react";
-import { User } from "lucide-react";
 import toast, { Toaster } from "react-hot-toast";
 
 export default function StudentDashboard() {
