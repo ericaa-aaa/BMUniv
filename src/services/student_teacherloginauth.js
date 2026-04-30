@@ -37,6 +37,9 @@ export const loginUser = async (username, password) => {
   }
     else if (data.primary_role === 'teacher') {
     localStorage.setItem("teacherGrade", data.grade || "N/A");
+    localStorage.setItem("teacherFullName", data.teacher_fullname)
+    localStorage.setItem("teacherEmail", data.email)
+    localStorage.setItem("teacherTitle", data.position)
   }
 
 
