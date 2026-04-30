@@ -519,7 +519,12 @@ export default function EnrollmentForm() {
             <div className="flex flex-col gap-1 col-span-1">
               <p className="text-[#1B1717] text-[14px] ">Email Address</p>
               <input
-                {...register("email_address", { required: true })}
+                {...register("email_address", { 
+                  required: "Email is required", 
+                  pattern: { 
+                    value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i
+                  } 
+                })} 
                 type="email"
                 className={`border border-[#630000] shadow-sm text-[13px] tracking-wider h-10 p-3 rounded-[5px] w-40 ${errors.email_address ? "border-red-500 bg-red-50" : "border-#630000"}`}
                 placeholder="email@example.com"
