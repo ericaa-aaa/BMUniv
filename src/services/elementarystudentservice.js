@@ -101,11 +101,11 @@ export const ElementaryStudentService = {
             throw error;
         }
     },
-    deleteStudent: async (User_id, studentData) => {
+    deleteStudent: async (user_id, studentData) => {
         const token = localStorage.getItem("token");
         
         try {
-            const response = await fetch(`${API_BASE_URL}/Elstudents/${User_id}`, {
+            const response = await fetch(`${API_BASE_URL}/Elstudents/${user_id}`, {
                 method: "DELETE",
                 headers: {
                     "Content-Type": "application/json",
@@ -122,7 +122,7 @@ export const ElementaryStudentService = {
 
             if (!response.ok) {
                 const errorData = await response.json().catch(() => ({}));
-                throw new Error(errorData.error || "Failed to update record");
+                throw new Error(errorData.error || "Failed to delete record");
             }
 
             return await response.json();

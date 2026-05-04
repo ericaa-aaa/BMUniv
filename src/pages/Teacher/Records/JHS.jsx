@@ -212,6 +212,7 @@ export default function Highschool() {
           handleChange={handleChange}
           handleUpdate={handleUpdate}
           onUpdateSuccess={fetchStudents}
+          onDeleteSuccess={fetchStudents}
         />
       </div>
     </section>

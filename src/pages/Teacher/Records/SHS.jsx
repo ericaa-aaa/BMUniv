@@ -214,6 +214,7 @@ export default function SeHighschool() {
           handleChange={handleChange}
           handleUpdate={handleUpdate}
           onUpdateSuccess={fetchStudents}
+          onDeleteSuccess={fetchStudents}
         />
       </div>
     </section>
