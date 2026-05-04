@@ -240,6 +240,24 @@ export default function ElementaryFormModal({
                       className={editableStyle}
                     />
                   </div>
+                  <div className="flex flex-col md:col-span-2">
+                    <label className={labelStyle}>Contact No.</label>
+                    <input
+                      name="contact_number"
+                      value={selectedStudent.contact_number|| ""}
+                      onChange={handleChange}
+                      className={editableStyle}
+                    />
+                  </div>
+                  <div className="flex flex-col md:col-span-2">
+                    <label className={labelStyle}>Email Address</label>
+                    <input
+                      name="email_address"
+                      value={selectedStudent.email_address || ""}
+                      onChange={handleChange}
+                      className={editableStyle}
+                    />
+                  </div>
                 </div>
               </section>
 
