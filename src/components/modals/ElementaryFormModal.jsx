@@ -118,7 +118,7 @@ export default function ElementaryFormModal({
               </p>
             </div>
 
-            <div className="space-y-10">
+            <div className="space-y-10 font-['Inter']">
               {/* Header Info */}
               <section className="bg-gray-50 p-6 rounded-2xl border border-gray-200">
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
