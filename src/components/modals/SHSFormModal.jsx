@@ -73,7 +73,10 @@ export default function SHSFormModal({
       });
 
       if (onDeleteSuccess) onDeleteSuccess();
-      setTimeout(() => setShowModal(false), 1000);
+      setTimeout(() => {
+        setShowDeleteConfirm(false);
+        setShowModal(false);
+      }, 1000);
     } catch (error) {
       toast.error(`Delete failed: ${error.message}`, {
         id: loadingToast,
