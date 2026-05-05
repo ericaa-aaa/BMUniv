@@ -5,10 +5,10 @@ import { Paperclip, Save, ArrowRight, ArrowLeft } from "lucide-react";
 import { HighSchoolStudentService } from "../../../../services/highschoolstudentservice";
 
 export default function EnrollmentForm() {
-  const [step, setStep] = useState(1); // 1 for Student Information, 2 for Parent/Guardian
+  const [step, setStep] = useState(1);
+  const [loading, setLoading] = useState(false);
   const [photoPreview, setPhotoPreview] = useState(null);
 
-  // Initialize React Hook Form with your exact default values + new address fields
   const {
     register,
     handleSubmit,
@@ -171,9 +171,13 @@ export default function EnrollmentForm() {
       if (step === 3) {
         // We call getValues() WITH parentheses to get the data
         const dataToSend = getValues();
+        setLoading(true);
 
         toast.promise(
-          onSubmit(dataToSend),
+          onSubmit(dataToSend)
+          .finally(() => {
+            setLoading(false);
+          }),
           {
             loading: "Processing enrollment...",
             success: <b>Enrollment submitted successfully!</b>,
@@ -1179,18 +1183,20 @@ export default function EnrollmentForm() {
             <div className="flex gap-4 text-[13px]">
               <button
                 type="button"
+                disabled={loading}
                 onClick={() => setStep(2)}
-                className="flex items-center gap-2 px-4 py-3 bg-[#1B1717] text-white rounded-xl font-bold hover:bg-gray-600 transition-all shadow-md"
-              >
+                className={`flex items-center gap-2 px-4 py-3  text-white rounded-xl font-bold  transition-all shadow-md
+                  ${loading ? "bg-gray-400 cursor-no-allowed" : "bg-[#1B1717] hover:bg-gray-600 text-white"}`}>
                 <ArrowLeft size={20} /> BACK
               </button>
 
               <button
                 type="button"
+                disabled={loading}
                 onClick={handleNext}
-                className="flex items-center gap-2 px-6 py-3 bg-[#630000] text-white rounded-xl font-bold hover:bg-red-800 transition-all shadow-lg active:scale-95"
-              >
-                ENROLL & SAVE RECORD <Save size={20} />
+                className={`flex items-center gap-2 px-6 py-3 rounded-xl font-bold transition-all shadow-lg active:-scale-z-95
+                  ${loading ? "bg-gray-400 cursor-no-allowed" : "bg-[#630000] hover:bg-red-800 text-white"}`}
+              >{loading ? "Enrolling...." : "Enroll and Save Record"}<Save size={20} />
               </button>
             </div>
           </div>
