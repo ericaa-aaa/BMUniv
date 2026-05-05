@@ -1,5 +1,5 @@
-import { useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import logo from "../../../assets/images/signin4.png";
 
 export default function StudentSidebar() {
@@ -10,12 +10,12 @@ export default function StudentSidebar() {
 
   const handleLogout = () => {
     localStorage.removeItem("token");
-    localStorage.removeItem("activeUser");  
-    localStorage.removeItem("studentGrade")
-    localStorage.removeItem("studentSection")
-    localStorage.removeItem("studentCategory")
-    localStorage.removeItem("studentStatus")
-    localStorage.removeItem('role')
+    localStorage.removeItem("activeUser");
+    localStorage.removeItem("studentGrade");
+    localStorage.removeItem("studentSection");
+    localStorage.removeItem("studentCategory");
+    localStorage.removeItem("studentStatus");
+    localStorage.removeItem("role");
     navigate("/", { replace: true });
   };
 
