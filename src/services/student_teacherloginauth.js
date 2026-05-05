@@ -40,7 +40,6 @@ export const loginUser = async (username, password) => {
     localStorage.setItem("teacherFullName", data.teacherfullname)
     localStorage.setItem("teacherEmail", data.email)  
     localStorage.setItem("teacherTitle", data.position)
-    localStorage.setItem("profilePhoto", data.photo_url);
   }
 
 
