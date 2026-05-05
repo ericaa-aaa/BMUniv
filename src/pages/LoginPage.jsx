@@ -4,9 +4,12 @@ import { IoMdLock } from "react-icons/io";
 import { useNavigate } from "react-router";
 import bg from "../assets/images/bg.jpg";
 import logo from '../assets/images/signin4.png';
-import { loginTeacher } from "../services/api"; 
+import { loginUser } from "../services/student_teacherloginauth";
+import { FaEye, FaEyeSlash } from "react-icons/fa";
 
 export default function LoginPage() {
+
+    const [showPassword, setPassword] = useState(false); 
     const style = {
         backgroundImage: `url(${bg})`,
         backgroundSize: 'cover',
@@ -20,28 +23,33 @@ export default function LoginPage() {
         password: "",
     });
 
-    // 1. State for the error message
+  
     const [error, setError] = useState("");
 
     const handleLogin = async (e) => {
-        e.preventDefault();
-        setError(""); // Clear previous errors on new attempt
-        
-        try {
-            const result = await loginTeacher(form.username, form.password);
+    e.preventDefault();
+    setError(""); 
+    
+    try {
+        const result = await loginUser(form.username, form.password);
 
-            if (result.success) {
+        if (result.success) {   
+            
+            if (result.role === "teacher") {
                 navigate("/teacher");
+            } else if (result.role === "student") {
+                navigate("/student");
             } else {
-                // 2. Set specific message if server returns a failure
-                setError("Incorrect password or username.");
+                
+                setError("The user doesn't have existing role.");
             }
-        } catch (error) {
-            console.error("Login error:", error);
-            // This triggers if the server is down or the request fails
-            setError("Could not connect to the server.");
+        } else {
+            setError(result.message || "Invalid credentials.");
         }
-    };
+    } catch (err) {
+        setError("Could not connect to the server.");
+    }
+};
 
     return (
         <div className="flex flex-row h-screen">
@@ -65,16 +73,17 @@ export default function LoginPage() {
 
                         <div className="flex items-center gap-3 border-b-2">
                             <input
-                                type="password"
+                                type={showPassword ? "text" : "password"}
                                 placeholder="Password"
+                                autoComplete="on"
                                 className="w-full p-2 outline-none bg-transparent"
                                 value={form.password}
                                 onChange={(e) => setForm({ ...form, password: e.target.value })}
                                 required/>
-                            <IoMdLock className="text-xl" />
+                            <button type="button" onClick={() => setPassword(!showPassword)}>{showPassword ? <FaEyeSlash /> : <FaEye />}</button>
                         </div>
 
-                        {/* 3. Error message display under the password field */}
+                   
                         {error && (
                             <p className="text-red-600 text-sm font-medium mt-1">
                                 {error}
