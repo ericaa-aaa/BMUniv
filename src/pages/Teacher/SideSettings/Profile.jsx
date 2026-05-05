@@ -1,5 +1,4 @@
 // import { CgProfile } from "react-icons/cg";
-import React from "react";
 import { useState } from "react";
 import profile from "../../../assets/images/faculty1.png"
 
@@ -16,7 +15,7 @@ export default function Profile() {
         <div className="bg-white/30 backdrop-blur-md border border-white/50 p-8 rounded-2xl shadow-2xl w-full max-w-md space-y-6">
           <div className="flex justify-center">
             {/* <CgProfile className="w-25 h-25 text-[#630000]/80" /> */}
-            <img src="{profile}" alt="Faculty" className="w-25 h-25 text-[#630000]/80" />
+            <img src={profile} alt="Faculty" className="w-25 h-25 text-[#630000]/80" />
           </div>
 
           <div>

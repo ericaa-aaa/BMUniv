@@ -8,6 +8,7 @@ import { ElementaryStudentService } from "../../../../services/elementarystudent
 
 export default function EnrollmentForm() {
   const [step, setStep] = useState(1);
+  const [loading, setLoading] = useState(false);
   const [photoPreview, setPhotoPreview] = useState(null);
 
   const {
@@ -165,9 +166,14 @@ export default function EnrollmentForm() {
       if (step === 2) {
         const dataToSend = getValues();
 
+        setLoading(true);
+
         // toast.promise properly handles pending/success/error states
         toast.promise(
-          onSubmit(dataToSend),
+          onSubmit(dataToSend)
+          .finally(() => {
+            setLoading(false);
+          }),
           {
             loading: "Processing enrollment...",
             success: <b>Enrollment submitted successfully!</b>,
@@ -1081,7 +1087,9 @@ export default function EnrollmentForm() {
               <button
                 type="button"
                 onClick={() => setStep(1)}
-                className="flex items-center gap-2 px-4 py-3 bg-[#1B1717] text-white rounded-xl font-bold hover:bg-gray-600 transition-all shadow-md"
+                disabled={loading}
+                className={`flex items-center gap-2 px-4 py-3  text-white rounded-xl font-bold  transition-all shadow-md
+                  ${loading ? "bg-gray-400 cursor-no-allowed" : "bg-[#1B1717] hover:bg-gray-600 text-white"}`}
               >
                 <ArrowLeft size={20} />
                 BACK
@@ -1090,10 +1098,11 @@ export default function EnrollmentForm() {
               <button
                 type="button"
                 onClick={handleNext}
-                className="flex items-center gap-2 px-6 py-3 bg-[#630000] text-white rounded-xl font-bold hover:bg-red-800 transition-all shadow-lg active:scale-95"
-              >
+                disabled={loading}
+                className={`flex items-center gap-2 px-6 py-3 rounded-xl font-bold transition-all shadow-lg active:-scale-z-95
+                  ${loading ? "bg-gray-400 cursor-no-allowed" : "bg-[#630000] hover:bg-red-800 text-white"}`}
+              >{loading ? "Enrolling...." : "Enroll and Save Record"}
                 <Save size={20} />
-                ENROLL
               </button>
             </div>
           </div>

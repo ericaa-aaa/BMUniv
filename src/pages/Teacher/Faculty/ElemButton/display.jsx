@@ -41,8 +41,8 @@ export default function DisplayElementary() {
                 <img
                   src={faculty.photo_url}
                   alt={`${faculty.firstname} ${faculty.lastname}`}
-                  className="w-24 h-24 rounded-full object-cover" // Add styling
-                  onError={(e) => { e.target.src = '/default-avatar.png'; }} // Fallback if image fails
+                  className="w-24 h-24 rounded-full object-cover" 
+                  onError={(e) => { e.target.src = '/default-avatar.png'; }}
                 />
               ) : (
                 <FaUserCircle className="text-gray-300 text-[100px]" />
