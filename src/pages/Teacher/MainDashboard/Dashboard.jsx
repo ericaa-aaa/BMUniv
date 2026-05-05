@@ -95,10 +95,6 @@ export default function TeacherDashboard() {
                 src={profilePhoto || profile}  
                 alt="Faculty"
                 className="w-full h-full rounded-full object-cover"
-                onError={(e) => {
-                  e.target.onerror = null;
-                  e.target.src = profile;
-                }}
               />
             </div>
           </div>
@@ -151,7 +147,7 @@ export default function TeacherDashboard() {
               subjects.map((sub, index) => (
                 <div
                   key={index}
-                  className="bg-[#edebdd] border-2 border-b-6 border-[#630000]/20 rounded-xl p-4 text-left text-[#630000] shadow-sm pl-8 mt-10"
+                  className="bg-[#edebdd] border-2 border-b-6 border-[#630000] rounded-xl p-4 text-left text-[#630000] shadow-sm pl-8 mt-10"
                 >
                   <div className="text-[15px] font-bold mb-2">
                     {sub.grade ? `Grade ${sub.grade}` : "NA"}

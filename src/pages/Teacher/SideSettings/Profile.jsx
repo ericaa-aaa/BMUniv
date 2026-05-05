@@ -4,7 +4,7 @@ import { FacultyTeacherService } from "../../../services/facultyteacherservice";
 
 export default function Profile() {
   const [profilePhoto, setProfilePhoto] = useState(null);
-  const [teacher, setTeacher] = useState({
+  const [teacher] = useState({
     fullname: localStorage.getItem("teacherFullName") || "N/A",
     Email: localStorage.getItem("teacherEmail") || "N/A",
     Position: localStorage.getItem("teacherTitle") || "Unassigned",
@@ -36,10 +36,6 @@ export default function Profile() {
             src={profilePhoto || profileDefault}
             alt="Faculty"
             className="w-full h-full object-cover"
-            onError={(e) => {
-              e.target.onerror = null;
-              e.target.src = profileDefault;
-            }}
           />
         </div>
       </div>

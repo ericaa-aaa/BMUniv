@@ -82,7 +82,7 @@ const ChangePassword = () => {
                   required 
                 />
                 <button type="button" onClick={() => setShowCurrent(!showCurrent)} className="absolute inset-y-0 right-0 pr-3 flex items-center text-[#630000]">
-                  {showCurrent ? <EyeOff size={20} /> : <Eye size={20} />}
+                  {showCurrent ? <Eye size={20} /> : <EyeOff size={20} />}
                 </button>
               </div>
             </div>
@@ -100,7 +100,7 @@ const ChangePassword = () => {
                   required 
                 />
                 <button type="button" onClick={() => setShowNew(!showNew)} className="absolute inset-y-0 right-0 pr-3 flex items-center text-[#630000]">
-                  {showNew ? <EyeOff size={20} /> : <Eye size={20} />}
+                  {showCurrent ? <Eye size={20} /> : <EyeOff size={20} />}
                 </button>
               </div>
             </div>
@@ -118,7 +118,7 @@ const ChangePassword = () => {
                   required 
                 />
                 <button type="button" onClick={() => setShowConfirm(!showConfirm)} className="absolute inset-y-0 right-0 pr-3 flex items-center text-[#630000]">
-                  {showConfirm ? <EyeOff size={20} /> : <Eye size={20} />}
+                  {showCurrent ? <Eye size={20} /> : <EyeOff size={20} />}
                 </button>
               </div>
             </div>

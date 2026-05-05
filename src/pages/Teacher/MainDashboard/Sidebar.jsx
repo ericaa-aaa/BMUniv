@@ -8,7 +8,6 @@ function Sidebar() {
   const [openFaculty, setOpenFaculty] = useState(false);
   const [openRecords, setOpenRecords] = useState(false);
   const [openEnrollment, setOpenEnrollment] = useState(false);
-  const [openSettings, setOpenSettings] = useState(false);
   const [activeItem, setActiveItem] = useState("");
 
   const handleLogout = () => {

@@ -168,7 +168,6 @@ export default function EnrollmentForm() {
 
         setLoading(true);
 
-        // toast.promise properly handles pending/success/error states
         toast.promise(
           onSubmit(dataToSend)
           .finally(() => {
@@ -194,7 +193,6 @@ export default function EnrollmentForm() {
         setStep((prev) => prev + 1);
       }
     } else {
-      // Determine the most specific error message
       let errorMessage = "Please fill all required fields.";
       if (errors.grade_level) {
         errorMessage =
@@ -203,7 +201,6 @@ export default function EnrollmentForm() {
         errorMessage = "Please put an image";
       }
 
-      // Show only one error toast
       toast.error(errorMessage, {
         position: "top-right",
         style: { borderRadius: "10px", background: "#333", color: "#fff" },
