@@ -1,4 +1,3 @@
-import { IoMdCloseCircleOutline } from "react-icons/io";
 import { useState } from "react";
 import { SeHighSchoolStudentService } from "../../services/sehighstudentservice";
 import toast, { Toaster } from "react-hot-toast";

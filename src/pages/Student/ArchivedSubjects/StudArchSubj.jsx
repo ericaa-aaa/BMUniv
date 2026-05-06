@@ -1,5 +1,5 @@
 import React from "react";
-import { useState } from "react";
+import { useState, } from "react";
 
 export default function ArchivedSubjects() {
   const archived = [
@@ -19,17 +19,6 @@ export default function ArchivedSubjects() {
       teacher: "Mendoza, Ayan L.",
       schoolYear: "2024-2025",
     },
-    {
-      subject: "Science",
-      teacher: "Balabo, Maine M.",
-      schoolYear: "2024-2025",
-    },
-    {
-      subject: "Araling panlipunan",
-      teacher: "Princess R.Precy Z.",
-      schoolYear: "2024-2025",
-    },
-    { subject: "Music", teacher: "Ramos, Merly K.", schoolYear: "2023-2024" },
   ];
 
   const [student] = useState(() => ({
@@ -91,7 +80,7 @@ export default function ArchivedSubjects() {
       </div>
 
       <div className="overflow-hidden rounded-2xl mt-5 shadow-lg">
-        <div className="grid grid-cols-[2fr_1.5fr_1fr] bg-white gap-0.5">
+        <div className="grid grid-cols-[2fr_1.5fr_1.5fr] bg-white gap-0.5">
           <div className="p-4 bg-[#7B0000] text-white text-center font-semibold">
             Subject
           </div>
