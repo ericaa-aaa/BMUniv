@@ -76,9 +76,9 @@ export const FacultyTeacherService = {
         }
     },
     
-    getMySubjects: async () => {
+    Loadprofile: async () => {
     const token = localStorage.getItem("token");
-    const response = await fetch(`${API_BASE_URL}/my-subjects`, {
+    const response = await fetch(`${API_BASE_URL}/load-profile`, {
         method: "GET",
         headers: {
             "Authorization": `Bearer ${token}`,

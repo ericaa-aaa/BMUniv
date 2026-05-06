@@ -23,7 +23,7 @@ export default function TeacherDashboard() {
 
     const fetchTeacherData = async () => {
       try {
-        const data = await FacultyTeacherService.getMySubjects();
+        const data = await FacultyTeacherService.Loadprofile();
         
 
         if (data.profile_photo) {
