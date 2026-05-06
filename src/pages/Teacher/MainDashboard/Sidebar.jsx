@@ -12,15 +12,6 @@ function Sidebar() {
 
   const handleLogout = () => {
     localStorage.removeItem("token");
-    localStorage.removeItem("activeUser");
-    localStorage.removeItem("role")
-    localStorage.removeItem("permissions")
-    localStorage.removeItem('teacherGrade')
-    localStorage.removeItem('profilePhoto')
-    localStorage.removeItem('teacherEmail')
-    localStorage.removeItem('teacherTitle')
-    localStorage.removeItem('teacherFullName')
-    
     navigate("/", { replace: true });
   };
 

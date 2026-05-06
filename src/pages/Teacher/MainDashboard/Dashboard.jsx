@@ -14,30 +14,29 @@ export default function TeacherDashboard() {
     seniorHigh: 0,
   });
 
-  useEffect(() => {
-    const storedName = localStorage.getItem("activeUser");
-    const storedGrade = localStorage.getItem("teacherGrade");
+    useEffect(() => {
+        const storedName = localStorage.getItem('activeUser');
+        if (storedName) setFirstName(storedName);
 
-    if (storedName) setFirstName(storedName);
-    if (storedGrade) setGrade(storedGrade);
+        const fetchTeacherData = async () => {
+            try {
 
-    const fetchTeacherData = async () => {
-      try {
-        const data = await FacultyTeacherService.getMySubjects();
-        
+                const data = await FacultyTeacherService.Loadprofile(); 
+                
+                if (data.profile_photo) {
+                    setProfilePhoto(data.profile_photo);
+                }
+                setSubjects(data.subjects || []);
+                setFirstName(data.first);
+                setGrade(data.grade_level);
+            } catch (error) {
+                console.error("Error loading teacher data:", error);
+            }
+        };
 
-        if (data.profile_photo) {
-          setProfilePhoto(data.profile_photo);
-        }
-        
+        fetchTeacherData();
+    }, []);
 
-        setSubjects(data.subjects || []);
-      } catch (error) {
-        console.error("Error loading teacher data:", error);
-      }
-    };
-    fetchTeacherData();
-  }, []);
 
   useEffect(() => {
     const fetchCounts = async () => {
