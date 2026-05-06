@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react"; // Added useEffect
 import toast, { Toaster } from "react-hot-toast";
 
 export default function StudentDashboard() {
@@ -11,62 +11,89 @@ export default function StudentDashboard() {
     confirmPassword: "",
   });
 
-  const handleChange = (e) => {
-    setPasswordForm({
-      ...passwordForm,
-      [e.target.name]: e.target.value,
-    });
-  };
+  // State for student data (initialized with empty/loading values)
+  const [student, setStudent] = useState({
+    name: "Loading...",
+    grade: "",
+    section: "",
+    category: "",
+    status: "",
+    photo: null
+  });
 
-const handlePasswordUpdate = async (e) => {
-    e.preventDefault();
-    if (passwordForm.newPassword !== passwordForm.confirmPassword) {
-        toast.error("Passwords do not match.");
-        return;
-    }
-    try {
+  // Fetch student profile on mount
+  useEffect(() => {
+    const fetchProfile = async () => {
+      try {
         const token = localStorage.getItem('token');
-        if (!token) {
-            throw new Error("No authorization token found. Please log in.");
-        }
+        if (!token) return;
 
-        const res = await fetch(`${import.meta.env.VITE_BASE_URL}/change-password`, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-                'Authorization': `Bearer ${token}` 
-            },
-            body: JSON.stringify({
-                currentPassword: passwordForm.currentPassword,
-                newPassword: passwordForm.newPassword,
-            }),
+        const res = await fetch(`${import.meta.env.VITE_BASE_URL}/api/profile/student`, {
+          headers: {
+            'Authorization': `Bearer ${token}`
+          }
         });
 
         const data = await res.json();
-        if (!res.ok) {
-            throw new Error(data.message || "Failed to update password");
+        if (res.ok) {
+          setStudent({
+            name: data.display_name,
+            grade: data.extra_data.grade,
+            section: data.extra_data.section,
+            category: data.extra_data.category,
+            status: data.extra_data.status,
+            photo: data.profile_photo 
+          });
+        } else {
+          toast.error(data.error || "Failed to load profile");
         }
-        
-        toast.success(data.message || "Password updated successfully!");
-        setShowPasswordModal(false);
-        setPasswordForm({ currentPassword: '', newPassword: '', confirmPassword: '' });
-    } catch (err) {
-        toast.error(err.message);
-    }
-};
+      } catch (err) {
+        console.error("Profile fetch error:", err);
+      }
+    };
 
-  const [student] = useState(() => ({
-    name: localStorage.getItem("activeUser") || "Student User",
-    grade: localStorage.getItem("studentGrade") || "N/A",
-    section: localStorage.getItem("studentSection") || "Unassigned",
-    category: localStorage.getItem("studentCategory") || "Student",
-    status: localStorage.getItem("studentStatus") || " ",
-  }));
+    fetchProfile();
+  }, []);
+
+  const handleChange = (e) => {
+    setPasswordForm({ ...passwordForm, [e.target.name]: e.target.value });
+  };
+
+  const handlePasswordUpdate = async (e) => {
+    e.preventDefault();
+    if (passwordForm.newPassword !== passwordForm.confirmPassword) {
+      toast.error("Passwords do not match.");
+      return;
+    }
+    try {
+      const token = localStorage.getItem('token');
+      const res = await fetch(`${import.meta.env.VITE_BASE_URL}/change-password`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}`
+        },
+        body: JSON.stringify({
+          currentPassword: passwordForm.currentPassword,
+          newPassword: passwordForm.newPassword,
+        }),
+      });
+
+      const data = await res.json();
+      if (!res.ok) throw new Error(data.message || "Failed to update password");
+
+      toast.success("Password updated successfully!");
+      setShowPasswordModal(false);
+      setPasswordForm({ currentPassword: '', newPassword: '', confirmPassword: '' });
+    } catch (err) {
+      toast.error(err.message);
+    }
+  };
 
   const statusColors = {
-  Enrolled: "text-green-600",
-  Dropped: "text-red-500",
-};
+    Enrolled: "text-green-600",
+    Dropped: "text-red-500",
+  };
 
   return (
     <div className="flex bg-gray-100 overflow-hidden">
@@ -76,30 +103,30 @@ const handlePasswordUpdate = async (e) => {
         <div
           className="rounded-3xl overflow-hidden h-56 shadow-lg relative"
           style={{
-            backgroundImage:
-              "url('https://images.unsplash.com/photo-1562774053-701939374585')",
+            backgroundImage: "url('https://images.unsplash.com/photo-1562774053-701939374585')",
             backgroundSize: "cover",
             backgroundPosition: "center",
           }}
         >
           <div className="absolute inset-0 bg-white/70 flex items-center justify-between px-10">
             <div className="flex items-center gap-5">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                viewBox="0 0 24 24"
-                fill="currentColor"
-                class="size-32"
-              >
-                <path
-                  fill-rule="evenodd"
-                  d="M18.685 19.097A9.723 9.723 0 0 0 21.75 12c0-5.385-4.365-9.75-9.75-9.75S2.25 6.615 2.25 12a9.723 9.723 0 0 0 3.065 7.097A9.716 9.716 0 0 0 12 21.75a9.716 9.716 0 0 0 6.685-2.653Zm-12.54-1.285A7.486 7.486 0 0 1 12 15a7.486 7.486 0 0 1 5.855 2.812A8.224 8.224 0 0 1 12 20.25a8.224 8.224 0 0 1-5.855-2.438ZM15.75 9a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0Z"
-                  clip-rule="evenodd"
+              {/* Profile Photo Logic */}
+              {student.photo ? (
+                <img 
+                  src={student.photo} 
+                  alt="Profile" 
+                  className="size-32 rounded-full object-cover border-4 border-white shadow-md"
                 />
-              </svg>
+              ) : (
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="size-32 text-gray-400">
+                  <path fillRule="evenodd" d="M18.685 19.097A9.723 9.723 0 0 0 21.75 12c0-5.385-4.365-9.75-9.75-9.75S2.25 6.615 2.25 12a9.723 9.723 0 0 0 3.065 7.097A9.716 9.716 0 0 0 12 21.75a9.716 9.716 0 0 0 6.685-2.653Zm-12.54-1.285A7.486 7.486 0 0 1 12 15a7.486 7.486 0 0 1 5.855 2.812A8.224 8.224 0 0 1 12 20.25a8.224 8.224 0 0 1-5.855-2.438ZM15.75 9a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0Z" clipRule="evenodd" />
+                </svg>
+              )}
               <h2 className="font-['Inter'] text-2xl font-semibold text-gray-800 uppercase">
                 {student.name}
               </h2>
             </div>
+            
             <div className="m-2 p-2 pr-15">
               <div className="font-['Inter'] space-y-3 text-lg font-semibold text-[#7B0000]">
                 <p>▸ Batangas Metropolitan University</p>
@@ -108,6 +135,8 @@ const handlePasswordUpdate = async (e) => {
                 <p className={statusColors[student.status] || " "}> ▸ {student.status}</p>
               </div>
             </div>
+       
+
 
             <div className="absolute top-2 right-6 z-20">
               <button
