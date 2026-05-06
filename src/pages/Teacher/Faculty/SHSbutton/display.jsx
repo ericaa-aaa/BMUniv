@@ -53,7 +53,7 @@ export default function DisplaySHS() {
                 Grade {faculty.grade_level} Teacher
               </h3>
               <h3 className="text-black font-bold text-xl leading-tight mt-1">
-                {faculty.firstname} {faculty.middlename?.charAt(0)} {faculty.lastname} {faculty.ext || ""}
+                {faculty.firstname} {faculty.middlename?.charAt(0)}. {faculty.lastname} {faculty.ext || ""}
               </h3>
               <p className="text-[#630000] text-lg font-bold">
                 {faculty.position || "Faculty Member"}

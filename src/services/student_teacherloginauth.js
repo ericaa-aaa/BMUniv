@@ -26,8 +26,6 @@ export const loginUser = async (username, password) => {
 
     if (res.ok) {
   localStorage.setItem("token", data.access_token);
-  localStorage.setItem("role", data.primary_role); 
-  localStorage.setItem("activeUser", data.username);
 
   if (data.primary_role === 'student') {
     localStorage.setItem("studentGrade", data.grade || "");
@@ -35,14 +33,6 @@ export const loginUser = async (username, password) => {
     localStorage.setItem("studentCategory", data.category || "");
     localStorage.setItem("studentStatus", data.status || "ENROLLED");
   }
-    else if (data.primary_role === 'teacher') {
-    localStorage.setItem("teacherGrade", data.grade || "N/A");
-    localStorage.setItem("teacherFullName", data.teacherfullname)
-    localStorage.setItem("teacherEmail", data.email)  
-    localStorage.setItem("teacherTitle", data.position)
-  }
-
-
   return { success: true, role: data.primary_role }; 
 }
 

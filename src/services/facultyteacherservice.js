@@ -85,7 +85,7 @@ export const FacultyTeacherService = {
             "Content-Type": "application/json"
         }
     });
-    if (!response.ok) throw new Error("Failed to fetch subjects");
+    if (!response.ok) throw new Error("Failed to fetch profile");
     return await response.json();
     },
 
