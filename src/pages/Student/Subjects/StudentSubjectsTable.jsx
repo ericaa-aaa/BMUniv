@@ -10,7 +10,7 @@ export default function StudentSubjects() {
     section: "",
     category: "",
     status: "",
-    // strand: "",
+    strand: "",
     photo: null
   });
 
@@ -34,13 +34,19 @@ export default function StudentSubjects() {
           section: profileData.extra_data.section,
           category: profileData.extra_data.category,
           status: profileData.extra_data.status,
-          // strand: profileData.extra_data.strand || "", 
+          strand: profileData.extra_data.strand || "", 
           photo: profileData.profile_photo
         });
+        // Updated API call within useEffect
+        const grade = parseInt(profileData.extra_data.grade);
+        const isSeniorHigh = grade === 11 || grade === 12;
+
+        // Only include strand if Senior High
+        const strandParam = isSeniorHigh ? `&strand=${profileData.extra_data.strand || ''}` : '';
 
 
         const subjectsRes = await fetch(
-          `${import.meta.env.VITE_BASE_URL}/student/subjects?grade=${profileData.extra_data.grade}&strand=${profileData.extra_data.strand || ""}`,
+        `${import.meta.env.VITE_BASE_URL}/student/subjects?grade=${profileData.extra_data.grade}${strandParam}`,
           { headers: { 'Authorization': `Bearer ${token}` } }
         );
         const subjectsData = await subjectsRes.json();
@@ -86,9 +92,13 @@ export default function StudentSubjects() {
               <p>▸ Batangas Metropolitan University</p>
               <p>▸ {student.category} - Grade {student.grade}</p>
               <p>▸ Section: {student.section}</p>
+                {student.strand && (
+                  <p> ▸ Strand: {student.strand}</p>
+                )}
               <p className={student.status === "Enrolled" ? "text-green-600" : "text-red-500"}>
                 ▸ {student.status}
               </p>
+
             </div>
           </div>
         </div>
@@ -103,9 +113,9 @@ export default function StudentSubjects() {
           <div className="p-4 bg-[#7B0000] text-white text-center font-semibold ">Schedule</div>
 
           {subjects.length > 0 ? (
-            subjects.map((item, index) => (
+            subjects.map((item, index) => (   
               <React.Fragment key={index}>
-                <div className="p-4 bg-[#ECE9DF] text-center text-sm">{item.course_code || item.courseCode}</div>
+                <div className="p-4 bg-[#ECE9DF] text-center text-sm">{item.coursecode || "N/A"}</div>
                 <div className="p-4 bg-[#ECE9DF] text-center text-sm font-medium">{item.subject || item.name}</div>
                 <div className="p-4 bg-[#ECE9DF] text-center text-sm">{item.teacher}</div>
                 <div className="p-4 bg-[#ECE9DF] text-center text-sm">{item.schedule}</div>

@@ -42,6 +42,7 @@ export default function StudentDashboard() {
             section: data.extra_data.section,
             category: data.extra_data.category,
             status: data.extra_data.status,
+            strand: data.extra_data.strand,
             photo: data.profile_photo 
           });
         } else {
@@ -132,12 +133,13 @@ export default function StudentDashboard() {
                 <p>▸ Batangas Metropolitan University</p>
                 <p>▸ {student.category} - Grade {student.grade} </p>
                 <p> ▸ Section: {student.section}</p>
+                {student.strand && (
+                  <p> ▸ Strand: {student.strand}</p>
+                )}
                 <p className={statusColors[student.status] || " "}> ▸ {student.status}</p>
               </div>
             </div>
-       
-
-
+              
             <div className="absolute top-2 right-6 z-20">
               <button
                 onClick={() => setShowMenu(!showMenu)}
