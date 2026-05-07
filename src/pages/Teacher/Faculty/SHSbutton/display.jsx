@@ -58,6 +58,9 @@ export default function DisplaySHS() {
               <p className="text-[#630000] text-lg font-bold">
                 {faculty.position || "Faculty Member"}
               </p>
+              <p className="text-[#630000] text-lg font-bold">
+                {faculty.strand}
+              </p>
             </div>
           ))
         )}

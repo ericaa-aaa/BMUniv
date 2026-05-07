@@ -8,6 +8,7 @@ export default function TeacherDashboard() {
   const [grade, setGrade] = useState("");
   const [subjects, setSubjects] = useState([]);
   const [profilePhoto, setProfilePhoto] = useState(null); 
+  const [strand, setStrand] = useState(null); 
   const [counts, setCounts] = useState({
     elementary: 0,
     highSchool: 0,
@@ -29,6 +30,7 @@ export default function TeacherDashboard() {
                 setSubjects(data.subjects || []);
                 setFirstName(data.first);
                 setGrade(data.grade_level);
+                setStrand(data.strand)
             } catch (error) {
                 console.error("Error loading teacher data:", error);
             }
@@ -86,6 +88,9 @@ export default function TeacherDashboard() {
               </p>
               <p className="text-[13px] font-bold text-[#810100] uppercase tracking-widest leading-none mb-1">
                 Grade {grade} Teacher
+              </p>
+              <p className="text-[13px] font-bold text-[#810100] uppercase tracking-widest leading-none mb-1">
+              {strand} 
               </p>
             </div>
 
