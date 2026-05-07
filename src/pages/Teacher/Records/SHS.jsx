@@ -64,7 +64,8 @@ export default function SeHighschool() {
           student.fullname?.toLowerCase().includes(query) ||
           student.grade_level?.toString().toLowerCase().includes(query) ||
           student.section?.toLowerCase().includes(query) ||
-          student.status?.toLowerCase().includes(query)
+          student.status?.toLowerCase().includes(query) ||
+          student.strand?.toLowerCase().includes(query)
         );
       });
     }
@@ -125,10 +126,11 @@ export default function SeHighschool() {
 
           <div className="font-['Inter'] flex-1 overflow-auto border border-gray-200 rounded-xl bg-white shadow-inner">
             <div className="min-w-225">
-              <div className="grid grid-cols-[0.5fr_2fr_0.8fr_1fr_1fr_0.7fr_1fr] bg-[#630000] font-['Inter'] text-white text-center font-semibold sticky top-0 z-10 shadow-md">
+              <div className="grid grid-cols-[0.5fr_2fr_0.8fr_1fr_1fr_0.7fr_1fr_1fr] bg-[#630000] font-['Inter'] text-white text-center font-semibold sticky top-0 z-10 shadow-md">
                 <div className="p-3 border-r border-white/10">#</div>
                 <div className="p-3 border-r border-white/10">Student Name</div>
                 <div className="p-3 border-r border-white/10">Grade Level</div>
+                <div className="p-3 border-r border-white/10">Strand</div>
                 <div className="p-3 border-r border-white/10">Section</div>
                 <div className="p-3 border-r border-white/10">Status</div>
                 <div className="p-3 border-r border-white/10">Photo</div>
@@ -143,7 +145,7 @@ export default function SeHighschool() {
                 filteredStudents.map((student, index) => (
                   <div
                     key={student.id}
-                    className="grid grid-cols-[0.5fr_2fr_0.8fr_1fr_1fr_0.7fr_1fr] text-center border-b border-gray-100 hover:bg-red-50/50 transition-colors items-center"
+                    className="grid grid-cols-[0.5fr_2fr_0.8fr_1fr_1fr_0.7fr_1fr_1fr] text-center border-b border-gray-100 hover:bg-red-50/50 transition-colors items-center"
                   >
                     <div className="p-4 border-r border-gray-100 text-gray-500">
                       {index + 1}
@@ -154,7 +156,9 @@ export default function SeHighschool() {
                     <div className="p-4 border-r border-gray-100 text-gray-600">
                       {student.grade_level}
                     </div>
-
+                    <div className="p-4 border-r border-gray-100 text-gray-600">
+                      {student.strand}
+                    </div>
                     <div className="p-4 border-r border-gray-100 text-gray-600">
                       {student.status?.toLowerCase() === "dropped" ? (
                         <span className="text-gray-400 font-bold">—</span>
