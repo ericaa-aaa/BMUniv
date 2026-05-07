@@ -122,7 +122,7 @@ export default function SHSFormModal({
             <div className="space-y-10">
               <section className="bg-gray-50 p-6 rounded-2xl border border-gray-200">
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-                  <div className="flex flex-col col-span-2">
+                  <div className="flex flex-col col-span-1">
                     <label className={labelStyle}>Full Name </label>
                     <input
                       value={selectedStudent.fullname || ""}
@@ -134,6 +134,14 @@ export default function SHSFormModal({
                     <label className={labelStyle}>Current Grade Level </label>
                     <input
                       value={selectedStudent.grade_level || ""}
+                      readOnly
+                      className={readOnlyStyle}
+                    />
+                  </div>
+                  <div className="flex flex-col">
+                    <label className={labelStyle}>Academic Strand </label>
+                    <input
+                      value={selectedStudent.strand || ""}
                       readOnly
                       className={readOnlyStyle}
                     />

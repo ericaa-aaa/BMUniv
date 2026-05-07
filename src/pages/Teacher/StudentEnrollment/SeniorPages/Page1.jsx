@@ -20,6 +20,7 @@ export default function EnrollmentForm() {
   } = useForm({
     defaultValues: {
       grade_level: "",
+      strand: "",
       lastname: "",
       firstname: "",
       middlename: "",
@@ -109,6 +110,7 @@ export default function EnrollmentForm() {
         "email_address",
         "citizenship",
         "birthdate",
+        "strand",
         "place_of_birth",
         "mother_tongue",
         "religion",
@@ -209,7 +211,10 @@ export default function EnrollmentForm() {
       if (errors.grade_level) {
         errorMessage =
           "Please enter a valid grade (11-12) and fill all required fields.";
-      } else if (errors.photo) {
+      } else if (errors.strand) {
+        errorMessage = "Please select an SHS Strand.";
+      }
+      else if (errors.photo) {
         errorMessage = "Please put an image";
       }
 
@@ -396,12 +401,28 @@ export default function EnrollmentForm() {
             </div>
 
             {/* Row 2: Birth Details, Gender, Status */}
-            <div className="flex flex-col gap-1 col-span-2">
+              <div className="flex flex-col gap-1">
+                <p className="text-[#1B1717] text-[14px]">SHS Strand:</p>
+                <select
+                  {...register("strand", { required: true })}
+                  className={`border border-[#630000] text-[12px] shadow-sm h-10 p-2 rounded-[5px] w-40 ${errors.strand ? "border-red-500 bg-red-50" : "border-#630000"}`}
+                >
+                  <option value="">Select Strand</option>
+                  <optgroup label="Academic Track">
+                    <option value="STEM">STEM</option>
+                    <option value="ABM">ABM</option>
+                    <option value="HUMSS">HUMSS</option>
+                    <option value="GAS">GAS</option>
+                  </optgroup>
+                </select>
+              </div>
+
+            <div className="flex flex-col gap-1 ">
               <p className="text-[#1B1717] text-[14px]">Place of Birth:</p>
               <input
                 {...register("place_of_birth", { required: true })}
                 type="text"
-                className={`border border-[#630000] shadow-sm text-[13px] tracking-wider h-10 p-3 rounded-[5px] w-104 ${errors.place_of_birth ? "border-red-500 bg-red-50" : "border-#630000"}`}
+                className={`border border-[#630000] shadow-sm text-[13px] tracking-wider h-10 p-3 rounded-[5px] w-40 ${errors.place_of_birth ? "border-red-500 bg-red-50" : "border-#630000"}`}
                 placeholder="City/Province"
               />
             </div>
