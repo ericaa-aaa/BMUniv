@@ -103,7 +103,7 @@ export default function SeHighschool() {
             <h2 className="text-lg font-semibold text-gray-700">
               {loading
                 ? "Loading records..."
-                : `Students Enrolled (${students.length})`}
+                : `Students (${students.length})`}
             </h2>
 
             <div className="flex items-center gap-2">

@@ -98,7 +98,7 @@ export default function Elementary() {
             <h2 className="text-lg font-semibold text-gray-700">
               {loading
                 ? "Loading records..."
-                : `Students Enrolled (${filteredStudents.length})`}
+                : `Students (${filteredStudents.length})`}
             </h2>
 
             <div className="flex items-center gap-2">

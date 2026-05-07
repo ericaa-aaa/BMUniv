@@ -15,6 +15,7 @@ export default function EnrollmentForm() {
     setValue,
     getValues,
     trigger,
+    reset,
     formState: { errors },
   } = useForm({
     defaultValues: {
@@ -178,16 +179,17 @@ export default function EnrollmentForm() {
         setLoading(true);
 
         toast.promise(
-          onSubmit(dataToSend)
-          .finally(() => {
-            setLoading(false);
+          onSubmit(dataToSend).then(() => {
+            reset();
+            setStep(1);
+            setPhotoPreview(null);
           }),
           {
             loading: "Processing enrollment...",
             success: <b>Enrollment submitted successfully!</b>,
             error: (err) => (
               <b>
-                {err.message === SESSION_EXPIRED
+                {err.message === "SESSION_EXPIRED"
                   ? "Session Expired"
                   : "Submission Failed"}
               </b>
@@ -197,7 +199,7 @@ export default function EnrollmentForm() {
             style: { borderRadius: "10px", background: "#333", color: "#fff" },
             position: "top-right",
           },
-        );
+        ).finally(() => setLoading(false));
       } else {
         setStep((prev) => prev + 1);
       }
@@ -237,13 +239,7 @@ export default function EnrollmentForm() {
       setValue("perm_municipality", currMunicipality);
       setValue("perm_province", currProvince);
     }
-  }, [
-    isPermanentSame,
-    currStreet,
-    currBarangay,
-    currMunicipality,
-    currProvince,
-    setValue,
+  }, [isPermanentSame, currhouseno, currStreet, currBarangay, currMunicipality, currProvince, setValue
   ]);
 
   // Handle Photo Preview

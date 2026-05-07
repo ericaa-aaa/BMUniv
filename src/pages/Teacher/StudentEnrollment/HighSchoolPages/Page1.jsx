@@ -16,206 +16,30 @@ export default function EnrollmentForm() {
     setValue,
     getValues,
     trigger,
+    reset,
     formState: { errors },
   } = useForm({
     defaultValues: {
-      grade_level: "",
-      lastname: "",
-      firstname: "",
-      middlename: "",
-      ext: "",
-      age: "",
-      birthdate: "",
-      place_of_birth: "",
-      civil_status: "",
-      gender: "",
-      citizenship: "",
-      mother_tongue: "",
-      religion: "",
-      weight: "",
-      height: "",
-      is_ip_community: false,
-      contact_number: "",
-      email_address: "",
-      curr_house_no: "",
-      curr_street: "",
-      curr_barangay: "",
-      curr_municipality: "",
-      curr_province: "",
-      is_permanent_same: false,
-      perm_house_no: "",
-      perm_street: "",
-      perm_barangay: "",
-      perm_municipality: "",
-      perm_province: "",
+      grade_level: "", lastname: "", firstname: "", middlename: "", ext: "", age: "", birthdate: "",
+      place_of_birth: "", civil_status: "", gender: "", citizenship: "", mother_tongue: "", religion: "",
+      weight: "", height: "", is_ip_community: false, contact_number: "", email_address: "", curr_house_no: "",
+      curr_street: "", curr_barangay: "", curr_municipality: "", curr_province: "", 
+      is_permanent_same: false, perm_house_no: "", perm_street: "", perm_barangay: "", perm_municipality: "", perm_province: "",
       // Page 2 fields
-      father_last_name: "",
-      father_first_name: "",
-      father_middle_name: "",
-      father_ext: "",
-      father_contact: "",
-      father_occupation: "",
-      f_house_no: "",
-      f_street: "",
-      f_barangay: "",
-      f_municipality: "",
-      f_province: "",
-      mother_lastname: "",
-      mother_first_name: "",
-      mother_middle_name: "",
-      mother_ext: "",
-      mother_contact: "",
-      mother_occupation: "",
-      m_house_no: "",
-      m_street: "",
-      m_barangay: "",
-      m_municipality: "",
-      m_province: "",
-      guardian_last_name: "",
-      guardian_first_name: "",
-      guardian_middle_name: "",
-      guardian_ext: "",
-      guardian_contact: "",
-      guardian_relationship: "",
-      g_house_no: "",
-      g_street: "",
-      g_barangay: "",
-      g_municipality: "",
-      g_province: "",
-
-      //page 3
-      elschool_attended: "",
-      school_year: "",
-      is_transferee: false,
-      schorecipient: false,
-      is_RL: false,
+      father_last_name: "", father_first_name: "", father_middle_name: "", father_ext: "", father_contact: "", father_occupation: "",
+      f_house_no: "", f_street: "", f_barangay: "", f_municipality: "", f_province: "",
+      mother_last_name: "", mother_first_name: "", mother_middle_name: "", mother_ext: "", mother_contact: "",
+      mother_occupation: "", m_house_no: "", m_street: "", m_barangay: "", m_municipality: "", m_province: "",
+      guardian_last_name: "", guardian_first_name: "", guardian_middle_name: "", guardian_ext: "",
+      guardian_contact: "", guardian_relationship: "", g_house_no: "", g_street: "", g_barangay: "",
+      g_municipality: "", g_province: "",
+      // Page 3 fields
+      elschool_attended: "", school_year: "",
+      is_transferee: false, schorecipient: false, is_RL: false,
     },
   });
 
-  const handleNext = async () => {
-    let fieldsToValidate = [];
-
-    if (step === 1) {
-      fieldsToValidate = [
-        "photo",
-        "lastname",
-        "firstname",
-        "age",
-        "civil_status",
-        "gender",
-        "grade_level",
-        "contact_number",
-        "email_address",
-        "citizenship",
-        "birthdate",
-        "place_of_birth",
-        "mother_tongue",
-        "religion",
-        "weight",
-        "height",
-        "contact_number",
-        "curr_house_no",
-        "curr_street",
-        "curr_barangay",
-        "curr_municipality",
-        "curr_province",
-      ];
-      if (!isPermanentSame) {
-        fieldsToValidate = [
-          ...fieldsToValidate,
-          "perm_house_no",
-          "perm_street",
-          "perm_barangay",
-          "perm_municipality",
-          "perm_province",
-        ];
-      }
-    } else if (step === 2) {
-      fieldsToValidate = [
-        "father_first_name",
-        "father_last_name",
-        "father_contact",
-        "father_occupation",
-        "f_house_no",
-        "f_street",
-        "f_barangay",
-        "f_municipality",
-        "f_province",
-        "mother_last_name",
-        "mother_first_name",
-        "mother_contact",
-        "mother_occupation",
-        "m_house_no",
-        "m_street",
-        "m_barangay",
-        "m_municipality",
-        "m_province",
-        "guardian_last_name",
-        "guardian_first_name",
-        "guardian_contact",
-        "guardian_relationship",
-        "g_house_no",
-        "g_street",
-        "g_barangay",
-        "g_municipality",
-        "g_province",
-      ];
-    } else if (step === 3) {
-      fieldsToValidate = ["elschool_attended", "school_year"];
-    }
-
-    // This checks EVERYTHING in the current step, including the 7-10 rule for grade_level
-    const isStepValid = await trigger(fieldsToValidate);
-
-    if (isStepValid) {
-      if (step === 3) {
-        // We call getValues() WITH parentheses to get the data
-        const dataToSend = getValues();
-        setLoading(true);
-
-        toast.promise(
-          onSubmit(dataToSend)
-          .finally(() => {
-            setLoading(false);
-          }),
-          {
-            loading: "Processing enrollment...",
-            success: <b>Enrollment submitted successfully!</b>,
-            error: (err) => (
-              <b>
-                {err.message === SESSION_EXPIRED
-                  ? "Session Expired"
-                  : "Submission Failed"}
-              </b>
-            ),
-          },
-          {
-            style: { borderRadius: "10px", background: "#333", color: "#fff" },
-            position: "top-right",
-          },
-        );
-      } else {
-        setStep((prev) => prev + 1);
-      }
-    } else {
-      // Determine the most specific error message
-      let errorMessage = "Please fill all required fields.";
-      if (errors.grade_level) {
-        errorMessage =
-          "Please enter a valid grade (1-6) and fill all required fields.";
-      } else if (errors.photo) {
-        errorMessage = "Please put an image";
-      }
-
-      // Show only one error toast
-      toast.error(errorMessage, {
-        position: "top-right",
-        style: { borderRadius: "10px", background: "#333", color: "#fff" },
-      });
-    }
-  };
-
-  // Watchers for Address Syncing
+  // Watchers
   const isPermanentSame = watch("is_permanent_same");
   const currhouseno = watch("curr_house_no");
   const currStreet = watch("curr_street");
@@ -224,7 +48,7 @@ export default function EnrollmentForm() {
   const currProvince = watch("curr_province");
   const photoFile = watch("photo");
 
-  // Effect to sync address
+  // Address Sync logic
   useEffect(() => {
     if (isPermanentSame) {
       setValue("perm_house_no", currhouseno);
@@ -233,21 +57,84 @@ export default function EnrollmentForm() {
       setValue("perm_municipality", currMunicipality);
       setValue("perm_province", currProvince);
     }
-  }, [
-    isPermanentSame,
-    currStreet,
-    currBarangay,
-    currMunicipality,
-    currProvince,
-    setValue,
-  ]);
+  }, [isPermanentSame, currhouseno, currStreet, currBarangay, currMunicipality, currProvince, setValue]);
 
-  // Handle Photo Preview
+  // Photo Preview logic
   useEffect(() => {
     if (photoFile && photoFile[0]) {
-      setPhotoPreview(URL.createObjectURL(photoFile[0]));
+      const objectUrl = URL.createObjectURL(photoFile[0]);
+      setPhotoPreview(objectUrl);
+      return () => URL.revokeObjectURL(objectUrl);
     }
   }, [photoFile]);
+
+  const handleNext = async () => {
+    let fieldsToValidate = [];
+
+    if (step === 1) {
+      fieldsToValidate = [
+        "lastname", "firstname", "age", "civil_status", "gender", "grade_level",
+        "email_address", "birthdate", "citizenship", "place_of_birth",
+        "mother_tongue", "religion", "weight", "height", "contact_number",
+        "curr_house_no", "curr_street", "curr_barangay", "curr_municipality", "curr_province",
+      ];
+      if (!isPermanentSame) {
+        fieldsToValidate.push("perm_house_no", "perm_street", "perm_barangay", "perm_municipality", "perm_province");
+      }
+    } else if (step === 2) {
+      fieldsToValidate = [
+        "father_first_name", "father_last_name", "father_contact", "father_occupation",
+        "f_house_no", "f_street", "f_barangay", "f_municipality", "f_province",
+        "mother_last_name", "mother_first_name", "mother_contact", "mother_occupation",
+        "m_house_no", "m_street", "m_barangay", "m_municipality", "m_province",
+        "guardian_last_name", "guardian_first_name", "guardian_contact", "guardian_relationship",
+        "g_house_no", "g_street", "g_barangay", "g_municipality", "g_province",
+      ];
+    } else if (step === 3) {
+      fieldsToValidate = ["elschool_attended", "school_year"];
+    }
+
+    const isStepValid = await trigger(fieldsToValidate);
+
+    if (isStepValid) {
+      if (step === 3) {
+        const dataToSend = getValues();
+        setLoading(true);
+
+        toast.promise(
+          onSubmit(dataToSend).then(() => {
+            // SUCCESS: Reset all data and return to blank Page 1
+            reset();
+            setStep(1);
+            setPhotoPreview(null);
+          }),
+          {
+            loading: "Processing enrollment...",
+            success: <b>High School Student enrolled successfully!</b>,
+            error: (err) => (
+              <b>{err.message === "SESSION_EXPIRED" ? "Session Expired" : "Submission Failed"}</b>
+            ),
+          },
+          {
+            style: { borderRadius: "10px", background: "#333", color: "#fff" },
+            position: "top-right",
+          }
+        ).finally(() => setLoading(false));
+      } else {
+        setStep((prev) => prev + 1);
+      }
+    } else {
+      console.log("Validation errors:", errors);
+      let errorMessage = "Please fill all required fields correctly.";
+      if (errors.grade_level) errorMessage = "Please enter a valid grade (7-12).";
+      if (errors.photo) errorMessage = "Student photo is required.";
+
+      toast.error(errorMessage, {
+        position: "top-right",
+        style: { borderRadius: "10px", background: "#333", color: "#fff" },
+      });
+    }
+  };
 
   const onSubmit = async (data) => {
     try {
@@ -255,9 +142,7 @@ export default function EnrollmentForm() {
       return result;
     } catch (error) {
       if (error.message === "SESSION_EXPIRED") {
-        setTimeout(() => {
-          window.location.href = "/";
-        }, 2000);
+        setTimeout(() => { window.location.href = "/"; }, 2000);
       }
       throw error;
     }
