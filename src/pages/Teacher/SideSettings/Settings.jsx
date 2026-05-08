@@ -31,14 +31,12 @@ const ChangePassword = () => {
     }
 
     try {
-      const token = localStorage.getItem('token');
-      if (!token) throw new Error("No authorization token found. Please log in.");
 
       const res = await fetch(`${import.meta.env.VITE_BASE_URL}/change-password`, {
         method: 'POST',
+        credentials: "include",
         headers: {
           'Content-Type': 'application/json',
-          'Authorization': `Bearer ${token}`
         },
         body: JSON.stringify({
           currentPassword: passwordForm.currentPassword,

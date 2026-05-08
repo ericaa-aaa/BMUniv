@@ -38,15 +38,23 @@ export default function ProtectedRoute({ allowedRoles }) {
   const [auth, setAuth] = useState({ isAuthenticated: null, roles: [] });
 
   useEffect(() => {
-    const token = localStorage.getItem("token");
-    if (!token) {
-      setAuth({ isAuthenticated: false, roles: [] });
-      return;
-    }
+    // const token = localStorage.getItem("token");
+    // if (!token) {
+    //   setAuth({ isAuthenticated: false, roles: [] });
+    //   return;
+    // }
 
-    fetch(`${import.meta.env.VITE_BASE_URL}/verify-token`, {
-      headers: { Authorization: `Bearer ${token}` }
-    })
+    // fetch(`${import.meta.env.VITE_BASE_URL}/verify-token`, {
+    //   headers: { Authorization: `Bearer ${token}` }
+    // })
+      fetch(`${import.meta.env.VITE_BASE_URL}/verify-token`, {
+      method: "GET",
+      // CRITICAL: This allows the browser to send the cookie to the backend
+      credentials: "include",   
+      headers: {
+        "Content-Type": "application/json",
+      }
+      })
       .then(res => {
         if (!res.ok) throw new Error("Unauthorized");
         return res.json();

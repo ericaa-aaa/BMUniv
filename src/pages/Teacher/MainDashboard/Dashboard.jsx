@@ -43,14 +43,13 @@ export default function TeacherDashboard() {
   useEffect(() => {
     const fetchCounts = async () => {
       try {
-        const token = localStorage.getItem("token"); 
         const response = await fetch(
           `${import.meta.env.VITE_BASE_URL}/api/students/count`,
           {
+            credentials: "include",
             method: "GET",
             headers: {
               "Content-Type": "application/json",
-              Authorization: `Bearer ${token}`, 
             },
           },
         );
