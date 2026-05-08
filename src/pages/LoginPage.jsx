@@ -33,7 +33,7 @@ export default function LoginPage() {
 
     return (
         <div className="flex h-screen w-full overflow-hidden bg-red-900">
-            {/* LEFT SECTION: Form & Background Image */}
+            {/* LEFT SECTION */}
             <div 
                 className="relative w-full md:w-[55%] h-full flex items-center justify-center z-10"
                 style={{ 
@@ -41,7 +41,7 @@ export default function LoginPage() {
                     clipPath: "polygon(0 0, 80% 0, 100% 100%, 0% 100%)" 
                 }}
             >
-                {/* Overlay for readability */}
+                {/* Overlay */}
                 <div className="absolute inset-0 bg-white/80"></div>
 
                 {/* Form Container */}
