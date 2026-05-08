@@ -4,12 +4,11 @@ export const FacultyTeacherService = {
     getFaculty: async (level) => {
         try {
       
-            const token = localStorage.getItem("token"); 
             const response = await fetch(`${API_BASE_URL}/faculty/${level}`, {
+                credentials:"include",
                 method: 'GET',
                 headers: {
-                    'Content-Type': 'application/json',
-                    'Authorization': `Bearer ${token}` 
+                    'Content-Type': 'application/json'
                 },
             });
 
@@ -28,7 +27,6 @@ export const FacultyTeacherService = {
 
     addFaculty: async (data) => {
         const formData = new FormData();
-        const token = localStorage.getItem("token");
 
         Object.keys(data).forEach((key) => {
             if (key === "subjects" && Array.isArray(data.subjects)) {
@@ -44,15 +42,12 @@ export const FacultyTeacherService = {
     
         const response = await fetch(`${API_BASE_URL}/faculty`, {
             method: "POST",
-            headers: { 
-                "Authorization": `Bearer ${token}` 
-            },
+            credentials: "include",
             body: formData,
         });
 
         if (response.status === 401) {
-            localStorage.removeItem("token");
-            window.location.href = "/login";
+            window.location.href = "/";
             throw new Error("SESSION_EXPIRED");
         }
 
@@ -77,11 +72,10 @@ export const FacultyTeacherService = {
     },
     
     Loadprofile: async () => {
-    const token = localStorage.getItem("token");
     const response = await fetch(`${API_BASE_URL}/load-profile`, {
+        credentials: "include",
         method: "GET",
         headers: {
-            "Authorization": `Bearer ${token}`,
             "Content-Type": "application/json"
         }
     });

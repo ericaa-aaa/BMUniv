@@ -33,13 +33,8 @@ export default function ArchivedSubjects() {
    useEffect(() => {
     const fetchProfile = async () => {
       try {
-        const token = localStorage.getItem('token');
-        if (!token) return;
-
         const res = await fetch(`${import.meta.env.VITE_BASE_URL}/api/profile/student`, {
-          headers: {
-            'Authorization': `Bearer ${token}`
-          }
+          credentials:"include"
         });
 
         const data = await res.json();

@@ -10,10 +10,18 @@ function Sidebar() {
   const [openEnrollment, setOpenEnrollment] = useState(false);
   const [activeItem, setActiveItem] = useState("");
 
-  const handleLogout = () => {
-    localStorage.removeItem("token");
-    navigate("/", { replace: true });
-  };
+      const handleLogout = async () => {
+        try {
+          await fetch(`${import.meta.env.VITE_BASE_URL}/logout`, {
+            method: "POST",
+            credentials: "include",
+          });
+          navigate("/", { replace: true });
+        } catch (error) {
+          console.error("Logout failed:", error);
+          navigate("/", { replace: true });
+        }
+      };
 
   return (
     <div className="w-67 bg-[#630000] text-[#EDEBDD] flex flex-col p-6 h-screen pr-5">

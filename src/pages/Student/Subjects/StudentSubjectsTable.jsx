@@ -17,12 +17,9 @@ export default function StudentSubjects() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const token = localStorage.getItem('token');
-        if (!token) return;
 
-        // 1. Fetch Student Profile first to get Grade and Strand
         const profileRes = await fetch(`${import.meta.env.VITE_BASE_URL}/api/profile/student`, {
-          headers: { 'Authorization': `Bearer ${token}` }
+          credentials: "include"
         });
         const profileData = await profileRes.json();
 
@@ -37,17 +34,16 @@ export default function StudentSubjects() {
           strand: profileData.extra_data.strand || "", 
           photo: profileData.profile_photo
         });
-        // Updated API call within useEffect
-        const grade = parseInt(profileData.extra_data.grade);
-        const isSeniorHigh = grade === 11 || grade === 12;
 
-        // Only include strand if Senior High
+        const grade = parseInt(profileData.extra_data.grade);
+        const isSeniorHigh = grade === 11 || grade === 12;  
+
         const strandParam = isSeniorHigh ? `&strand=${profileData.extra_data.strand || ''}` : '';
 
 
         const subjectsRes = await fetch(
         `${import.meta.env.VITE_BASE_URL}/student/subjects?grade=${profileData.extra_data.grade}${strandParam}`,
-          { headers: { 'Authorization': `Bearer ${token}` } }
+          { credentials: "include" }
         );
         const subjectsData = await subjectsRes.json();
         
@@ -67,7 +63,7 @@ export default function StudentSubjects() {
 
   return (
     <div className="font-['Inter'] p-8 bg-gray-100 ">
-      {/* Header Section */}
+
       <div
         className="rounded-3xl overflow-hidden h-56 shadow-lg relative"
         style={{
@@ -104,7 +100,7 @@ export default function StudentSubjects() {
         </div>
       </div>
 
-      {/* Table Section */}
+
       <div className="mt-8 overflow-hidden rounded-2xl shadow-lg ">
         <div className="grid grid-cols-[1fr_2fr_1.5fr_1fr] bg-white gap-0.5">
           <div className="p-4 bg-[#7B0000] text-white text-center font-semibold ">Course Code</div>

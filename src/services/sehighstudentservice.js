@@ -4,12 +4,11 @@ const API_BASE_URL = import.meta.env.VITE_BASE_URL;
 export const SeHighSchoolStudentService = {
     getStudents: async () => {
         try {
-            const token = localStorage.getItem("token"); // Get the token
             const response = await fetch(`${API_BASE_URL}/SeHighstudents`, {
+                credentials: "include",
                 method: 'GET',
                 headers: {
                     'Content-Type': 'application/json', 
-                    'Authorization': `Bearer ${token}` // Add this!
                 },
             });
 
@@ -28,7 +27,6 @@ export const SeHighSchoolStudentService = {
 
     enrollStudent: async (data) => {
     const formData = new FormData();
-    const token = localStorage.getItem("token");
 
     Object.keys(data).forEach((key) => {
         if (key === "photo") {
@@ -41,16 +39,13 @@ export const SeHighSchoolStudentService = {
     });
 
         const response = await fetch(`${API_BASE_URL}/SeHighstudents`, {
+            credentials: "include",
             method: "POST",
-            headers: { 
-                "Authorization": `Bearer ${token}` 
-            },
             body: formData,
         });
 
         if (response.status === 401) {
-            localStorage.removeItem("token");
-            window.location.href = "/login"; 
+            window.location.href = "/"; 
             throw new Error("SESSION_EXPIRED");
         }
 
@@ -62,21 +57,19 @@ export const SeHighSchoolStudentService = {
         return await response.json();
     },
     updateStudent: async (id, studentData) => {
-        const token = localStorage.getItem("token");
         
         try {
             const response = await fetch(`${API_BASE_URL}/SeHighstudents/${id}`, {
+                credentials: "include",
                 method: "PATCH",
                 headers: {
                     "Content-Type": "application/json",
-                    "Authorization": `Bearer ${token}`
                 },
                 body: JSON.stringify(studentData),
             });
 
             if (response.status === 401) {
-                localStorage.removeItem("token");
-                window.location.href = "/login";
+                window.location.href = "/";
                 throw new Error("SESSION_EXPIRED");
             }
 
@@ -92,21 +85,19 @@ export const SeHighSchoolStudentService = {
         }
     },
     deleteStudent: async (user_id, studentData) => {
-        const token = localStorage.getItem("token");
         
         try {
             const response = await fetch(`${API_BASE_URL}/SeHighstudents/${user_id}`, {
                 method: "DELETE",
+                credentials: "include",
                 headers: {
                     "Content-Type": "application/json",
-                    "Authorization": `Bearer ${token}`
                 },
                 body: JSON.stringify(studentData),  
             });
 
             if (response.status === 401) {
-                localStorage.removeItem("token");
-                window.location.href = "/login";
+                window.location.href = "/";
                 throw new Error("SESSION_EXPIRED");
             }
 
