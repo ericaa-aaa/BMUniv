@@ -21,6 +21,7 @@ export default function EnrollmentForm() {
     defaultValues: {
       grade_level: "",
       strand: "",
+      photo: null,
       lastname: "",
       firstname: "",
       middlename: "",
@@ -170,13 +171,11 @@ export default function EnrollmentForm() {
         "highschool_year",
       ];
     }
-
-    // This checks EVERYTHING in the current step, including the 7-10 rule for grade_level
+    
     const isStepValid = await trigger(fieldsToValidate);
 
     if (isStepValid) {
       if (step === 3) {
-        // We call getValues() WITH parentheses to get the data
         const dataToSend = getValues();
         setLoading(true);
 
@@ -207,7 +206,7 @@ export default function EnrollmentForm() {
       }
     } else {
       // Determine the most specific error message
-      let errorMessage = "Please fill all required fields.";
+      let errorMessage = "Please fill all required fields correctly.";
       if (errors.grade_level) {
         errorMessage =
           "Please enter a valid grade (11-12) and fill all required fields.";
@@ -215,7 +214,7 @@ export default function EnrollmentForm() {
         errorMessage = "Please select an SHS Strand.";
       }
       else if (errors.photo) {
-        errorMessage = "Please put an image";
+        errorMessage = "Student photo is required.";
       }
 
       // Show only one error toast

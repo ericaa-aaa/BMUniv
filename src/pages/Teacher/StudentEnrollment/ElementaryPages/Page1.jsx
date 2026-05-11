@@ -20,7 +20,7 @@ export default function EnrollmentForm() {
     formState: { errors },
   } = useForm({
     defaultValues: {
-      grade_level: "", lastname: "", firstname: "", middlename: "", ext: "",
+      grade_level: "", photo: null, lastname: "", firstname: "", middlename: "", ext: "",
       age: "", birthdate: "", place_of_birth: "", civil_status: "", gender: "",
       citizenship: "", mother_tongue: "", religion: "", weight: "", height: "",
       is_ip_community: false, contact_number: "", email_address: "",
@@ -73,7 +73,7 @@ export default function EnrollmentForm() {
 
     if (step === 1) {
       fieldsToValidate = [
-        "lastname", "firstname", "age", "civil_status", "gender",
+        "photo", "lastname", "firstname", "age", "civil_status", "gender",
         "grade_level", "email_address", "birthdate", "citizenship",
         "place_of_birth", "mother_tongue", "religion", "weight", "height",
         "curr_house_no", "curr_street", "curr_barangay", "curr_municipality", "curr_province"
@@ -101,15 +101,20 @@ export default function EnrollmentForm() {
 
         toast.promise(
           onSubmit(dataToSend).then(() => {
-            // THE RESET LOGIC:
-            reset();             // Clears form fields
-            setStep(1);          // Goes back to Page 1
-            setPhotoPreview(null); // Clears the photo UI
+            reset();           
+            setStep(1);         
+            setPhotoPreview(null);
           }),
           {
             loading: "Processing enrollment...",
             success: <b>Enrollment submitted successfully!</b>,
-            error: (err) => <b>{err.message === "SESSION_EXPIRED" ? "Session Expired" : "Submission Failed"}</b>,
+            error: (err) => (
+              <b>
+                {err.message === "SESSION_EXPIRED"
+                  ? "Session Expired"
+                  : "Submission Failed"}
+              </b>
+            ),
           },
           {
             style: { borderRadius: "10px", background: "#333", color: "#fff" },
@@ -120,9 +125,18 @@ export default function EnrollmentForm() {
         setStep((prev) => prev + 1);
       }
     } else {
-      // Logic for showing specific errors
-      console.log("Validation Errors:", errors); // Check console if it still won't enroll
-      toast.error("Please fill all required fields correctly.", { position: "top-right" });
+      let errorMessage = "Please fill all required fields correctly.";
+      if (errors.grade_level) { 
+        errorMessage = "Please enter a valid grade (1-6) and fill all required fields.";
+      }
+      else if (errors.photo) {
+        errorMessage = "Student photo is required.";
+      }
+
+      toast.error(errorMessage, {
+        position: "top-right",
+        style: { borderRadius: "10px", background: "#333", color: "#fff" },
+      });
     }
   };
 

@@ -73,7 +73,7 @@ export default function EnrollmentForm() {
 
     if (step === 1) {
       fieldsToValidate = [
-        "lastname", "firstname", "age", "civil_status", "gender", "grade_level",
+        "photo", "lastname", "firstname", "age", "civil_status", "gender", "grade_level",
         "email_address", "birthdate", "citizenship", "place_of_birth",
         "mother_tongue", "religion", "weight", "height", "contact_number",
         "curr_house_no", "curr_street", "curr_barangay", "curr_municipality", "curr_province",
