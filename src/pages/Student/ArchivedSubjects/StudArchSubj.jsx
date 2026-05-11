@@ -1,5 +1,6 @@
 import React from "react";
 import { useState } from "react";
+import { useEffect } from "react";
 
 export default function ArchivedSubjects() {
   const archived = [
@@ -31,6 +32,46 @@ export default function ArchivedSubjects() {
     },
     { subject: "Music", teacher: "Ramos, Merly K.", schoolYear: "2023-2024" },
   ];
+  const [student, setStudent] = useState({
+    name: "Loading...",
+    grade: "",
+    section: "",
+    category: "",
+    status: "",
+    photo: null
+  });
+
+  // Fetch student profile on mount
+  useEffect(() => {
+    const fetchProfile = async () => {
+      try {
+        const res = await fetch(`${import.meta.env.VITE_BASE_URL}/api/profile/student`, {
+          credentials:"include"
+
+        });
+
+        const data = await res.json();
+        if (res.ok) {
+          setStudent({
+            name: data.display_name,
+            grade: data.extra_data.grade,
+            section: data.extra_data.section,
+            category: data.extra_data.category,
+            status: data.extra_data.status,
+            strand: data.extra_data.strand,
+            photo: data.profile_photo 
+          });
+        } else {
+          toast.error(data.error || "Failed to load profile");
+        }
+      } catch (err) {
+        console.error("Profile fetch error:", err);
+      }
+    };
+
+    fetchProfile();
+  }, []);
+
 
 
 
@@ -76,6 +117,9 @@ export default function ArchivedSubjects() {
                 ▸ {student.category} - Grade {student.grade}
               </p>
               <p> ▸ Section: {student.section}</p>
+              {student.strand && (
+                  <p> ▸ Strand: {student.strand}</p>
+                )}
               <p className={statusColors[student.status] || " "}>
                 ▸ {student.status}
               </p>
