@@ -27,7 +27,7 @@ export default function LoginPage() {
                 setError(result.message || "Invalid credentials.");
             }
         } catch (err) {
-            setError("Could not connect to the server.");
+            setError("Could not connect to the server."+ err.message);
         }
     };
 

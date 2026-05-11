@@ -264,7 +264,7 @@ export default function ElementaryFormModal({
               </section>
 
               {/* Status Section */}
-              <section className="bg-gray-50 p-6 rounded-2xl border border-gray-200 grid grid-cols-1 md:grid-cols-3 gap-6">
+              <section className="bg-gray-50 p-6 rounded-2xl border border-gray-200 grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div className="flex flex-col">
                   <label className={labelStyle}>Enrollment Status</label>
                   <select
@@ -303,6 +303,18 @@ export default function ElementaryFormModal({
                   <select
                     name="is_transferee"
                     value={selectedStudent.is_transferee}
+                    onChange={handleChange}
+                    className={editableStyle}
+                  >
+                    <option value={true}>Yes</option>
+                    <option value={false}>No</option>
+                  </select>
+                </div>
+                <div className="flex flex-col">
+                  <label className={labelStyle}>Scholarship Recipient?</label>
+                  <select
+                    name="schorecipient"
+                    value={selectedStudent.schorecipient}
                     onChange={handleChange}
                     className={editableStyle}
                   >

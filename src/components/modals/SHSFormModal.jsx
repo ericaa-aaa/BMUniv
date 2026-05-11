@@ -370,11 +370,23 @@ export default function SHSFormModal({
                     <option value={false}>No</option>
                   </select>
                 </div>
-                <div className="flex flex-col">
+                <div className="flex flex-col col-span-2">
                   <label className={labelStyle}>Returning Learner?</label>
                   <select
                     name="is_RL"
                     value={selectedStudent.is_RL}
+                    onChange={handleChange}
+                    className={editableStyle}
+                  >
+                    <option value={true}>Yes</option>
+                    <option value={false}>No</option>
+                  </select>
+                </div>
+                <div className="flex flex-col">
+                  <label className={labelStyle}>Scholarship Recipient?</label>
+                  <select
+                    name="schorecipient"
+                    value={selectedStudent.schorecipient}
                     onChange={handleChange}
                     className={editableStyle}
                   >

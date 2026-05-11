@@ -1162,9 +1162,9 @@ export default function EnrollmentForm() {
                 High School Attended
               </p>
               <input
-                {...register("elschool_attended", { required: true })}
+                {...register("highschool_attended", { required: true })}
                 type="text"
-                className={`border border-[#630000] shadow-sm text-[13px] tracking-wider w-50 h-10 p-3 rounded-[5px] ${errors.elschool_attended ? "border-red-500 bg-red-50" : "border-#630000"}`}
+                className={`border border-[#630000] shadow-sm text-[13px] tracking-wider w-50 h-10 p-3 rounded-[5px] ${errors.highschool_attended ? "border-red-500 bg-red-50" : "border-#630000"}`}
                 placeholder="School"
                 required
               />
@@ -1172,9 +1172,9 @@ export default function EnrollmentForm() {
             <div className="flex flex-col gap-1 ml-9">
               <p className="text-[#1B1717] text-[14px] mt-3">School Year</p>
               <input
-                {...register("school_year", { required: true })}
+                {...register("highschool_year", { required: true })}
                 type="number"
-                className={`border border-[#630000] shadow-sm text-[13px] tracking-wider w-50 h-10 p-3 rounded-[5px] ${errors.school_year ? "border-red-500 bg-red-50" : "border-#630000"}`}
+                className={`border border-[#630000] shadow-sm text-[13px] tracking-wider w-50 h-10 p-3 rounded-[5px] ${errors.highschool_year ? "border-red-500 bg-red-50" : "border-#630000"}`}
                 placeholder="Year"
                 required
               />
