@@ -66,9 +66,9 @@ export default function StudentDashboard() {
       const token = localStorage.getItem('token');
       const res = await fetch(`${import.meta.env.VITE_BASE_URL}/change-password`, {
         method: 'POST',
+        credentials: "include",
         headers: {
           'Content-Type': 'application/json',
-          'Authorization': `Bearer ${token}`
         },
         body: JSON.stringify({
           currentPassword: passwordForm.currentPassword,

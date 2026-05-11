@@ -66,7 +66,10 @@ export const FacultyTeacherService = {
 
     getSubjectsByGrade: async (grade) => {
         try {
-            const response = await fetch(`${API_BASE_URL}/subjects-list/${grade}`);
+            const response = await fetch(`${API_BASE_URL}/subjects-list/${grade}`,{
+                method: "GET",
+                credentials: "include"
+            });
             if (!response.ok) throw new Error("Could not fetch subjects");
             return await response.json();
         } catch (error) {
@@ -90,7 +93,10 @@ export const FacultyTeacherService = {
     getSubjectsByGradeSHS: async (grade, strand) => {
     try {
 
-        const response = await fetch(`${API_BASE_URL}/subjects-list/${grade}/${strand}`);
+        const response = await fetch(`${API_BASE_URL}/subjects-list/${grade}/${strand}` ,{
+                method: "GET",
+                credentials: "include"
+            });
         
         if (!response.ok) throw new Error("Could not fetch subjects");
         return await response.json();
