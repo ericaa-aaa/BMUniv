@@ -11,6 +11,10 @@ export const FacultyTeacherService = {
                     'Content-Type': 'application/json'
                 },
             });
+            if (response.status === 401) {
+                window.location.href = "/";
+                throw new Error("SESSION_EXPIRED");
+            }
 
             if (!response.ok) {
                 const errorData = await response.json().catch(() => ({}));

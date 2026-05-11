@@ -14,7 +14,7 @@ export const ElementaryStudentService = {
             });
 
             if (response.status === 401) {
-                window.location.href = "/login";
+                window.location.href = "/";
                 throw new Error("SESSION_EXPIRED");
             }
 
