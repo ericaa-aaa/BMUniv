@@ -77,15 +77,12 @@ export default function SeHighschool() {
 
     return result.sort((a, b) => {
       const gradeDiff =
-        getGradeNumber(a.grade_level) -
-        getGradeNumber(b.grade_level);
+        getGradeNumber(a.grade_level) - getGradeNumber(b.grade_level);
 
       if (gradeDiff !== 0) return gradeDiff;
 
-
       return a.fullname.localeCompare(b.fullname);
-    }); 
-
+    });
   }, [search, students]);
 
   return (
@@ -103,9 +100,7 @@ export default function SeHighschool() {
         <div className="bg-white/90 backdrop-blur-md p-6 rounded-2xl shadow-xl flex flex-col flex-1 min-h-0 border border-white/50">
           <div className="flex flex-col md:flex-row md:justify-between md:items-center mb-6 gap-3 shrink-0">
             <h2 className="text-lg font-semibold text-gray-700">
-              {loading
-                ? "Loading records..."
-                : `Students (${students.length})`}
+              {loading ? "Loading records..." : `Students (${students.length})`}
             </h2>
 
             <div className="flex items-center gap-2">
@@ -211,35 +206,41 @@ export default function SeHighschool() {
               )}
             </div>
 
-              {previewImage && (
-                <div 
-                  className="fixed inset-0 z-100 flex items-center justify-center bg-black/90 backdrop-blur-sm p-4 md:p-10"
-                  onClick={() => setPreviewImage(null)}
-                >
-                  <div className="relative w-full h-full flex items-center justify-center">
-                    
-                    <button 
-                      className="absolute top-0 right-0 m-4 text-white hover:text-red-400 transition-colors z-10"
-                      onClick={() => setPreviewImage(null)}
-                    >
-                      <span className="text-3xl font-bold">
-                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="size-6">
-                          <path fill-rule="evenodd" d="M12 2.25c-5.385 0-9.75 4.365-9.75 9.75s4.365 9.75 9.75 9.75 9.75-4.365 9.75-9.75S17.385 2.25 12 2.25Zm-1.72 6.97a.75.75 0 1 0-1.06 1.06L10.94 12l-1.72 1.72a.75.75 0 1 0 1.06 1.06L12 13.06l1.72 1.72a.75.75 0 1 0 1.06-1.06L13.06 12l1.72-1.72a.75.75 0 1 0-1.06-1.06L12 10.94l-1.72-1.72Z" clip-rule="evenodd" />
-                        </svg>
+            {previewImage && (
+              <div
+                className="fixed inset-0 z-100 flex items-center justify-center bg-black/90 backdrop-blur-sm p-4 md:p-10"
+                onClick={() => setPreviewImage(null)}
+              >
+                <div className="relative w-full h-full flex items-center justify-center">
+                  <button
+                    className="absolute top-0 right-0 m-4 text-white hover:text-red-400 transition-colors z-10"
+                    onClick={() => setPreviewImage(null)}
+                  >
+                    <span className="text-3xl font-bold">
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        viewBox="0 0 24 24"
+                        fill="currentColor"
+                        class="size-6"
+                      >
+                        <path
+                          fill-rule="evenodd"
+                          d="M12 2.25c-5.385 0-9.75 4.365-9.75 9.75s4.365 9.75 9.75 9.75 9.75-4.365 9.75-9.75S17.385 2.25 12 2.25Zm-1.72 6.97a.75.75 0 1 0-1.06 1.06L10.94 12l-1.72 1.72a.75.75 0 1 0 1.06 1.06L12 13.06l1.72 1.72a.75.75 0 1 0 1.06-1.06L13.06 12l1.72-1.72a.75.75 0 1 0-1.06-1.06L12 10.94l-1.72-1.72Z"
+                          clip-rule="evenodd"
+                        />
+                      </svg>
+                    </span>
+                  </button>
 
-                      </span>
-                    </button>
-
-                    <img 
-                      src={previewImage} 
-                      alt="Student Photo"
-                      className="rounded-lg shadow-2xl max-w-[90vw] max-h-[85vh] object-contain border-2 border-white/20 bg-gray-900"
-                      onClick={(e) => e.stopPropagation()} 
-                    />
-                  </div>
+                  <img
+                    src={previewImage}
+                    alt="Student Photo"
+                    className="rounded-lg shadow-2xl max-w-[90vw] max-h-[85vh] object-contain border-2 border-white/20 bg-gray-900"
+                    onClick={(e) => e.stopPropagation()}
+                  />
                 </div>
-              )}
-
+              </div>
+            )}
           </div>
         </div>
 
