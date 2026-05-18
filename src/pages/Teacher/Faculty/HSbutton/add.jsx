@@ -12,8 +12,7 @@ export default function AddJHS() {
     register,
     watch,
     setValue,
-    getValues,
-    trigger,
+    handleSubmit,
     formState: { errors },
   } = useForm({
     defaultValues: {
@@ -28,45 +27,6 @@ export default function AddJHS() {
       subjects: [],
     },
   });
-
-  const handleNext = async () => {
-    let fieldsToValidate = [
-      "lastname",
-      "firstname",
-      "email_address",
-      "grade_level",
-      "position",
-    ];
-
-    const isValid = await trigger(fieldsToValidate);
-    if (!isValid) {
-      toast.error("Please fill all required fields.", {
-        position: "top-right",
-        style: { borderRadius: "10px", background: "#333", color: "#fff" },
-      });
-      return;
-    }
-
-    const dataToSend = getValues();
-    toast.promise(
-      onSubmit(dataToSend),
-      {
-        loading: "Processing faculty...",
-        success: <b>Faculty added successfully!</b>,
-        error: (err) => (
-          <b>
-            {err.message === "SESSION_EXPIRED"
-              ? "Session Expired"
-              : "Submission Failed"}
-          </b>
-        ),
-      },
-      {
-        style: { borderRadius: "10px", background: "#333", color: "#fff" },
-        position: "top-right",
-      },
-    );
-  };
 
   const selectedGrade = watch("grade_level");
   const photoFile = watch("photo");
@@ -93,27 +53,55 @@ export default function AddJHS() {
     }
   }, [photoFile]);
 
-  const onSubmit = async (data) => {
-    try {
-      const result = await FacultyTeacherService.addFaculty(data);
-      return result;
-    } catch (error) {
+  // Toast Promise handled cleanly inside the submit pipeline
+  const onFormSubmit = async (data) => {
+    toast.promise(
+      FacultyTeacherService.addFaculty(data),
+      {
+        loading: "Processing faculty...",
+        success: <b>Faculty added successfully!</b>,
+        error: (err) => (
+          <b>
+            {err.message === "SESSION_EXPIRED"
+              ? "Session Expired"
+              : "Submission Failed"}
+          </b>
+        ),
+      },
+      {
+        style: { borderRadius: "10px", background: "#333", color: "#fff" },
+        position: "top-right",
+      }
+    ).catch((error) => {
       if (error.message === "SESSION_EXPIRED") {
         setTimeout(() => {
           window.location.href = "/";
         }, 2000);
       }
-      throw error;
-    }
+    });
+  };
+
+  // Error callback showing the unified restriction notification
+  const onFormError = () => {
+    toast.error("Please fill all required fields, including the profile photo.", {
+      position: "top-right",
+      style: { borderRadius: "10px", background: "#333", color: "#fff" },
+    });
   };
 
   return (
-    <form className="relative h-auto pb-10 font-[Inter]">
+    <form 
+      onSubmit={handleSubmit(onFormSubmit, onFormError)} 
+      className="relative h-auto pb-10 font-[Inter]"
+    >
       <input
         type="file"
         id="p-input"
         className="hidden"
-        {...register("photo")}
+        {...register("photo", { 
+          required: true,
+          validate: (value) => value && value.length > 0 
+        })}
         accept="image/*"
       />
       <div className="flex items-center justify-between w-full pl-12 pr-12 pt-2">
@@ -124,8 +112,8 @@ export default function AddJHS() {
         </div>
 
         <div className="relative w-24 h-24">
-          {/* Photo Circle */}
-          <div className="w-full h-full bg-[#EDEBDD] rounded-full border-2 border-[#630000] flex items-center justify-center overflow-hidden">
+          {/* Visual Red Alert Circle indicator if Photo is missing */}
+          <div className={`w-full h-full bg-[#EDEBDD] rounded-full border-2 flex items-center justify-center overflow-hidden transition-colors ${errors.photo ? "border-red-500 bg-red-50" : "border-[#630000]"}`}>
             {photoPreview ? (
               <img
                 src={photoPreview}
@@ -133,17 +121,16 @@ export default function AddJHS() {
                 alt="Preview"
               />
             ) : (
-              <span className="text-[10px] text-gray-400 text-center">
-                No Photo
+              <span className={`text-[10px] text-center ${errors.photo ? "text-red-500 font-medium" : "text-gray-400"}`}>
+                {errors.photo ? "Photo Required" : "No Photo"}
               </span>
             )}
           </div>
 
-          {/* Overlapping Icon Button */}
           <div className="absolute bottom-0 right-0 translate-x-1 translate-y-1">
             <label
               htmlFor="p-input"
-              className="p-2 bg-[#630000] text-white rounded-full block cursor-pointer hover:bg-red-900 transition-colors shadow-md border-2 border-white"
+              className={`p-2 text-white rounded-full block cursor-pointer transition-colors shadow-md border-2 border-white ${errors.photo ? "bg-red-500 hover:bg-red-600" : "bg-[#630000] hover:bg-red-900"}`}
             >
               <Paperclip size={18} />
             </label>
@@ -151,63 +138,64 @@ export default function AddJHS() {
         </div>
       </div>
 
-      <div className="grid grid-cols-4 gap-y-5 justify-items-center max-w-7xl mx-auto  pt-12">
-        <div className="flex flex-col gap-1">
+      <div className="grid grid-cols-4 gap-y-5 justify-items-center max-w-7xl mx-auto pt-12">
+        <div className="flex flex-col gap-1 col-span-1 ml-9">
           <p className="text-[#1B1717] text-[14px]">Teacher's Name:</p>
           <input
             {...register("lastname", { required: true })}
-            className={`border border-[#630000] shadow-sm text-[13px] tracking-wider h-10 p-3 rounded-[5px] w-40 ${errors.lastname ? "border-red-500 bg-red-50" : "border-#630000"}`}
+            className={`border border-[#630000] shadow-sm text-[13px] tracking-wider h-10 p-3 rounded-[5px] w-60 ${errors.lastname ? "border-red-500 bg-red-50" : "border-#630000"}`}
             placeholder="Last Name"
           />
         </div>
 
-        <div className="flex flex-col gap-1">
+        <div className="flex flex-col gap-1 col-span-1 ml-9">
           <p className="text-[#1B1717] text-[14px] invisible">
             Teacher's Name:
           </p>
           <input
             {...register("firstname", { required: true })}
-            className={`border border-[#630000] shadow-sm text-[13px] tracking-wider h-10 p-3 rounded-[5px] w-40 ${errors.firstname ? "border-red-500 bg-red-50" : "border-#630000"}`}
+            className={`border border-[#630000] shadow-sm text-[13px] tracking-wider h-10 p-3 rounded-[5px] w-60 ${errors.firstname ? "border-red-500 bg-red-50" : "border-#630000"}`}
             placeholder="First Name"
           />
         </div>
 
-        <div className="flex flex-col gap-1">
+        <div className="flex flex-col gap-1 col-span-1 ml-9">
           <p className="text-[#1B1717] text-[14px] invisible">
             Teacher's Name:
           </p>
           <input
-            {...register("middlename")}
-            className="border border-[#630000] shadow-sm text-[13px] tracking-wider h-10 p-3 rounded-[5px] w-40"
+            {...register("middlename", { required: true })}
+            className={`border border-[#630000] shadow-sm text-[13px] tracking-wider h-10 p-3 rounded-[5px] w-60 ${errors.middlename ? "border-red-500 bg-red-50" : "border-#630000"}`}
             placeholder="Middle Name"
           />
         </div>
 
-        <div className="flex flex-col gap-1">
+        <div className="flex flex-col gap-1 col-span-1 ml-9">
           <p className="text-[#1B1717] text-[14px] invisible">
             Teacher's Name:
           </p>
           <input
-            {...register("ext")}
-            className="border border-[#630000] shadow-sm text-[13px] tracking-wider h-10 p-3 rounded-[5px] w-40"
+            {...register("ext", { required: true })}
+            className={`border border-[#630000] shadow-sm text-[13px] tracking-wider h-10 p-3 rounded-[5px] w-60 ${errors.ext ? "border-red-500 bg-red-50" : "border-#630000"}`}
             placeholder="Ext"
           />
         </div>
 
-        <div className="flex flex-col gap-1">
+        <div className="flex flex-col gap-1 col-span-1 ml-9">
           <p className="text-[#1B1717] text-[14px]">Email Address:</p>
           <input
             {...register("email_address", { required: true })}
             type="email"
-            className={`border border-[#630000] shadow-sm text-[13px] tracking-wider h-10 p-3 rounded-[5px] w-40 ${errors.email_address ? "border-red-500 bg-red-50" : "border-#630000"}`}
+            className={`border border-[#630000] shadow-sm text-[13px] tracking-wider h-10 p-3 rounded-[5px] w-60 ${errors.email_address ? "border-red-500 bg-red-50" : "border-#630000"}`}
             placeholder="Email Address"
           />
         </div>
-        <div className="flex flex-col gap-1">
+
+        <div className="flex flex-col gap-1 col-span-1 ml-9">
           <p className="text-[#1B1717] text-[14px]">Grade Level</p>
           <select
             {...register("grade_level", { required: true })}
-            className={`border border-[#630000] shadow-sm text-[13px] tracking-wider h-10 p-3 rounded-[5px] w-40 ${errors.grade_level ? "border-red-500 bg-red-50" : "border-#630000"}`}
+            className={`border border-[#630000] shadow-sm text-[13px] tracking-wider h-10 p-3 rounded-[5px] w-60 ${errors.grade_level ? "border-red-500 bg-red-50" : "border-#630000"}`}
           >
             <option value="">Select</option>
             <option value="7">Grade 7</option>
@@ -217,35 +205,33 @@ export default function AddJHS() {
           </select>
         </div>
 
-        <div className="flex flex-col gap-1">
+        <div className="flex flex-col gap-1 col-span-1 ml-9">
           <p className="text-[#1B1717] text-[14px] ">Position</p>
           <input
             {...register("position", { required: true })}
-            className={`border border-[#630000] shadow-sm text-[13px] tracking-wider h-10 p-3 rounded-[5px] w-40 ${errors.position ? "border-red-500 bg-red-50" : "border-#630000"}`}
+            className={`border border-[#630000] shadow-sm text-[13px] tracking-wider h-10 p-3 rounded-[5px] w-60 ${errors.position ? "border-red-500 bg-red-50" : "border-#630000"}`}
             placeholder="Position"
           />
         </div>
       </div>
 
-      {/* Subject Section */}
       <div className="pl-12 pt-15">
         <p className="text-[#630000] text-[25px] font-semibold">
           Subjects To Teach
         </p>
-        {selectedGrade && (
-          <p className="text-[12px] text-gray-500 italic">
-            Showing subjects for Grade {selectedGrade}. All are selected by
-            default.
-          </p>
-        )}
+        <p className={`text-[12px] ${errors.subjects ? "text-red-500 font-medium" : "text-black-500 italic"}`}>
+          {errors.subjects 
+            ? "At least one subject must be selected." 
+            : selectedGrade && `Showing subjects for Grade ${selectedGrade}. All are selected by default.`}
+        </p>
       </div>
 
-      <div className="grid grid-cols-3 gap-8 px-24 mt-10 font-medium">
+      <div className={`grid grid-cols-3 gap-8 px-24 mt-10 font-medium p-4 rounded-xl transition-colors ${errors.subjects ? "bg-red-50 border border-red-200" : ""}`}>
         {availableSubjects.length > 0 ? (
           availableSubjects.map((sub) => (
             <div key={sub.id} className="flex items-center gap-5">
               <input
-                {...register("subjects")}
+                {...register("subjects", { required: true })}
                 type="checkbox"
                 value={String(sub.id)}
                 className="w-5 h-5 accent-[#630000]"
@@ -254,17 +240,16 @@ export default function AddJHS() {
             </div>
           ))
         ) : (
-          <p className="text-gray-400 italic">
+          <p className="text-black-400 italic">
             Please select a grade level to load subjects...
           </p>
         )}
       </div>
 
-      {/* Submit Button */}
       <div className="flex justify-center fixed right-200 bottom-10">
+        {/* Changed button type to submit to link hook form lifecycle correctly */}
         <button
-          type="button"
-          onClick={handleNext}
+          type="submit"
           className="bg-[#630000] text-[#EDEBDD] text-[15px] px-6 py-3 rounded-xl font-bold hover:bg-red-800 shadow-lg transition-all"
         >
           Add JHS Faculty
