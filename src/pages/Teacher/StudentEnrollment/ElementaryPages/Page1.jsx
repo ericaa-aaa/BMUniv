@@ -134,6 +134,7 @@ export default function EnrollmentForm() {
       }
 
       toast.error(errorMessage, {
+        id: "validation-error-toast",
         position: "top-right",
         style: { borderRadius: "10px", background: "#333", color: "#fff" },
       });
