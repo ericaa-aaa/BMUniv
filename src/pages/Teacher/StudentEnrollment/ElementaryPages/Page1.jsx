@@ -239,83 +239,83 @@ export default function EnrollmentForm() {
           {/* Student Info Box */}
           <div className="grid grid-cols-5 gap-y-5 justify-items-center max-w-7xl mx-auto ">
             {/* Row 1: Names, Suffix, Age */}
-            <div className="flex flex-col gap-1">
+            <div className="flex flex-col gap-1 col-span-1 ml-9">
               <p className="text-[#1B1717] text-[14px]">Student Name:</p>
               {/* // bakit naka true ang required? 
                 required: true means that the field is required and must be filled out before the form can be submitted. */}
               <input
                 {...register("lastname", { required: true })}
                 type="text"
-                className={`border border-[#630000] shadow-sm text-[13px] tracking-wider h-10 p-3 rounded-[5px] w-40 ${errors.lastname ? "border-red-500 bg-red-50" : "border-#630000"}`}
+                className={`border border-[#630000] shadow-sm text-[13px] tracking-wider h-10 p-3 rounded-[5px] w-50 ${errors.lastname ? "border-red-500 bg-red-50" : "border-#630000"}`}
                 placeholder="Last Name"
               />
             </div>
 
-            <div className="flex flex-col gap-1">
+            <div className="flex flex-col gap-1 col-span-1 ml-9">
               <p className="invisible text-[14px]">First Name</p>
               <input
                 {...register("firstname", { required: true })}
                 type="text"
-                className={`border border-[#630000] shadow-sm text-[13px] tracking-wider h-10 p-3 rounded-[5px] w-40 ${errors.firstname ? "border-red-500 bg-red-50" : "border-#630000"}`}
+                className={`border border-[#630000] shadow-sm text-[13px] tracking-wider h-10 p-3 rounded-[5px] w-50 ${errors.firstname ? "border-red-500 bg-red-50" : "border-#630000"}`}
                 placeholder="First Name"
               />
             </div>
 
-            <div className="flex flex-col gap-1">
+            <div className="flex flex-col gap-1 col-span-1 ml-9">
               <p className="invisible text-[14px]">Middle Name</p>
               <input
                 {...register("middlename")}
                 type="text"
-                className="border border-[#630000] shadow-sm text-[13px] tracking-wider h-10 p-3 rounded-[5px] w-40"
+                className="border border-[#630000] shadow-sm text-[13px] tracking-wider h-10 p-3 rounded-[5px] w-50"
                 placeholder="Middle Name"
               />
             </div>
 
-            <div className="flex flex-col gap-1">
+            <div className="flex flex-col gap-1 col-span-1 ml-9">
               <p className="text-[#1B1717] text-[14px]">Suffix:</p>
               <input
                 {...register("ext")}
                 type="text"
-                className="border border-[#630000] shadow-sm text-[12px] h-10 p-3 rounded-[5px] w-40"
+                className="border border-[#630000] shadow-sm text-[12px] h-10 p-3 rounded-[5px] w-50"
                 placeholder="Jr/Sr"
               />
             </div>
 
-            <div className="flex flex-col gap-1">
+            <div className="flex flex-col gap-1 col-span-1 ml-9">
               <p className="text-[#1B1717] text-[14px]">Age:</p>
               <input
                 {...register("age", { required: true })}
                 type="number"
-                className={`border border-[#630000] shadow-sm text-[13px] tracking-wider h-10 p-3 rounded-[5px] w-40 ${errors.age ? "border-red-500 bg-red-50" : "border-#630000"}`}
+                className={`border border-[#630000] shadow-sm text-[13px] tracking-wider h-10 p-3 rounded-[5px] w-50 ${errors.age ? "border-red-500 bg-red-50" : "border-#630000"}`}
                 placeholder="Age"
               />
             </div>
 
             {/* Row 2: Birth Details, Gender, Status */}
-            <div className="flex flex-col gap-1 col-span-2">
+            <div className="flex flex-col gap-1 col-span-2 ml-9">
               <p className="text-[#1B1717] text-[14px]">Place of Birth:</p>
               <input
                 {...register("place_of_birth", { required: true })}
                 type="text"
-                className={`border border-[#630000] shadow-sm text-[13px] tracking-wider h-10 p-3 rounded-[5px] w-104 ${errors.place_of_birth ? "border-red-500 bg-red-50" : "border-#630000"}`}
+                className={`border border-[#630000] shadow-sm text-[13px] tracking-wider h-10 p-3 rounded-[5px] w-114 ${errors.place_of_birth ? "border-red-500 bg-red-50" : "border-#630000"}`}
                 placeholder="City/Province"
               />
             </div>
 
-            <div className="flex flex-col gap-1">
+            <div className="flex flex-col gap-1 col-span-1 ml-9">
               <p className="text-[#1B1717] text-[14px]">Birth Date:</p>
               <input
                 {...register("birthdate", { required: true })}
                 type="date"
-                className={`border border-[#630000] shadow-sm text-[12px] h-10 p-3 rounded-[5px] w-40 ${errors.birthdate ? "border-red-500 bg-red-50" : "border-#630000"}`}
+                className={`border border-[#630000] shadow-sm text-[12px] h-10 p-3 rounded-[5px] w-50 ${errors.birthdate ? "border-red-500 bg-red-50" : "border-#630000"}`}
               />
             </div>
 
-            <div className="flex flex-col gap-1">
+            <div className="flex flex-col gap-1 col-span-1 ml-9">
               <p className="text-[#1B1717] text-[14px]">Gender:</p>
               <select
                 {...register("gender", { required: true })}
-                className={`border border-[#630000] text-[12px] shadow-sm h-10 p-2 rounded-[5px] w-40 ${errors.gender ? "border-red-500 bg-red-50" : "border-#630000"}`}
+                className={`border border-[#630000] text-[12px] shadow-sm h-10 p-2 rounded-[5px] w-50 ${errors.gender ? "border-red-500 bg-red-50" : "border-#630000"}`}
               >
                 <option value="">Gender</option>
                 <option value="Male">Male</option>
@@ -323,11 +323,11 @@ export default function EnrollmentForm() {
               </select>
             </div>
 
-            <div className="flex flex-col gap-1">
+            <div className="flex flex-col gap-1 col-span-1 ml-9">
               <p className="text-[#1B1717] text-[14px]">Civil Status:</p>
               <select
                 {...register("civil_status", { required: true })}
-                className={`border border-[#630000] shadow-sm text-[13px] tracking-wider h-10 p-2 rounded-[5px] w-40 ${errors.civil_status ? "border-red-500 bg-red-50" : "border-#630000"}`}
+                className={`border border-[#630000] shadow-sm text-[13px] tracking-wider h-10 p-2 rounded-[5px] w-50 ${errors.civil_status ? "border-red-500 bg-red-50" : "border-#630000"}`}
               >
                 <option value="">Status</option>
                 <option value="Single">Single</option>
@@ -336,52 +336,52 @@ export default function EnrollmentForm() {
             </div>
 
             {/* Row 3: Citizenship, Tongue, Religion, Measurements */}
-            <div className="flex flex-col gap-1">
+            <div className="flex flex-col gap-1 col-span-1 ml-9">
               <p className="text-[#1B1717] text-[14px]">Citizenship:</p>
               <input
                 {...register("citizenship", { required: true })}
                 type="text"
-                className={`border border-[#630000] shadow-sm text-[13px] tracking-wider h-10 p-3 rounded-[5px] w-40 ${errors.citizenship ? "border-red-500 bg-red-50" : "border-#630000"}`}
+                className={`border border-[#630000] shadow-sm text-[13px] tracking-wider h-10 p-3 rounded-[5px] w-50 ${errors.citizenship ? "border-red-500 bg-red-50" : "border-#630000"}`}
                 placeholder="Citizenship"
               />
             </div>
 
-            <div className="flex flex-col gap-1">
+            <div className="flex flex-col gap-1 col-span-1 ml-9">
               <p className="text-[#1B1717] text-[14px]">Mother Tongue:</p>
               <input
                 {...register("mother_tongue", { required: true })}
                 type="text"
-                className={`border border-[#630000] shadow-sm text-[13px] tracking-wider h-10 p-3 rounded-[5px] w-40 ${errors.mother_tongue ? "border-red-500 bg-red-50" : "border-#630000"}`}
+                className={`border border-[#630000] shadow-sm text-[13px] tracking-wider h-10 p-3 rounded-[5px] w-50 ${errors.mother_tongue ? "border-red-500 bg-red-50" : "border-#630000"}`}
                 placeholder="Language"
               />
             </div>
 
-            <div className="flex flex-col gap-1">
+            <div className="flex flex-col gap-1 col-span-1 ml-9 ">
               <p className="text-[#1B1717] text-[14px]">Religion:</p>
               <input
                 {...register("religion", { required: true })}
                 type="text"
-                className={`border border-[#630000] shadow-sm text-[13px] tracking-wider h-10 p-3 rounded-[5px] w-40 ${errors.religion ? "border-red-500 bg-red-50" : "border-#630000"}`}
+                className={`border border-[#630000] shadow-sm text-[13px] tracking-wider h-10 p-3 rounded-[5px] w-50 ${errors.religion ? "border-red-500 bg-red-50" : "border-#630000"}`}
                 placeholder="Religion"
               />
             </div>
 
-            <div className="flex flex-col gap-1">
+            <div className="flex flex-col gap-1 col-span-1 ml-9 ">
               <p className="text-[#1B1717] text-[14px]">Weight (kg):</p>
               <input
                 {...register("weight", { required: true })}
                 type="number"
-                className={`border border-[#630000] shadow-sm text-[13px] tracking-wider h-10 p-3 rounded-[5px] w-40 ${errors.weight ? "border-red-500 bg-red-50" : "border-#630000"}`}
+                className={`border border-[#630000] shadow-sm text-[13px] tracking-wider h-10 p-3 rounded-[5px] w-50 ${errors.weight ? "border-red-500 bg-red-50" : "border-#630000"}`}
                 placeholder="kg"
               />
             </div>
 
-            <div className="flex flex-col gap-1">
+            <div className="flex flex-col gap-1 col-span-1 ml-9   ">
               <p className="text-[#1B1717] text-[14px]">Height (cm):</p>
               <input
                 {...register("height", { required: true })}
                 type="number"
-                className={`border border-[#630000] shadow-sm text-[13px] tracking-wider h-10 p-3 rounded-[5px] w-40 ${errors.height ? "border-red-500 bg-red-50" : "border-#630000"}`}
+                className={`border border-[#630000] shadow-sm text-[13px] tracking-wider h-10 p-3 rounded-[5px] w-50 ${errors.height ? "border-red-500 bg-red-50" : "border-#630000"}`}
                 placeholder="cm"
               />
             </div>
@@ -407,18 +407,18 @@ export default function EnrollmentForm() {
           </div>
 
           <div className="grid grid-cols-5 gap-y-5 justify-items-center max-w-7xl mx-auto mt-3">
-            <div className="flex flex-col gap-1">
+            <div className="flex flex-col gap-1 col-span-1 ml-9">
               <p className="text-[#1B1717] text-[14px] ">Contact Number</p>
               <input
                 {...register("contact_number")}
                 type="tel"
                 maxLength={11}
-                className="border border-[#630000] shadow-sm text-[12px] w-40 h-10 p-3 rounded-[5px]"
+                className="border border-[#630000] shadow-sm text-[13px] w-50 tracking-wider h-10 p-3 rounded-[5px]"
                 placeholder="09XXXXXXXXX"
               />
             </div>
 
-            <div className="flex flex-col gap-1 col-span-1">
+            <div className="flex flex-col gap-1 col-span-1 ml-9">
               <p className="text-[#1B1717] text-[14px] ">Email Address</p>
               <input
                 {...register("email_address", { 
@@ -428,7 +428,7 @@ export default function EnrollmentForm() {
                   } 
                 })} 
                 type="email"
-                className={`border border-[#630000] shadow-sm text-[13px] tracking-wider h-10 p-3 rounded-[5px] w-40 ${errors.email_address ? "border-red-500 bg-red-50" : "border-#630000"}`}
+                className={`border border-[#630000] shadow-sm text-[13px] tracking-wider h-10 p-3 rounded-[5px] w-50 ${errors.email_address ? "border-red-500 bg-red-50" : "border-#630000"}`}
                 placeholder="email@example.com"
               />
             </div>
