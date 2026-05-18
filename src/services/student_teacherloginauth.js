@@ -41,7 +41,7 @@ export const loginUser = async (username, password) => {
     
    
     if (error.name === 'TypeError' && error.message === 'Failed to fetch') {
-       return { success: false, message: "Netork Error: Is the Flask server running?" };
+       return { success: false, message: "Unable to connect to the server." };
     }
 
     return { success: false, message: error.message || "Server connection failed" };

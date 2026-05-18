@@ -39,7 +39,7 @@ function AppContent() {
   return (
     <>
       
-      <Toaster />
+      <Toaster position="top-right" reverseOrder={false} />
 
       <Routes>
         <Route path="/" element={<LoginPage />} />

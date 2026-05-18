@@ -130,10 +130,11 @@ export default function EnrollmentForm() {
       if (errors.photo) errorMessage = "Student photo is required.";
 
       toast.error(errorMessage, {
+        id: "validation-error-toast",
         position: "top-right",
         style: { borderRadius: "10px", background: "#333", color: "#fff" },
       });
-    }
+    } 
   };
 
   const onSubmit = async (data) => {
