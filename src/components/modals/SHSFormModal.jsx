@@ -16,6 +16,55 @@ export default function SHSFormModal({
   if (!showModal || !selectedStudent) return null;
 
   const handleUpdate = async () => {
+
+        const requiredFields = {
+      age: "Age",
+      gender: "Gender",
+      civil_status: "Civil Status",
+      birthdate: "Birthdate",
+      place_of_birth: "Birth Place",
+      weight: "Weight",
+      height: "Height",
+      citizenship: "Citizenship",
+      mother_tongue: "Mother Tongue",
+      religion: "Religion",
+      contact_number: "Contact Number",
+      email_address: "Email Address",
+      status: "Enrollment Status",
+      curr_house_no: "Current House No.",
+      curr_street: "Current Street",
+      curr_barangay: "Current Barangay",
+      curr_municipality: "Current Municipality",
+      curr_province: "Current Province",
+      perm_house_no: "Permanent House No.",
+      perm_street: "Permanent Street",
+      perm_barangay: "Permanent Barangay",
+      perm_municipality: "Permanent Municipality",
+      perm_province: "Permanent Province",
+      father_contact: "Father Contact No.",
+      father_occupation: "Father Occupation",
+      mother_contact: "Mother Contact No.",
+      mother_occupation: "Mother Occupation",
+      guardian_contact: "Guardian Contact No.",
+      guardian_relationship: "Guardian Relationship",
+    };
+
+    for (const [key, label] of Object.entries(requiredFields)) {
+      const value = selectedStudent[key];
+      if (value === undefined || value === null || String(value).trim() === "") {
+        toast.error(`Please fill in the required field: ${label}`, {
+          style: {
+            background: "#810100",
+            color: "#EDEBDD",
+            border: "1px solid #ef5350",
+            fontWeight: "600",
+            fontFamily: "Inter"
+          }
+        });
+        return; // Halt execution early so it doesn't call the API
+      }
+    }
+
     const loadingToast = toast.loading("Updating student record...");
     setIsSubmitting(true);
 
@@ -171,11 +220,18 @@ export default function SHSFormModal({
                     <div className="flex flex-col">
                       <label className={labelStyle}>Year Completed</label>
                       <input
+                        type="text"
+                        inputMode="numeric"
                         name="school_year"
                         value={selectedStudent.school_year || ""}
-                        onChange={handleChange}
+                        onChange={(e) => {
+                          const cleanValue = e.target.value.replace(/\D/g, "").slice(0, 4);
+                          handleChange({
+                            target: { name: "school_year", value: cleanValue }
+                          });
+                        }}
+                        placeholder="YYYY"
                         className={editableStyle}
-                        placeholder="YYYY-YYYY"
                       />
                     </div>
                   </div>
@@ -196,11 +252,18 @@ export default function SHSFormModal({
                     <div className="flex flex-col">
                       <label className={labelStyle}>Year Completed</label>
                       <input
+                        type="text"
+                        inputMode="numeric"
                         name="highschool_year"
                         value={selectedStudent.highschool_year || ""}
-                        onChange={handleChange}
+                        onChange={(e) => {
+                          const cleanValue = e.target.value.replace(/\D/g, "").slice(0, 4);
+                          handleChange({
+                            target: { name: "highschool_year", value: cleanValue }
+                          });
+                        }}
+                        placeholder="YYYY"
                         className={editableStyle}
-                        placeholder="YYYY-YYYY"
                       />
                     </div>
                   </div>
@@ -224,21 +287,27 @@ export default function SHSFormModal({
                   </div>
                   <div className="flex flex-col">
                     <label className={labelStyle}>Gender</label>
-                    <input
+                    <select
                       name="gender"
                       value={selectedStudent.gender || ""}
                       onChange={handleChange}
                       className={editableStyle}
-                    />
+                    >
+                      <option value="Male">Male</option>
+                      <option value="Female">Female</option>
+                    </select>
                   </div>
                   <div className="flex flex-col">
                     <label className={labelStyle}>Civil Status</label>
-                    <input
+                    <select
                       name="civil_status"
                       value={selectedStudent.civil_status || ""}
                       onChange={handleChange}
                       className={editableStyle}
-                    />
+                    >
+                      <option value="Single">Single</option>
+                      <option value="Married">Married</option>
+                    </select>
                   </div>
                   <div className="flex flex-col">
                     <label className={labelStyle}>Birthdate</label>
@@ -308,9 +377,17 @@ export default function SHSFormModal({
                   <div className="flex flex-col md:col-span-2">
                     <label className={labelStyle}>Contact No.</label>
                     <input
+                      type="text"
+                      inputMode="numeric"
                       name="contact_number"
-                      value={selectedStudent.contact_number|| ""}
-                      onChange={handleChange}
+                      value={selectedStudent.contact_number || ""}
+                      onChange={(e) => {
+                        const cleanValue = e.target.value.replace(/\D/g, "").slice(0, 11);
+                        handleChange({
+                          target: { name: "contact_number", value: cleanValue }
+                        });
+                      }}
+                      placeholder="09XXXXXXXXX"
                       className={editableStyle}
                     />
                   </div>
@@ -531,9 +608,17 @@ export default function SHSFormModal({
                         <div className="flex flex-col">
                           <label className={labelStyle}>CONTACT NO. </label>
                           <input
+                            type="text"
+                            inputMode="numeric"
                             name={p.contact}
                             value={selectedStudent[p.contact] || ""}
-                            onChange={handleChange}
+                            onChange={(e) => {
+                              const cleanValue = e.target.value.replace(/\D/g, "").slice(0, 11);
+                              handleChange({
+                                target: { name: p.contact, value: cleanValue }
+                              });
+                            }}
+                            placeholder="09XXXXXXXXX"
                             className={editableStyle}
                           />
                         </div>

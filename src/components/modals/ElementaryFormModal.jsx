@@ -16,6 +16,67 @@ export default function ElementaryFormModal({
   if (!showModal || !selectedStudent) return null;
 
   const handleUpdate = async () => {
+  
+    const requiredFields = {
+      age: "Age",
+      gender: "Gender",
+      civil_status: "Civil Status",
+      birthdate: "Birthdate",
+      place_of_birth: "Birth Place",
+      weight: "Weight",
+      height: "Height",
+      citizenship: "Citizenship",
+      mother_tongue: "Mother Tongue",
+      religion: "Religion",
+      contact_number: "Contact Number",
+      email_address: "Email Address",
+      status: "Enrollment Status",
+      curr_house_no: "Current House No.",
+      curr_street: "Current Street",
+      curr_barangay: "Current Barangay",
+      curr_municipality: "Current Municipality",
+      curr_province: "Current Province",
+      perm_house_no: "Permanent House No.",
+      perm_street: "Permanent Street",
+      perm_barangay: "Permanent Barangay",
+      perm_municipality: "Permanent Municipality",
+      perm_province: "Permanent Province",
+      father_contact: "Father Contact No.",
+      father_occupation: "Father Occupation",
+      mother_contact: "Mother Contact No.",
+      mother_occupation: "Mother Occupation",
+      guardian_contact: "Guardian Contact No.",
+      guardian_relationship: "Guardian Relationship",
+    };
+
+    for (const [key, label] of Object.entries(requiredFields)) {
+      const value = selectedStudent[key];
+      if (value === undefined || value === null || String(value).trim() === "") {
+        toast.error(`Please fill in the required field: ${label}`, {
+          style: {
+            background: "#810100",
+            color: "#EDEBDD",
+            border: "1px solid #ef5350",
+            fontWeight: "600",
+            fontFamily: "Inter"
+          }
+        });
+        return; // Halt execution early so it doesn't call the API
+      }
+    }
+
+    // 3. Extra validation: ensure contact numbers are complete
+    const contactKeys = ['contact_number', 'father_contact', 'mother_contact', 'guardian_contact'];
+    for (const key of contactKeys) {
+      if (selectedStudent[key] && selectedStudent[key].length !== 11) {
+        toast.error(`Contact numbers must be exactly 11 digits long.`, {
+          style: { background: "#ffebee", color: "#c62828" }
+        });
+        return;
+      }
+    }
+
+    // --- PROCEED WITH API SUBMISSION IF VALID ---
     const loadingToast = toast.loading("Updating student record...");
     setIsSubmitting(true);
 
@@ -105,10 +166,9 @@ export default function ElementaryFormModal({
               }}
               className="absolute top-6 right-6 text-gray-400 hover:text-red-800 transition-colors bg-gray-50 p-1 rounded-full disabled:opacity-50"
             >
-              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
-                <path stroke-linecap="round" stroke-linejoin="round" d="m9.75 9.75 4.5 4.5m0-4.5-4.5 4.5M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="size-6">
+                <path strokeLinecap="round" strokeLinejoin="round" d="m9.75 9.75 4.5 4.5m0-4.5-4.5 4.5M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
               </svg>
-              
             </button>
 
             <div className="bg-[#630000] font-['Inter'] text-white text-center py-5 rounded-2xl mb-10 shadow-md">
@@ -147,11 +207,11 @@ export default function ElementaryFormModal({
               <section>
                 <h2 className="text-lg font-bold text-[#7A1C1C] mb-5 flex items-center gap-2">
                   <span className="w-1.5 h-6 bg-red-800 rounded-full"></span>{" "}
-                  Basic Information
+                  Basic Information 
                 </h2>
                 <div className="grid grid-cols-2 md:grid-cols-4 gap-x-4 gap-y-5">
                   <div className="flex flex-col">
-                    <label className={labelStyle}>Age</label>
+                    <label className={labelStyle}>Age *</label>
                     <input
                       name="age"
                       value={selectedStudent.age || ""}
@@ -160,25 +220,33 @@ export default function ElementaryFormModal({
                     />
                   </div>
                   <div className="flex flex-col">
-                    <label className={labelStyle}>Gender</label>
-                    <input
+                    <label className={labelStyle}>Gender *</label>
+                    <select
                       name="gender"
                       value={selectedStudent.gender || ""}
                       onChange={handleChange}
                       className={editableStyle}
-                    />
+                    >
+                      <option value="">Select Gender</option>
+                      <option value="Male">Male</option>
+                      <option value="Female">Female</option>
+                    </select>
                   </div>
                   <div className="flex flex-col">
-                    <label className={labelStyle}>Civil Status</label>
-                    <input
+                    <label className={labelStyle}>Civil Status *</label>
+                    <select
                       name="civil_status"
                       value={selectedStudent.civil_status || ""}
                       onChange={handleChange}
                       className={editableStyle}
-                    />
+                    >
+                      <option value="">Select Status</option>
+                      <option value="Single">Single</option>
+                      <option value="Married">Married</option>
+                    </select>
                   </div>
                   <div className="flex flex-col">
-                    <label className={labelStyle}>Birthdate</label>
+                    <label className={labelStyle}>Birthdate *</label>
                     <input
                       type="date"
                       name="birthdate"
@@ -188,8 +256,7 @@ export default function ElementaryFormModal({
                     />
                   </div>
                   <div className="flex flex-col md:col-span-2">
-                    {" "}
-                    <label className={labelStyle}>Birth Place</label>
+                    <label className={labelStyle}>Birth Place *</label>
                     <input
                       name="place_of_birth"
                       value={selectedStudent.place_of_birth || ""}
@@ -198,7 +265,7 @@ export default function ElementaryFormModal({
                     />
                   </div>
                   <div className="flex flex-col">
-                    <label className={labelStyle}>Weight (kg)</label>
+                    <label className={labelStyle}>Weight (kg) *</label>
                     <input
                       name="weight"
                       value={selectedStudent.weight || ""}
@@ -207,7 +274,7 @@ export default function ElementaryFormModal({
                     />
                   </div>
                   <div className="flex flex-col">
-                    <label className={labelStyle}>Height (cm)</label>
+                    <label className={labelStyle}>Height (cm) *</label>
                     <input
                       name="height"
                       value={selectedStudent.height || ""}
@@ -216,7 +283,7 @@ export default function ElementaryFormModal({
                     />
                   </div>
                   <div className="flex flex-col md:col-span-2">
-                    <label className={labelStyle}>Citizenship</label>
+                    <label className={labelStyle}>Citizenship *</label>
                     <input
                       name="citizenship"
                       value={selectedStudent.citizenship || ""}
@@ -225,7 +292,7 @@ export default function ElementaryFormModal({
                     />
                   </div>
                   <div className="flex flex-col">
-                    <label className={labelStyle}>Mother Tongue</label>
+                    <label className={labelStyle}>Mother Tongue *</label>
                     <input
                       name="mother_tongue"
                       value={selectedStudent.mother_tongue || ""}
@@ -234,7 +301,7 @@ export default function ElementaryFormModal({
                     />
                   </div>
                   <div className="flex flex-col">
-                    <label className={labelStyle}>Religion</label>
+                    <label className={labelStyle}>Religion *</label>
                     <input
                       name="religion"
                       value={selectedStudent.religion || ""}
@@ -243,16 +310,24 @@ export default function ElementaryFormModal({
                     />
                   </div>
                   <div className="flex flex-col md:col-span-2">
-                    <label className={labelStyle}>Contact No.</label>
+                    <label className={labelStyle}>Contact No. *</label>
                     <input
+                      type="text"
+                      inputMode="numeric"
                       name="contact_number"
-                      value={selectedStudent.contact_number|| ""}
-                      onChange={handleChange}
+                      value={selectedStudent.contact_number || ""}
+                      onChange={(e) => {
+                        const cleanValue = e.target.value.replace(/\D/g, "").slice(0, 11);
+                        handleChange({
+                          target: { name: "contact_number", value: cleanValue }
+                        });
+                      }}
+                      placeholder="09XXXXXXXXX"
                       className={editableStyle}
                     />
                   </div>
                   <div className="flex flex-col md:col-span-2">
-                    <label className={labelStyle}>Email Address</label>
+                    <label className={labelStyle}>Email Address *</label>
                     <input
                       name="email_address"
                       value={selectedStudent.email_address || ""}
@@ -266,7 +341,7 @@ export default function ElementaryFormModal({
               {/* Status Section */}
               <section className="bg-gray-50 p-6 rounded-2xl border border-gray-200 grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div className="flex flex-col">
-                  <label className={labelStyle}>Enrollment Status</label>
+                  <label className={labelStyle}>Enrollment Status *</label>
                   <select
                     name="status"
                     value={selectedStudent.status || ""}
@@ -286,40 +361,43 @@ export default function ElementaryFormModal({
                 </div>
 
                 <div className="flex flex-col">
-                  <label className={labelStyle}>IP Community?</label>
+                  <label className={labelStyle}>IP Community? *</label>
                   <select
                     name="is_ip_community"
-                    value={selectedStudent.is_ip_community}
+                    value={selectedStudent.is_ip_community ?? ""}
                     onChange={handleChange}
                     className={editableStyle}
                   >
-                    <option value={true}>Yes</option>
-                    <option value={false}>No</option>
+                    <option value="">Select Option</option>
+                    <option value="true">Yes</option>
+                    <option value="false">No</option>
                   </select>
                 </div>
 
                 <div className="flex flex-col">
-                  <label className={labelStyle}>Transferee?</label>
+                  <label className={labelStyle}>Transferee? *</label>
                   <select
                     name="is_transferee"
-                    value={selectedStudent.is_transferee}
+                    value={selectedStudent.is_transferee ?? ""}
                     onChange={handleChange}
                     className={editableStyle}
                   >
-                    <option value={true}>Yes</option>
-                    <option value={false}>No</option>
+                    <option value="">Select Option</option>
+                    <option value="true">Yes</option>
+                    <option value="false">No</option>
                   </select>
                 </div>
                 <div className="flex flex-col">
-                  <label className={labelStyle}>Scholarship Recipient?</label>
+                  <label className={labelStyle}>Scholarship Recipient? *</label>
                   <select
                     name="schorecipient"
-                    value={selectedStudent.schorecipient}
+                    value={selectedStudent.schorecipient ?? ""}
                     onChange={handleChange}
                     className={editableStyle}
                   >
-                    <option value={true}>Yes</option>
-                    <option value={false}>No</option>
+                    <option value="">Select Option</option>
+                    <option value="true">Yes</option>
+                    <option value="false">No</option>
                   </select>
                 </div>
               </section>
@@ -329,7 +407,7 @@ export default function ElementaryFormModal({
                 <div className="bg-[#EDEBDD]/40 p-6 rounded-2xl border border-[#EDEBDD]">
                   <p className="text-[11px] font-black text-red-800 mb-4 tracking-tighter uppercase flex items-center gap-2">
                     <span className="w-2 h-2 bg-red-800 rounded-full"></span>{" "}
-                    Current Residence
+                    Current Residence *
                   </p>
                   <div className="grid grid-cols-2 gap-3">
                     <input
@@ -372,7 +450,7 @@ export default function ElementaryFormModal({
                 <div className="bg-[#EDEBDD]/40 p-6 rounded-2xl border border-[#EDEBDD]">
                   <p className="text-[11px] font-black text-red-800 mb-4 tracking-tighter uppercase flex items-center gap-2">
                     <span className="w-2 h-2 bg-red-800 rounded-full"></span>{" "}
-                    Permanent Residence
+                    Permanent Residence *
                   </p>
                   <div className="grid grid-cols-2 gap-3">
                     <input
@@ -418,7 +496,7 @@ export default function ElementaryFormModal({
               <section className="space-y-6">
                 <h2 className="text-xl font-bold text-[#7A1C1C] mb-6 flex items-center gap-2">
                   <span className="w-1.5 h-6 bg-red-800 rounded-full"></span>{" "}
-                  Family Background
+                  Family Background 
                 </h2>
                 <div className="grid grid-cols-1 gap-8">
                   {[
@@ -458,19 +536,27 @@ export default function ElementaryFormModal({
                           />
                         </div>
                         <div className="flex flex-col">
-                          <label className={labelStyle}>CONTACT NO. </label>
+                          <label className={labelStyle}>CONTACT NO. *</label>
                           <input
+                            type="text"
+                            inputMode="numeric"
                             name={p.contact}
                             value={selectedStudent[p.contact] || ""}
-                            onChange={handleChange}
+                            onChange={(e) => {
+                              const cleanValue = e.target.value.replace(/\D/g, "").slice(0, 11);
+                              handleChange({
+                                target: { name: p.contact, value: cleanValue }
+                              });
+                            }}
+                            placeholder="09XXXXXXXXX"
                             className={editableStyle}
                           />
                         </div>
                         <div className="flex flex-col md:col-span-2">
                           <label className={labelStyle}>
                             {p.label === "GUARDIAN"
-                              ? "RELATIONSHIP"
-                              : "OCCUPATION"}
+                              ? "RELATIONSHIP *"
+                              : "OCCUPATION *"}
                           </label>
                           <input
                             name={p.occup}
