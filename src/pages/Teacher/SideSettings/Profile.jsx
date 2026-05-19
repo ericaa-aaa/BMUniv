@@ -28,7 +28,7 @@ export default function Profile() {
     }, []);
 
     return (
-        <div className="bg-white/30 backdrop-blur-md border border-white/50 p-8 rounded-2xl shadow-2xl w-full max-w-md space-y-6">
+        <div className="bg-white/30 backdrop-blur-md border border-white/50 p-8 rounded-2xl shadow-2xl w-full max-w-md space-y-3">
             {/* Profile Image Section */}
             <div className="flex justify-center">
                 <div className="w-32 h-32 rounded-full overflow-hidden border-4 border-[#630000]/80 shadow-lg bg-white">

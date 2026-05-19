@@ -61,7 +61,7 @@ export default function SHSFormModal({
             fontFamily: "Inter"
           }
         });
-        return; // Halt execution early so it doesn't call the API
+        return;
       }
     }
 

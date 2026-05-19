@@ -105,7 +105,7 @@ export default function AddJHS() {
         accept="image/*"
       />
       <div className="flex items-center justify-between w-full pl-12 pr-12 pt-2">
-        <div className="flex gap-5 items-center">
+        <div className="flex gap-5 items-center ml-15">
           <p className="text-[#630000] text-[25px] font-semibold">
             Junior High Faculty Information
           </p>
@@ -215,7 +215,7 @@ export default function AddJHS() {
         </div>
       </div>
 
-      <div className="pl-12 pt-15">
+      <div className="pl-12 pt-15 ml-15">
         <p className="text-[#630000] text-[25px] font-semibold">
           Subjects To Teach
         </p>
@@ -240,7 +240,7 @@ export default function AddJHS() {
             </div>
           ))
         ) : (
-          <p className="text-black-400 italic">
+          <p className="text-black-400 italic ml-15">
             Please select a grade level to load subjects...
           </p>
         )}

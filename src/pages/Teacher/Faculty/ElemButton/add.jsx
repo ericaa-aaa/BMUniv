@@ -107,7 +107,7 @@ export default function AddElementary() {
         accept="image/*"
       />
       <div className="flex items-center justify-between w-full pl-12 pr-12 pt-2">
-        <div className="flex gap-5 items-center">
+        <div className="flex gap-5 items-center ml-15">
           <p className="text-[#630000] text-[25px] font-semibold">
             Elementary Teacher's Information
           </p>
@@ -217,8 +217,8 @@ export default function AddElementary() {
         </div>
       </div>
 
-      <div className="pl-12 pt-15">
-        <p className="text-[#630000] text-[25px] font-semibold">
+      <div className="pl-12 pt-15 ml-15">
+        <p className="text-[#630000] text-[25px] font-semibold ">
           Subjects To Teach
         </p>
         <p className={`text-[12px] ${errors.subjects ? "text-red-500 font-medium" : "text-black-500"}`}>
@@ -244,7 +244,7 @@ export default function AddElementary() {
             </div>
           ))
         ) : (
-          <p className="text-black-400 italic">
+          <p className="text-black-400 italic ml-15">
             Please select a grade level first...
           </p>
         )}

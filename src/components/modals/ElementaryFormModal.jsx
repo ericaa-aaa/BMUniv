@@ -61,11 +61,10 @@ export default function ElementaryFormModal({
             fontFamily: "Inter"
           }
         });
-        return; // Halt execution early so it doesn't call the API
+        return; 
       }
     }
 
-    // 3. Extra validation: ensure contact numbers are complete
     const contactKeys = ['contact_number', 'father_contact', 'mother_contact', 'guardian_contact'];
     for (const key of contactKeys) {
       if (selectedStudent[key] && selectedStudent[key].length !== 11) {
@@ -76,7 +75,6 @@ export default function ElementaryFormModal({
       }
     }
 
-    // --- PROCEED WITH API SUBMISSION IF VALID ---
     const loadingToast = toast.loading("Updating student record...");
     setIsSubmitting(true);
 
@@ -227,7 +225,6 @@ export default function ElementaryFormModal({
                       onChange={handleChange}
                       className={editableStyle}
                     >
-                      <option value="">Select Gender</option>
                       <option value="Male">Male</option>
                       <option value="Female">Female</option>
                     </select>
@@ -240,7 +237,6 @@ export default function ElementaryFormModal({
                       onChange={handleChange}
                       className={editableStyle}
                     >
-                      <option value="">Select Status</option>
                       <option value="Single">Single</option>
                       <option value="Married">Married</option>
                     </select>

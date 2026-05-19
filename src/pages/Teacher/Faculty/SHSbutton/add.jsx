@@ -99,7 +99,7 @@ export default function AddSHS() {
         accept="image/*"
       />
       <div className="flex items-center justify-between w-full pl-12 pr-12 pt-2">
-        <div className="flex gap-5 items-center">
+        <div className="flex gap-5 items-center ml-15">
           <p className="text-[#630000] text-[25px] font-semibold">Senior High Teacher's Information</p>
         </div>
         <div className="relative w-24 h-24">
@@ -212,7 +212,7 @@ export default function AddSHS() {
         </div>
       </div>
 
-      <div className="pl-12 pt-15">
+      <div className="pl-12 pt-15 ml-15">
         <p className="text-[#630000] text-[25px] font-semibold">Subjects To Teach</p>
         <p className={`text-[12px] ${errors.subjects ? "text-red-500 font-medium" : "text-black-500 italic"}`}>
           {errors.subjects ? "At least one subject must be selected." : "Select the specific subjects this teacher will handle."}
@@ -234,7 +234,7 @@ export default function AddSHS() {
             </div>
           ))
         ) : (
-          <p className="text-black-400 italic">Please select Grade 11 or 12 alongside a Strand to see subjects...</p>
+          <p className="text-black-400 italic ml-15">Please select Grade 11 or 12 alongside a Strand to see subjects...</p>
         )}
       </div>
 

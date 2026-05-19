@@ -63,7 +63,7 @@ const ChangePassword = () => {
     >
       <div className="min-h-screen bg-white/90 p-4 flex items-center justify-center gap-x-20 font-[Inter]">
         <Profile />
-        <div className="bg-white/20 backdrop-blur-md border border-white/50 p-8 rounded-2xl shadow-2xl w-full max-w-md">
+        <div className="bg-white/20 backdrop-blur-md border border-white/50 p-8 rounded-2xl shadow-2xl w-full max-w-md max-h-full overflow-y-auto">
           <h2 className="text-3xl font-bold text-[#630000] text-center mb-6">Change Password</h2>
           
           <form onSubmit={handlePasswordUpdate} className="space-y-6 flex flex-col">
