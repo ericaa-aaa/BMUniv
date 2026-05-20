@@ -7,6 +7,7 @@ import { FacultyTeacherService } from "../../../../services/facultyteacherservic
 export default function AddElementary() {
   const [availableSubjects, setAvailableSubjects] = useState([]);
   const [photoPreview, setPhotoPreview] = useState(null);
+  const [loading, setLoading] = useState(false);
 
   const {
     register,
@@ -19,6 +20,8 @@ export default function AddElementary() {
       level: "Elementary",
       lastname: "",
       firstname: "",
+      middlename: "",
+      ext: "",
       email_address: "",
       grade_level: "",
       position: "",
@@ -29,6 +32,7 @@ export default function AddElementary() {
   const selectedGrade = watch("grade_level");
   const photoFile = watch("photo");
 
+  // Dynamic Subject Loader Pipeline
   useEffect(() => {
     if (selectedGrade) {
       FacultyTeacherService.getSubjectsByGrade(selectedGrade)
@@ -49,14 +53,19 @@ export default function AddElementary() {
     }
   }, [selectedGrade, setValue]);
 
+  // Object URL Engine + Cleanup
   useEffect(() => {
     if (photoFile && photoFile[0]) {
-      setPhotoPreview(URL.createObjectURL(photoFile[0]));
+      const objectUrl = URL.createObjectURL(photoFile[0]);
+      setPhotoPreview(objectUrl);
+
+      return () => URL.revokeObjectURL(objectUrl);
     }
   }, [photoFile]);
 
-  // Main Submission logic integrated with React Hot Toast Promise
+  // Handler for successful react-hook-form submission operations
   const onFormSubmit = (data) => {
+    setLoading(true);
     toast.promise(
       FacultyTeacherService.addFaculty(data),
       {
@@ -73,19 +82,22 @@ export default function AddElementary() {
       {
         style: { borderRadius: "10px", background: "#333", color: "#fff" },
         position: "top-right",
-      }
-    ).catch((error) => {
-      if (error.message === "SESSION_EXPIRED") {
-        setTimeout(() => {
-          window.location.href = "/";
-        }, 2000);
-      }
-    });
+      }  
+    ).finally(() => setLoading(false));
   };
 
-  // Triggers explicitly if native HTML validation criteria are blocked/empty
-  const onFormError = () => {
-    toast.error("Please fill all required fields", {
+  // Handler for custom error messaging UI triggers
+  const onFormError = (errors) => {
+    let errorMessage = "Please fill all required fields correctly.";
+    
+    if (errors.photo) {
+      errorMessage = "Photo is required.";
+    } else if (errors.subjects) {
+      errorMessage = "At least one subject must be selected.";
+    }
+
+    toast.error(errorMessage, {
+      id: "form-error",
       position: "top-right",
       style: { borderRadius: "10px", background: "#333", color: "#fff" },
     });
@@ -145,7 +157,7 @@ export default function AddElementary() {
           <input
             {...register("lastname", { required: true })}
             type="text"
-            className={`border border-[#630000] shadow-sm text-[13px] tracking-wider h-10 p-3 rounded-[5px] w-60 ${errors.lastname ? "border-red-500 bg-red-50" : "border-#630000"}`}
+            className={`border border-[#630000] shadow-sm text-[13px] tracking-wider h-10 p-3 rounded-[5px] w-60 ${errors.lastname ? "border-red-500 bg-red-50" : "border-[#630000]"}`}
             placeholder="Last Name"
           />
         </div>
@@ -155,7 +167,7 @@ export default function AddElementary() {
           <input
             {...register("firstname", { required: true })}
             type="text"
-            className={`border border-[#630000] shadow-sm text-[13px] tracking-wider h-10 p-3 rounded-[5px] w-60 ${errors.firstname ? "border-red-500 bg-red-50" : "border-#630000"}`}
+            className={`border border-[#630000] shadow-sm text-[13px] tracking-wider h-10 p-3 rounded-[5px] w-60 ${errors.firstname ? "border-red-500 bg-red-50" : "border-[#630000]"}`}
             placeholder="First Name"
           />
         </div>
@@ -165,7 +177,7 @@ export default function AddElementary() {
           <input
             {...register("middlename")}
             type="text"
-            className={`border border-[#630000] shadow-sm text-[13px] tracking-wider h-10 p-3 rounded-[5px] w-60 ${errors.middlename ? "border-red-500 bg-red-50" : "border-#630000"}`}
+            className={`border border-[#630000] shadow-sm text-[13px] tracking-wider h-10 p-3 rounded-[5px] w-60 ${errors.middlename ? "border-red-500 bg-red-50" : "border-[#630000]"}`}
             placeholder="Middle Name"
           />
         </div>
@@ -175,7 +187,7 @@ export default function AddElementary() {
           <input
             {...register("ext")}
             type="text"
-            className={`border border-[#630000] shadow-sm text-[13px] tracking-wider h-10 p-3 rounded-[5px] w-60 ${errors.ext ? "border-red-500 bg-red-50" : "border-#630000"}`}
+            className={`border border-[#630000] shadow-sm text-[13px] tracking-wider h-10 p-3 rounded-[5px] w-60 ${errors.ext ? "border-red-500 bg-red-50" : "border-[#630000]"}`}
             placeholder="Ext"
           />
         </div>
@@ -185,7 +197,7 @@ export default function AddElementary() {
           <input
             {...register("email_address", { required: true })}
             type="email"
-            className={`border border-[#630000] shadow-sm text-[13px] tracking-wider h-10 p-3 rounded-[5px] w-60 ${errors.email_address ? "border-red-500 bg-red-50" : "border-#630000"}`}
+            className={`border border-[#630000] shadow-sm text-[13px] tracking-wider h-10 p-3 rounded-[5px] w-60 ${errors.email_address ? "border-red-500 bg-red-50" : "border-[#630000]"}`}
             placeholder="Email Address"
           />
         </div>
@@ -194,7 +206,7 @@ export default function AddElementary() {
           <p className="text-[#1B1717] text-[14px]">Grade Level</p>
           <select
             {...register("grade_level", { required: true })}
-            className={`border border-[#630000] shadow-sm text-[13px] tracking-wider h-10 p-3 rounded-[5px] w-60 ${errors.grade_level ? "border-red-500 bg-red-50" : "border-#630000"}`}
+            className={`border border-[#630000] shadow-sm text-[13px] tracking-wider h-10 p-3 rounded-[5px] w-60 ${errors.grade_level ? "border-red-500 bg-red-50" : "border-[#630000]"}`}
           >
             <option value="">Select</option>
             <option value="1">Grade 1</option>
@@ -211,7 +223,7 @@ export default function AddElementary() {
           <input
             {...register("position", { required: true })}
             type="text"
-            className={`border border-[#630000] shadow-sm text-[13px] tracking-wider h-10 p-3 rounded-[5px] w-60 ${errors.position ? "border-red-500 bg-red-50" : "border-#630000"}`}
+            className={`border border-[#630000] shadow-sm text-[13px] tracking-wider h-10 p-3 rounded-[5px] w-60 ${errors.position ? "border-red-500 bg-red-50" : "border-[#630000]"}`}
             placeholder="Title"
           />
         </div>
@@ -251,12 +263,12 @@ export default function AddElementary() {
       </div>
 
       <div className="flex justify-center fixed right-200 bottom-10 gap-4">
-        {/* Changed button type to "submit" so react-hook-form correctly handles native pipeline operations */}
         <button
           type="submit"
-          className="bg-[#630000] text-[#EDEBDD] text-[15px] px-6 py-3 rounded-xl font-bold hover:bg-red-800 shadow-lg transition-all"
+          disabled={loading}
+          className="bg-[#630000] text-[#EDEBDD] text-[15px] px-6 py-3 rounded-xl font-bold hover:bg-red-800 disabled:bg-gray-400 shadow-lg transition-all"
         >
-          Add Elementary Faculty
+          {loading ? "Adding..." : "Add Elementary Faculty"}
         </button>
       </div>
     </form>
