@@ -7,6 +7,7 @@ import { FacultyTeacherService } from "../../../../services/facultyteacherservic
 export default function AddSHS() {
   const [availableSubjects, setAvailableSubjects] = useState([]);
   const [photoPreview, setPhotoPreview] = useState(null);
+  const [loading, setLoading] = useState(false);
   
   const { 
     register, 
@@ -33,29 +34,34 @@ export default function AddSHS() {
   const selectedStrand = watch("strand");
   const photoFile = watch("photo");
 
+  // Fetch subjects dynamically based on Grade Level and Strand selections
   useEffect(() => {
       if (selectedGrade && selectedStrand) {
-          const gradeValue = selectedGrade.replace("Grade", "");
-          FacultyTeacherService.getSubjectsByGradeSHS(gradeValue, selectedStrand)
+          FacultyTeacherService.getSubjectsByGradeSHS(selectedGrade, selectedStrand)
               .then(data => {
                   setAvailableSubjects(data);
                   setValue("subjects", []); 
               })
-              .catch(err => console.error(err));
+              .catch(err => console.error("Failed to fetch SHS subjects:", err));
       } else {
           setAvailableSubjects([]);
           setValue("subjects", []);
       }
   }, [selectedGrade, selectedStrand, setValue]);
 
+  // Handle local photo file upload preview & memory cleanup
   useEffect(() => {
     if (photoFile && photoFile[0]) {
-      setPhotoPreview(URL.createObjectURL(photoFile[0]));
+      const objectUrl = URL.createObjectURL(photoFile[0]);
+      setPhotoPreview(objectUrl);
+
+      return () => URL.revokeObjectURL(objectUrl);
     }
   }, [photoFile]);
 
-  // Unified toast.promise implementation triggered via standard onSubmit pipeline
-  const onFormSubmit = async (data) => {
+  // Form submission handler (Runs only when validation passes)
+  const onFormSubmit = (data) => {
+    setLoading(true);
     toast.promise(
       FacultyTeacherService.addFaculty(data), 
       {
@@ -68,16 +74,32 @@ export default function AddSHS() {
         style: { borderRadius: '10px', background: '#333', color: '#fff' },
         position: "top-right"
       }
-    ).catch((error) => {
+    )
+    .catch((error) => {
       if (error.message === "SESSION_EXPIRED") {
         setTimeout(() => { window.location.href = "/"; }, 2000);
       }
-    });
+    })
+    .finally(() => setLoading(false));
   };
 
-  // Replaces fallback block checks with localized UI trigger messaging
-  const onFormError = () => {
-    toast.error("Please fill all required fields, including the profile photo.", {
+  // Validation error handler specifying required inputs explicitly
+  const onFormError = (formErrors) => {
+    let errorMessage = "Please fill all required fields.";
+    
+    if (formErrors.photo) {
+      errorMessage = "Profile photo is required.";
+    } else if (formErrors.email_address) {
+      errorMessage = "Email address is required.";
+    } else if (formErrors.grade_level) {
+      errorMessage = "Grade Level is required.";
+    } else if (formErrors.strand) {
+      errorMessage = "Strand selection is required.";
+    } else if (formErrors.subjects) {
+      errorMessage = "At least one subject must be selected.";
+    }
+
+    toast.error(errorMessage, {
       position: "top-right",
       style: { borderRadius: '10px', background: '#333', color: '#fff' },
     });
@@ -86,7 +108,7 @@ export default function AddSHS() {
   return (
     <form 
       onSubmit={handleSubmit(onFormSubmit, onFormError)} 
-      className="relative h-auto pb-10 font-[Inter] H-100"
+      className="relative h-auto pb-10 font-[Inter]"
     >
       <input
         type="file"
@@ -103,7 +125,6 @@ export default function AddSHS() {
           <p className="text-[#630000] text-[25px] font-semibold">Senior High Teacher's Information</p>
         </div>
         <div className="relative w-24 h-24">
-          {/* Photo Validation Circle Layout */}
           <div className={`w-full h-full bg-[#EDEBDD] rounded-full border-2 flex items-center justify-center overflow-hidden transition-colors ${errors.photo ? "border-red-500 bg-red-50" : "border-[#630000]"}`}>
             {photoPreview ? (
               <img
@@ -177,7 +198,7 @@ export default function AddSHS() {
         </div>
 
         <div className="flex flex-col gap-1 col-span-1 ml-9">
-          <p className="text-[#1B1717] text-[14px]">Grade Level</p>
+          <p className="text-[#1B1717] text-[14px]">Grade Level *</p>
           <select 
             {...register("grade_level", { required: true })} 
             className={`border shadow-sm text-[13px] tracking-wider h-10 p-3 rounded-[5px] w-60 ${errors.grade_level ? "border-red-500 bg-red-50" : "border-[#630000]"}`} 
@@ -189,13 +210,13 @@ export default function AddSHS() {
         </div>
 
         <div className="flex flex-col gap-1 col-span-1 ml-9">
-          <p className="text-[#1B1717] text-[14px]">Strand</p>
+          <p className="text-[#1B1717] text-[14px]">Strand *</p>
           <select 
             {...register("strand", { required: true })} 
             className={`border shadow-sm text-[13px] tracking-wider h-10 p-3 rounded-[5px] w-60 ${errors.strand ? "border-red-500 bg-red-50" : "border-[#630000]"}`} 
           >
             <option value="">Select</option>
-            <option value="HUMSS">HUMMS</option>
+            <option value="HUMSS">HUMSS</option>
             <option value="STEM">STEM</option>    
             <option value="ABM">ABM</option> 
             <option value="GAS">GAS</option> 
@@ -203,7 +224,7 @@ export default function AddSHS() {
         </div>
 
         <div className="flex flex-col gap-1 col-span-1 ml-9">
-          <p className="text-[#1B1717] text-[14px] ">Position</p>
+          <p className="text-[#1B1717] text-[14px]">Position</p>
           <input 
             {...register("position", { required: true })} 
             className={`border shadow-sm text-[13px] tracking-wider h-10 p-3 rounded-[5px] w-60 ${errors.position ? "border-red-500 bg-red-50" : "border-[#630000]"}`} 
@@ -219,7 +240,6 @@ export default function AddSHS() {
         </p>
       </div>
 
-      {/* Dynamic Subjects Selection Grid Container */}
       <div className={`grid grid-cols-3 gap-8 px-24 mt-10 font-medium p-4 rounded-xl transition-colors ${errors.subjects ? "bg-red-50 border border-red-200" : ""}`}>
         {availableSubjects.length > 0 ? (
           availableSubjects.map((sub) => (
@@ -234,17 +254,17 @@ export default function AddSHS() {
             </div>
           ))
         ) : (
-          <p className="text-black-400 italic ml-15">Please select Grade 11 or 12 alongside a Strand to see subjects...</p>
+          <p className="text-gray-400 italic ml-15">Please select Grade 11 or 12 alongside a Strand to see subjects...</p>
         )}
       </div>
 
-      <div className="flex justify-center fixed right-200 bottom-10"> 
-        {/* Changed button type to "submit" to trigger the useForm native lifecycle hooks */}
+      <div className="flex justify-center fixed right-50 bottom-10"> 
         <button 
           type="submit" 
-          className="bg-[#630000] text-[#EDEBDD] text-[15px] px-6 py-3 rounded-xl font-bold hover:bg-red-800 shadow-lg transition-all"
+          disabled={loading}
+          className="bg-[#630000] text-[#EDEBDD] text-[15px] px-6 py-3 rounded-xl font-bold hover:bg-red-800 disabled:bg-gray-400 shadow-lg transition-all"
         >
-          Add Senior High Faculty
+          {loading ? "Adding..." : "Add Senior High Faculty"}
         </button>
       </div>
     </form>

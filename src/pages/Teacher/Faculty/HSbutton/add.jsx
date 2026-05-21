@@ -7,6 +7,7 @@ import { FacultyTeacherService } from "../../../../services/facultyteacherservic
 export default function AddJHS() {
   const [availableSubjects, setAvailableSubjects] = useState([]);
   const [photoPreview, setPhotoPreview] = useState(null);
+  const [loading, setLoading] = useState(false);
 
   const {
     register,
@@ -31,12 +32,12 @@ export default function AddJHS() {
   const selectedGrade = watch("grade_level");
   const photoFile = watch("photo");
 
+  // Fetch subjects dynamically based on grade level
   useEffect(() => {
     if (selectedGrade) {
       FacultyTeacherService.getSubjectsByGrade(selectedGrade)
         .then((data) => {
           setAvailableSubjects(data);
-
           const allSubjectIds = data.map((sub) => String(sub.id));
           setValue("subjects", allSubjectIds);
         })
@@ -47,14 +48,20 @@ export default function AddJHS() {
     }
   }, [selectedGrade, setValue]);
 
+  // Handle local photo file upload preview & memory cleanup
   useEffect(() => {
     if (photoFile && photoFile[0]) {
-      setPhotoPreview(URL.createObjectURL(photoFile[0]));
+      const objectUrl = URL.createObjectURL(photoFile[0]);
+      setPhotoPreview(objectUrl);
+
+      // Clean up object URL memory leak when component unmounts or file changes
+      return () => URL.revokeObjectURL(objectUrl);
     }
   }, [photoFile]);
 
-  // Toast Promise handled cleanly inside the submit pipeline
-  const onFormSubmit = async (data) => {
+  // Form submission handler (Runs only when validation passes)
+  const onFormSubmit = (data) => {
+    setLoading(true);
     toast.promise(
       FacultyTeacherService.addFaculty(data),
       {
@@ -72,18 +79,35 @@ export default function AddJHS() {
         style: { borderRadius: "10px", background: "#333", color: "#fff" },
         position: "top-right",
       }
-    ).catch((error) => {
+    )
+    .then(() => {
+      // Handle post-success logic here if needed (e.g., form reset)
+    })
+    .catch((error) => {
       if (error.message === "SESSION_EXPIRED") {
         setTimeout(() => {
           window.location.href = "/";
         }, 2000);
       }
-    });
+    })
+    .finally(() => setLoading(false));
   };
 
-  // Error callback showing the unified restriction notification
-  const onFormError = () => {
-    toast.error("Please fill all required fields, including the profile photo.", {
+  // Validation error handler (Runs when validation fails)
+  const onFormError = (formErrors) => {
+    let errorMessage = "Please fill all required fields.";
+    
+    if (formErrors.photo) {
+      errorMessage = "Profile photo is required.";
+    } else if (formErrors.email_address) {
+      errorMessage = "Email address is required.";
+    } else if (formErrors.grade_level) {
+      errorMessage = "Grade Level is required.";
+    } else if (formErrors.subjects) {
+      errorMessage = "At least one subject must be selected.";
+    }
+
+    toast.error(errorMessage, {
       position: "top-right",
       style: { borderRadius: "10px", background: "#333", color: "#fff" },
     });
@@ -104,6 +128,7 @@ export default function AddJHS() {
         })}
         accept="image/*"
       />
+      
       <div className="flex items-center justify-between w-full pl-12 pr-12 pt-2">
         <div className="flex gap-5 items-center ml-15">
           <p className="text-[#630000] text-[25px] font-semibold">
@@ -112,7 +137,6 @@ export default function AddJHS() {
         </div>
 
         <div className="relative w-24 h-24">
-          {/* Visual Red Alert Circle indicator if Photo is missing */}
           <div className={`w-full h-full bg-[#EDEBDD] rounded-full border-2 flex items-center justify-center overflow-hidden transition-colors ${errors.photo ? "border-red-500 bg-red-50" : "border-[#630000]"}`}>
             {photoPreview ? (
               <img
@@ -143,7 +167,7 @@ export default function AddJHS() {
           <p className="text-[#1B1717] text-[14px]">Teacher's Name:</p>
           <input
             {...register("lastname", { required: true })}
-            className={`border border-[#630000] shadow-sm text-[13px] tracking-wider h-10 p-3 rounded-[5px] w-60 ${errors.lastname ? "border-red-500 bg-red-50" : "border-#630000"}`}
+            className={`border shadow-sm text-[13px] tracking-wider h-10 p-3 rounded-[5px] w-60 ${errors.lastname ? "border-red-500 bg-red-50" : "border-[#630000]"}`}
             placeholder="Last Name"
           />
         </div>
@@ -154,7 +178,7 @@ export default function AddJHS() {
           </p>
           <input
             {...register("firstname", { required: true })}
-            className={`border border-[#630000] shadow-sm text-[13px] tracking-wider h-10 p-3 rounded-[5px] w-60 ${errors.firstname ? "border-red-500 bg-red-50" : "border-#630000"}`}
+            className={`border shadow-sm text-[13px] tracking-wider h-10 p-3 rounded-[5px] w-60 ${errors.firstname ? "border-red-500 bg-red-50" : "border-[#630000]"}`}
             placeholder="First Name"
           />
         </div>
@@ -164,8 +188,8 @@ export default function AddJHS() {
             Teacher's Name:
           </p>
           <input
-            {...register("middlename", { required: true })}
-            className={`border border-[#630000] shadow-sm text-[13px] tracking-wider h-10 p-3 rounded-[5px] w-60 ${errors.middlename ? "border-red-500 bg-red-50" : "border-#630000"}`}
+            {...register("middlename")} // Removed required restriction for middle names
+            className={`border shadow-sm text-[13px] tracking-wider h-10 p-3 rounded-[5px] w-60 ${errors.middlename ? "border-red-500 bg-red-50" : "border-[#630000]"}`}
             placeholder="Middle Name"
           />
         </div>
@@ -175,8 +199,8 @@ export default function AddJHS() {
             Teacher's Name:
           </p>
           <input
-            {...register("ext", { required: true })}
-            className={`border border-[#630000] shadow-sm text-[13px] tracking-wider h-10 p-3 rounded-[5px] w-60 ${errors.ext ? "border-red-500 bg-red-50" : "border-#630000"}`}
+            {...register("ext")} // Removed required restriction for name extensions
+            className={`border shadow-sm text-[13px] tracking-wider h-10 p-3 rounded-[5px] w-60 ${errors.ext ? "border-red-500 bg-red-50" : "border-[#630000]"}`}
             placeholder="Ext"
           />
         </div>
@@ -186,7 +210,7 @@ export default function AddJHS() {
           <input
             {...register("email_address", { required: true })}
             type="email"
-            className={`border border-[#630000] shadow-sm text-[13px] tracking-wider h-10 p-3 rounded-[5px] w-60 ${errors.email_address ? "border-red-500 bg-red-50" : "border-#630000"}`}
+            className={`border shadow-sm text-[13px] tracking-wider h-10 p-3 rounded-[5px] w-60 ${errors.email_address ? "border-red-500 bg-red-50" : "border-[#630000]"}`}
             placeholder="Email Address"
           />
         </div>
@@ -195,7 +219,7 @@ export default function AddJHS() {
           <p className="text-[#1B1717] text-[14px]">Grade Level</p>
           <select
             {...register("grade_level", { required: true })}
-            className={`border border-[#630000] shadow-sm text-[13px] tracking-wider h-10 p-3 rounded-[5px] w-60 ${errors.grade_level ? "border-red-500 bg-red-50" : "border-#630000"}`}
+            className={`border shadow-sm text-[13px] tracking-wider h-10 p-3 rounded-[5px] w-60 ${errors.grade_level ? "border-red-500 bg-red-50" : "border-[#630000]"}`}
           >
             <option value="">Select</option>
             <option value="7">Grade 7</option>
@@ -206,10 +230,10 @@ export default function AddJHS() {
         </div>
 
         <div className="flex flex-col gap-1 col-span-1 ml-9">
-          <p className="text-[#1B1717] text-[14px] ">Position</p>
+          <p className="text-[#1B1717] text-[14px]">Position</p>
           <input
             {...register("position", { required: true })}
-            className={`border border-[#630000] shadow-sm text-[13px] tracking-wider h-10 p-3 rounded-[5px] w-60 ${errors.position ? "border-red-500 bg-red-50" : "border-#630000"}`}
+            className={`border shadow-sm text-[13px] tracking-wider h-10 p-3 rounded-[5px] w-60 ${errors.position ? "border-red-500 bg-red-50" : "border-[#630000]"}`}
             placeholder="Position"
           />
         </div>
@@ -219,7 +243,7 @@ export default function AddJHS() {
         <p className="text-[#630000] text-[25px] font-semibold">
           Subjects To Teach
         </p>
-        <p className={`text-[12px] ${errors.subjects ? "text-red-500 font-medium" : "text-black-500 italic"}`}>
+        <p className={`text-[12px] ${errors.subjects ? "text-red-500 font-medium" : "text-gray-500 italic"}`}>
           {errors.subjects 
             ? "At least one subject must be selected." 
             : selectedGrade && `Showing subjects for Grade ${selectedGrade}. All are selected by default.`}
@@ -240,19 +264,19 @@ export default function AddJHS() {
             </div>
           ))
         ) : (
-          <p className="text-black-400 italic ml-15">
+          <p className="text-gray-400 italic ml-15">
             Please select a grade level to load subjects...
           </p>
         )}
       </div>
 
-      <div className="flex justify-center fixed right-200 bottom-10">
-        {/* Changed button type to submit to link hook form lifecycle correctly */}
+      <div className="flex justify-center fixed right-50 bottom-10">
         <button
           type="submit"
-          className="bg-[#630000] text-[#EDEBDD] text-[15px] px-6 py-3 rounded-xl font-bold hover:bg-red-800 shadow-lg transition-all"
+          disabled={loading}
+          className="bg-[#630000] text-[#EDEBDD] text-[15px] px-6 py-3 rounded-xl font-bold hover:bg-red-800 disabled:bg-gray-400 shadow-lg transition-all"
         >
-          Add JHS Faculty
+          {loading ? "Adding..." : "Add JHS Faculty"}
         </button>
       </div>
     </form>

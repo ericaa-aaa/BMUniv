@@ -92,6 +92,10 @@ export default function AddElementary() {
     
     if (errors.photo) {
       errorMessage = "Photo is required.";
+    } else if (errors.email_address) {
+      errorMessage = "Email address is required.";
+    } else if (errors.grade_level) {
+      errorMessage = "Grade Level is required.";
     } else if (errors.subjects) {
       errorMessage = "At least one subject must be selected.";
     }
@@ -262,7 +266,7 @@ export default function AddElementary() {
         )}
       </div>
 
-      <div className="flex justify-center fixed right-200 bottom-10 gap-4">
+      <div className="flex justify-center fixed right-50 bottom-10">
         <button
           type="submit"
           disabled={loading}
