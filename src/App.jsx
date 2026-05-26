@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import "./index.css";
 import LoginPage from "./pages/LoginPage";
 import ElementaryRecords from "./pages/Teacher/Records/Elementary";
@@ -27,10 +28,14 @@ import ElemFaculty from "./pages/Teacher/Faculty/ElemFaculty.jsx";
 import HSFaculty from "./pages/Teacher/Faculty/HSfaculty.jsx";
 import SHSFaculty from "./pages/Teacher/Faculty/SHSfaculty.jsx";
 
-import { Toaster } from "react-hot-toast";
+import toast, { Toaster } from "react-hot-toast";
 
 function AppContent() {
   const location = useLocation();
+
+  useEffect(() => {
+    toast.dismiss();
+  }, [location.pathname]);
 
   // Hide yung sidebar kapag yung path ay "/" OR if it starts with "/student"
   //const hideSidebar =
@@ -38,32 +43,31 @@ function AppContent() {
 
   return (
     <>
-      
       <Toaster position="top-right" reverseOrder={false} />
 
       <Routes>
         <Route path="/" element={<LoginPage />} />
         <Route element={<ProtectedRoute allowedRoles={['student']} />}>
-        <Route path="/student" element={<StudentLayout />}>
-          <Route index element={<StudentDashboard />} />
-          <Route path="/student/studsubj/*" element={<StudSubj />} />
-          <Route path="/student/archsubj/*" element={<ArchSubj />} />
+          <Route path="/student" element={<StudentLayout />}>
+            <Route index element={<StudentDashboard />} />
+            <Route path="/student/studsubj/*" element={<StudSubj />} />
+            <Route path="/student/archsubj/*" element={<ArchSubj />} />
+          </Route>
         </Route>
-        </Route>
-      <Route element={<ProtectedRoute allowedRoles={['teacher']} />}>
-        <Route path="/teacher" element={<TeacherLayout />}>
-          <Route index element={<TeacherDashboard />} />
-          <Route path="/teacher/elem/*" element={<ElementaryEnrollment />} />
-          <Route path="/teacher/hs/*" element={<HighSchool />} />
-          <Route path="/teacher/shs/*" element={<SHS />} />
-          <Route path="/teacher/elemfaculty/*" element={<ElemFaculty />} />
-          <Route path="/teacher/hsfaculty/*" element={<HSFaculty />} />
-          <Route path="/teacher/shsfaculty/*" element={<SHSFaculty />} />
-          <Route path="/teacher/elemrec/*" element={<ElementaryRecords />} />
-          <Route path="/teacher/jhsrec/*" element={<JHSRecords />} />
-          <Route path="/teacher/shsrec/*" element={<SHSRecords />} />
-          <Route path="/teacher/settings/*" element={<Settings />} />
-        </Route>
+        <Route element={<ProtectedRoute allowedRoles={['teacher']} />}>
+          <Route path="/teacher" element={<TeacherLayout />}>
+            <Route index element={<TeacherDashboard />} />
+            <Route path="/teacher/elem/*" element={<ElementaryEnrollment />} />
+            <Route path="/teacher/hs/*" element={<HighSchool />} />
+            <Route path="/teacher/shs/*" element={<SHS />} />
+            <Route path="/teacher/elemfaculty/*" element={<ElemFaculty />} />
+            <Route path="/teacher/hsfaculty/*" element={<HSFaculty />} />
+            <Route path="/teacher/shsfaculty/*" element={<SHSFaculty />} />
+            <Route path="/teacher/elemrec/*" element={<ElementaryRecords />} />
+            <Route path="/teacher/jhsrec/*" element={<JHSRecords />} />
+            <Route path="/teacher/shsrec/*" element={<SHSRecords />} />
+            <Route path="/teacher/settings/*" element={<Settings />} />
+          </Route>
         </Route>  
       </Routes>
     </>

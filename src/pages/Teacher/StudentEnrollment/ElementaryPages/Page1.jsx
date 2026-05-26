@@ -16,7 +16,7 @@ export default function EnrollmentForm() {
     setValue,
     getValues,
     trigger,
-    reset, // Added reset to clear form state
+    reset, 
     formState: { errors },
   } = useForm({
     defaultValues: {
@@ -32,7 +32,7 @@ export default function EnrollmentForm() {
       f_barangay: "", f_municipality: "", f_province: "",
       mother_last_name: "", mother_first_name: "", mother_middle_name: "", mother_ext: "",
       mother_contact: "", mother_occupation: "", m_house_no: "", m_street: "",
-      m_barangay: "", m_municipality: "", m_province: "",
+      m_barangay:"", m_municipality: "", m_province: "",
       guardian_last_name: "", guardian_first_name: "", guardian_middle_name: "", guardian_ext: "",
       guardian_contact: "", guardian_relationship: "", g_house_no: "", g_street: "",
       g_barangay: "", g_municipality: "", g_province: "",
@@ -48,7 +48,6 @@ export default function EnrollmentForm() {
   const currProvince = watch("curr_province");
   const photoFile = watch("photo");
 
-  // Sync permanent address if checkbox is checked
   useEffect(() => {
     if (isPermanentSame) {
       setValue("perm_house_no", currhouseno);
@@ -59,16 +58,16 @@ export default function EnrollmentForm() {
     }
   }, [isPermanentSame, currhouseno, currStreet, currBarangay, currMunicipality, currProvince, setValue]);
 
-  // Handle Photo Preview
   useEffect(() => {
     if (photoFile && photoFile[0]) {
       const objectUrl = URL.createObjectURL(photoFile[0]);
       setPhotoPreview(objectUrl);
-      return () => URL.revokeObjectURL(objectUrl); // cleanup memory
+      return () => URL.revokeObjectURL(objectUrl); 
     }
   }, [photoFile]);
 
   const handleNext = async () => {
+
     let fieldsToValidate = [];
 
     if (step === 1) {
@@ -119,6 +118,8 @@ export default function EnrollmentForm() {
           {
             style: { borderRadius: "10px", background: "#333", color: "#fff" },
             position: "top-right",
+            success: { duration: 2000 }, 
+            error: { duration: 2000 }
           }
         ).finally(() => setLoading(false));
       } else {
@@ -152,7 +153,6 @@ export default function EnrollmentForm() {
       throw error;
     }
   };
-
   return (
     <form
       onSubmit={handleSubmit(onSubmit)}
